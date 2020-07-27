@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.controller;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import per.guzx.pri_diary.service.PdUserService;
 
 @Controller
 @RequestMapping("/user")
+@Log
 public class PdUserController {
 
     @Autowired
