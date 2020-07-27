@@ -20,6 +20,7 @@ mybatis:
   type-aliases-package: per.guzx.pri_diary.pojo
 logging:
   level:
+    per.guzx.pri_diary.dao.*: debug
     root: debug
     org:
       springframework: debug
