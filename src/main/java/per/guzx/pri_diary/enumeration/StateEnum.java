@@ -2,9 +2,9 @@ package per.guzx.pri_diary.enumeration;
 
 public enum StateEnum {
 
-    INACTIVATION(3, "未激活"),
     ACTIVATION(1, "已激活"),
-    CANCELLATION(2, "已注销");
+    CANCELLATION(2, "已注销"),
+    INACTIVATION(3, "未激活");
 
     private int id;
     private String name;
