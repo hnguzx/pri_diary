@@ -4,17 +4,17 @@
 <mapper namespace="per.guzx.pri_diary.dao.PdUserDao">
 
     <sql id="select_user">
-        select user_id userId,user_name userName,user_password userPassword,user_state userState
+        select user_id as userId, user_name as userName, user_password as userPassword, user_state as userState
     </sql>
 
     <sql id="sql_where">
-        <if test="user_name!=null">user_name = #{userName}</if>
-        <if test="user_password!=null">user_password = #{userPassword}</if>
-        <if test="user_state!=null">user_state = #{userState}</if>
+        <if test="userName!=null">user_name = #{userName},</if>
+        <if test="userPassword!=null">user_password = #{userPassword},</if>
+        <if test="userState!=null">user_state = #{userState},</if>
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into pd_user(user_name,user_password,user_state) value(#{userName},#{userPassword},#{userState})
+        insert into pd_user(user_name, user_password, user_state) value (#{userName}, #{userPassword}, #{userState})
     </insert>
 
     <update id="updateUser">
@@ -34,16 +34,17 @@
     </select>
 
     <delete id="deleteUser" parameterType="int">
-        delete 
-        from pd_user 
+        delete
+        from pd_user
         where user_id = #{userId}
     </delete>
 
     <select id="findUsers" resultType="user">
         <include refid="select_user"></include>
+        from
+        pd_user
         <where>
-            <if test="user_name!=null">and user_name = #{userName}</if>
-            and user_state = '1'
+            <if test="user.userName != null">and user_name like concat(concat('%',#{user.userName}),'%')</if>
             limit #{start},#{limit}
         </where>
     </select>

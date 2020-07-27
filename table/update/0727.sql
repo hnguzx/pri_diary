@@ -1,0 +1,1 @@
+alter TABLE pd_user MODIFY COLUMN user_state VARCHAR(20) NOT NULL COMMENT '用户状态';

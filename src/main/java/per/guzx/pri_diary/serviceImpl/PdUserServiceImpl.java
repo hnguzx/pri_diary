@@ -13,6 +13,7 @@ import per.guzx.pri_diary.service.PdUserService;
 import java.util.List;
 
 @Service
+@Transactional
 public class PdUserServiceImpl implements PdUserService {
 
     @Autowired
@@ -72,7 +73,7 @@ public class PdUserServiceImpl implements PdUserService {
     @Override
     public List<PdUser> findUsers(PdUser user, int start, int limit) {
         if (user != null) {
-            List<PdUser> results = findUsers(user, start, limit);
+            List<PdUser> results = userDao.findUsers(user, start, limit);
             if (results.size() > 0) {
                 return results;
             }
