@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.StateEnum;
+import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.pojo.ResultVo;
 import per.guzx.pri_diary.service.PdUserService;
@@ -27,12 +29,12 @@ public class PdUserController {
      * @return
      */
     @PostMapping("insertUser")
-    public ResultVo insertUser(@RequestBody PdUser user) {
+    public ApiResp insertUser(@RequestBody PdUser user) {
         if (user.getUserId() == null) {
             user.setUserState(StateEnum.getStateEnumById(3));
         }
         PdUser newUser = userService.insertUser(user);
-        return dealResult(true, "新增用户成功!!!", newUser);
+        return ApiResp.retOk(newUser);
     }
 
     /**
@@ -42,12 +44,12 @@ public class PdUserController {
      * @return
      */
     @GetMapping("/{id}")
-    public ResultVo findUserById(@PathVariable("id") int id) {
+    public ApiResp findUserById(@PathVariable("id") int id) {
         PdUser user = userService.findUserById(id);
         if (user != null) {
-            return dealResult(true, "查询到用户：" + user.getUserName(), null);
+            return ApiResp.retOk();
         }
-        return dealResult(true, "用户不存在", null);
+        return ApiResp.retFail(ErrorEnum.ACTIVATION);
     }
 
     /**
@@ -57,12 +59,12 @@ public class PdUserController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public ResultVo deleteUser(@PathVariable("id") int id) {
+    public ApiResp deleteUser(@PathVariable("id") int id) {
         PdUser user = userService.deleteUser(id);
         if (user != null) {
-            return dealResult(true, "用户：" + user.getUserName() + "删除成功", null);
+            return ApiResp.retOk();
         }
-        return dealResult(true, "删除失败", null);
+        return ApiResp.retFail(ErrorEnum.ACTIVATION);
     }
 
     /**
@@ -72,12 +74,12 @@ public class PdUserController {
      * @return
      */
     @PatchMapping("/updateUser")
-    public ResultVo updateUser(@RequestBody PdUser user) {
+    public ApiResp updateUser(@RequestBody PdUser user) {
         if (user == null || user.getUserId() == null) {
-            return dealResult(true, "要更新的用户信息不存在", null);
+            return ApiResp.retFail(ErrorEnum.ACTIVATION);
         }
         PdUser updateUserAfter = userService.updateUser(user);
-        return dealResult(true, "更新用户信息成功", updateUserAfter);
+        return ApiResp.retOk(updateUserAfter);
     }
 
     /**
@@ -90,21 +92,21 @@ public class PdUserController {
      * @return
      */
     @PostMapping("/{start}/{limit}")
-    public ResultVo findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
+    public ApiResp findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
         List<PdUser> users = userService.findUsers(user, start, limit);
         if (users.size() > 0) {
-            return dealResult(true, "获取到的用户信息有：", users);
+            return ApiResp.retOk(users);
         }
         return null;
     }
 
     @PatchMapping("/{id}")
-    public ResultVo cancleUser(@PathVariable("id") int id) {
+    public ApiResp cancleUser(@PathVariable("id") int id) {
         PdUser user = userService.cancleUser(id);
         if (user != null) {
-            return dealResult(true, "用户：" + user.getUserName() + "已注销", user);
+            return ApiResp.retOk(user);
         }
-        return null;
+        return ApiResp.retFail(ErrorEnum.ACTIVATION);
     }
 
     /**
@@ -125,18 +127,18 @@ public class PdUserController {
     /**
      * 交易处理结果
      *
-     * @param isSuccess
-     * @param message
-     * @param object
+     * @param isSuccess 是否成功
+     * @param message   返回的信息
+     * @param object    返回的对象
      * @return
      */
-    public ResultVo dealResult(boolean isSuccess, String message, Object object) {
+    /*public ResultVo dealResult(boolean isSuccess, String message, Object object) {
         ResultVo result = new ResultVo();
         result.setSuccess(isSuccess);
         result.setMessage(message);
         result.setObject(object);
         return result;
-    }
+    }*/
 
 
 }

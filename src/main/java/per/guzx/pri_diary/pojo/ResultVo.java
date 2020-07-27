@@ -1,4 +1,8 @@
+/**
+ * 已废弃
+ */
 package per.guzx.pri_diary.pojo;
+
 
 public class ResultVo {
     private String code;
