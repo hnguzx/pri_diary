@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DemoController {
 
     @ResponseBody
-        @GetMapping("/index")
+    @GetMapping("/index")
     public String index() {
         return "请求成功";
     }
