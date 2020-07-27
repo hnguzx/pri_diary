@@ -31,7 +31,6 @@ public class PdUserController {
             user.setUserState(StateEnum.getStateEnumById(3));
         }
         PdUser newUser = userService.insertUser(user);
-        isActivate(user.getUserId());
         return dealResult(true, "新增用户成功!!!", newUser);
     }
 
