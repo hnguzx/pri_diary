@@ -37,7 +37,15 @@ public interface PdDiaryDao {
      * @param diary
      * @return
      */
-    PdDiary findDiaryById(int userId,int diary);
+    PdDiary findDiaryById(int userId,int diaryId);
+
+    /**
+     * 获取日记其它信息（除了创建时间，更新时间，封面图片，主要内容）
+     * @param userId
+     * @param diaryId
+     * @return
+     */
+    PdDiary findDiaryOtherById(int userId,int diaryId);
 
     /**
      * 获取用户的所有日记

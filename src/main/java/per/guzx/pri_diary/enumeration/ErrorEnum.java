@@ -14,6 +14,7 @@ public enum ErrorEnum {
      */
 
     UPDATE_INFO_FAIL(100000, "信息更新失败"),
+    INFO_IS_LATEST(100001, "数据已经是最新的"),
     DATA_EXCEPTION(100001, "数据异常"),
     USER_NOTFOUND(200000, "用户信息不存在"),
     DIARY_NOTFOUND(300000, "日记信息不存在");

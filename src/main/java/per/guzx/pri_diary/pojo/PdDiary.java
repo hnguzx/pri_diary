@@ -115,4 +115,29 @@ public class PdDiary implements Serializable, Cloneable {
     public void setDiaryUpdateTime(String diaryUpdateTime) {
         this.diaryUpdateTime = diaryUpdateTime;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof PdDiary) {
+            PdDiary diary = (PdDiary) obj;
+            if (diary.getDiaryId() == this.getDiaryId() &&
+                    diary.getUserId() == this.getUserId() &&
+                    diary.getDiaryTitle().equals(this.getDiaryTitle()) &&
+                    diary.getDiaryEvent().equals(this.getDiaryEvent()) &&
+                    diary.getDiaryMood().equals(this.getDiaryMood()) &&
+                    diary.getDiaryWeather().equals(this.getDiaryWeather()) &&
+                    diary.getDiaryLocation().equals(this.getDiaryLocation())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 }

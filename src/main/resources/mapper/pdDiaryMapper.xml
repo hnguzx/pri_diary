@@ -4,9 +4,25 @@
 <mapper namespace="per.guzx.pri_diary.dao.PdDiaryDao">
 
     <sql id="select_diary">
-        select user_id userId, diary_id diaryId, diary_title diaryTitle,diary_weather diaryWeather,
-        diary_mood diaryMood, diary_event diaryEvent,diary_location diaryLocation,
-        diary_create_time diaryCreateTime,diary_update_time diaryUpdateTime
+        select user_id           userId,
+               diary_id          diaryId,
+               diary_title       diaryTitle,
+               diary_weather     diaryWeather,
+               diary_mood        diaryMood,
+               diary_event       diaryEvent,
+               diary_location    diaryLocation,
+               diary_create_time diaryCreateTime,
+               diary_update_time diaryUpdateTime
+    </sql>
+
+    <sql id="select_diary_main">
+        select user_id        userId,
+               diary_id       diaryId,
+               diary_title    diaryTitle,
+               diary_weather  diaryWeather,
+               diary_mood     diaryMood,
+               diary_event    diaryEvent,
+               diary_location diaryLocation
     </sql>
 
     <sql id="sql_where">
@@ -15,14 +31,15 @@
         <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
         <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
         <if test="diaryLocation != null">diary_location = #{diaryLocation},</if>
-        <if test="diaryUpdateTime != null">diaryUpdateTime = #{diaryUpdateTime},</if>
+        <if test="diaryUpdateTime != null">diary_update_time = #{diaryUpdateTime},</if>
     </sql>
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
-        insert into
-        pd_diary(user_id, diary_title, diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time)
-        value
-        (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation}, #{diaryCreateTime}, #{diaryUpdateTime})
+        insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
+                             diary_create_time, diary_update_time)
+            value
+            (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
+             #{diaryCreateTime}, #{diaryUpdateTime})
     </insert>
 
     <update id="updateDiary">
@@ -37,15 +54,24 @@
     <delete id="deleteDiary" parameterType="int">
         delete
         from pd_diary
-        where
-        user_id = #{userId} and diary_id = #{diaryId}
+        where user_id = #{userId}
+          and diary_id = #{diaryId}
     </delete>
 
-    <select id="deleteDiary" resultType="diary">
+    <select id="findDiaryById" resultType="diary">
         <include refid="select_diary"></include>
         from
         pd_diary
-        where user_id = #{userId} and diary_id = #{diaryId}
+        where
+        user_id = #{userId} and diary_id = #{diaryId}
+    </select>
+
+    <select id="findDiaryOtherById" resultType="diary">
+        <include refid="select_diary_main"></include>
+        from
+        pd_diary
+        where
+        user_id = #{userId} and diary_id = #{diaryId}
     </select>
 
     <select id="findDiaryAll" resultType="diary">

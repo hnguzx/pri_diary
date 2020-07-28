@@ -47,6 +47,15 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     }
 
     @Override
+    public PdDiary findDiaryOtherById(int userId, int diaryId) {
+        PdDiary diary = diaryDao.findDiaryOtherById(userId, diaryId);
+        if (diary != null) {
+            return diary;
+        }
+        return null;
+    }
+
+    @Override
     public List<PdDiary> findDiaryAll(int userId) {
         List<PdDiary> diaries = diaryDao.findDiaryAll(userId);
         if (diaries.size() > 0) {

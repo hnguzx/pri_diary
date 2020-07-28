@@ -32,11 +32,21 @@ public interface PdDiaryService {
 
     /**
      * 获取指定用户的指定日记
+     *
      * @param userId
      * @param diaryId
      * @return
      */
     public PdDiary findDiaryById(int userId, int diaryId);
+
+    /**
+     * 获取日记其它信息（除了创建时间，更新时间，封面图片，主要内容）
+     *
+     * @param userId
+     * @param diaryId
+     * @return
+     */
+    public PdDiary findDiaryOtherById(int userId, int diaryId);
 
     /**
      * 获取指定用户的所有日记

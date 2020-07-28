@@ -32,12 +32,17 @@ public class PdDiaryController {
 
     @PatchMapping("/updateDiary")
     public ApiResp updateDiary(@RequestBody PdDiary diary) {
-        int result = diaryService.updateDiary(diary);
-        if (result > 0) {
-            PdDiary updateDiaryAfter = diaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
-            return ApiResp.retOk(updateDiaryAfter);
+        PdDiary remoteDiary = diaryService.findDiaryOtherById(diary.getUserId(), diary.getDiaryId());
+        if (!remoteDiary.equals(diary)){
+            diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
+            int result = diaryService.updateDiary(diary);
+            if (result > 0) {
+                PdDiary updateDiaryAfter = diaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
+                return ApiResp.retOk(updateDiaryAfter);
+            }
+            return ApiResp.retFail(ErrorEnum.UPDATE_INFO_FAIL);
         }
-        return ApiResp.retFail(ErrorEnum.UPDATE_INFO_FAIL);
+        return ApiResp.retFail(ErrorEnum.INFO_IS_LATEST);
     }
 
     @DeleteMapping("/{userId}/{diaryId}")
