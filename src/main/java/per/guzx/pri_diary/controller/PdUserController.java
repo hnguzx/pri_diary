@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.StateEnum;
+import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.pojo.ResultVo;
@@ -29,10 +30,8 @@ public class PdUserController {
      * @return
      */
     @PostMapping("insertUser")
-    public ApiResp insertUser(@RequestBody PdUser user) {
-        if (user.getUserId() == null) {
-            user.setUserState(StateEnum.getStateEnumById(3));
-        }
+    public ApiResp insertUser(@RequestBody PdUser user) throws CommonException {
+
         PdUser newUser = userService.insertUser(user);
         if (newUser != null) {
             return ApiResp.retOk(newUser);

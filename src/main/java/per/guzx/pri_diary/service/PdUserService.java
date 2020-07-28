@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.service;
 
+import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.PdUser;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface PdUserService {
      * @param user
      * @return
      */
-    public PdUser insertUser(PdUser user);
+    public PdUser insertUser(PdUser user) throws CommonException;
 
     /**
      * 更新用户信息

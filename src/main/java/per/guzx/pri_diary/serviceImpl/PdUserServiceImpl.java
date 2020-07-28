@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdUserDao;
+import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.StateEnum;
+import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 
@@ -21,12 +23,17 @@ public class PdUserServiceImpl implements PdUserService {
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
-    public PdUser insertUser(PdUser user) {
+    public PdUser insertUser(PdUser user) throws CommonException {
+        if (user.getUserId() == null) {
+            user.setUserState(StateEnum.getStateEnumById(3));
+        }
         int result = userDao.insertUser(user);
         if (result > 0) {
             return user;
+        }else {
+            throw new CommonException("新增用户失败",ErrorEnum.DATA_EXCEPTION);
         }
-        return null;
+
     }
 
     @Override
