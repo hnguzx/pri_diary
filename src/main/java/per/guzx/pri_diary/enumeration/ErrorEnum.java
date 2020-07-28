@@ -2,7 +2,7 @@ package per.guzx.pri_diary.enumeration;
 
 public enum ErrorEnum {
     ACTIVATION(100001, "用户不存在"),
-    CANCELLATION(100002, "000002错误"),
+    CANCELLATION(100002, "数据异常"),
     INACTIVATION(100003, "000003错误");
 
     private int code;

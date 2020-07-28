@@ -34,7 +34,10 @@ public class PdUserController {
             user.setUserState(StateEnum.getStateEnumById(3));
         }
         PdUser newUser = userService.insertUser(user);
-        return ApiResp.retOk(newUser);
+        if (newUser!=null){
+            return ApiResp.retOk(newUser);
+        }
+       return ApiResp.retFail(ErrorEnum.CANCELLATION);
     }
 
     /**

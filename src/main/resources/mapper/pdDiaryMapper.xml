@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.guzx.pri_diary.dao.PdDiaryDao">
+
+    <sql id="select_diary">
+        select user_id userId, diary_id diaryId, diary_title diaryTitle,diary_weather diaryWeather,
+        diary_mood diaryMood, diary_event diaryEvent,diary_location diaryLocation,
+        diary_create_time diaryCreateTime,diary_update_time diaryUpdateTime
+    </sql>
+
+    <sql id="sql_where">
+        <if test="diaryTitle != null">diary_title = #{diaryTitle},</if>
+        <if test="diaryWeather != null">diary_weather = #{diaryWeather},</if>
+        <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
+        <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
+        <if test="diaryLocation != null">diary_location = #{diaryLocation},</if>
+        <if test="diaryUpdateTime != null">diaryUpdateTime = #{diaryUpdateTime},</if>
+    </sql>
+
+    <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
+        insert into
+        pd_diary(user_id, diary_title, diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time)
+        value
+        (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation}, #{diaryCreateTime}, #{diaryUpdateTime})
+    </insert>
+
+    <update id="updateDiary">
+        update pd_user
+        <set>
+            <include refid="sql_where"></include>
+        </set>
+        where
+        user_id = #{userId} and diary_id = #{diaryId}
+    </update>
+
+    <delete id="deleteDiary" parameterType="int">
+        delete
+        from pd_diary
+        where
+        user_id = #{userId} and diary_id = #{diaryId}
+    </delete>
+
+    <select id="findDiaryAll" resultType="diary">
+        <include refid="select_diary"></include>
+        from
+        pd_diary
+        where user_id = #{userId}
+    </select>
+
+    <select id="findDiaryByGlobal" resultType="diary">
+        <include refid="select_diary"></include>
+        from
+        pd_diary
+        <where>
+            user_id = #{userId}
+            and
+            concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time)
+            like concat(concat('%',#{global}),'%')
+            order by diary_update_time
+        </where>
+    </select>
+</mapper>

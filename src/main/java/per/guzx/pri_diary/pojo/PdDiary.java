@@ -38,11 +38,11 @@ public class PdDiary implements Serializable, Cloneable {
     /**
      * 日记创建时间
      */
-    private Date diaryCreateTime;
+    private String diaryCreateTime;
     /**
      * 日记最后更新时间
      */
-    private Date diaryUpdateTime;
+    private String diaryUpdateTime;
 
     public Integer getUserId() {
         return this.userId;
@@ -100,19 +100,19 @@ public class PdDiary implements Serializable, Cloneable {
         this.diaryLocation = diaryLocation;
     }
 
-    public Date getDiaryCreateTime() {
-        return this.diaryCreateTime;
+    public String getDiaryCreateTime() {
+        return diaryCreateTime;
     }
 
-    public void setDiaryCreateTime(Date diaryCreateTime) {
+    public void setDiaryCreateTime(String diaryCreateTime) {
         this.diaryCreateTime = diaryCreateTime;
     }
 
-    public Date getDiaryUpdateTime() {
-        return this.diaryUpdateTime;
+    public String getDiaryUpdateTime() {
+        return diaryUpdateTime;
     }
 
-    public void setDiaryUpdateTime(Date diaryUpdateTime) {
+    public void setDiaryUpdateTime(String diaryUpdateTime) {
         this.diaryUpdateTime = diaryUpdateTime;
     }
 }
