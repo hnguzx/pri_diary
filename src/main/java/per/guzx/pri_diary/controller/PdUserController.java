@@ -34,10 +34,10 @@ public class PdUserController {
             user.setUserState(StateEnum.getStateEnumById(3));
         }
         PdUser newUser = userService.insertUser(user);
-        if (newUser!=null){
+        if (newUser != null) {
             return ApiResp.retOk(newUser);
         }
-       return ApiResp.retFail(ErrorEnum.CANCELLATION);
+        return ApiResp.retFail(ErrorEnum.DATA_EXCEPTION);
     }
 
     /**
@@ -52,7 +52,7 @@ public class PdUserController {
         if (user != null) {
             return ApiResp.retOk();
         }
-        return ApiResp.retFail(ErrorEnum.ACTIVATION);
+        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
     }
 
     /**
@@ -61,13 +61,13 @@ public class PdUserController {
      * @param id
      * @return
      */
-    @DeleteMapping("/{id}")
-    public ApiResp deleteUser(@PathVariable("id") int id) {
+    @DeleteMapping("/{userId}")
+    public ApiResp deleteUser(@PathVariable("userId") int id) {
         PdUser user = userService.deleteUser(id);
         if (user != null) {
             return ApiResp.retOk();
         }
-        return ApiResp.retFail(ErrorEnum.ACTIVATION);
+        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
     }
 
     /**
@@ -79,10 +79,13 @@ public class PdUserController {
     @PatchMapping("/updateUser")
     public ApiResp updateUser(@RequestBody PdUser user) {
         if (user == null || user.getUserId() == null) {
-            return ApiResp.retFail(ErrorEnum.ACTIVATION);
+            return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
         }
         PdUser updateUserAfter = userService.updateUser(user);
-        return ApiResp.retOk(updateUserAfter);
+        if (updateUserAfter != null) {
+            return ApiResp.retOk(updateUserAfter);
+        }
+        return ApiResp.retFail(ErrorEnum.UPDATE_INFO_FAIL);
     }
 
     /**
@@ -103,13 +106,13 @@ public class PdUserController {
         return null;
     }
 
-    @PatchMapping("/{id}")
-    public ApiResp cancleUser(@PathVariable("id") int id) {
+    @PatchMapping("/{userId}")
+    public ApiResp cancleUser(@PathVariable("userId") int id) {
         PdUser user = userService.cancleUser(id);
         if (user != null) {
             return ApiResp.retOk(user);
         }
-        return ApiResp.retFail(ErrorEnum.ACTIVATION);
+        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
     }
 
     /**

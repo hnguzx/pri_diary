@@ -24,12 +24,20 @@ public interface PdDiaryDao {
     int updateDiary(PdDiary diary);
 
     /**
-     * 删除日记
-     *
+     * 删除指定用户的指定日记
+     * @param userId
      * @param diaryId
      * @return
      */
-    int deleteDiary(int diaryId);
+    int deleteDiary(int userId, int diaryId);
+
+    /**
+     * 获取指定用户的指定日记
+     * @param userId
+     * @param diary
+     * @return
+     */
+    PdDiary findDiaryById(int userId,int diary);
 
     /**
      * 获取用户的所有日记
@@ -40,6 +48,7 @@ public interface PdDiaryDao {
 
     /**
      * 根据关键字查询日记
+     *
      * @param userId
      * @param global
      * @return

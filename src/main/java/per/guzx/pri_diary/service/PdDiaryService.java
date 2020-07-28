@@ -20,7 +20,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    public PdDiary updateDiary(PdDiary diary);
+    public int updateDiary(PdDiary diary);
 
     /**
      * 删除日记
@@ -28,7 +28,15 @@ public interface PdDiaryService {
      * @param diaryId
      * @return
      */
-    public int deleteDiary(int diaryId);
+    public int deleteDiary(int diaryId, int userId);
+
+    /**
+     * 获取指定用户的指定日记
+     * @param userId
+     * @param diaryId
+     * @return
+     */
+    public PdDiary findDiaryById(int userId, int diaryId);
 
     /**
      * 获取指定用户的所有日记
@@ -40,6 +48,7 @@ public interface PdDiaryService {
 
     /**
      * 根据关键字查找日记
+     *
      * @param userId
      * @param global
      * @return

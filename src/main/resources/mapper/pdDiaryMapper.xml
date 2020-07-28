@@ -26,7 +26,7 @@
     </insert>
 
     <update id="updateDiary">
-        update pd_user
+        update pd_diary
         <set>
             <include refid="sql_where"></include>
         </set>
@@ -40,6 +40,13 @@
         where
         user_id = #{userId} and diary_id = #{diaryId}
     </delete>
+
+    <select id="deleteDiary" resultType="diary">
+        <include refid="select_diary"></include>
+        from
+        pd_diary
+        where user_id = #{userId} and diary_id = #{diaryId}
+    </select>
 
     <select id="findDiaryAll" resultType="diary">
         <include refid="select_diary"></include>

@@ -1,9 +1,22 @@
 package per.guzx.pri_diary.enumeration;
 
 public enum ErrorEnum {
-    ACTIVATION(100001, "用户不存在"),
-    CANCELLATION(100002, "数据异常"),
-    INACTIVATION(100003, "000003错误");
+    /**
+     * 1：公共错误
+     * 2：用户相关
+     * 3：日记相关
+     * 4：日记详情相关
+     * 5：
+     * 6：
+     * 7：
+     * 8：
+     * 9：
+     */
+
+    UPDATE_INFO_FAIL(100000, "信息更新失败"),
+    DATA_EXCEPTION(100001, "数据异常"),
+    USER_NOTFOUND(200000, "用户信息不存在"),
+    DIARY_NOTFOUND(300000, "日记信息不存在");
 
     private int code;
     private String msg;

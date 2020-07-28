@@ -26,22 +26,41 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     }
 
     @Override
-    public PdDiary updateDiary(PdDiary diary) {
+    public int updateDiary(PdDiary diary) {
+        int result = diaryDao.updateDiary(diary);
+        return result;
+    }
+
+    @Override
+    public int deleteDiary(int diaryId, int userId) {
+        int result = diaryDao.deleteDiary(userId, diaryId);
+        return result;
+    }
+
+    @Override
+    public PdDiary findDiaryById(int userId, int diaryId) {
+        PdDiary diary = diaryDao.findDiaryById(userId, diaryId);
+        if (diary != null) {
+            return diary;
+        }
         return null;
     }
 
     @Override
-    public int deleteDiary(int diaryId) {
-        return 0;
-    }
-
-    @Override
     public List<PdDiary> findDiaryAll(int userId) {
+        List<PdDiary> diaries = diaryDao.findDiaryAll(userId);
+        if (diaries.size() > 0) {
+            return diaries;
+        }
         return null;
     }
 
     @Override
     public List<PdDiary> findDiaryByGlobal(int userId, String global) {
+        List<PdDiary> diaries = diaryDao.findDiaryByGlobal(userId, global);
+        if (diaries.size() > 0) {
+            return diaries;
+        }
         return null;
     }
 }
