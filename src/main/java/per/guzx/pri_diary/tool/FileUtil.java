@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.tool;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,13 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/request")
 public class FileUtil {
 
+    @Value("${spring.servlet.multipart.location}")
+    private String absolt;
+
     @RequestMapping("/view")
-    public String filePage(){
+    public String filePage() {
         return "index";
     }
 
@@ -65,13 +70,24 @@ public class FileUtil {
     // 推荐使用
     @PostMapping("/part")
     @ResponseBody
-    public ApiResp uploadRequestByPart(Part file, @RequestParam("userId") int userId, @RequestParam("detailContent") String detailContent,
-                                       @RequestParam("diaryId") int diaryId, @RequestParam("diaryTitle") String diaryTitle,
-                                       @RequestParam("diaryWeather") String diaryWeather, @RequestParam("diaryMood") String diaryMood,
-                                       @RequestParam("diaryEvent") String diaryEvent, @RequestParam("diaryLocation") String diaryLocation) {
-        String filename = file.getSubmittedFileName();
+//    public ApiResp uploadRequestByPart(Part detailPhoto, int userId, String detailContent,
+//                                       int diaryId, String diaryTitle, String diaryWeather, String diaryMood,
+//                                       String diaryEvent, String diaryLocation) {
+    public ApiResp uploadRequestByPart(@RequestPart("detailPhoto") Part detailPhoto, @RequestPart(name = "diary",required = false) PdDiary diary) {
+        // 原文件名
+        String filename = detailPhoto.getSubmittedFileName();
+        // 文件后缀
+        String suffix = filename.substring(filename.lastIndexOf(".") + 1);
+        String newFileName = UUID.randomUUID().toString().replace("-", "") + "." + suffix;
+        // 文件保存路径
+        String dest = absolt + "/" + diary.getUserId() + "/" + DateUtil.getTimeStamp() + "/" + diary.getDiaryId() + "/";
+        File dir = new File(dest);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        filename = dest + newFileName;
         try {
-            file.write(filename);
+            detailPhoto.write(filename);
         } catch (IOException e) {
             e.printStackTrace();
             return ApiResp.retFail(ErrorEnum.SYS_ERROR);
