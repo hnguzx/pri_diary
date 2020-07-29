@@ -13,8 +13,15 @@ spring:
       default-transaction-isolation: 2
   mvc:
     view:
-      prefix: /WEB-INF/jsp
+      prefix: /WEB-INF/jsp/
       suffix: .jsp
+  servlet:
+    multipart:
+      enabled: true
+      location: F:\Files
+      max-file-size: 20MB
+      max-request-size: 30MB
+      resolve-lazily: true
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: per.guzx.pri_diary.pojo

@@ -156,6 +156,8 @@ public class PdDiary implements Serializable, Cloneable {
                     diary.getDiaryEvent().equals(this.getDiaryEvent()) &&
                     diary.getDiaryMood().equals(this.getDiaryMood()) &&
                     diary.getDiaryWeather().equals(this.getDiaryWeather()) &&
+                    diary.getDetailContent().equals(this.getDetailContent()) &&
+                    diary.getDetailPhoto().equals(this.getDetailPhoto()) &&
                     diary.getDiaryLocation().equals(this.getDiaryLocation())) {
                 return true;
             } else {

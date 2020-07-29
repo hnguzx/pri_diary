@@ -13,8 +13,8 @@
                diary_location    diaryLocation,
                diary_create_time diaryCreateTime,
                diary_update_time diaryUpdateTime,
-               detail_content detailContent,
-               detail_photo detailPhoto
+               detail_content    detailContent,
+               detail_photo      detailPhoto
     </sql>
 
     <sql id="select_diary_main">
@@ -24,7 +24,9 @@
                diary_weather  diaryWeather,
                diary_mood     diaryMood,
                diary_event    diaryEvent,
-               diary_location diaryLocation
+               diary_location diaryLocation,
+               detail_content detailContent,
+               detail_photo   detailPhoto
     </sql>
 
     <sql id="sql_where">
@@ -40,10 +42,10 @@
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
-                             detail_content,detail_photo,diary_create_time, diary_update_time)
+                             detail_content, detail_photo, diary_create_time, diary_update_time)
             value
             (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
-             #{detailContent},#{detailPhoto},#{diaryCreateTime}, #{diaryUpdateTime})
+             #{detailContent}, #{detailPhoto}, #{diaryCreateTime}, #{diaryUpdateTime})
     </insert>
 
     <update id="updateDiary">
@@ -92,7 +94,7 @@
         <where>
             user_id = #{userId}
             and
-            concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time)
+            concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time,detail_content)
             like concat(concat('%',#{global}),'%')
             order by diary_update_time
         </where>
