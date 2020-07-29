@@ -34,7 +34,7 @@ public interface PdDiaryDao {
     /**
      * 获取指定用户的指定日记
      * @param userId
-     * @param diary
+     * @param diaryId
      * @return
      */
     PdDiary findDiaryById(int userId,int diaryId);

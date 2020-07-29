@@ -18,7 +18,7 @@ public interface PdUserService {
      * @param user
      * @return
      */
-    public PdUser updateUser(PdUser user);
+    public int updateUser(PdUser user);
 
     /**
      * 根据id查询单个用户

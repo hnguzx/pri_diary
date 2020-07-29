@@ -1,6 +1,7 @@
 package per.guzx.pri_diary.service;
 
 import per.guzx.pri_diary.pojo.PdDiary;
+import per.guzx.pri_diary.pojo.PdDiaryDetail;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    public PdDiary insertDiary(PdDiary diary);
+    public int insertDiary(PdDiary diary);
 
     /**
      * 更新日记

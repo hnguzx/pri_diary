@@ -1,16 +1,13 @@
 package per.guzx.pri_diary.controller;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
-import per.guzx.pri_diary.enumeration.StateEnum;
+import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
-import per.guzx.pri_diary.pojo.ResultVo;
 import per.guzx.pri_diary.service.PdUserService;
 
 import java.util.List;
@@ -31,7 +28,6 @@ public class PdUserController {
      */
     @PostMapping("insertUser")
     public ApiResp insertUser(@RequestBody PdUser user) throws CommonException {
-
         PdUser newUser = userService.insertUser(user);
         if (newUser != null) {
             return ApiResp.retOk(newUser);
@@ -77,12 +73,10 @@ public class PdUserController {
      */
     @PatchMapping("/updateUser")
     public ApiResp updateUser(@RequestBody PdUser user) {
-        if (user == null || user.getUserId() == null) {
-            return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
-        }
-        PdUser updateUserAfter = userService.updateUser(user);
-        if (updateUserAfter != null) {
-            return ApiResp.retOk(updateUserAfter);
+        int result = userService.updateUser(user);
+        if (result > 0) {
+            PdUser newUser = userService.findUserById(user.getUserId());
+            return ApiResp.retOk(newUser);
         }
         return ApiResp.retFail(ErrorEnum.UPDATE_INFO_FAIL);
     }
@@ -123,27 +117,10 @@ public class PdUserController {
     public boolean isActivate(int id) {
         if (id != 0) {
             PdUser user = userService.findUserById(id);
-            StateEnum stateEnum = user.getUserState();
-            return stateEnum.getId() == 3;
+            UserStateEnum userStateEnum = user.getUserState();
+            return userStateEnum.getId() == 3;
         }
         return false;
     }
-
-    /**
-     * 交易处理结果
-     *
-     * @param isSuccess 是否成功
-     * @param message   返回的信息
-     * @param object    返回的对象
-     * @return
-     */
-    /*public ResultVo dealResult(boolean isSuccess, String message, Object object) {
-        ResultVo result = new ResultVo();
-        result.setSuccess(isSuccess);
-        result.setMessage(message);
-        result.setObject(object);
-        return result;
-    }*/
-
 
 }

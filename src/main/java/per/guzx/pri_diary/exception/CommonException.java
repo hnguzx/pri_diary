@@ -2,18 +2,17 @@ package per.guzx.pri_diary.exception;
 
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 
-public class CommonException extends Exception {
+public class CommonException extends RuntimeException {
 
-    private int code;
+    private ErrorEnum errorEnum;
 
-
-    public CommonException(String message, ErrorEnum errorEnum) {
-        super(message);
-        this.code = errorEnum.getCode();
+    public CommonException(ErrorEnum errorEnum) {
+        super(errorEnum.getMsg());
+        this.errorEnum = errorEnum;
     }
 
-    public int getCode() {
-        return code;
+    public ErrorEnum getErrorEnum() {
+        return errorEnum;
     }
 
     @Override

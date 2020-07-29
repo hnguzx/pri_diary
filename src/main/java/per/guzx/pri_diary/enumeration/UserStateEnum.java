@@ -1,6 +1,6 @@
 package per.guzx.pri_diary.enumeration;
 
-public enum StateEnum {
+public enum UserStateEnum {
 
     ACTIVATION(1, "已激活"),
     CANCELLATION(2, "已注销"),
@@ -9,15 +9,15 @@ public enum StateEnum {
     private int id;
     private String name;
 
-    StateEnum(int id, String name) {
+    UserStateEnum(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public static StateEnum getStateEnumById(int id) {
-        for (StateEnum stateEnum : StateEnum.values()) {
-            if (stateEnum.getId() == id) {
-                return stateEnum;
+    public static UserStateEnum getStateEnumById(int id) {
+        for (UserStateEnum userStateEnum : UserStateEnum.values()) {
+            if (userStateEnum.getId() == id) {
+                return userStateEnum;
             }
         }
         return null;

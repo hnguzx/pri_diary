@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdDiaryDao;
 import per.guzx.pri_diary.pojo.PdDiary;
+import per.guzx.pri_diary.pojo.PdDiaryDetail;
 import per.guzx.pri_diary.service.PdDiaryService;
+import per.guzx.pri_diary.tool.DateUtil;
 
 import java.util.List;
 
@@ -17,24 +19,28 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     private PdDiaryDao diaryDao;
 
     @Override
-    public PdDiary insertDiary(PdDiary diary) {
-        int result = diaryDao.insertDiary(diary);
-        if (result > 0) {
-            return diary;
-        }
-        return null;
+    public int insertDiary(PdDiary diary) {
+        diary.setDiaryCreateTime(DateUtil.getTimeStamp());
+        diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
+        int diaryResult = diaryDao.insertDiary(diary);
+        return diaryResult;
     }
 
     @Override
     public int updateDiary(PdDiary diary) {
-        int result = diaryDao.updateDiary(diary);
-        return result;
+        PdDiary remoteDiary = findDiaryOtherById(diary.getUserId(), diary.getDiaryId());
+        if (!remoteDiary.equals(diary)) {
+            diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
+            int result = diaryDao.updateDiary(diary);
+            return result;
+        }
+        return 0;
     }
 
     @Override
     public int deleteDiary(int diaryId, int userId) {
-        int result = diaryDao.deleteDiary(userId, diaryId);
-        return result;
+        int diaryResult = diaryDao.deleteDiary(userId, diaryId);
+        return diaryResult;
     }
 
     @Override

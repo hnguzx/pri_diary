@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdUserDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
-import per.guzx.pri_diary.enumeration.StateEnum;
+import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
@@ -25,24 +25,25 @@ public class PdUserServiceImpl implements PdUserService {
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
     public PdUser insertUser(PdUser user) throws CommonException {
         if (user.getUserId() == null) {
-            user.setUserState(StateEnum.getStateEnumById(3));
+            user.setUserState(UserStateEnum.getStateEnumById(3));
         }
         int result = userDao.insertUser(user);
         if (result > 0) {
             return user;
         }else {
-            throw new CommonException("新增用户失败",ErrorEnum.DATA_EXCEPTION);
+            throw new CommonException(ErrorEnum.DATA_EXCEPTION);
         }
 
     }
 
     @Override
-    public PdUser updateUser(PdUser user) {
-        int result = userDao.updateUser(user);
-        if (result > 0) {
-            return user;
+    public int updateUser(PdUser user) {
+        PdUser remoteUser = findUserById(user.getUserId());
+        if (!user.equals(remoteUser)){
+            int result = userDao.updateUser(user);
+            return result;
         }
-        return null;
+        return 0;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class PdUserServiceImpl implements PdUserService {
     public PdUser cancleUser(int id) {
         PdUser user = findUserById(id);
         if (user != null) {
-            user.setUserState(StateEnum.getStateEnumById(2));
+            user.setUserState(UserStateEnum.getStateEnumById(2));
             updateUser(user);
             return user;
         }

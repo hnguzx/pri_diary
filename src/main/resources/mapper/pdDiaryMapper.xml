@@ -12,7 +12,9 @@
                diary_event       diaryEvent,
                diary_location    diaryLocation,
                diary_create_time diaryCreateTime,
-               diary_update_time diaryUpdateTime
+               diary_update_time diaryUpdateTime,
+               detail_content detailContent,
+               detail_photo detailPhoto
     </sql>
 
     <sql id="select_diary_main">
@@ -30,16 +32,18 @@
         <if test="diaryWeather != null">diary_weather = #{diaryWeather},</if>
         <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
         <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
+        <if test="detailPhoto != null">detail_photo = #{detailPhoto},</if>
+        <if test="detailContent != null">detail_content = #{detailContent},</if>
         <if test="diaryLocation != null">diary_location = #{diaryLocation},</if>
         <if test="diaryUpdateTime != null">diary_update_time = #{diaryUpdateTime},</if>
     </sql>
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
-                             diary_create_time, diary_update_time)
+                             detail_content,detail_photo,diary_create_time, diary_update_time)
             value
             (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
-             #{diaryCreateTime}, #{diaryUpdateTime})
+             #{detailContent},#{detailPhoto},#{diaryCreateTime}, #{diaryUpdateTime})
     </insert>
 
     <update id="updateDiary">
