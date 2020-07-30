@@ -28,11 +28,8 @@ public class PdUserController {
      */
     @PostMapping("insertUser")
     public ApiResp insertUser(@RequestBody PdUser user) throws CommonException {
-        PdUser newUser = userService.insertUser(user);
-        if (newUser != null) {
-            return ApiResp.retOk(newUser);
-        }
-        return ApiResp.retFail(ErrorEnum.DATA_EXCEPTION);
+        userService.insertUser(user);
+        return ApiResp.retOk();
     }
 
     /**
@@ -44,10 +41,7 @@ public class PdUserController {
     @GetMapping("/{id}")
     public ApiResp findUserById(@PathVariable("id") int id) {
         PdUser user = userService.findUserById(id);
-        if (user != null) {
-            return ApiResp.retOk();
-        }
-        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
+        return ApiResp.retOk(user);
     }
 
     /**
@@ -58,11 +52,8 @@ public class PdUserController {
      */
     @DeleteMapping("/{userId}")
     public ApiResp deleteUser(@PathVariable("userId") int id) {
-        PdUser user = userService.deleteUser(id);
-        if (user != null) {
-            return ApiResp.retOk();
-        }
-        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
+        userService.deleteUser(id);
+        return ApiResp.retOk();
     }
 
     /**
@@ -73,12 +64,9 @@ public class PdUserController {
      */
     @PatchMapping("/updateUser")
     public ApiResp updateUser(@RequestBody PdUser user) {
-        int result = userService.updateUser(user);
-        if (result > 0) {
-            PdUser newUser = userService.findUserById(user.getUserId());
-            return ApiResp.retOk(newUser);
-        }
-        return ApiResp.retFail(ErrorEnum.UPDATE_INFO_FAIL);
+        userService.updateUser(user);
+        PdUser newUser = userService.findUserById(user.getUserId());
+        return ApiResp.retOk(newUser);
     }
 
     /**
@@ -93,30 +81,24 @@ public class PdUserController {
     @PostMapping("/{start}/{limit}")
     public ApiResp findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
         List<PdUser> users = userService.findUsers(user, start, limit);
-        if (users.size() > 0) {
-            return ApiResp.retOk(users);
-        }
-        return null;
+        return ApiResp.retOk(users);
     }
 
     @PatchMapping("/{userId}")
-    public ApiResp cancleUser(@PathVariable("userId") int id) {
-        PdUser user = userService.cancleUser(id);
-        if (user != null) {
-            return ApiResp.retOk(user);
-        }
-        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
+    public ApiResp cancelUser(@PathVariable("userId") int id) {
+        PdUser user = userService.cancelUser(id);
+        return ApiResp.retOk(user);
     }
 
     /**
      * 判断指定用户是否已激活
      *
-     * @param id
+     * @param code
      * @return
      */
-    public boolean isActivate(int id) {
-        if (id != 0) {
-            PdUser user = userService.findUserById(id);
+    public boolean isActivate(int code) {
+        if (code != 0) {
+            PdUser user = userService.findUserById(code);
             UserStateEnum userStateEnum = user.getUserState();
             return userStateEnum.getCode() == 3;
         }

@@ -39,7 +39,7 @@ public interface PdUserService {
      * @param id
      * @return
      */
-    public PdUser cancleUser(int id);
+    public PdUser cancelUser(int id);
 
     /**
      * 分页查询用户

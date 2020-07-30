@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.serviceImpl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -15,6 +16,7 @@ import per.guzx.pri_diary.service.PdUserService;
 import java.util.List;
 
 @Service
+@Slf4j
 @Transactional
 public class PdUserServiceImpl implements PdUserService {
 
@@ -30,16 +32,16 @@ public class PdUserServiceImpl implements PdUserService {
         int result = userDao.insertUser(user);
         if (result > 0) {
             return user;
-        }else {
-            throw new CommonException(ErrorEnum.DATA_EXCEPTION);
         }
+        throw new CommonException(ErrorEnum.DATA_EXCEPTION);
+
 
     }
 
     @Override
     public int updateUser(PdUser user) {
         PdUser remoteUser = findUserById(user.getUserId());
-        if (!user.equals(remoteUser)){
+        if (!user.equals(remoteUser)) {
             int result = userDao.updateUser(user);
             return result;
         }
@@ -52,7 +54,7 @@ public class PdUserServiceImpl implements PdUserService {
         if (user != null) {
             return user;
         }
-        return null;
+        throw new CommonException(ErrorEnum.USER_NOTFOUND);
     }
 
     @Override
@@ -64,18 +66,18 @@ public class PdUserServiceImpl implements PdUserService {
                 return user;
             }
         }
-        return null;
+        throw new CommonException(ErrorEnum.USER_NOTFOUND);
     }
 
     @Override
-    public PdUser cancleUser(int id) {
+    public PdUser cancelUser(int id) {
         PdUser user = findUserById(id);
         if (user != null) {
             user.setUserState(UserStateEnum.getStateEnumById(2));
             updateUser(user);
             return user;
         }
-        return null;
+        throw new CommonException(ErrorEnum.USER_NOTFOUND);
     }
 
     @Override
@@ -86,6 +88,6 @@ public class PdUserServiceImpl implements PdUserService {
                 return results;
             }
         }
-        return null;
+        throw new CommonException(ErrorEnum.USER_NOTFOUND);
     }
 }
