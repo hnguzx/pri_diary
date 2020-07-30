@@ -52,11 +52,11 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     public int updateDiary(PdDiary diary, Part detailPhoto) {
         PdDiary remoteDiary = findDiaryOtherById(diary.getUserId(), diary.getDiaryId());
         if (!remoteDiary.equals(diary)) {
+            diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
             if (detailPhoto.getSubmittedFileName() != null) {
                 String filePath = fileUtil.uploadFile(detailPhoto, diary);
                 diary.setDetailPhoto(filePath);
             }
-            diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
             int result = diaryDao.updateDiary(diary);
             return result;
         }

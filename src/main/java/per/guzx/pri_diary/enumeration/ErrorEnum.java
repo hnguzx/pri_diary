@@ -22,6 +22,7 @@ public enum ErrorEnum {
     DATA_EXCEPTION(100002, "数据异常！"),
     FILE_UPLOAD(100003, "文件上传失败！"),
     FILE_NOT_FOUND(100004, "文件不存在！"),
+    DATA_VALIDATE(100005, "数据验证未通过！"),
     USER_NOTFOUND(200000, "用户信息不存在！"),
     USER_INSERT_FAIL(200001, "新增用户失败！"),
     USER_INFO_EXC(200002, "用户信息异常！"),

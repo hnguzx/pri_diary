@@ -56,4 +56,10 @@ public interface PdUserDao {
      * @return
      */
     List<PdUser> findUsers(PdUser user, int start, int limit);
+
+    /**
+     * 获取所有用户的基本信息
+     * @return
+     */
+    List<PdUser> getUserId();
 }

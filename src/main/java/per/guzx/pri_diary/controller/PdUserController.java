@@ -2,6 +2,7 @@ package per.guzx.pri_diary.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
@@ -9,8 +10,11 @@ import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
+import per.guzx.pri_diary.tool.JSR_303;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -27,9 +31,13 @@ public class PdUserController {
      * @return
      */
     @PostMapping("insertUser")
-    public ApiResp insertUser(@RequestBody PdUser user) throws CommonException {
-        userService.insertUser(user);
-        return ApiResp.retOk();
+    public ApiResp insertUser(@Valid @RequestBody PdUser user, Errors errors) {
+        Map<String ,Object> validResult = JSR_303.validator(errors);
+        if (validResult.isEmpty()){
+            userService.insertUser(user);
+            return ApiResp.retOk();
+        }
+        return ApiResp.retFail(ErrorEnum.DATA_VALIDATE,validResult);
     }
 
     /**
@@ -86,6 +94,7 @@ public class PdUserController {
 
     /**
      * 用户注销
+     *
      * @param id
      * @return
      */
@@ -97,6 +106,7 @@ public class PdUserController {
 
     /**
      * 用户登录
+     *
      * @param user
      * @return
      */

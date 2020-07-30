@@ -62,4 +62,10 @@ public interface PdDiaryDao {
      * @return
      */
     List<PdDiary> findDiaryByGlobal(int userId, String global);
+
+    /**
+     * 获取指定用户的所有日记
+     * @return
+     */
+    List<PdDiary> findDiaryByUserId(int userId);
 }

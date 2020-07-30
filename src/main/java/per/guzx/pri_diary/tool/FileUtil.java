@@ -24,7 +24,16 @@ public class FileUtil {
     @Autowired
     Environment environment;
 
+    /**
+     * 文件上传
+     *
+     * @param detailPhoto
+     * @param diary
+     * @return
+     */
     public String uploadFile(Part detailPhoto, PdDiary diary) {
+        // 删除原来的图片
+//        deleteFile(diary.getDetailPhoto());
         String filename = detailPhoto.getSubmittedFileName();
         String port = environment.getProperty("local.server.port");
         String address = "";
@@ -40,11 +49,11 @@ public class FileUtil {
         }
 
         String newFileName = UUID.randomUUID().toString().substring(0, 16).replace("-", "") + "." + suffix;
+//        String newFileName = diary.getDiaryUpdateTime() + "." + suffix;
         // 文件保存路径
-        String saveDest = absolt + "/" + DateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/";
+        String saveDest = absolt + "/" + DateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
         // 文件访问路径
-        String accessDest = prefix + "/" + DateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/";
-
+        String accessDest = prefix + "/" + DateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
         File dir = new File(saveDest);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -58,6 +67,12 @@ public class FileUtil {
         return accessDest + newFileName;
     }
 
+    /**
+     * 文件下载
+     *
+     * @param fileName
+     * @return
+     */
     public File downloadFile(String fileName) {
         if (fileName != null) {
             File file = new File(fileName);
@@ -66,5 +81,19 @@ public class FileUtil {
             }
         }
         throw new CommonException(ErrorEnum.FILE_NOT_FOUND);
+    }
+
+    /**
+     * 文件删除
+     *
+     * @param fileName
+     * @return
+     */
+    public void deleteFile(String fileName) {
+        fileName = absolt + fileName.substring(fileName.indexOf("File") + 4);
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }

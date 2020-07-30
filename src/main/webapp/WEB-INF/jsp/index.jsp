@@ -38,9 +38,9 @@
                 formData.append("diary", new Blob([diary], {type: "application/json"}));
 
                 $.ajax({
-                    url: "../diary/" + userId + "/" + global,
-                    // url: "../diary/updateDiary/",
-                    type: "get",
+                    // url: "../diary/" + userId + "/" + global,
+                    url: "../diary/updateDiary/",
+                    type: "patch",
                     // type: "delete",
                     data: formData,
                     cache: false,

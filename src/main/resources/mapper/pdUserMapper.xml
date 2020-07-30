@@ -73,4 +73,9 @@
             limit #{start},#{limit}
         </where>
     </select>
+
+    <select id="getUserId" resultType="user">
+        <include refid="select_user"></include>
+        from pd_user
+    </select>
 </mapper>

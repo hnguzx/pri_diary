@@ -5,6 +5,8 @@ import per.guzx.pri_diary.enumeration.EventEnum;
 import per.guzx.pri_diary.enumeration.MoodEnum;
 import per.guzx.pri_diary.enumeration.WeathEnum;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,18 +23,26 @@ public class PdDiary implements Serializable, Cloneable {
     /**
      * 日记标题
      */
+    @NotNull(message = "日记标题不能为空！")
+    @Size(min = 1, max = 100, message = "标题长度不能大于100")
     private String diaryTitle;
     /**
      * 当天天气
      */
+    @NotNull
+    @Size(min = 1)
     private WeathEnum diaryWeather;
     /**
      * 当天心情
      */
+    @NotNull
+    @Size(min = 1)
     private MoodEnum diaryMood;
     /**
      * 当天主要事件
      */
+    @NotNull
+    @Size(min = 1)
     private EventEnum diaryEvent;
     /**
      * 当天日记所在位置

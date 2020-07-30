@@ -31,9 +31,9 @@
 
     <sql id="sql_where">
         <if test="diaryTitle != null and diaryTitle != ''">diary_title = #{diaryTitle},</if>
-        <if test="diaryWeather != null and diaryWeather != ''">diary_weather = #{diaryWeather},</if>
-        <if test="diaryMood != null and diaryMood != ''">diary_mood = #{diaryMood},</if>
-        <if test="diaryEvent != null and diaryEvent != ''">diary_event = #{diaryEvent},</if>
+        <if test="diaryWeather != null">diary_weather = #{diaryWeather},</if>
+        <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
+        <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
         <if test="detailPhoto != null and detailPhoto != ''">detail_photo = #{detailPhoto},</if>
         <if test="detailContent != null and detailContent != ''">detail_content = #{detailContent},</if>
         <if test="diaryLocation != null and diaryLocation != ''">diary_location = #{diaryLocation},</if>
@@ -98,5 +98,13 @@
             like concat(concat('%',#{global}),'%')
             order by diary_update_time
         </where>
+    </select>
+
+    <select id="findDiaryByUserId" parameterType="int" resultType="diary">
+        <include refid="select_diary_main"></include>
+        from
+        pd_diary
+        where
+        user_id = #{userId}
     </select>
 </mapper>
