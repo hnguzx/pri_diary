@@ -4,17 +4,30 @@
 <mapper namespace="per.guzx.pri_diary.dao.PdUserDao">
 
     <sql id="select_user">
-        select user_id as userId, user_name as userName, user_password as userPassword, user_state as userState
+        select user_id       userId,
+               user_name     userName,
+               user_password userPassword,
+               user_state    userState,
+               user_phone    userPhone,
+               user_email    userEmail
     </sql>
 
     <sql id="sql_where">
-        <if test="userName!=null">user_name = #{userName},</if>
-        <if test="userPassword!=null">user_password = #{userPassword},</if>
-        <if test="userState!=null">user_state = #{userState},</if>
+        <if test="userName !=null and userName !='' ">user_name = #{userName},</if>
+        <if test="userPassword !=null and userPassword !='' ">user_password = #{userPassword},</if>
+        <if test="userState !=null and userState !='' ">user_state = #{userState},</if>
+        <if test="userPhone !=null and userPhone !='' ">user_phone = #{userPhone},</if>
+        <if test="userEmail !=null and userEmail !='' ">user_email = #{userEmail},</if>
+    </sql>
+
+    <sql id="sql_login">
+        <if test="userPhone !=null and userPhone != '' ">and user_phone = #{userPhone}</if>
+        <if test="userEmail !=null and userEmail != '' ">and user_email = #{userEmail}</if>
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into pd_user(user_name, user_password, user_state) value (#{userName}, #{userPassword}, #{userState})
+        insert into pd_user(user_name, user_password, user_state, user_phone, user_email)
+            value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail})
     </insert>
 
     <update id="updateUser">
@@ -33,6 +46,16 @@
         user_id = #{userId}
     </select>
 
+    <select id="findUserByPhoneOrEmail" parameterType="int" resultType="user">
+        <include refid="select_user"></include>
+        from
+        pd_user
+        <where>
+            <include refid="sql_login"></include>
+            and user_password = #{userPassword}
+        </where>
+    </select>
+
     <delete id="deleteUser" parameterType="int">
         delete
         from pd_user
@@ -44,7 +67,9 @@
         from
         pd_user
         <where>
-            <if test="user.userName != null">and user_name like concat(concat('%',#{user.userName}),'%')</if>
+            <if test="user.userName != null and user.userName != '' ">and user_name like concat(concat('%',#{user.userName}),'%')</if>
+            <if test="user.userPhone != null and user.userPhone != '' ">and user_Phone like concat(concat('%',#{user.userPhone}),'%')</if>
+            <if test="user.userEmail != null and user.userEmail != '' ">and user_Email like concat(concat('%',#{user.userEmail}),'%')</if>
             limit #{start},#{limit}
         </where>
     </select>

@@ -8,13 +8,23 @@ import java.util.List;
 public interface PdUserService {
     /**
      * 新增用户
+     *
      * @param user
      * @return
      */
-    public PdUser insertUser(PdUser user) throws CommonException;
+    public PdUser insertUser(PdUser user);
+
+    /**
+     * 用户登录
+     *
+     * @param user
+     * @return
+     */
+    public PdUser login(PdUser user);
 
     /**
      * 更新用户信息
+     *
      * @param user
      * @return
      */
@@ -22,6 +32,7 @@ public interface PdUserService {
 
     /**
      * 根据id查询单个用户
+     *
      * @param id
      * @return
      */
@@ -29,6 +40,7 @@ public interface PdUserService {
 
     /**
      * 删除用户
+     *
      * @param id
      * @return
      */
@@ -36,6 +48,7 @@ public interface PdUserService {
 
     /**
      * 用户信息注销
+     *
      * @param id
      * @return
      */
@@ -43,6 +56,7 @@ public interface PdUserService {
 
     /**
      * 分页查询用户
+     *
      * @param user
      * @param start
      * @param limit

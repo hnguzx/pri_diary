@@ -9,13 +9,23 @@ import java.util.List;
 public interface PdUserDao {
     /**
      * 新增用户
+     *
      * @param user
      * @return
      */
     int insertUser(PdUser user);
 
     /**
+     * 用户登录
+     *
+     * @param user
+     * @return
+     */
+    PdUser findUserByPhoneOrEmail(PdUser user);
+
+    /**
      * 更新用户信息
+     *
      * @param user
      * @return
      */
@@ -23,6 +33,7 @@ public interface PdUserDao {
 
     /**
      * 查找单个用户
+     *
      * @param id
      * @return
      */
@@ -30,6 +41,7 @@ public interface PdUserDao {
 
     /**
      * 删除用户信息
+     *
      * @param id
      * @return
      */
@@ -37,6 +49,7 @@ public interface PdUserDao {
 
     /**
      * 分页查询
+     *
      * @param user
      * @param start
      * @param limit

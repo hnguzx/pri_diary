@@ -37,6 +37,15 @@ public class PdUserServiceImpl implements PdUserService {
     }
 
     @Override
+    public PdUser login(PdUser user) {
+        PdUser isUser = userDao.findUserByPhoneOrEmail(user);
+        if (isUser != null) {
+            return isUser;
+        }
+        throw new CommonException(ErrorEnum.USER_INFO_EXC);
+    }
+
+    @Override
     public int updateUser(PdUser user) {
         PdUser remoteUser = findUserById(user.getUserId());
         if (Objects.isNull(user)) {

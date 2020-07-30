@@ -30,14 +30,14 @@
     </sql>
 
     <sql id="sql_where">
-        <if test="diaryTitle != null">diary_title = #{diaryTitle},</if>
-        <if test="diaryWeather != null">diary_weather = #{diaryWeather},</if>
-        <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
-        <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
-        <if test="detailPhoto != null">detail_photo = #{detailPhoto},</if>
-        <if test="detailContent != null">detail_content = #{detailContent},</if>
-        <if test="diaryLocation != null">diary_location = #{diaryLocation},</if>
-        <if test="diaryUpdateTime != null">diary_update_time = #{diaryUpdateTime},</if>
+        <if test="diaryTitle != null and diaryTitle != ''">diary_title = #{diaryTitle},</if>
+        <if test="diaryWeather != null and diaryWeather != ''">diary_weather = #{diaryWeather},</if>
+        <if test="diaryMood != null and diaryMood != ''">diary_mood = #{diaryMood},</if>
+        <if test="diaryEvent != null and diaryEvent != ''">diary_event = #{diaryEvent},</if>
+        <if test="detailPhoto != null and detailPhoto != ''">detail_photo = #{detailPhoto},</if>
+        <if test="detailContent != null and detailContent != ''">detail_content = #{detailContent},</if>
+        <if test="diaryLocation != null and diaryLocation != ''">diary_location = #{diaryLocation},</if>
+        <if test="diaryUpdateTime != null and diaryUpdateTime != ''">diary_update_time = #{diaryUpdateTime},</if>
     </sql>
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">

@@ -24,6 +24,16 @@ public class PdUser implements Serializable, Cloneable {
      */
     private UserStateEnum userState;
 
+    /**
+     * 用户手机号码
+     */
+    private String userPhone;
+
+    /**
+     * 用户邮箱地址
+     */
+    private String userEmail;
+
     public Integer getUserId() {
         return this.userId;
     }
@@ -54,6 +64,22 @@ public class PdUser implements Serializable, Cloneable {
 
     public void setUserState(UserStateEnum userState) {
         this.userState = userState;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     @Override

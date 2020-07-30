@@ -84,10 +84,26 @@ public class PdUserController {
         return ApiResp.retOk(users);
     }
 
+    /**
+     * 用户注销
+     * @param id
+     * @return
+     */
     @PatchMapping("/{userId}")
     public ApiResp cancelUser(@PathVariable("userId") int id) {
         PdUser user = userService.cancelUser(id);
         return ApiResp.retOk(user);
+    }
+
+    /**
+     * 用户登录
+     * @param user
+     * @return
+     */
+    @PostMapping("/login")
+    public ApiResp login(@RequestBody PdUser user) {
+        PdUser newUser = userService.login(user);
+        return ApiResp.retOk(newUser);
     }
 
     /**
