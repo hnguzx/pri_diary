@@ -9,29 +9,29 @@ public enum WeathEnum {
     WIND(5, "风"),
     DESTROY(0, "地球毁灭");
 
-    private int id;
+    private int code;
     private String name;
 
-    WeathEnum(int id, String name) {
-        this.id = id;
+    WeathEnum(int code, String name) {
+        this.code = code;
         this.name = name;
     }
 
-    public static WeathEnum getStateEnumById(int id) {
+    public static WeathEnum getStateEnumById(int code) {
         for (WeathEnum weathEnum : WeathEnum.values()) {
-            if (weathEnum.getId() == id) {
+            if (weathEnum.getCode() == code) {
                 return weathEnum;
             }
         }
         return null;
     }
 
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getName() {

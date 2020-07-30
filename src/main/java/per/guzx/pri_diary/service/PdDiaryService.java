@@ -1,9 +1,12 @@
 package per.guzx.pri_diary.service;
 
 import per.guzx.pri_diary.pojo.PdDiary;
-import per.guzx.pri_diary.pojo.PdDiaryDetail;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.util.List;
+import java.util.Map;
 
 public interface PdDiaryService {
 
@@ -13,7 +16,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    public int insertDiary(PdDiary diary);
+    public int insertDiary(HttpServletRequest request, PdDiary diary, Part detailPhoto);
 
     /**
      * 更新日记
@@ -21,7 +24,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    public int updateDiary(PdDiary diary);
+    public int updateDiary(HttpServletRequest request, PdDiary diary, Part detailPhoto);
 
     /**
      * 删除日记
@@ -38,7 +41,7 @@ public interface PdDiaryService {
      * @param diaryId
      * @return
      */
-    public PdDiary findDiaryById(int userId, int diaryId);
+    public Map<String, Object> findDiaryById(HttpServletResponse response, int userId, int diaryId);
 
     /**
      * 获取日记其它信息（除了创建时间，更新时间，封面图片，主要内容）

@@ -12,4 +12,13 @@ public class DateUtil {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         return dateFormat.format(new Date());
     }
+
+    /**
+     * 获取当前日期
+     * @return
+     */
+    public static String getDateStamp() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        return dateFormat.format(new Date());
+    }
 }

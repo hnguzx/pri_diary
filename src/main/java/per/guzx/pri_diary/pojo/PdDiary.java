@@ -1,6 +1,9 @@
 package per.guzx.pri_diary.pojo;
 
 import org.apache.ibatis.type.Alias;
+import per.guzx.pri_diary.enumeration.EventEnum;
+import per.guzx.pri_diary.enumeration.MoodEnum;
+import per.guzx.pri_diary.enumeration.WeathEnum;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,15 +25,15 @@ public class PdDiary implements Serializable, Cloneable {
     /**
      * 当天天气
      */
-    private String diaryWeather;
+    private WeathEnum diaryWeather;
     /**
      * 当天心情
      */
-    private String diaryMood;
+    private MoodEnum diaryMood;
     /**
      * 当天主要事件
      */
-    private String diaryEvent;
+    private EventEnum diaryEvent;
     /**
      * 当天日记所在位置
      */
@@ -76,27 +79,27 @@ public class PdDiary implements Serializable, Cloneable {
         this.diaryTitle = diaryTitle;
     }
 
-    public String getDiaryWeather() {
-        return this.diaryWeather;
+    public WeathEnum getDiaryWeather() {
+        return diaryWeather;
     }
 
-    public void setDiaryWeather(String diaryWeather) {
+    public void setDiaryWeather(WeathEnum diaryWeather) {
         this.diaryWeather = diaryWeather;
     }
 
-    public String getDiaryMood() {
-        return this.diaryMood;
+    public MoodEnum getDiaryMood() {
+        return diaryMood;
     }
 
-    public void setDiaryMood(String diaryMood) {
+    public void setDiaryMood(MoodEnum diaryMood) {
         this.diaryMood = diaryMood;
     }
 
-    public String getDiaryEvent() {
-        return this.diaryEvent;
+    public EventEnum getDiaryEvent() {
+        return diaryEvent;
     }
 
-    public void setDiaryEvent(String diaryEvent) {
+    public void setDiaryEvent(EventEnum diaryEvent) {
         this.diaryEvent = diaryEvent;
     }
 

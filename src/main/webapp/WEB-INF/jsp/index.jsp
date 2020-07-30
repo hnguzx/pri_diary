@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8" http-equiv="Content-Type" content="text/html">
-    <title>文件上传</title>
+    <title>上传下载测试</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -36,7 +36,9 @@
                 formData.append("diary", new Blob([diary], {type: "application/json"}));
 
                 $.ajax({
-                    url: "./part",
+                    // url: "../diary/detail/" + userId + "/" + diaryId,
+                    url: "../diary/insertDiary/",
+                    // type: "get",
                     type: "post",
                     data: formData,
                     cache: false,
@@ -44,11 +46,8 @@
                     contentType: false,
                     processData: false,
                     success: function (result) {
-                        if (result == null || result.id == null) {
-                            alert("添加用户失败");
-                            return;
-                        }
-                        alert("添加用户成功！");
+                        $("#img").attr("src",result.file)
+                        alert("更新成功！");
                     }
                 });
             })
@@ -68,6 +67,7 @@
     <input id="diaryEvent" type="text" name="diary.diaryEvent" value="diaryEvent"><br>
     <input id="diaryLocation" type="text" name="diary.diaryLocation" value="diaryLocation">
     <input id="submit" type="button" value="提交">
+    <img src="http://localhost/File/20200729/5/3/3/3f080c02e1c347.jfif" id="img" width="100px" height="100px">
     <%--    <input type="submit"  value="提交">--%>
 </form>
 </body>

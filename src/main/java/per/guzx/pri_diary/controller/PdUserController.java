@@ -118,7 +118,7 @@ public class PdUserController {
         if (id != 0) {
             PdUser user = userService.findUserById(id);
             UserStateEnum userStateEnum = user.getUserState();
-            return userStateEnum.getId() == 3;
+            return userStateEnum.getCode() == 3;
         }
         return false;
     }

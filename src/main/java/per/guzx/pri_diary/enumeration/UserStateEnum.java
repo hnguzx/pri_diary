@@ -6,29 +6,29 @@ public enum UserStateEnum {
     CANCELLATION(2, "已注销"),
     INACTIVATION(3, "未激活");
 
-    private int id;
+    private int code;
     private String name;
 
-    UserStateEnum(int id, String name) {
-        this.id = id;
+    UserStateEnum(int code, String name) {
+        this.code = code;
         this.name = name;
     }
 
-    public static UserStateEnum getStateEnumById(int id) {
+    public static UserStateEnum getStateEnumById(int code) {
         for (UserStateEnum userStateEnum : UserStateEnum.values()) {
-            if (userStateEnum.getId() == id) {
+            if (userStateEnum.getCode() == code) {
                 return userStateEnum;
             }
         }
         return null;
     }
 
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getName() {
