@@ -20,6 +20,7 @@ public enum ErrorEnum {
     INFO_IS_LATEST(100001, "数据已经是最新的"),
     DATA_EXCEPTION(100002, "数据异常"),
     FILE_UPLOAD(100003, "文件上传失败"),
+    FILE_NOT_FOUND(100004, "文件不存在"),
     SYS_ERROR(100004, "系统错误"),
     USER_NOTFOUND(200000, "用户信息不存在"),
     DIARY_NOTFOUND(300000, "日记信息不存在");

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdDiaryDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.CommonException;
+import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdDiary;
 import per.guzx.pri_diary.pojo.PdDiaryDetail;
 import per.guzx.pri_diary.service.PdDiaryService;
@@ -31,51 +32,52 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     private FileUtil fileUtil;
 
     @Override
-    public int insertDiary(HttpServletRequest request, PdDiary diary, Part detailPhoto) {
+    public int insertDiary(PdDiary diary, Part detailPhoto) {
         diary.setDiaryCreateTime(DateUtil.getTimeStamp());
         diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
-        String filePath = fileUtil.uploadFile(request, detailPhoto, diary);
-        if (filePath == null) {
-            throw new CommonException(ErrorEnum.FILE_UPLOAD);
+        if (detailPhoto.getSubmittedFileName() != null) {
+            String filePath = fileUtil.uploadFile(detailPhoto, diary);
+            diary.setDetailPhoto(filePath);
         }
-        diary.setDetailPhoto(filePath);
         int diaryResult = diaryDao.insertDiary(diary);
-        return diaryResult;
+        if (diaryResult > 0) {
+            return diaryResult;
+        }
+        throw new CommonException(ErrorEnum.DATA_EXCEPTION);
     }
 
     @Override
-    public int updateDiary(HttpServletRequest request, PdDiary diary, Part detailPhoto) {
+    public int updateDiary(PdDiary diary, Part detailPhoto) {
         PdDiary remoteDiary = findDiaryOtherById(diary.getUserId(), diary.getDiaryId());
         if (!remoteDiary.equals(diary)) {
-            String filePath = fileUtil.uploadFile(request, detailPhoto, diary);
-            if (filePath == null) {
-                throw new CommonException(ErrorEnum.FILE_UPLOAD);
+            if (detailPhoto.getSubmittedFileName() != null) {
+                String filePath = fileUtil.uploadFile(detailPhoto, diary);
+                diary.setDetailPhoto(filePath);
             }
-            diary.setDetailPhoto(filePath);
             diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
             int result = diaryDao.updateDiary(diary);
             return result;
         }
-        return 0;
+        throw new CommonException(ErrorEnum.UPDATE_INFO_FAIL);
     }
 
     @Override
     public int deleteDiary(int diaryId, int userId) {
         int diaryResult = diaryDao.deleteDiary(userId, diaryId);
-        return diaryResult;
+        if (diaryResult > 0) {
+            return diaryResult;
+        }
+        throw new CommonException(ErrorEnum.DIARY_NOTFOUND);
+
     }
 
     @Override
-    public Map<String, Object> findDiaryById(HttpServletResponse response, int userId, int diaryId) {
-        Map<String, Object> result = new HashMap<>();
-        PdDiary diary = diaryDao.findDiaryById(userId, diaryId);
-        result.put("diary", diary);
-        if (diary != null) {
-            File file = fileUtil.downloadFile(diary.getDetailPhoto());
-            result.put("file", file);
+    public PdDiary findDiaryById(int userId, int diaryId) {
+        PdDiary result = diaryDao.findDiaryById(userId, diaryId);
+        if (result != null) {
             return result;
         }
-        return null;
+        throw new CommonException(ErrorEnum.DIARY_NOTFOUND);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         if (diary != null) {
             return diary;
         }
-        return null;
+        throw new CommonException(ErrorEnum.DIARY_NOTFOUND);
     }
 
     @Override
@@ -93,7 +95,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         if (diaries.size() > 0) {
             return diaries;
         }
-        return null;
+        throw new CommonException(ErrorEnum.DIARY_NOTFOUND);
     }
 
     @Override
@@ -102,6 +104,6 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         if (diaries.size() > 0) {
             return diaries;
         }
-        return null;
+        throw new CommonException(ErrorEnum.DIARY_NOTFOUND);
     }
 }

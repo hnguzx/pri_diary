@@ -26,12 +26,6 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: per.guzx.pri_diary.pojo
-#logging:
-#  level:
-#    root: debug
-#    org:
-#      springframework: debug
-#      mybatis: debug
 
 
 

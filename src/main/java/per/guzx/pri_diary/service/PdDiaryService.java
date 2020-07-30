@@ -16,7 +16,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    public int insertDiary(HttpServletRequest request, PdDiary diary, Part detailPhoto);
+    public int insertDiary(PdDiary diary, Part detailPhoto);
 
     /**
      * 更新日记
@@ -24,7 +24,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    public int updateDiary(HttpServletRequest request, PdDiary diary, Part detailPhoto);
+    public int updateDiary(PdDiary diary, Part detailPhoto);
 
     /**
      * 删除日记
@@ -41,7 +41,7 @@ public interface PdDiaryService {
      * @param diaryId
      * @return
      */
-    public Map<String, Object> findDiaryById(HttpServletResponse response, int userId, int diaryId);
+    public PdDiary findDiaryById(int userId, int diaryId);
 
     /**
      * 获取日记其它信息（除了创建时间，更新时间，封面图片，主要内容）

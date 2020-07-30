@@ -25,59 +25,40 @@ public class PdDiaryController {
     private PdDiaryService diaryService;
 
     @PostMapping("/insertDiary")
-    public ApiResp insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary, HttpServletRequest request) {
-        int result = diaryService.insertDiary(request, diary, detailPhoto);
-        if (result > 0) {
-            return ApiResp.retOk();
-        }
-        throw new CommonException(ErrorEnum.DATA_EXCEPTION);
+    public ApiResp insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+        diaryService.insertDiary(diary, detailPhoto);
+        return ApiResp.retOk();
     }
 
     @PatchMapping("/updateDiary")
-    public ApiResp updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary, HttpServletResponse response, HttpServletRequest request) {
-        int result = diaryService.updateDiary(request, diary, detailPhoto);
-        if (result > 0) {
-            Map<String, Object> diaryAll = diaryService.findDiaryById(response, diary.getUserId(), diary.getDiaryId());
-            PdDiary updateDiaryAfter = (PdDiary) diaryAll.get("diary");
-            return ApiResp.retOk(updateDiaryAfter);
-        }
-        return ApiResp.retFail(ErrorEnum.INFO_IS_LATEST);
+    public ApiResp updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+        diaryService.updateDiary(diary, detailPhoto);
+        PdDiary updateAfterDiary = diaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
+        return ApiResp.retOk(updateAfterDiary);
     }
 
     @DeleteMapping("/{userId}/{diaryId}")
     public ApiResp deleteDiary(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
-        int result = diaryService.deleteDiary(diaryId, userId);
-        if (result > 0) {
-            return ApiResp.retOk();
-        }
-        return ApiResp.retFail(ErrorEnum.DIARY_NOTFOUND);
+        diaryService.deleteDiary(diaryId, userId);
+        return ApiResp.retOk();
     }
 
     @GetMapping("/detail/{userId}/{diaryId}")
-    public ApiResp findDiaryById(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId, HttpServletResponse response) {
-        Map<String, Object> diaryAll = diaryService.findDiaryById(response, userId, diaryId);
-        if (diaryAll != null) {
-            return ApiResp.retOk(diaryAll);
-        }
-        return ApiResp.retFail(ErrorEnum.DIARY_NOTFOUND);
+    public ApiResp findDiaryById(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
+        PdDiary diary = diaryService.findDiaryById(userId, diaryId);
+        return ApiResp.retOk(diary);
     }
 
     @GetMapping("/{userId}")
     public ApiResp findDiaryAll(@PathVariable("userId") int userId) {
         List<PdDiary> diaries = diaryService.findDiaryAll(userId);
-        if (diaries.size() > 0) {
-            return ApiResp.retOk(diaries);
-        }
-        return ApiResp.retFail(ErrorEnum.DIARY_NOTFOUND);
+        return ApiResp.retOk(diaries);
     }
 
     @GetMapping("/{userId}/{global}")
     public ApiResp findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable("global") String global) {
         List<PdDiary> diaries = diaryService.findDiaryByGlobal(userId, global);
-        if (diaries.size() > 0) {
-            return ApiResp.retOk(diaries);
-        }
-        return ApiResp.retFail(ErrorEnum.DIARY_NOTFOUND);
+        return ApiResp.retOk(diaries);
     }
 
 }

@@ -16,6 +16,8 @@
                 var diaryMood = $("#diaryMood").val();
                 var diaryEvent = $("#diaryEvent").val();
                 var diaryLocation = $("#diaryLocation").val();
+                var global = $("#global").val();
+
 
                 var formData = new FormData();
 
@@ -36,18 +38,18 @@
                 formData.append("diary", new Blob([diary], {type: "application/json"}));
 
                 $.ajax({
-                    // url: "../diary/detail/" + userId + "/" + diaryId,
-                    url: "../diary/insertDiary/",
-                    // type: "get",
-                    type: "post",
+                    url: "../diary/" + userId + "/" + global,
+                    // url: "../diary/updateDiary/",
+                    type: "get",
+                    // type: "delete",
                     data: formData,
                     cache: false,
                     async: false,
                     contentType: false,
                     processData: false,
                     success: function (result) {
-                        $("#img").attr("src",result.file)
-                        alert("更新成功！");
+                        // $("#img").attr("src",result.data.detailPhoto)
+                        // alert(result.data.detailPhoto);
                     }
                 });
             })
@@ -58,14 +60,17 @@
 <form action="./part" method="post" enctype="multipart/form-data">
     <input id="detailPhoto" type="file" name="detailPhoto" value="上传文件">
     <br>
-    <input id="userId" type="text" name="userId" value="userId"><br>
-    <input id="detailContent" type="text" name="diary.detailContent" value="detailContent"><br>
-    <input id="diaryId" type="text" name="diary.diaryId" value="diaryId"><br>
-    <input id="diaryTitle" type="text" name="diary.diaryTitle" value="diaryTitle"><br>
-    <input id="diaryWeather" type="text" name="diary.diaryWeather" value="diaryWeather"><br>
-    <input id="diaryMood" type="text" name="diary.diaryMood" value="diaryMood"><br>
-    <input id="diaryEvent" type="text" name="diary.diaryEvent" value="diaryEvent"><br>
-    <input id="diaryLocation" type="text" name="diary.diaryLocation" value="diaryLocation">
+    <input id="userId" type="text" value="userId"><br>
+    <input id="detailContent" type="text" value="detailContent"><br>
+    <input id="diaryId" type="text" value="diaryId"><br>
+    <input id="diaryTitle" type="text" value="diaryTitle"><br>
+    <input id="diaryWeather" type="text" value="diaryWeather"><br>
+    <input id="diaryMood" type="text" value="diaryMood"><br>
+    <input id="diaryEvent" type="text" value="diaryEvent"><br>
+    <input id="diaryLocation" type="text" value="diaryLocation">
+    <input id="global" type="text" value="">
+
+
     <input id="submit" type="button" value="提交">
     <img src="http://localhost/File/20200729/5/3/3/3f080c02e1c347.jfif" id="img" width="100px" height="100px">
     <%--    <input type="submit"  value="提交">--%>

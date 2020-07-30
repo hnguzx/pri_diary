@@ -36,9 +36,6 @@ public class DemoController {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        System.out.println(a);
-        System.out.println(local);
-        System.out.println(port);
         return "index";
     }
 
