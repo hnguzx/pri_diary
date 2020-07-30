@@ -8,7 +8,7 @@ public enum ErrorEnum {
      * 1：公共错误
      * 2：用户相关
      * 3：日记相关
-     * 4：日记详情相关
+     * 4:
      * 5：
      * 6：
      * 7：
@@ -16,14 +16,16 @@ public enum ErrorEnum {
      * 9：
      */
 
-    UPDATE_INFO_FAIL(100000, "信息更新失败"),
-    INFO_IS_LATEST(100001, "数据已经是最新的"),
-    DATA_EXCEPTION(100002, "数据异常"),
-    FILE_UPLOAD(100003, "文件上传失败"),
-    FILE_NOT_FOUND(100004, "文件不存在"),
-    SYS_ERROR(100004, "系统错误"),
-    USER_NOTFOUND(200000, "用户信息不存在"),
-    DIARY_NOTFOUND(300000, "日记信息不存在");
+    SYS_ERROR(999999, "系统错误"),
+    UPDATE_INFO_FAIL(100000, "数据更新失败！"),
+    INFO_IS_LATEST(100001, "数据已是最新！"),
+    DATA_EXCEPTION(100002, "数据异常！"),
+    FILE_UPLOAD(100003, "文件上传失败！"),
+    FILE_NOT_FOUND(100004, "文件不存在！"),
+    USER_NOTFOUND(200000, "用户信息不存在！"),
+    USER_INSERT_FAIL(200001, "新增用户失败！"),
+    USER_INFO_EXC(200002, "用户信息异常！"),
+    DIARY_NOTFOUND(300000, "日记信息不存在！");
 
     private int code;
     private String msg;

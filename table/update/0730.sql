@@ -1,0 +1,1 @@
+ALTER TABLE pd_user add user_login_id varchar(20) COMMENT '';

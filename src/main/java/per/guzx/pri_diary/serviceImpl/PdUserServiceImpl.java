@@ -14,6 +14,7 @@ import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -24,7 +25,6 @@ public class PdUserServiceImpl implements PdUserService {
     private PdUserDao userDao;
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
     public PdUser insertUser(PdUser user) throws CommonException {
         if (user.getUserId() == null) {
             user.setUserState(UserStateEnum.getStateEnumById(3));
@@ -33,25 +33,31 @@ public class PdUserServiceImpl implements PdUserService {
         if (result > 0) {
             return user;
         }
-        throw new CommonException(ErrorEnum.DATA_EXCEPTION);
-
-
+        throw new CommonException(ErrorEnum.USER_INSERT_FAIL);
     }
 
     @Override
     public int updateUser(PdUser user) {
         PdUser remoteUser = findUserById(user.getUserId());
+        if (Objects.isNull(user)) {
+            throw new CommonException(ErrorEnum.USER_INFO_EXC);
+        }
         if (!user.equals(remoteUser)) {
             int result = userDao.updateUser(user);
-            return result;
+            if (result > 0) {
+                return result;
+            }
+            throw new CommonException(ErrorEnum.USER_INFO_EXC);
+        } else {
+            throw new CommonException(ErrorEnum.INFO_IS_LATEST);
         }
-        return 0;
+
     }
 
     @Override
     public PdUser findUserById(int id) {
         PdUser user = userDao.findUserById(id);
-        if (user != null) {
+        if (!Objects.isNull(user)) {
             return user;
         }
         throw new CommonException(ErrorEnum.USER_NOTFOUND);
@@ -60,11 +66,12 @@ public class PdUserServiceImpl implements PdUserService {
     @Override
     public PdUser deleteUser(int id) {
         PdUser user = findUserById(id);
-        if (user != null) {
+        if (!Objects.isNull(user)) {
             int result = userDao.deleteUser(id);
             if (result > 0) {
                 return user;
             }
+            throw new CommonException(ErrorEnum.USER_INFO_EXC);
         }
         throw new CommonException(ErrorEnum.USER_NOTFOUND);
     }
@@ -72,7 +79,7 @@ public class PdUserServiceImpl implements PdUserService {
     @Override
     public PdUser cancelUser(int id) {
         PdUser user = findUserById(id);
-        if (user != null) {
+        if (!Objects.isNull(user)) {
             user.setUserState(UserStateEnum.getStateEnumById(2));
             updateUser(user);
             return user;
@@ -82,7 +89,7 @@ public class PdUserServiceImpl implements PdUserService {
 
     @Override
     public List<PdUser> findUsers(PdUser user, int start, int limit) {
-        if (user != null) {
+        if (!Objects.isNull(user)) {
             List<PdUser> results = userDao.findUsers(user, start, limit);
             if (results.size() > 0) {
                 return results;
