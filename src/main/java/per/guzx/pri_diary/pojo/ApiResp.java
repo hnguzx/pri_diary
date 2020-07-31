@@ -10,7 +10,7 @@ public class ApiResp<T> implements Serializable {
     /**
      * 正常响应码
      */
-    private static final int SUCCESS_CODE = 0;
+    private static final int SUCCESS_CODE = 200;
     /**
      * 正常响应信息
      */

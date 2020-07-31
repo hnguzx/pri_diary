@@ -1,6 +1,5 @@
 package per.guzx.pri_diary.service;
 
-import per.guzx.pri_diary.exception.CommonException;
 import per.guzx.pri_diary.pojo.PdUser;
 
 import java.util.List;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
-import per.guzx.pri_diary.exception.CommonException;
+import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdDiary;
 
 import javax.servlet.http.Part;
@@ -80,7 +80,7 @@ public class FileUtil {
                 return file;
             }
         }
-        throw new CommonException(ErrorEnum.FILE_NOT_FOUND);
+        throw new ServiceException(ErrorEnum.FILE_NOT_FOUND);
     }
 
     /**

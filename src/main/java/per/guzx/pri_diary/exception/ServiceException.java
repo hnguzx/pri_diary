@@ -2,11 +2,14 @@ package per.guzx.pri_diary.exception;
 
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 
-public class CommonException extends RuntimeException {
+/**
+ * 服务错误
+ */
+public class ServiceException extends RuntimeException {
 
     private ErrorEnum errorEnum;
 
-    public CommonException(ErrorEnum errorEnum) {
+    public ServiceException(ErrorEnum errorEnum) {
         super(errorEnum.getMsg());
         this.errorEnum = errorEnum;
     }

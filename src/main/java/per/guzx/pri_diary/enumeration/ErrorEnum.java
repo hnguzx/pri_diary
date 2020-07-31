@@ -4,19 +4,10 @@ package per.guzx.pri_diary.enumeration;
  * 可以都保存到redis中
  */
 public enum ErrorEnum {
-    /**
-     * 1：公共错误
-     * 2：用户相关
-     * 3：日记相关
-     * 4:
-     * 5：
-     * 6：
-     * 7：
-     * 8：
-     * 9：
-     */
 
-    SYS_ERROR(999999, "系统错误"),
+    REQUEST_FAIL(400, "请求失败"),
+    NOT_FOUND(404, "接口不存在"),
+    SYS_ERROR(500, "系统错误"),
     UPDATE_INFO_FAIL(100000, "数据更新失败！"),
     INFO_IS_LATEST(100001, "数据已是最新！"),
     DATA_EXCEPTION(100002, "数据异常！"),

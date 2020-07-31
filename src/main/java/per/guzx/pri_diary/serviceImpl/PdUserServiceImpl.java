@@ -3,13 +3,11 @@ package per.guzx.pri_diary.serviceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdUserDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
-import per.guzx.pri_diary.exception.CommonException;
+import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 
@@ -25,7 +23,7 @@ public class PdUserServiceImpl implements PdUserService {
     private PdUserDao userDao;
 
     @Override
-    public PdUser insertUser(PdUser user) throws CommonException {
+    public PdUser insertUser(PdUser user) throws ServiceException {
         if (user.getUserId() == null) {
             user.setUserState(UserStateEnum.getStateEnumById(3));
         }
@@ -33,7 +31,7 @@ public class PdUserServiceImpl implements PdUserService {
         if (result > 0) {
             return user;
         }
-        throw new CommonException(ErrorEnum.USER_INSERT_FAIL);
+        throw new ServiceException(ErrorEnum.USER_INSERT_FAIL);
     }
 
     @Override
@@ -42,23 +40,23 @@ public class PdUserServiceImpl implements PdUserService {
         if (isUser != null) {
             return isUser;
         }
-        throw new CommonException(ErrorEnum.USER_INFO_EXC);
+        throw new ServiceException(ErrorEnum.USER_INFO_EXC);
     }
 
     @Override
     public int updateUser(PdUser user) {
         PdUser remoteUser = findUserById(user.getUserId());
         if (Objects.isNull(user)) {
-            throw new CommonException(ErrorEnum.USER_INFO_EXC);
+            throw new ServiceException(ErrorEnum.USER_INFO_EXC);
         }
         if (!user.equals(remoteUser)) {
             int result = userDao.updateUser(user);
             if (result > 0) {
                 return result;
             }
-            throw new CommonException(ErrorEnum.USER_INFO_EXC);
+            throw new ServiceException(ErrorEnum.USER_INFO_EXC);
         } else {
-            throw new CommonException(ErrorEnum.INFO_IS_LATEST);
+            throw new ServiceException(ErrorEnum.INFO_IS_LATEST);
         }
 
     }
@@ -69,7 +67,7 @@ public class PdUserServiceImpl implements PdUserService {
         if (!Objects.isNull(user)) {
             return user;
         }
-        throw new CommonException(ErrorEnum.USER_NOTFOUND);
+        throw new ServiceException(ErrorEnum.USER_NOTFOUND);
     }
 
     @Override
@@ -80,9 +78,9 @@ public class PdUserServiceImpl implements PdUserService {
             if (result > 0) {
                 return user;
             }
-            throw new CommonException(ErrorEnum.USER_INFO_EXC);
+            throw new ServiceException(ErrorEnum.USER_INFO_EXC);
         }
-        throw new CommonException(ErrorEnum.USER_NOTFOUND);
+        throw new ServiceException(ErrorEnum.USER_NOTFOUND);
     }
 
     @Override
@@ -93,7 +91,7 @@ public class PdUserServiceImpl implements PdUserService {
             updateUser(user);
             return user;
         }
-        throw new CommonException(ErrorEnum.USER_NOTFOUND);
+        throw new ServiceException(ErrorEnum.USER_NOTFOUND);
     }
 
     @Override
@@ -104,6 +102,6 @@ public class PdUserServiceImpl implements PdUserService {
                 return results;
             }
         }
-        throw new CommonException(ErrorEnum.USER_NOTFOUND);
+        throw new ServiceException(ErrorEnum.USER_NOTFOUND);
     }
 }
