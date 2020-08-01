@@ -2,11 +2,13 @@ package per.guzx.pri_diary.enumeration;
 
 public enum WeathEnum {
 
-    SUNNY(1, "晴"),
-    CLOUDY(2, "阴"),
-    RAIN(3, "雨"),
-    SNOW(4, "雪"),
-    WIND(5, "风"),
+    SUNNY(1, "晴朗"),
+    CLOUDY(2, "阴沉"),
+    RAINY(3, "小雨"),
+    SNOWY(4, "下雪"),
+    WINDY(5, "刮风"),
+    FOGGY (6, "雾/霾"),
+    STORMY(7, "闪电"),
     DESTROY(0, "地球毁灭");
 
     private int code;

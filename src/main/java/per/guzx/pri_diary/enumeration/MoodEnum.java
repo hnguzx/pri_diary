@@ -3,12 +3,25 @@ package per.guzx.pri_diary.enumeration;
 public enum MoodEnum {
 
 
-    SUNNY(1, "晴"),
-    CLOUDY(2, "阴"),
-    RAIN(3, "雨"),
-    SNOW(4, "雪"),
-    WIND(5, "风"),
-    DESTROY(0, "地球毁灭");
+    HAPPY(1, "开心"),
+    ENRICH(2, "充实"),
+    SURPRISED(3, "惊喜"),
+    PROUD(4, "得意"),
+    WARM(5, "温暖"),
+    TOUCH(6, "平静"),
+    SORRY(7, "难过"),
+    AGITATED(8, "烦躁"),
+    LOST(9, "迷惘"),
+    LONELY(10, "孤独"),
+    ANGRY(11, "生气"),
+    EMBARRASSED(12, "尴尬"),
+    INJUSTICE(13, "委屈"),
+    SWEET(14, "甜蜜"),
+    DREAM(15, "梦境"),
+    TIRED(16, "疲惫"),
+    ESCAPE(17, "逃避"),
+    IT_IS_A_LONG_STORY(18, "一言难尽"),
+    DONT_KNOW(19, "不知道");
 
     private int code;
     private String name;
