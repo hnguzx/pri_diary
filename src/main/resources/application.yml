@@ -23,6 +23,17 @@ spring:
       max-request-size: 30MB
       resolve-lazily: true
       file-size-threshold: 2KB
+  redis:
+    jedis:
+      pool:
+        max-active: 10
+        min-idle: 5
+        max-idle: 10
+        max-wait: 1000
+    port: 6379
+    host: 127.0.0.1
+#    password: 123456
+    timeout: 1000
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: per.guzx.pri_diary.pojo
