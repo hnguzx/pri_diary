@@ -2,7 +2,7 @@ server:
   port: 80
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/private_diary
+    url: jdbc:mysql://180.76.58.205:3306/private_diary
     username: root
     password: 970712
     tomcat:
@@ -18,7 +18,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-      location: F:\Files
+      location: /home/files
       max-file-size: 20MB
       max-request-size: 30MB
       resolve-lazily: true
@@ -31,8 +31,8 @@ spring:
         max-idle: 10
         max-wait: 1000
     port: 6379
-    host: 127.0.0.1
-#    password: 123456
+    host: 180.76.58.205
+    password: 123456
     timeout: 1000
 mybatis:
   mapper-locations: classpath:mapper/*.xml
