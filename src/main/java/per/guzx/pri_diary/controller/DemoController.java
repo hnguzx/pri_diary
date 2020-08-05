@@ -17,7 +17,6 @@ import java.net.UnknownHostException;
 
 @Controller
 @Slf4j
-@CrossOrigin
 @RequestMapping("/request")
 public class DemoController {
 
