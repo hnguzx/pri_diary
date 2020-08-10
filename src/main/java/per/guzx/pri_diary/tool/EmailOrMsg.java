@@ -33,7 +33,8 @@ public class EmailOrMsg {
             messageHelper.setSubject("私人日记");
             messageHelper.setFrom(sender);
             messageHelper.setTo(receiver);
-            messageHelper.setText("<p>" + verifyCode + "</p>", true);
+            messageHelper.setText("<p><h3>验证码:" + verifyCode + "</h3>您正在注册成为<b>私人日记</b>用户，" +
+                    "请在1分钟内完成注册。若非本人操作，请忽略。</p>", true);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
