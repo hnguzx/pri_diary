@@ -11,12 +11,15 @@ import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.EmailOrMsg;
-import per.guzx.pri_diary.tool.JSR_303;
+import per.guzx.pri_diary.tool.Validator;
 import per.guzx.pri_diary.tool.VerifyCodeFactory;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
@@ -35,37 +38,72 @@ public class PdUserController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private Validator validator;
+
 
     /**
-     * 新增用户
+     * 用户注册
      *
      * @param user
      * @return
      */
     @PostMapping("insertUser/{verifyCode}")
     public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode, Errors errors) {
-        Map<String, Object> validResult = JSR_303.validator(errors);
-        if (validResult.isEmpty()) {
-            userService.insertUser(user);
-            return ApiResp.retOk();
+
+        if (checkVerifyCode(user, verifyCode)) {
+            Map<String, Object> validResult = Validator.validator(errors);
+            if (validResult.isEmpty()) {
+                userService.insertUser(user);
+                return ApiResp.retOk();
+            }
+            return ApiResp.retFail(ErrorEnum.DATA_VALIDATE, validResult);
         }
-        return ApiResp.retFail(ErrorEnum.DATA_VALIDATE, validResult);
+        return ApiResp.retFail(ErrorEnum.VERIFY_ERROR);
+
     }
 
     /**
-     * @param email
+     * 获取验证码
+     *
+     * @param emailOrPhone
      * @return
      */
-    @GetMapping("/verifyCode/{email}")
-    public ApiResp getRegisterVerifyCode(@PathVariable("email") String email) {
+    @GetMapping("/verifyCode/{emailOrPhone}")
+    public ApiResp getRegisterVerifyCode(@PathVariable("emailOrPhone") String emailOrPhone) {
         String verifyCode = verifyCodeFactory.getCode();
-        redisTemplate.opsForValue().set("verifyCode::" + email, verifyCode, 60);
+        if (emailOrMsg.isEmail(emailOrPhone)) {
+            emailOrMsg.sendVerifyCodeEmail(emailOrPhone, verifyCode);
+        } else {
+            emailOrMsg.sendVerifyCodeMsg(emailOrPhone, verifyCode);
+        }
+        redisTemplate.opsForValue().set("verifyCode::" + emailOrPhone, verifyCode, 300, TimeUnit.SECONDS);
 
-//        String code = (String) redisTemplate.opsForValue().get("verifyCode::" + email);
-//        System.out.println(code);
-        emailOrMsg.sendVerifyCodeEmail(email, verifyCode);
         return ApiResp.retOk();
     }
+
+    /**
+     * 校验验证码
+     *
+     * @param receiverUser
+     * @param verifyCode
+     * @return
+     */
+    public boolean checkVerifyCode(PdUser receiverUser, String verifyCode) {
+        String receiverPath = "";
+
+        if (receiverUser.getUserPhone() != "" && receiverUser.getUserPhone() != null) {
+            receiverPath = receiverUser.getUserPhone();
+        } else {
+            receiverPath = receiverUser.getUserEmail();
+        }
+        String serverCode = (String) redisTemplate.opsForValue().get("verifyCode::" + receiverPath);
+        if (!serverCode.equals(verifyCode)) {
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * 根据id查找用户
@@ -73,7 +111,7 @@ public class PdUserController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ApiResp findUserById(@PathVariable("id") int id) {
         PdUser user = userService.findUserById(id);
         return ApiResp.retOk(user);
@@ -89,6 +127,57 @@ public class PdUserController {
     public ApiResp deleteUser(@PathVariable("userId") int id) {
         userService.deleteUser(id);
         return ApiResp.retOk();
+    }
+
+    /**
+     * 重置密码获取验证码
+     *
+     * @param emailOrPhone
+     * @return
+     */
+    @GetMapping("/resetPassword/verifyCode/{emailOrPhone}")
+    public ApiResp forgetPasswordGetVerifyCode(@PathVariable("emailOrPhone") String emailOrPhone) {
+        PdUser user = new PdUser();
+        String verifyCode = verifyCodeFactory.getCode();
+        if (emailOrMsg.isEmail(emailOrPhone)) {
+            user.setUserEmail(emailOrPhone);
+            int result = userService.findUserCount(user);
+            if (result == 0) {
+                return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
+            }
+            emailOrMsg.sendVerifyCodeEmail(emailOrPhone, verifyCode);
+        } else {
+            emailOrMsg.sendVerifyCodeMsg(emailOrPhone, verifyCode);
+            user.setUserPhone(emailOrPhone);
+            int result = userService.findUserCount(user);
+            if (result == 0) {
+                return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
+            }
+            emailOrMsg.sendVerifyCodeMsg(emailOrPhone, verifyCode);
+        }
+        redisTemplate.opsForValue().set("verifyCode::" + emailOrPhone, verifyCode, 300, TimeUnit.SECONDS);
+        return ApiResp.retOk();
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param user
+     * @param verifyCode
+     * @return
+     */
+    @PatchMapping("/resetPassword/{verifyCode}")
+    public ApiResp forgetPassword(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
+        int result = userService.findUserCount(user);
+        if (result > 0) {
+            if (checkVerifyCode(user, verifyCode)) {
+                userService.updateUserByEmailOrPhone(user);
+                return ApiResp.retOk();
+            }
+            return ApiResp.retFail(ErrorEnum.VERIFY_ERROR);
+        }
+
+        return ApiResp.retFail(ErrorEnum.USER_NOTFOUND);
     }
 
     /**
@@ -115,8 +204,12 @@ public class PdUserController {
      */
     @PostMapping("/{start}/{limit}")
     public ApiResp findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
+        int total = userService.findUserCount(user);
         List<PdUser> users = userService.findUsers(user, start, limit);
-        return ApiResp.retOk(users);
+        Map<String, Object> result = new HashMap<>();
+        result.put("users", users);
+        result.put("total", total);
+        return ApiResp.retOk(result);
     }
 
     /**

@@ -35,7 +35,7 @@ public class PdUser implements Serializable, Cloneable {
     /**
      * 用户性别
      */
-    @NotNull(message = "用户生日不能为空！")
+    @NotNull(message = "用户性别不能为空！")
     private SexEnum userSex;
     /**
      * 用户状态
@@ -138,6 +138,7 @@ public class PdUser implements Serializable, Cloneable {
         if (this == null) {
             return true;
         }
+        // 需要在判断是否为空！
         if (obj instanceof PdUser) {
             PdUser user = (PdUser) obj;
             if (user.getUserName().equals(this.getUserName()) &&

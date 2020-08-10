@@ -18,11 +18,11 @@
     <sql id="sql_where">
         <if test="userName !=null and userName !='' ">user_name = #{userName},</if>
         <if test="userPassword !=null and userPassword !='' ">user_password = #{userPassword},</if>
-        <if test="userState !=null and userState !='' ">user_state = #{userState},</if>
+        <if test="userState !=null ">user_state = #{userState},</if>
         <if test="userPhone !=null and userPhone !='' ">user_phone = #{userPhone},</if>
         <if test="userEmail !=null and userEmail !='' ">user_email = #{userEmail},</if>
         <if test="userBirthday !=null and userBirthday !='' ">user_birthday = #{userBirthday},</if>
-        <if test="userSex !=null and userSex !='' ">user_sex = #{userSex},</if>
+        <if test="userSex !=null ">user_sex = #{userSex},</if>
         <if test="userHead !=null and userHead !='' ">user_head = #{userHead},</if>
     </sql>
 
@@ -44,6 +44,14 @@
             <include refid="sql_where"></include>
         </set>
         where user_id = #{userId}
+    </update>
+
+    <update id="updateUserByEmailOrPhone">
+        update pd_user
+        set user_password = #{userPassword}
+        <where>
+            <include refid="sql_login"></include>
+        </where>
     </update>
 
     <select id="findUserById" parameterType="int" resultType="user">
@@ -86,6 +94,23 @@
             </if>
             <if test="user.userSex != null and user.userSex != '' ">and user_sex = #{user.userSex}</if>
             limit #{start},#{limit}
+        </where>
+    </select>
+
+    <select id="findUserCount" resultType="int">
+        select count(user_name)
+        from pd_user
+        <where>
+            <if test="userName != null and userName != '' ">and user_name like
+                concat(concat('%',#{userName}),'%')
+            </if>
+            <if test="userPhone != null and userPhone != '' ">and user_Phone like
+                concat(concat('%',#{userPhone}),'%')
+            </if>
+            <if test="userEmail != null and userEmail != '' ">and user_Email like
+                concat(concat('%',#{userEmail}),'%')
+            </if>
+            <if test="userSex != null and userSex != '' ">and user_sex = #{userSex}</if>
         </where>
     </select>
 

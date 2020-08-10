@@ -48,6 +48,13 @@ public interface PdUserDao {
     int deleteUser(int id);
 
     /**
+     * 获取符合条件的用户的数量
+     * @param user
+     * @return
+     */
+    int findUserCount(PdUser user);
+
+    /**
      * 分页查询
      *
      * @param user
@@ -62,4 +69,6 @@ public interface PdUserDao {
      * @return
      */
     List<PdUser> getUserId();
+
+    int updateUserByEmailOrPhone(PdUser user);
 }

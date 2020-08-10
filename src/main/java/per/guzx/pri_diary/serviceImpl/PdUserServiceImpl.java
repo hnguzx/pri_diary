@@ -88,7 +88,7 @@ public class PdUserServiceImpl implements PdUserService {
         PdUser user = findUserById(id);
         if (!Objects.isNull(user)) {
             user.setUserState(UserStateEnum.getStateEnumById(2));
-            updateUser(user);
+            userDao.updateUser(user);
             return user;
         }
         throw new ServiceException(ErrorEnum.USER_NOTFOUND);
@@ -103,5 +103,15 @@ public class PdUserServiceImpl implements PdUserService {
             }
         }
         throw new ServiceException(ErrorEnum.USER_NOTFOUND);
+    }
+
+    @Override
+    public int findUserCount(PdUser user) {
+        return userDao.findUserCount(user);
+    }
+
+    @Override
+    public int updateUserByEmailOrPhone(PdUser user) {
+        return userDao.updateUserByEmailOrPhone(user);
     }
 }
