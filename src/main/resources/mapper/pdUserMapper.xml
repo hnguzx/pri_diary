@@ -6,10 +6,13 @@
     <sql id="select_user">
         select user_id       userId,
                user_name     userName,
+               user_birthday userBirthday,
+               user_sex      userSex,
                user_password userPassword,
                user_state    userState,
                user_phone    userPhone,
-               user_email    userEmail
+               user_email    userEmail,
+               user_head     userHead
     </sql>
 
     <sql id="sql_where">
@@ -18,6 +21,9 @@
         <if test="userState !=null and userState !='' ">user_state = #{userState},</if>
         <if test="userPhone !=null and userPhone !='' ">user_phone = #{userPhone},</if>
         <if test="userEmail !=null and userEmail !='' ">user_email = #{userEmail},</if>
+        <if test="userBirthday !=null and userBirthday !='' ">user_birthday = #{userBirthday},</if>
+        <if test="userSex !=null and userSex !='' ">user_sex = #{userSex},</if>
+        <if test="userHead !=null and userHead !='' ">user_head = #{userHead},</if>
     </sql>
 
     <sql id="sql_login">
@@ -26,8 +32,10 @@
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into pd_user(user_name, user_password, user_state, user_phone, user_email)
-            value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail})
+        insert into pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
+                            user_head)
+            value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex}, #{userBirthday},
+                   #{userHead})
     </insert>
 
     <update id="updateUser">
@@ -67,9 +75,16 @@
         from
         pd_user
         <where>
-            <if test="user.userName != null and user.userName != '' ">and user_name like concat(concat('%',#{user.userName}),'%')</if>
-            <if test="user.userPhone != null and user.userPhone != '' ">and user_Phone like concat(concat('%',#{user.userPhone}),'%')</if>
-            <if test="user.userEmail != null and user.userEmail != '' ">and user_Email like concat(concat('%',#{user.userEmail}),'%')</if>
+            <if test="user.userName != null and user.userName != '' ">and user_name like
+                concat(concat('%',#{user.userName}),'%')
+            </if>
+            <if test="user.userPhone != null and user.userPhone != '' ">and user_Phone like
+                concat(concat('%',#{user.userPhone}),'%')
+            </if>
+            <if test="user.userEmail != null and user.userEmail != '' ">and user_Email like
+                concat(concat('%',#{user.userEmail}),'%')
+            </if>
+            <if test="user.userSex != null and user.userSex != '' ">and user_sex = #{user.userSex}</if>
             limit #{start},#{limit}
         </where>
     </select>

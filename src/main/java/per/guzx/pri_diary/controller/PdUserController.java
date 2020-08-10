@@ -29,14 +29,14 @@ public class PdUserController {
      * @param user
      * @return
      */
-    @PostMapping("insertUser")
-    public ApiResp insertUser(@Valid @RequestBody PdUser user, Errors errors) {
-        Map<String ,Object> validResult = JSR_303.validator(errors);
-        if (validResult.isEmpty()){
+    @PostMapping("insertUser/{verifyCode}")
+    public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode, Errors errors) {
+        Map<String, Object> validResult = JSR_303.validator(errors);
+        if (validResult.isEmpty()) {
             userService.insertUser(user);
             return ApiResp.retOk();
         }
-        return ApiResp.retFail(ErrorEnum.DATA_VALIDATE,validResult);
+        return ApiResp.retFail(ErrorEnum.DATA_VALIDATE, validResult);
     }
 
     /**

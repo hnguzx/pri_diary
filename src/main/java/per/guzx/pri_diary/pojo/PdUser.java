@@ -1,6 +1,7 @@
 package per.guzx.pri_diary.pojo;
 
 import org.apache.ibatis.type.Alias;
+import per.guzx.pri_diary.enumeration.SexEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
 
 import javax.validation.constraints.*;
@@ -16,14 +17,26 @@ public class PdUser implements Serializable, Cloneable {
      * 用户昵称
      */
     @NotNull(message = "用户名不能为空！")
-    @Size(min = 1,message = "用户名不能为空！")
+    @Size(min = 1, message = "用户名不能为空！")
     private String userName;
     /**
      * 登录密码
      */
     @NotNull(message = "密码不能为空！")
-    @Size(min = 6,max = 50,message = "密码长度应该在6-50位之间！")
+    @Size(min = 6, max = 50, message = "密码长度应该在6-50位之间！")
     private String userPassword;
+
+    /**
+     * 用户生日
+     */
+    @NotNull(message = "用户生日不能为空！")
+    private String userBirthday;
+
+    /**
+     * 用户性别
+     */
+    @NotNull(message = "用户生日不能为空！")
+    private SexEnum userSex;
     /**
      * 用户状态
      */
@@ -40,8 +53,13 @@ public class PdUser implements Serializable, Cloneable {
     @Email(message = "邮箱格式错误！")
     private String userEmail;
 
+    /**
+     * 用户头像图片地址
+     */
+    private String userHead;
+
     public Integer getUserId() {
-        return this.userId;
+        return userId;
     }
 
     public void setUserId(Integer userId) {
@@ -49,7 +67,7 @@ public class PdUser implements Serializable, Cloneable {
     }
 
     public String getUserName() {
-        return this.userName;
+        return userName;
     }
 
     public void setUserName(String userName) {
@@ -62,6 +80,22 @@ public class PdUser implements Serializable, Cloneable {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(String userBirthday) {
+        this.userBirthday = userBirthday;
+    }
+
+    public SexEnum getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(SexEnum userSex) {
+        this.userSex = userSex;
     }
 
     public UserStateEnum getUserState() {
@@ -88,6 +122,14 @@ public class PdUser implements Serializable, Cloneable {
         this.userEmail = userEmail;
     }
 
+    public String getUserHead() {
+        return userHead;
+    }
+
+    public void setUserHead(String userHead) {
+        this.userHead = userHead;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -100,6 +142,11 @@ public class PdUser implements Serializable, Cloneable {
             PdUser user = (PdUser) obj;
             if (user.getUserName().equals(this.getUserName()) &&
                     user.getUserPassword().equals(this.getUserPassword()) &&
+                    user.getUserBirthday().equals(this.getUserBirthday()) &&
+                    user.getUserSex().equals(this.getUserSex()) &&
+                    user.getUserPhone().equals(this.getUserPhone()) &&
+                    user.getUserEmail().equals(this.getUserEmail()) &&
+                    user.getUserHead().equals(this.getUserHead()) &&
                     user.getUserState().equals(this.getUserState())) {
                 return true;
             } else {
