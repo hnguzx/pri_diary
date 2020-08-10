@@ -2,6 +2,7 @@ package per.guzx.pri_diary.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
@@ -9,7 +10,9 @@ import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
+import per.guzx.pri_diary.tool.EmailOrMsg;
 import per.guzx.pri_diary.tool.JSR_303;
+import per.guzx.pri_diary.tool.VerifyCodeFactory;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,6 +25,16 @@ public class PdUserController {
 
     @Autowired
     private PdUserService userService;
+
+    @Autowired
+    private EmailOrMsg emailOrMsg;
+
+    @Autowired
+    private VerifyCodeFactory verifyCodeFactory;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
 
     /**
      * 新增用户
@@ -37,6 +50,21 @@ public class PdUserController {
             return ApiResp.retOk();
         }
         return ApiResp.retFail(ErrorEnum.DATA_VALIDATE, validResult);
+    }
+
+    /**
+     * @param email
+     * @return
+     */
+    @GetMapping("/verifyCode/{email}")
+    public ApiResp getRegisterVerifyCode(@PathVariable("email") String email) {
+        String verifyCode = verifyCodeFactory.getCode();
+        redisTemplate.opsForValue().set("verifyCode::" + email, verifyCode, 60);
+
+//        String code = (String) redisTemplate.opsForValue().get("verifyCode::" + email);
+//        System.out.println(code);
+        emailOrMsg.sendVerifyCodeEmail(email, verifyCode);
+        return ApiResp.retOk();
     }
 
     /**

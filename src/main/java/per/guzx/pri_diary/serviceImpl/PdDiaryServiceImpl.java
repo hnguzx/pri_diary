@@ -26,10 +26,13 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     @Autowired
     private FileUtil fileUtil;
 
+    @Autowired
+    private DateUtil dateUtil;
+
     @Override
     public int insertDiary(PdDiary diary, Part detailPhoto) {
-        diary.setDiaryCreateTime(DateUtil.getTimeStamp());
-        diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
+        diary.setDiaryCreateTime(dateUtil.getTimeStamp());
+        diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
         if (detailPhoto.getSubmittedFileName() != null) {
             String filePath = fileUtil.uploadFile(detailPhoto, diary);
             diary.setDetailPhoto(filePath);
@@ -45,7 +48,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     public int updateDiary(PdDiary diary, Part detailPhoto) {
         PdDiary remoteDiary = findDiaryOtherById(diary.getUserId(), diary.getDiaryId());
         if (!remoteDiary.equals(diary)) {
-            diary.setDiaryUpdateTime(DateUtil.getTimeStamp());
+            diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
             if (detailPhoto.getSubmittedFileName() != null) {
                 String filePath = fileUtil.uploadFile(detailPhoto, diary);
                 diary.setDetailPhoto(filePath);

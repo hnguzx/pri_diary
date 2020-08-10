@@ -29,6 +29,9 @@ public class AsyncServiceImpl implements AsyncService {
     @Autowired
     private PdDiaryDao diaryDao;
 
+    @Autowired
+    private DateUtil dateUtil;
+
     @Override
     @Async
     // 秒 分 时 天 月 星期 年（年可以不要）
@@ -44,7 +47,7 @@ public class AsyncServiceImpl implements AsyncService {
                 realDelete(photoWebPath);
             }
         }*/
-        System.out.println("定时异步任务！" + DateUtil.getTimeStamp());
+        System.out.println("定时异步任务！" + dateUtil.getTimeStamp());
     }
 
     public void realDelete(String fileName){

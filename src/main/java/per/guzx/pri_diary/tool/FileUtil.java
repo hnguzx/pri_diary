@@ -24,6 +24,9 @@ public class FileUtil {
     @Autowired
     Environment environment;
 
+    @Autowired
+    private DateUtil dateUtil;
+
     /**
      * 文件上传
      *
@@ -51,9 +54,9 @@ public class FileUtil {
         String newFileName = UUID.randomUUID().toString().substring(0, 16).replace("-", "") + "." + suffix;
 //        String newFileName = diary.getDiaryUpdateTime() + "." + suffix;
         // 文件保存路径
-        String saveDest = absolt + "/" + DateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+        String saveDest = absolt + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
         // 文件访问路径
-        String accessDest = prefix + "/" + DateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+        String accessDest = prefix + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
         File dir = new File(saveDest);
         if (!dir.exists()) {
             dir.mkdirs();
