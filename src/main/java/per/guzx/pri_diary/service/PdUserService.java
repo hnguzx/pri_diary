@@ -62,4 +62,18 @@ public interface PdUserService {
      * @return
      */
     public List<PdUser> findUsers(PdUser user, int start, int limit);
+
+    /**
+     * 获取符合条件的用户总数
+     * @param user
+     * @return
+     */
+    public int findUserCount(PdUser user);
+
+    /**
+     * 通过邮箱地址或手机号码重置密码
+     * @param user
+     * @return
+     */
+    public int updateUserByEmailOrPhone(PdUser user);
 }

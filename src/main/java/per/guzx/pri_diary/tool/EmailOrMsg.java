@@ -11,6 +11,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class EmailOrMsg {
@@ -20,6 +22,21 @@ public class EmailOrMsg {
 
     @Value("${spring.mail.username}")
     public String sender;
+
+    /**
+     * 判断用户是否是使用邮箱注册
+     * @param emailOrPhone
+     * @return
+     */
+    public boolean isEmail(String emailOrPhone){
+        String emailRegex = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher= pattern.matcher(emailOrPhone);
+        if (matcher.find()){
+            return true;
+        }
+        return false;
+    }
 
     /**
      * 邮件验证码

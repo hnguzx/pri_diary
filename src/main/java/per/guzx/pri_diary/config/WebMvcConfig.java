@@ -1,9 +1,11 @@
 package per.guzx.pri_diary.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.annotation.PostConstruct;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
@@ -50,18 +53,20 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfig
         return taskExecutor;
     }
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     /**
-     * Redis序列号相关
+     * Redis序列化相关
      *
-     * @param connectionFactory
      * @return
      */
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<Object, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
-        template.setDefaultSerializer(serializer);
-        return template;
+    @PostConstruct
+    public void redisTemplate() {
+        RedisSerializer stringSerializer = redisTemplate.getStringSerializer();
+        redisTemplate.setKeySerializer(stringSerializer);
+        redisTemplate.setValueSerializer(stringSerializer);
+        redisTemplate.setHashKeySerializer(stringSerializer);
     }
 
     /**
@@ -74,9 +79,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfig
         registry.addMapping("/**")      // 配置可以被跨域的路径，可以具体到请求路径
                 .allowedOrigins("*")        // 允许访问本网站的域名，可以多个
                 .allowCredentials(true)     // 是否可以将请求的响应暴露给页面
-                .allowedMethods("GET", "POST", "DELETE", "Patch")       // 允许进行跨域请求方式，可以多个
+                .allowedMethods("GET", "POST", "DELETE", "PATCH")       // 允许进行跨域请求方式，可以多个
                 .allowedHeaders("*")        // 允许进行跨域请求的header
-                .maxAge(60*60);     // 客户端缓存预检请求的响应时间？
+                .maxAge(60 * 60);     // 客户端缓存预检请求的响应时间？
         super.addCorsMappings(registry);
     }
 }

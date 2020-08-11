@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.tool;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -7,8 +8,10 @@ import org.springframework.validation.ObjectError;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class JSR_303 {
+@Component
+public class Validator {
 
     public static Map<String, Object> validator(Errors errors) {
         List<ObjectError> objectErrors = errors.getAllErrors();
@@ -26,5 +29,12 @@ public class JSR_303 {
             errorMap.put(key, value);
         }
         return errorMap;
+    }
+
+    public boolean isNull(String str) {
+        if (str.length() == 0 || Objects.isNull(str)) {
+            return true;
+        }
+        return false;
     }
 }
