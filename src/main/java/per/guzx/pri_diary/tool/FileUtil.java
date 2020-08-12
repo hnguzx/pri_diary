@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.tool;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,7 @@ import java.net.UnknownHostException;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class FileUtil {
 
     @Value("${spring.servlet.multipart.location}")
@@ -44,6 +46,7 @@ public class FileUtil {
             address = Inet4Address.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            log.error(ErrorEnum.FILE_UPLOAD.getMsg() + e);
         }
         String prefix = "http://" + address + ":" + port + "/File";
         String suffix = "";
@@ -66,6 +69,7 @@ public class FileUtil {
             detailPhoto.write(filename);
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("文件写入错误！");
         }
         return accessDest + newFileName;
     }

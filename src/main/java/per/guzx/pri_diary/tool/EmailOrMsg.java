@@ -1,11 +1,13 @@
 package per.guzx.pri_diary.tool;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import per.guzx.pri_diary.enumeration.ErrorEnum;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -15,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
+@Slf4j
 public class EmailOrMsg {
 
     @Autowired
@@ -25,14 +28,15 @@ public class EmailOrMsg {
 
     /**
      * 判断用户是否是使用邮箱注册
+     *
      * @param emailOrPhone
      * @return
      */
-    public boolean isEmail(String emailOrPhone){
+    public boolean isEmail(String emailOrPhone) {
         String emailRegex = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
         Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher= pattern.matcher(emailOrPhone);
-        if (matcher.find()){
+        Matcher matcher = pattern.matcher(emailOrPhone);
+        if (matcher.find()) {
             return true;
         }
         return false;
@@ -54,6 +58,7 @@ public class EmailOrMsg {
                     "请在1分钟内完成注册。若非本人操作，请忽略。</p>", true);
         } catch (MessagingException e) {
             e.printStackTrace();
+            log.error(ErrorEnum.EMAIL_SEND_ERROR.getMsg());
         }
         javaMailSender.send(messageHelper.getMimeMessage());
     }
@@ -64,5 +69,10 @@ public class EmailOrMsg {
      */
     @Async
     public void sendVerifyCodeMsg(String receiver, String verifyCode) {
+        try {
+
+        } catch (Exception e) {
+            log.error(ErrorEnum.MSG_SEND_ERROR.getMsg());
+        }
     }
 }

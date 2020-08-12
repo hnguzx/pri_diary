@@ -18,6 +18,8 @@ public enum ErrorEnum {
     USER_NOTFOUND(200000, "用户信息不存在！"),
     USER_INSERT_FAIL(200001, "新增用户失败！"),
     USER_INFO_EXC(200002, "用户信息异常！"),
+    EMAIL_SEND_ERROR(200003, "邮件发送错误！"),
+    MSG_SEND_ERROR(200003, "邮件发送错误！"),
     DIARY_NOTFOUND(300000, "日记信息不存在！");
 
     private int code;
