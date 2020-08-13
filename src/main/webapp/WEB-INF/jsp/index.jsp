@@ -39,8 +39,8 @@
 
                 $.ajax({
                     // url: "../diary/" + userId + "/" + global,
-                    url: "../diary/updateDiary/",
-                    type: "patch",
+                    url: "../diary/insertDiary/",
+                    type: "post",
                     // type: "delete",
                     data: formData,
                     cache: false,
@@ -49,7 +49,7 @@
                     processData: false,
                     success: function (result) {
                         // $("#img").attr("src",result.data.detailPhoto)
-                        // alert(result.data.detailPhoto);
+                        alert(result);
                     }
                 });
             })

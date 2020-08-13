@@ -70,6 +70,7 @@ public class FileUtil {
         } catch (IOException e) {
             e.printStackTrace();
             log.error("文件写入错误！");
+            throw new ServiceException(ErrorEnum.FILE_UPLOAD);
         }
         return accessDest + newFileName;
     }

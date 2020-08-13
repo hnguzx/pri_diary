@@ -18,7 +18,10 @@ spring:
   servlet:
     multipart:
       enabled: true
-      location: /home/files
+#      服务器
+#      location: /home/files
+#      本地
+      location: F:/Files/
       max-file-size: 20MB
       max-request-size: 30MB
       resolve-lazily: true
