@@ -2,14 +2,26 @@ package per.guzx.pri_diary.enumeration;
 
 public enum WeathEnum {
 
-    SUNNY(1, "晴朗"),
-    CLOUDY(2, "阴沉"),
-    RAINY(3, "小雨"),
-    SNOWY(4, "下雪"),
-    WINDY(5, "刮风"),
-    FOGGY (6, "雾/霾"),
-    STORMY(7, "闪电"),
-    DESTROY(0, "地球毁灭");
+    SUNNY_DAY(1, "晴-昼"),
+    SUNNY_NIGHT(2, "晴-夜"),
+    HAIL(3, "冰雹"),
+    HEAVY_SNOW(4, "大雪"),
+    HEAVY_RAIN(5, "大雨"),
+    HEAVY_RAIN_DAY(6, "多云-昼"),
+    HEAVY_RAIN_NIGHT(7, "多云-夜"),
+    FLOATING_DUST(8, "浮尘"),
+    THUNDER_AND_LIGHTNING(9, "雷电"),
+    HAZE(10, "霾"),
+    TYPHOON(11, "台风"),
+    FOG(12, "雾"),
+    LIGHT_SNOW(13, "小雪"),
+    LIGHT_RAIN(14, "小雨"),
+    CLOUDY_DAY(15, "阴天"),
+    SNOW_SHOWER_DAY(16, "阵雪-昼"),
+    SNOW_SHOWER_NIGHT(17, "阵雪-夜"),
+    SHOWER_DAY(18, "阵雨-昼"),
+    SHOWER_NIGHT(19, "阵雨-夜"),
+    RAISE_SAND(20, "扬沙");
 
     private int code;
     private String name;

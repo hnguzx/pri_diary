@@ -48,7 +48,7 @@
                     contentType: false,
                     processData: false,
                     success: function (result) {
-                        // $("#img").attr("src",result.data.detailPhoto)
+                        $("#img").attr("src",result.data.detailPhoto)
                         alert(result);
                     }
                 });
@@ -72,8 +72,7 @@
 
 
     <input id="submit" type="button" value="提交">
-    <img src="http://localhost/File/20200729/5/3/3/3f080c02e1c347.jfif" id="img" width="100px" height="100px">
-    <%--    <input type="submit"  value="提交">--%>
+    <img src="" id="img" width="100px" height="100px">
 </form>
 </body>
 </html>

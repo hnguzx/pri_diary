@@ -20,7 +20,7 @@ public class PdDiaryController {
     @PostMapping("/insertDiary")
     public ApiResp insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
         diaryService.insertDiary(diary, detailPhoto);
-        return ApiResp.retOk();
+        return ApiResp.retOk(diary);
     }
 
     @PatchMapping("/updateDiary")

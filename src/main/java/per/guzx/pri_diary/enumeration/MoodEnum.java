@@ -20,8 +20,7 @@ public enum MoodEnum {
     DREAM(15, "梦境"),
     TIRED(16, "疲惫"),
     ESCAPE(17, "逃避"),
-    IT_IS_A_LONG_STORY(18, "一言难尽"),
-    DONT_KNOW(19, "不知道");
+    IT_IS_A_LONG_STORY(18, "一言难尽");
 
     private int code;
     private String name;
