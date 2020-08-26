@@ -42,10 +42,10 @@
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
-                             detail_content, detail_photo, diary_create_time, diary_update_time)
+                             detail_content, detail_photo, diary_create_time, diary_update_time,diary_longitude,diary_latitude)
             value
             (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
-             #{detailContent}, #{detailPhoto}, #{diaryCreateTime}, #{diaryUpdateTime})
+             #{detailContent}, #{detailPhoto}, #{diaryCreateTime}, #{diaryUpdateTime},#{diaryLongitude},#{diaryLatitude})
     </insert>
 
     <update id="updateDiary">

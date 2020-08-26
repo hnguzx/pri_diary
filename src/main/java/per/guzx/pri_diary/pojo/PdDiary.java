@@ -49,6 +49,14 @@ public class PdDiary implements Serializable, Cloneable {
      */
     private String diaryLocation;
     /**
+     * 当天日记所在经度
+     */
+    private String diaryLongitude;
+    /**
+     * 当天日记所在纬度
+     */
+    private String diaryLatitude;
+    /**
      * 日志详情
      */
     private String detailContent;
@@ -151,6 +159,22 @@ public class PdDiary implements Serializable, Cloneable {
 
     public void setDetailPhoto(String detailPhoto) {
         this.detailPhoto = detailPhoto;
+    }
+
+    public String getDiaryLongitude() {
+        return diaryLongitude;
+    }
+
+    public void setDiaryLongitude(String diaryLongitude) {
+        this.diaryLongitude = diaryLongitude;
+    }
+
+    public String getDiaryLatitude() {
+        return diaryLatitude;
+    }
+
+    public void setDiaryLatitude(String diaryLatitude) {
+        this.diaryLatitude = diaryLatitude;
     }
 
     @Override

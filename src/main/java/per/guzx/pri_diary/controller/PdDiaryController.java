@@ -3,11 +3,15 @@ package per.guzx.pri_diary.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdDiary;
 import per.guzx.pri_diary.service.PdDiaryService;
 
 import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,6 +20,11 @@ import java.util.List;
 public class PdDiaryController {
     @Autowired
     private PdDiaryService diaryService;
+
+    @PostMapping("/uploadImg")
+    public ApiResp uploadImg( @RequestParam("detailPhoto") Part detailPhoto) {
+        return ApiResp.retOk();
+    }
 
     @PostMapping("/insertDiary")
     public ApiResp insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
