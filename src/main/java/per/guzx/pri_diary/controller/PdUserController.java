@@ -50,7 +50,7 @@ public class PdUserController {
      */
     @PostMapping("insertUser/{verifyCode}")
     public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode, Errors errors) {
-
+        log.trace("用户注册：" + user.getUserEmail());
         if (checkVerifyCode(user, verifyCode)) {
             Map<String, Object> validResult = Validator.validator(errors);
             if (validResult.isEmpty()) {
@@ -72,6 +72,7 @@ public class PdUserController {
     @GetMapping("/verifyCode/{emailOrPhone}")
     public ApiResp getRegisterVerifyCode(@PathVariable("emailOrPhone") String emailOrPhone) {
         String verifyCode = verifyCodeFactory.getCode();
+        log.trace("用户获取验证码：" + emailOrPhone);
         if (emailOrMsg.isEmail(emailOrPhone)) {
             emailOrMsg.sendVerifyCodeEmail(emailOrPhone, verifyCode);
         } else {
@@ -101,6 +102,7 @@ public class PdUserController {
         if (!serverCode.equals(verifyCode)) {
             return false;
         }
+        redisTemplate.opsForValue().set("verifyCode::" + receiverPath, verifyCode, 1, TimeUnit.SECONDS);
         return true;
     }
 

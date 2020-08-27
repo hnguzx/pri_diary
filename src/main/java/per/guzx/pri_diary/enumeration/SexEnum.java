@@ -2,8 +2,9 @@ package per.guzx.pri_diary.enumeration;
 
 public enum SexEnum {
 
-    MALE(1, "男"),
-    FEMALE(0, "女");
+    FEMALE(0, "女"),
+    MALE(1, "男");
+
 
     private int code;
     private String name;

@@ -70,5 +70,17 @@ public interface PdUserDao {
      */
     List<PdUser> getUserId();
 
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
     int updateUserByEmailOrPhone(PdUser user);
+
+    /**
+     * 获取指定邮箱或手机号的注册数量
+     * @param user
+     * @return
+     */
+    int findEmailOrPhone(PdUser user);
 }

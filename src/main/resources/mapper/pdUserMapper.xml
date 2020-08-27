@@ -33,9 +33,9 @@
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
         insert into pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
-                            user_head)
+                            user_head, user_create_time)
             value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex}, #{userBirthday},
-                   #{userHead})
+                   #{userHead}, #{userCreateTime})
     </insert>
 
     <update id="updateUser">
@@ -118,4 +118,13 @@
         <include refid="select_user"></include>
         from pd_user
     </select>
+
+    <select id="findEmailOrPhone" resultType="int">
+        select count(user_id) from pd_user
+        <where>
+            <if test="userEmail != null and userEmail != '' ">user_Email = #{userEmail}</if>
+            <if test="userPhone != null and userPhone != '' ">user_phone = #{userPhone}</if>
+        </where>
+    </select>
+
 </mapper>

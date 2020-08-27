@@ -58,6 +58,11 @@ public class PdUser implements Serializable, Cloneable {
      */
     private String userHead;
 
+    /**
+     * 用户创建时间
+     */
+    private String userCreateTime;
+
     public Integer getUserId() {
         return userId;
     }
@@ -128,6 +133,14 @@ public class PdUser implements Serializable, Cloneable {
 
     public void setUserHead(String userHead) {
         this.userHead = userHead;
+    }
+
+    public String getUserCreateTime() {
+        return userCreateTime;
+    }
+
+    public void setUserCreateTime(String userCreateTime) {
+        this.userCreateTime = userCreateTime;
     }
 
     @Override

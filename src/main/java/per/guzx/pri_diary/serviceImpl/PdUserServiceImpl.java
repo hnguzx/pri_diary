@@ -10,6 +10,7 @@ import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
+import per.guzx.pri_diary.tool.DateUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,10 +23,16 @@ public class PdUserServiceImpl implements PdUserService {
     @Autowired
     private PdUserDao userDao;
 
+    @Autowired
+    private DateUtil dateUtil;
+
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
-        if (user.getUserId() == null) {
-            user.setUserState(UserStateEnum.getStateEnumById(3));
+        user.setUserState(UserStateEnum.getStateEnumById(3));
+        user.setUserCreateTime(dateUtil.getTimeStamp());
+        int count = userDao.findEmailOrPhone(user);
+        if (count > 0) {
+            throw new ServiceException(ErrorEnum.USER_INFO_EXIST);
         }
         int result = userDao.insertUser(user);
         if (result > 0) {
@@ -45,7 +52,7 @@ public class PdUserServiceImpl implements PdUserService {
 
     @Override
     public int updateUser(PdUser user) {
-        PdUser remoteUser = findUserById(user.getUserId());
+        PdUser remoteUser = userDao.findUserByPhoneOrEmail(user);
         if (Objects.isNull(user)) {
             throw new ServiceException(ErrorEnum.USER_INFO_EXC);
         }
