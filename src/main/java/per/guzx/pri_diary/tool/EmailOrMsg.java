@@ -26,6 +26,8 @@ public class EmailOrMsg {
     @Value("${spring.mail.username}")
     public String sender;
 
+//    public static final String registerNot
+
     /**
      * 判断用户是否是使用邮箱注册
      *
@@ -41,6 +43,8 @@ public class EmailOrMsg {
         }
         return false;
     }
+
+    public void sendNotice(String receiver,String verifyCode,String noticeTemplate){}
 
     /**
      * 邮件验证码

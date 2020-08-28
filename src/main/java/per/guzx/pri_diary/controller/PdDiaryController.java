@@ -3,15 +3,11 @@ package per.guzx.pri_diary.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdDiary;
 import per.guzx.pri_diary.service.PdDiaryService;
 
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,7 +18,7 @@ public class PdDiaryController {
     private PdDiaryService diaryService;
 
     @PostMapping("/uploadImg")
-    public ApiResp uploadImg( @RequestParam("detailPhoto") Part detailPhoto) {
+    public ApiResp uploadImg(@RequestParam("detailPhoto") Part detailPhoto) {
         return ApiResp.retOk();
     }
 
@@ -57,9 +53,9 @@ public class PdDiaryController {
         return ApiResp.retOk(diaries);
     }
 
-    @GetMapping("/{userId}/{global}")
-    public ApiResp findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable("global") String global) {
-        List<PdDiary> diaries = diaryService.findDiaryByGlobal(userId, global);
+    @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
+    public ApiResp findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
+        List<PdDiary> diaries = diaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(diaries);
     }
 

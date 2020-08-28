@@ -33,6 +33,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     public int insertDiary(PdDiary diary, Part detailPhoto) {
         diary.setDiaryCreateTime(dateUtil.getTimeStamp());
         diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
+        diary.setDiaryCreateDay(dateUtil.getDateStamp());
         if (detailPhoto.getSubmittedFileName() != null) {
             String filePath = fileUtil.uploadFile(detailPhoto, diary);
             diary.setDetailPhoto(filePath);
@@ -97,8 +98,8 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     }
 
     @Override
-    public List<PdDiary> findDiaryByGlobal(int userId, String global) {
-        List<PdDiary> diaries = diaryDao.findDiaryByGlobal(userId, global);
+    public List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size) {
+        List<PdDiary> diaries = diaryDao.findDiaryByGlobal(userId, global, start, size);
         if (diaries.size() > 0) {
             return diaries;
         }

@@ -61,11 +61,12 @@ public interface PdDiaryService {
     public List<PdDiary> findDiaryAll(int userId);
 
     /**
-     * 根据关键字查找日记
-     *
+     * 根据关键字分页查询日记
      * @param userId
      * @param global
+     * @param start
+     * @param size
      * @return
      */
-    public List<PdDiary> findDiaryByGlobal(int userId, String global);
+    public List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size);
 }

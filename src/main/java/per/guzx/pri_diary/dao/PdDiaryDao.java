@@ -25,6 +25,7 @@ public interface PdDiaryDao {
 
     /**
      * 删除指定用户的指定日记
+     *
      * @param userId
      * @param diaryId
      * @return
@@ -33,19 +34,21 @@ public interface PdDiaryDao {
 
     /**
      * 获取指定用户的指定日记
+     *
      * @param userId
      * @param diaryId
      * @return
      */
-    PdDiary findDiaryById(int userId,int diaryId);
+    PdDiary findDiaryById(int userId, int diaryId);
 
     /**
      * 获取日记其它信息（除了创建时间，更新时间，封面图片，主要内容）
+     *
      * @param userId
      * @param diaryId
      * @return
      */
-    PdDiary findDiaryOtherById(int userId,int diaryId);
+    PdDiary findDiaryOtherById(int userId, int diaryId);
 
     /**
      * 获取用户的所有日记
@@ -55,16 +58,18 @@ public interface PdDiaryDao {
     List<PdDiary> findDiaryAll(int userId);
 
     /**
-     * 根据关键字查询日记
-     *
+     * 根据关键字分页查询日记
      * @param userId
      * @param global
+     * @param start
+     * @param size
      * @return
      */
-    List<PdDiary> findDiaryByGlobal(int userId, String global);
+    List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size);
 
     /**
      * 获取指定用户的所有日记
+     *
      * @return
      */
     List<PdDiary> findDiaryByUserId(int userId);

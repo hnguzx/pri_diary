@@ -42,10 +42,12 @@
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
-                             detail_content, detail_photo, diary_create_time, diary_update_time,diary_longitude,diary_latitude)
+                             detail_content, detail_photo, diary_create_time, diary_update_time, diary_longitude,
+                             diary_latitude, diary_create_day)
             value
             (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
-             #{detailContent}, #{detailPhoto}, #{diaryCreateTime}, #{diaryUpdateTime},#{diaryLongitude},#{diaryLatitude})
+             #{detailContent}, #{detailPhoto}, #{diaryCreateTime}, #{diaryUpdateTime}, #{diaryLongitude},
+             #{diaryLatitude}, #{diaryCreateDay})
     </insert>
 
     <update id="updateDiary">
@@ -93,10 +95,13 @@
         pd_diary
         <where>
             user_id = #{userId}
-            and
-            concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time,detail_content)
-            like concat(concat('%',#{global}),'%')
+            <if test="global != null">
+                and
+                concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time,detail_content)
+                like concat(concat('%',#{global}),'%')
+            </if>
             order by diary_update_time
+            limit #{start},#{size}
         </where>
     </select>
 

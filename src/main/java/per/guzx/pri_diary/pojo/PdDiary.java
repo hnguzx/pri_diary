@@ -65,6 +65,10 @@ public class PdDiary implements Serializable, Cloneable {
      */
     private String detailPhoto;
     /**
+     * 日记创建日期
+     */
+    private String diaryCreateDay;
+    /**
      * 日记创建时间
      */
     private String diaryCreateTime;
@@ -175,6 +179,14 @@ public class PdDiary implements Serializable, Cloneable {
 
     public void setDiaryLatitude(String diaryLatitude) {
         this.diaryLatitude = diaryLatitude;
+    }
+
+    public String getDiaryCreateDay() {
+        return diaryCreateDay;
+    }
+
+    public void setDiaryCreateDay(String diaryCreateDay) {
+        this.diaryCreateDay = diaryCreateDay;
     }
 
     @Override

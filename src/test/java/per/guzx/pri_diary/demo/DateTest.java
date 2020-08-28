@@ -1,6 +1,4 @@
-package per.guzx.pri_diary.tool;
-
-import org.springframework.stereotype.Component;
+package per.guzx.pri_diary.demo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,29 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class DateUtil {
-    /**
-     * 获取当前时间戳
-     *
-     * @return
-     */
-    public String getTimeStamp() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        return dateFormat.format(new Date());
-    }
-
-    /**
-     * 获取当前日期
-     *
-     * @return
-     */
-    public String getDateStamp() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        return dateFormat.format(new Date());
-    }
-
-    public Map<String, String> getWeekDate() {
+public class DateTest {
+    public static void main(String[] args) {
         Map<String, String> map = new HashMap();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
@@ -52,9 +29,5 @@ public class DateUtil {
         Date sundayDate = cal.getTime();
         String weekEnd = sdf.format(sundayDate);
 //        System.out.println("所在周星期日的日期：" + weekEnd);
-
-        map.put("mondayDate", weekBegin);
-        map.put("sundayDate", weekEnd);
-        return map;
     }
 }
