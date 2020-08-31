@@ -13,7 +13,9 @@ import per.guzx.pri_diary.tool.DateUtil;
 import per.guzx.pri_diary.tool.FileUtil;
 
 import javax.servlet.http.Part;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -105,4 +107,40 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         }
         throw new ServiceException(ErrorEnum.DIARY_NOTFOUND);
     }
+
+    @Override
+    public Map<String, Object> getDiaryNumber(int userId) {
+        Map<String, Integer> diaryNumber = diaryDao.getDiaryCountAndDiaryDay(userId);
+        List<Map<String, String>> diaryOther = diaryDao.getDiaryOther(userId);
+        int DiaryAndAddressTotal = diaryDao.getDiaryAndAddress(userId);
+
+        Map dateMap = dateUtil.getWeekDate();
+        int weekRecordTotal = diaryDao.getWeekDiaryCount(userId, (String) dateMap.get("mondayDate"), (String) dateMap.get("sundayDate"));
+        diaryNumber.put("weekRecordTotal", weekRecordTotal);
+
+        List<Map<String, String>> weatherList = diaryDao.getWeatherTimes(userId);
+        if (weatherList.size() > 6) {
+            weatherList = weatherList.subList(0, 6);
+        }
+        List<Map<String, String>> moodList = diaryDao.getMoodTimes(userId);
+        if (moodList.size() > 6) {
+            moodList = moodList.subList(0, 6);
+        }
+        List<Map<String, String>> eventList = diaryDao.getEventTimes(userId);
+        if (eventList.size() > 6) {
+            eventList = eventList.subList(0, 6);
+        }
+
+
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.putAll(diaryNumber);
+        result.put("diaryOther", diaryOther);
+        result.put("DiaryAndAddressTotal", DiaryAndAddressTotal);
+        result.put("weatherList", weatherList);
+        result.put("moodList", moodList);
+        result.put("eventList", eventList);
+
+        return result;
+    }
+
 }

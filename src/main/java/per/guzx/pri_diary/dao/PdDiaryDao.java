@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import per.guzx.pri_diary.pojo.PdDiary;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface PdDiaryDao {
@@ -59,6 +60,7 @@ public interface PdDiaryDao {
 
     /**
      * 根据关键字分页查询日记
+     *
      * @param userId
      * @param global
      * @param start
@@ -73,4 +75,43 @@ public interface PdDiaryDao {
      * @return
      */
     List<PdDiary> findDiaryByUserId(int userId);
+
+    /**
+     * 获取指定用户的日记数量和总字数以及记录的天数
+     *
+     * @param userId
+     * @return
+     */
+    Map<String, Integer> getDiaryCountAndDiaryDay(int userId);
+
+    /**
+     * 获取指定用户一周内的日记数量
+     *
+     * @param userId
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
+    int getWeekDiaryCount(int userId, String beginDate, String endDate);
+
+    /**
+     * 获取指定用户的所有日记标签
+     *
+     * @param userId
+     * @return
+     */
+    List<Map<String, String>> getDiaryOther(int userId);
+
+    /**
+     * 获取有定位的日记数量
+     *
+     * @return
+     */
+    int getDiaryAndAddress(int userId);
+
+    List<Map<String, String>> getWeatherTimes(int userId);
+
+    List<Map<String, String>> getMoodTimes(int userId);
+
+    List<Map<String, String>> getEventTimes(int userId);
 }

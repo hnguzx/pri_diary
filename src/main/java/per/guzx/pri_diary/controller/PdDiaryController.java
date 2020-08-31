@@ -9,6 +9,7 @@ import per.guzx.pri_diary.service.PdDiaryService;
 
 import javax.servlet.http.Part;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/diary")
@@ -57,6 +58,12 @@ public class PdDiaryController {
     public ApiResp findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
         List<PdDiary> diaries = diaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(diaries);
+    }
+
+    @GetMapping("/getDiaryNumber/{userId}")
+    public ApiResp getDiaryNumber(@PathVariable("userId") int userId) {
+        Map<String, Object> result = diaryService.getDiaryNumber(userId);
+        return ApiResp.retOk(result);
     }
 
 }

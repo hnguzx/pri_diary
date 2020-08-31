@@ -112,4 +112,67 @@
         where
         user_id = #{userId}
     </select>
+
+    <select id="getDiaryCountAndDiaryDay" resultType="java.util.HashMap">
+        select count(DISTINCT diary_create_day) as recordDays,
+               count(diary_id)                  as diaryTotal,
+               sum(length(detail_content))      as wordsTotal,
+               count(detail_photo)              as photoTotal,
+               count(diary_location)            as addressTotal
+        from pd_diary
+        where user_id = #{userId}
+    </select>
+
+    <select id="getWeekDiaryCount" resultType="int">
+        select count(diary_id)
+        from pd_diary
+        where diary_create_time &gt;= #{beginDate}
+          and diary_create_time &lt;= #{endDate}
+          and user_id = #{userId}
+    </select>
+
+    <select id="getDiaryOther" resultType="java.util.Map">
+        select diary_weather   as weather,
+               diary_mood      as mood,
+               diary_event     as event,
+               diary_longitude as longitude,
+               diary_latitude  as latitude,
+               detail_photo    as photo,
+               diary_id        as diaryId
+        from pd_diary
+        where user_id = #{userId}
+    </select>
+
+    <select id="getDiaryAndAddress" resultType="int">
+        select count(diary_id)
+        from pd_diary
+        where diary_location != ''
+          and user_id = #{userId}
+    </select>
+
+    <select id="getWeatherTimes" resultType="java.util.Map">
+        select diary_weather as diaryWeather,
+               count(*) as weatherTimes
+        from pd_diary
+        where user_id = #{userId}
+        GROUP BY diary_weather
+        order by weatherTimes
+            desc
+    </select>
+
+    <select id="getMoodTimes" resultType="java.util.Map">
+        select diary_mood as diaryMood, count(*) as moodTimes
+        from pd_diary
+        where user_id = #{userId}
+        GROUP BY diary_mood
+        order by moodTimes desc
+    </select>
+
+    <select id="getEventTimes" resultType="java.util.Map">
+        select diary_event diaryEvent, count(*) as eventTimes
+        from pd_diary
+        where user_id = #{userId}
+        GROUP BY diary_event
+        order by eventTimes desc
+    </select>
 </mapper>
