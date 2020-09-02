@@ -110,13 +110,37 @@ public class PdDiaryServiceImpl implements PdDiaryService {
 
     @Override
     public Map<String, Object> getDiaryNumber(int userId) {
-        Map<String, Integer> diaryNumber = diaryDao.getDiaryCountAndDiaryDay(userId);
-        List<Map<String, String>> diaryOther = diaryDao.getDiaryOther(userId);
-        int DiaryAndAddressTotal = diaryDao.getDiaryAndAddress(userId);
+        Map<String, Object> diaryNumber = diaryDao.getDiaryCountAndDiaryDay(userId);
+        int DiaryAndAddressTotal = diaryDao.getDiaryAndAddressCount(userId);
 
         Map dateMap = dateUtil.getWeekDate();
         int weekRecordTotal = diaryDao.getWeekDiaryCount(userId, (String) dateMap.get("mondayDate"), (String) dateMap.get("sundayDate"));
+
         diaryNumber.put("weekRecordTotal", weekRecordTotal);
+        diaryNumber.put("DiaryAndAddressTotal", DiaryAndAddressTotal);
+
+        return diaryNumber;
+    }
+
+    @Override
+    public Map<String, Object> getImageInfo(int userId) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<Map<String, String>> imgInfo = diaryDao.getDiaryImgInfo(userId);
+        result.put("imgInfo", imgInfo);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getAddressInfo(int userId) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<Map<String, String>> addressInfo = diaryDao.getDiaryAddressInfo(userId);
+        result.put("addressInfo", addressInfo);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getDiaryLabelInfo(int userId) {
+        Map<String, Object> result = new HashMap<String, Object>();
 
         List<Map<String, String>> weatherList = diaryDao.getWeatherTimes(userId);
         if (weatherList.size() > 6) {
@@ -130,16 +154,9 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         if (eventList.size() > 6) {
             eventList = eventList.subList(0, 6);
         }
-
-
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.putAll(diaryNumber);
-        result.put("diaryOther", diaryOther);
-        result.put("DiaryAndAddressTotal", DiaryAndAddressTotal);
         result.put("weatherList", weatherList);
         result.put("moodList", moodList);
         result.put("eventList", eventList);
-
         return result;
     }
 

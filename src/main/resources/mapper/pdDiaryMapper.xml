@@ -143,16 +143,32 @@
         where user_id = #{userId}
     </select>
 
-    <select id="getDiaryAndAddress" resultType="int">
+    <select id="getDiaryAndAddressCount" resultType="int">
         select count(diary_id)
         from pd_diary
         where diary_location != ''
           and user_id = #{userId}
     </select>
 
+    <select id="getDiaryAddressInfo" resultType="java.util.Map">
+        select diary_longitude as longitude,
+               diary_latitude  as latitude,
+               diary_id        as diaryId
+        from pd_diary
+        where diary_location != ''
+          and user_id = #{userId}
+    </select>
+
+    <select id="getDiaryImgInfo" resultType="java.util.Map">
+        select diary_id as diaryId, detail_photo as imgUrl
+        from pd_diary
+        where detail_photo != ''
+          and user_id = #{userId}
+    </select>
+
     <select id="getWeatherTimes" resultType="java.util.Map">
-        select diary_weather as diaryWeather,
-               count(*) as weatherTimes
+        select diary_weather    as diaryWeather,
+               count(*)         as weatherTimes
         from pd_diary
         where user_id = #{userId}
         GROUP BY diary_weather

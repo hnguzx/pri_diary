@@ -70,5 +70,31 @@ public interface PdDiaryService {
      */
     public List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size);
 
+    /**
+     * 获取我的日记相关统计数字
+     * @param userId
+     * @return
+     */
     public Map<String,Object> getDiaryNumber(int userId);
+
+    /**
+     * 获取日记图片信息
+     * @param userId
+     * @return
+     */
+    public Map<String,Object> getImageInfo(int userId);
+
+    /**
+     * 获取日记地址信息
+     * @param userId
+     * @return
+     */
+    public Map<String,Object> getAddressInfo(int userId);
+
+    /**
+     * 获取日记相关标签信息
+     * @param userId
+     * @return
+     */
+    public Map<String ,Object> getDiaryLabelInfo(int userId);
 }

@@ -66,4 +66,22 @@ public class PdDiaryController {
         return ApiResp.retOk(result);
     }
 
+    @GetMapping("/getImgInfo/{userId}")
+    public ApiResp getImgInfo(@PathVariable("userId") int userId) {
+        Map<String, Object> result = diaryService.getImageInfo(userId);
+        return ApiResp.retOk(result);
+    }
+
+    @GetMapping("/getAddressInfo/{userId}")
+    public ApiResp getAddressInfo(@PathVariable("userId") int userId) {
+        Map<String, Object> result = diaryService.getAddressInfo(userId);
+        return ApiResp.retOk(result);
+    }
+
+    @GetMapping("/getDiaryLabelInfo/{userId}")
+    public ApiResp getDiaryLabelInfo(@PathVariable("userId") int userId){
+        Map<String, Object> result = diaryService.getDiaryLabelInfo(userId);
+        return ApiResp.retOk(result);
+    }
+
 }

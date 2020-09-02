@@ -82,7 +82,7 @@ public interface PdDiaryDao {
      * @param userId
      * @return
      */
-    Map<String, Integer> getDiaryCountAndDiaryDay(int userId);
+    Map<String, Object> getDiaryCountAndDiaryDay(int userId);
 
     /**
      * 获取指定用户一周内的日记数量
@@ -107,11 +107,40 @@ public interface PdDiaryDao {
      *
      * @return
      */
-    int getDiaryAndAddress(int userId);
+    int getDiaryAndAddressCount(int userId);
 
+    /**
+     * 获取天气标签相关数据
+     * @param userId
+     * @return
+     */
     List<Map<String, String>> getWeatherTimes(int userId);
 
+    /**
+     * 获取心情标签相关数据
+     * @param userId
+     * @return
+     */
     List<Map<String, String>> getMoodTimes(int userId);
 
+    /**
+     * 获取事件标签相关数据
+     * @param userId
+     * @return
+     */
     List<Map<String, String>> getEventTimes(int userId);
+
+    /**
+     * 获取地址相关数据
+     * @param userId
+     * @return
+     */
+    List<Map<String, String>> getDiaryAddressInfo(int userId);
+
+    /**
+     * 获取图片相关数据
+     * @param userId
+     * @return
+     */
+    List<Map<String, String>> getDiaryImgInfo(int userId);
 }
