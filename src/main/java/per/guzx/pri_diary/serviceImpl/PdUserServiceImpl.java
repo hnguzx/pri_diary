@@ -6,12 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdUserDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
+import per.guzx.pri_diary.enumeration.SexEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.DateUtil;
+import per.guzx.pri_diary.tool.MathUtil;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +30,9 @@ public class PdUserServiceImpl implements PdUserService {
     @Autowired
     private DateUtil dateUtil;
 
+    @Autowired
+    private MathUtil mathUtil;
+
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
         user.setUserState(UserStateEnum.getStateEnumById(3));
@@ -34,11 +41,30 @@ public class PdUserServiceImpl implements PdUserService {
         if (count > 0) {
             throw new ServiceException(ErrorEnum.USER_INFO_EXIST);
         }
+        user.setUserHead(generateHeadImage(user.getUserSex()));
         int result = userDao.insertUser(user);
         if (result > 0) {
             return user;
         }
         throw new ServiceException(ErrorEnum.USER_INSERT_FAIL);
+    }
+
+    public String generateHeadImage(SexEnum sexEnum) {
+        String headImg = "";
+        log.trace("记录日志");
+        try {
+            String address = Inet4Address.getLocalHost().getHostAddress();
+
+            if (sexEnum.getName().equals("男")) {
+                headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
+            } else {
+                headImg = address + "/File/head/girl/girl_" + mathUtil.getRangeInteger(1, 14) + ".svg";
+            }
+        } catch (UnknownHostException e) {
+            log.error("获取网络地址失败" + e);
+            e.printStackTrace();
+        }
+        return headImg;
     }
 
     @Override
