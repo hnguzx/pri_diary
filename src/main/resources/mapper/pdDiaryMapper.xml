@@ -167,28 +167,30 @@
     </select>
 
     <select id="getWeatherTimes" resultType="java.util.Map">
-        select diary_weather    as diaryWeather,
-               count(*)         as weatherTimes
+        select diary_weather as label,
+               count(*)      as times
         from pd_diary
         where user_id = #{userId}
         GROUP BY diary_weather
-        order by weatherTimes
+        order by times
             desc
     </select>
 
     <select id="getMoodTimes" resultType="java.util.Map">
-        select diary_mood as diaryMood, count(*) as moodTimes
+        select diary_mood as label,
+               count(*)   as times
         from pd_diary
         where user_id = #{userId}
         GROUP BY diary_mood
-        order by moodTimes desc
+        order by times desc
     </select>
 
     <select id="getEventTimes" resultType="java.util.Map">
-        select diary_event diaryEvent, count(*) as eventTimes
+        select diary_event as label,
+               count(*)    as times
         from pd_diary
         where user_id = #{userId}
         GROUP BY diary_event
-        order by eventTimes desc
+        order by times desc
     </select>
 </mapper>
