@@ -64,8 +64,6 @@ public class PdUserServiceImpl implements PdUserService {
 //        try {
 //            String address = Inet4Address.getLocalHost().getHostAddress();
             String address = addressUtil.getV4IP();
-        File f=new File("/home/files");
-        f.setWritable(true, false);
             if (sexEnum.getName().equals("男")) {
                 headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
             } else {

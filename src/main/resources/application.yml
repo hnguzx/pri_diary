@@ -19,7 +19,7 @@ spring:
     multipart:
       enabled: true
 #      服务器
-      location: /home/files
+      location: /home/files/
 #      本地
 #      location: F:/Files/
       max-file-size: 20MB
