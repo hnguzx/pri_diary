@@ -1,1 +1,0 @@
-ALTER TABLE pd_diary add user_create_day VARCHAR(8) COMMENT '日记创建日期';

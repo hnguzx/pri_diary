@@ -13,8 +13,8 @@
                diary_location    diaryLocation,
                diary_create_time diaryCreateTime,
                diary_update_time diaryUpdateTime,
-               detail_content    detailContent,
-               detail_photo      detailPhoto
+               diary_content    diaryContent,
+               diary_photo      diaryPhoto
     </sql>
 
     <sql id="select_diary_main">
@@ -25,8 +25,8 @@
                diary_mood     diaryMood,
                diary_event    diaryEvent,
                diary_location diaryLocation,
-               detail_content detailContent,
-               detail_photo   detailPhoto
+               diary_content diaryContent,
+               diary_photo   diaryPhoto
     </sql>
 
     <sql id="sql_where">
@@ -34,19 +34,19 @@
         <if test="diaryWeather != null">diary_weather = #{diaryWeather},</if>
         <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
         <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
-        <if test="detailPhoto != null and detailPhoto != ''">detail_photo = #{detailPhoto},</if>
-        <if test="detailContent != null and detailContent != ''">detail_content = #{detailContent},</if>
+        <if test="diaryPhoto != null and diaryPhoto != ''">diary_photo = #{diaryPhoto},</if>
+        <if test="diaryContent != null and diaryContent != ''">diary_content = #{diaryContent},</if>
         <if test="diaryLocation != null and diaryLocation != ''">diary_location = #{diaryLocation},</if>
         <if test="diaryUpdateTime != null and diaryUpdateTime != ''">diary_update_time = #{diaryUpdateTime},</if>
     </sql>
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
-                             detail_content, detail_photo, diary_create_time, diary_update_time, diary_longitude,
+                             diary_content, diary_photo, diary_create_time, diary_update_time, diary_longitude,
                              diary_latitude, diary_create_day)
             value
             (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
-             #{detailContent}, #{detailPhoto}, #{diaryCreateTime}, #{diaryUpdateTime}, #{diaryLongitude},
+             #{diaryContent}, #{diaryPhoto}, #{diaryCreateTime}, #{diaryUpdateTime}, #{diaryLongitude},
              #{diaryLatitude}, #{diaryCreateDay})
     </insert>
 
@@ -97,7 +97,7 @@
             user_id = #{userId}
             <if test="global != null">
                 and
-                concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time,detail_content)
+                concat(diary_title,diary_weather,diary_mood,diary_event,diary_location,diary_create_time,diary_update_time,diary_content)
                 like concat(concat('%',#{global}),'%')
             </if>
             order by diary_update_time
@@ -116,8 +116,8 @@
     <select id="getDiaryCountAndDiaryDay" resultType="java.util.HashMap">
         select count(DISTINCT diary_create_day) as recordDays,
                count(diary_id)                  as diaryTotal,
-               sum(length(detail_content))      as wordsTotal,
-               count(detail_photo)              as photoTotal,
+               sum(CHAR_LENGTH(diary_content))      as wordsTotal,
+               count(diary_photo)              as photoTotal,
                count(diary_location)            as addressTotal
         from pd_diary
         where user_id = #{userId}
@@ -137,7 +137,7 @@
                diary_event     as event,
                diary_longitude as longitude,
                diary_latitude  as latitude,
-               detail_photo    as photo,
+               diary_photo    as photo,
                diary_id        as diaryId
         from pd_diary
         where user_id = #{userId}
@@ -160,9 +160,9 @@
     </select>
 
     <select id="getDiaryImgInfo" resultType="java.util.Map">
-        select diary_id as diaryId, detail_photo as imgUrl
+        select diary_id as diaryId, diary_photo as imgUrl
         from pd_diary
-        where detail_photo != ''
+        where diary_photo != ''
           and user_id = #{userId}
     </select>
 

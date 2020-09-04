@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 百度云数据库
  Source Server Type    : MySQL
- Source Server Version : 50527
- Source Host           : localhost:3306
+ Source Server Version : 50731
+ Source Host           : 180.76.58.205:3306
  Source Schema         : private_diary
 
  Target Server Type    : MySQL
- Target Server Version : 50527
+ Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 03/08/2020 18:23:57
+ Date: 04/09/2020 16:28:53
 */
 
 SET NAMES utf8mb4;
