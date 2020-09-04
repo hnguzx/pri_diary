@@ -55,7 +55,7 @@ public class PdUserController {
             Map<String, Object> validResult = Validator.validator(errors);
             if (validResult.isEmpty()) {
                 userService.insertUser(user);
-                return ApiResp.retOk();
+                return ApiResp.retOk(user);
             }
             return ApiResp.retFail(ErrorEnum.DATA_VALIDATE, validResult);
         }

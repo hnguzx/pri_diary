@@ -12,8 +12,8 @@ import per.guzx.pri_diary.pojo.PdDiary;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 import java.util.UUID;
 
 @Component
@@ -42,12 +42,13 @@ public class FileUtil {
         String filename = detailPhoto.getSubmittedFileName();
         String port = environment.getProperty("local.server.port");
         String address = "";
-        try {
-            address = Inet4Address.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            log.error(ErrorEnum.FILE_UPLOAD.getMsg() + e);
-        }
+//        try {
+//            address = Inet4Address.getLocalHost().getHostAddress();
+            address = getV4IP();
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//            log.error(ErrorEnum.FILE_UPLOAD.getMsg() + e);
+//        }
         String prefix = "http://" + address + ":" + port + "/File";
         String suffix = "";
         if (filename.lastIndexOf(".") != -1) {
@@ -103,5 +104,47 @@ public class FileUtil {
         if (file.exists()) {
             file.delete();
         }
+    }
+
+    /**
+     * 获取本地ip
+     *
+     * @return
+     */
+    public String getV4IP() {
+        String localip = null;// 本地IP，如果没有配置外网IP则返回它
+        String netip = null;// 外网IP
+
+        Enumeration<NetworkInterface> netInterfaces = null;
+        try {
+            netInterfaces = NetworkInterface.getNetworkInterfaces();
+        } catch (SocketException e) {
+            log.error("获取ip地址错误！");
+            e.printStackTrace();
+        }
+        InetAddress ip = null;
+        boolean finded = false;// 是否找到外网IP
+        while (netInterfaces.hasMoreElements() && !finded) {
+            NetworkInterface ni = netInterfaces.nextElement();
+            Enumeration<InetAddress> address = ni.getInetAddresses();
+            while (address.hasMoreElements()) {
+                ip = address.nextElement();
+                if (!ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {// 外网IP
+                    netip = ip.getHostAddress();
+                    finded = true;
+                    break;
+                } else if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress()
+                        && ip.getHostAddress().indexOf(":") == -1) {// 内网IP
+                    localip = ip.getHostAddress();
+                }
+            }
+        }
+
+        if (netip != null && !"".equals(netip)) {
+            return netip;
+        } else {
+            return localip;
+        }
+
     }
 }

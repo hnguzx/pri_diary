@@ -12,6 +12,7 @@ import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.DateUtil;
+import per.guzx.pri_diary.tool.FileUtil;
 import per.guzx.pri_diary.tool.MathUtil;
 
 import java.net.Inet4Address;
@@ -33,6 +34,9 @@ public class PdUserServiceImpl implements PdUserService {
     @Autowired
     private MathUtil mathUtil;
 
+    @Autowired
+    private FileUtil fileUtil;
+
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
         user.setUserState(UserStateEnum.getStateEnumById(3));
@@ -51,23 +55,25 @@ public class PdUserServiceImpl implements PdUserService {
 
     /**
      * 生成随机初始头像
+     *
      * @param sexEnum
      * @return
      */
     public String generateHeadImage(SexEnum sexEnum) {
         String headImg = "";
-        try {
-            String address = Inet4Address.getLocalHost().getHostAddress();
+//        try {
+//            String address = Inet4Address.getLocalHost().getHostAddress();
+            String address = fileUtil.getV4IP();
 
             if (sexEnum.getName().equals("男")) {
                 headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
             } else {
                 headImg = address + "/File/head/girl/girl_" + mathUtil.getRangeInteger(1, 14) + ".svg";
             }
-        } catch (UnknownHostException e) {
-            log.error("获取网络地址失败" + e);
-            e.printStackTrace();
-        }
+//        } catch (UnknownHostException e) {
+//            log.error("获取网络地址失败" + e);
+//            e.printStackTrace();
+//        }
         return headImg;
     }
 
