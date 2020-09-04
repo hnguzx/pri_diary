@@ -15,8 +15,8 @@ import per.guzx.pri_diary.tool.AddressUtil;
 import per.guzx.pri_diary.tool.DateUtil;
 import per.guzx.pri_diary.tool.MathUtil;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import java.io.File;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -64,7 +64,8 @@ public class PdUserServiceImpl implements PdUserService {
 //        try {
 //            String address = Inet4Address.getLocalHost().getHostAddress();
             String address = addressUtil.getV4IP();
-
+        File f=new File("/home/files");
+        f.setWritable(true, false);
             if (sexEnum.getName().equals("男")) {
                 headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
             } else {
