@@ -11,8 +11,8 @@ import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
+import per.guzx.pri_diary.tool.AddressUtil;
 import per.guzx.pri_diary.tool.DateUtil;
-import per.guzx.pri_diary.tool.FileUtil;
 import per.guzx.pri_diary.tool.MathUtil;
 
 import java.net.Inet4Address;
@@ -35,7 +35,7 @@ public class PdUserServiceImpl implements PdUserService {
     private MathUtil mathUtil;
 
     @Autowired
-    private FileUtil fileUtil;
+    private AddressUtil addressUtil;
 
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
@@ -63,7 +63,7 @@ public class PdUserServiceImpl implements PdUserService {
         String headImg = "";
 //        try {
 //            String address = Inet4Address.getLocalHost().getHostAddress();
-            String address = fileUtil.getV4IP();
+            String address = addressUtil.getV4IP();
 
             if (sexEnum.getName().equals("男")) {
                 headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";

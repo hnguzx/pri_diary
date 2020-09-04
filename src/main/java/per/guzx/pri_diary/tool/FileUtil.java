@@ -29,6 +29,9 @@ public class FileUtil {
     @Autowired
     private DateUtil dateUtil;
 
+    @Autowired
+    private AddressUtil addressUtil;
+
     /**
      * 文件上传
      *
@@ -44,7 +47,7 @@ public class FileUtil {
         String address = "";
 //        try {
 //            address = Inet4Address.getLocalHost().getHostAddress();
-            address = getV4IP();
+            address = addressUtil.getV4IP();
 //        } catch (UnknownHostException e) {
 //            e.printStackTrace();
 //            log.error(ErrorEnum.FILE_UPLOAD.getMsg() + e);
@@ -106,45 +109,4 @@ public class FileUtil {
         }
     }
 
-    /**
-     * 获取本地ip
-     *
-     * @return
-     */
-    public String getV4IP() {
-        String localip = null;// 本地IP，如果没有配置外网IP则返回它
-        String netip = null;// 外网IP
-
-        Enumeration<NetworkInterface> netInterfaces = null;
-        try {
-            netInterfaces = NetworkInterface.getNetworkInterfaces();
-        } catch (SocketException e) {
-            log.error("获取ip地址错误！");
-            e.printStackTrace();
-        }
-        InetAddress ip = null;
-        boolean finded = false;// 是否找到外网IP
-        while (netInterfaces.hasMoreElements() && !finded) {
-            NetworkInterface ni = netInterfaces.nextElement();
-            Enumeration<InetAddress> address = ni.getInetAddresses();
-            while (address.hasMoreElements()) {
-                ip = address.nextElement();
-                if (!ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {// 外网IP
-                    netip = ip.getHostAddress();
-                    finded = true;
-                    break;
-                } else if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress()
-                        && ip.getHostAddress().indexOf(":") == -1) {// 内网IP
-                    localip = ip.getHostAddress();
-                }
-            }
-        }
-
-        if (netip != null && !"".equals(netip)) {
-            return netip;
-        } else {
-            return localip;
-        }
-
-    }
 }
