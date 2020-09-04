@@ -49,9 +49,13 @@ public class PdUserServiceImpl implements PdUserService {
         throw new ServiceException(ErrorEnum.USER_INSERT_FAIL);
     }
 
+    /**
+     * 生成随机初始头像
+     * @param sexEnum
+     * @return
+     */
     public String generateHeadImage(SexEnum sexEnum) {
         String headImg = "";
-        log.trace("记录日志");
         try {
             String address = Inet4Address.getLocalHost().getHostAddress();
 
