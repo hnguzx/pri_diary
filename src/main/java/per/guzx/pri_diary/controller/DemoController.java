@@ -15,6 +15,9 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * 测试连通性接口
+ */
 @Controller
 @Slf4j
 @RequestMapping("/request")
@@ -26,6 +29,10 @@ public class DemoController {
     @Autowired
     Environment environment;
 
+    /**
+     * jsp页面
+     * @return
+     */
     @RequestMapping("/view")
     public String filePage() {
         String local = environment.getProperty("local.server");
@@ -40,6 +47,10 @@ public class DemoController {
         return "index";
     }
 
+    /**
+     * 返回字符串
+     * @return
+     */
     @ResponseBody
     @GetMapping("/index")
     public String index() {

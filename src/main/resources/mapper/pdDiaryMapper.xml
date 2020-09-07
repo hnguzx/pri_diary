@@ -39,6 +39,8 @@
         <if test="diaryLocation != null and diaryLocation != ''">diary_location = #{diaryLocation},</if>
         <if test="diaryUpdateTime != null and diaryUpdateTime != ''">diary_update_time = #{diaryUpdateTime},</if>
     </sql>
+    
+    <resultMap id="" type=""></resultMap>
 
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,

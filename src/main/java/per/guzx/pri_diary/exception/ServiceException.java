@@ -9,6 +9,9 @@ public class ServiceException extends RuntimeException {
 
     private ErrorEnum errorEnum;
 
+    public ServiceException() {
+    }
+
     public ServiceException(ErrorEnum errorEnum) {
         super(errorEnum.getMsg());
         this.errorEnum = errorEnum;
@@ -21,5 +24,13 @@ public class ServiceException extends RuntimeException {
     @Override
     public String getMessage() {
         return super.getMessage();
+    }
+
+    public ServiceException(String message) {
+        super(message);
+    }
+
+    public ServiceException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

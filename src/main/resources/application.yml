@@ -1,6 +1,8 @@
 server:
   port: 80
 spring:
+  profiles:
+    active: dev
   datasource:
     url: jdbc:mysql://180.76.58.205:3306/private_diary
     username: root
@@ -18,10 +20,10 @@ spring:
   servlet:
     multipart:
       enabled: true
-#      服务器
+      #      服务器
       location: /home/files/
-#      本地
-#      location: F:/Files/
+      #      本地
+      #      location: F:/Files/
       max-file-size: 20MB
       max-request-size: 30MB
       resolve-lazily: true

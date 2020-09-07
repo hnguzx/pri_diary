@@ -7,20 +7,23 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
-import per.guzx.pri_diary.pojo.ApiResp;
+import per.guzx.pri_diary.core.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.EmailOrMsg;
 import per.guzx.pri_diary.tool.Validator;
 import per.guzx.pri_diary.tool.VerifyCodeFactory;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 用户接口
+ */
 @RestController
 @RequestMapping("/user")
 @Slf4j

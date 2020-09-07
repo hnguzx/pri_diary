@@ -1,4 +1,4 @@
-package per.guzx.pri_diary.pojo;
+package per.guzx.pri_diary.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
