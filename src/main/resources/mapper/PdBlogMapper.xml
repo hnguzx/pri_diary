@@ -6,13 +6,13 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="blog_id" jdbcType="INTEGER" property="blogId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="blog_type" jdbcType="VARCHAR" property="blogType" />
-    <result column="blog_image" jdbcType="VARCHAR" property="blogImage" />
-    <result column="blog_context" jdbcType="VARCHAR" property="blogContext" />
-    <result column="blog_label" jdbcType="VARCHAR" property="blogLabel" />
-    <result column="blog_create_time" jdbcType="VARCHAR" property="blogCreateTime" />
-    <result column="blog_update_time" jdbcType="VARCHAR" property="blogUpdateTime" />
+    <id column="blog_id" javaType="int" property="blogId" />
+    <result column="user_id" javaType="int" property="userId" />
+    <result column="blog_type" javaType="String" property="blogType" />
+    <result column="blog_image" javaType="String" property="blogImage" />
+    <result column="blog_context" javaType="String" property="blogContext" />
+    <result column="blog_label" javaType="String" property="blogLabel" />
+    <result column="blog_create_time" javaType="String" property="blogCreateTime" />
+    <result column="blog_update_time" javaType="String" property="blogUpdateTime" />
   </resultMap>
 </mapper>

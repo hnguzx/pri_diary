@@ -1,18 +1,6 @@
-server:
-  port: 80
 spring:
   profiles:
     active: dev
-  datasource:
-    url: jdbc:mysql://180.76.58.205:3306/private_diary
-    username: root
-    password: 970712
-    tomcat:
-      max-idle: 0
-      max-active: 50
-      max-wait: 1000
-      initial-size: 10
-      default-transaction-isolation: 2
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -20,10 +8,6 @@ spring:
   servlet:
     multipart:
       enabled: true
-      #      服务器
-      location: /home/files/
-      #      本地
-      #      location: F:/Files/
       max-file-size: 20MB
       max-request-size: 30MB
       resolve-lazily: true
@@ -36,15 +20,6 @@ spring:
         max-idle: 10
         max-wait: 1000
     port: 6379
-    host: 180.76.58.205
-    password: 123456
-    timeout: 1000
-  mail:
-    host: smtp.163.com
-    username: qq2544697696@163.com
-    password: DBTQLRXWXWROYWMF
-    protocol: smtp
-    default-encoding: UTF-8
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: per.guzx.pri_diary.pojo

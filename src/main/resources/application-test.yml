@@ -1,8 +1,7 @@
 # 开发环境配置
 server:
-  port: 83
-#  servlet:
-#    contex t-path: /person-diary
+  port: 9707
+
 spring:
   datasource:
     url: jdbc:mysql://180.76.58.205:3306/private_diary
@@ -16,7 +15,7 @@ spring:
       default-transaction-isolation: 2
   servlet:
     multipart:
-      location: F:Files/
+      location: /home/files/
   redis:
     host: 180.76.58.205
     password: 123456

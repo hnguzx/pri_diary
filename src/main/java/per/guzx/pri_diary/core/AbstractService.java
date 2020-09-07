@@ -25,7 +25,8 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public void save(T model) {
-        myBatisMapper.insertSelective(model);
+//        myBatisMapper.insertSelective(model);
+        myBatisMapper.insert(model);
     }
 
     public void save(List<T> models) {
