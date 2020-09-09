@@ -3,12 +3,11 @@ package per.guzx.pri_diary.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import per.guzx.pri_diary.core.AbstractService;
-import per.guzx.pri_diary.dao.PdMessageMapper;
+import per.guzx.pri_diary.dao.PdMessageDao;
 import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.service.PdMessageService;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -16,8 +15,30 @@ import javax.annotation.Resource;
  */
 @Service
 @Transactional
-public class PdMessageServiceImpl extends AbstractService<PdMessage> implements PdMessageService {
-    @Autowired
-    private PdMessageMapper pdMessageMapper;
+public class PdMessageServiceImpl implements PdMessageService {
 
+    @Override
+    public void save(PdMessage pdMessage) {
+
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+
+    }
+
+    @Override
+    public void update(PdMessage pdMessage) {
+
+    }
+
+    @Override
+    public List<PdMessage> findAll() {
+        return null;
+    }
+
+    @Override
+    public PdMessage findById(Integer id) {
+        return null;
+    }
 }

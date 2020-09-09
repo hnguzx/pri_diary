@@ -1,12 +1,22 @@
 package per.guzx.pri_diary.service;
 
-import per.guzx.pri_diary.core.Service;
 import per.guzx.pri_diary.pojo.PdPraise;
+
+import java.util.List;
 
 
 /**
  * Created by Guzx on 2020/09/07.
  */
-public interface PdPraiseService extends Service<PdPraise> {
+public interface PdPraiseService {
 
+    void save(PdPraise pdPraise);
+
+    void deleteById(Integer id);
+
+    void update(PdPraise pdPraise);
+
+    PdPraise findById(Integer id);
+
+    List<PdPraise> findAll();
 }

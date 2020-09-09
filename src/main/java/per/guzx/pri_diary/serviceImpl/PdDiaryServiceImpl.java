@@ -38,7 +38,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         diary.setDiaryCreateDay(dateUtil.getDateStamp());
         if (detailPhoto.getSubmittedFileName() != null) {
             String filePath = fileUtil.uploadFile(detailPhoto, diary);
-            diary.setDetailPhoto(filePath);
+            diary.setDiaryPhoto(filePath);
         }
         int diaryResult = diaryDao.insertDiary(diary);
         if (diaryResult > 0) {
@@ -54,7 +54,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
             diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
             if (detailPhoto.getSubmittedFileName() != null) {
                 String filePath = fileUtil.uploadFile(detailPhoto, diary);
-                diary.setDetailPhoto(filePath);
+                diary.setDiaryPhoto(filePath);
             }
             int result = diaryDao.updateDiary(diary);
             return result;

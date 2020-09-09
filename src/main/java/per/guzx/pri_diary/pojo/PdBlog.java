@@ -5,45 +5,55 @@ import org.apache.ibatis.type.Alias;
 import javax.persistence.*;
 
 @Alias("blog")
+@Table(name = "pd_blog")
 public class PdBlog {
     /**
      * 博客ID
      */
+    @Id
+    @Column(name = "blog_id")
     private Integer blogId;
 
     /**
      * 博客所属用户ID
      */
+    @Column(name = "user_id")
     private Integer userId;
 
     /**
      * 博客类型（一句话/小故事）
      */
+    @Column(name = "blog_type")
     private String blogType;
 
     /**
      * 博客图片
      */
+    @Column(name = "blog_image")
     private String blogImage;
 
     /**
      * 博客具体内容
      */
+    @Column(name = "blog_context")
     private String blogContext;
 
     /**
      * 博客标签
      */
+    @Column(name = "blog_label")
     private String blogLabel;
 
     /**
      * 博客创建时间
      */
+    @Column(name = "blog_create_time")
     private String blogCreateTime;
 
     /**
      * 博客更新时间
      */
+    @Column(name = "blog_update_time")
     private String blogUpdateTime;
 
     /**

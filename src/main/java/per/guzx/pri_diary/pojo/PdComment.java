@@ -5,40 +5,49 @@ import org.apache.ibatis.type.Alias;
 import javax.persistence.*;
 
 @Alias("comment")
+@Table(name = "pd_blog")
 public class PdComment {
     /**
      * 评论ID
      */
+    @Id
+    @Column(name = "comment_id")
     private Integer commentId;
 
     /**
      * 评论所属博客ID
      */
+    @Column(name = "blog_id")
     private Integer blogId;
 
     /**
      * 评论人ID
      */
+    @Column(name = "comment_user_id")
     private Integer commentUserId;
 
     /**
      * 博客所属人ID
      */
+    @Column(name = "blog_owner_id")
     private Integer blogOwnerId;
 
     /**
      * 评论时间
      */
+    @Column(name = "comment_create_time")
     private String commentCreateTime;
 
     /**
      * 被评论者ID
      */
+    @Column(name = "commented_user_id")
     private Integer commentedUserId;
 
     /**
      * 评论内容
      */
+    @Column(name = "comment_context")
     private String commentContext;
 
     /**

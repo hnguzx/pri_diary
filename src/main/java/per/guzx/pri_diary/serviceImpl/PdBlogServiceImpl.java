@@ -3,12 +3,11 @@ package per.guzx.pri_diary.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import per.guzx.pri_diary.core.AbstractService;
-import per.guzx.pri_diary.dao.PdBlogMapper;
+import per.guzx.pri_diary.dao.PdBlogDao;
 import per.guzx.pri_diary.pojo.PdBlog;
 import per.guzx.pri_diary.service.PdBlogService;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -16,8 +15,30 @@ import javax.annotation.Resource;
  */
 @Service
 @Transactional
-public class PdBlogServiceImpl extends AbstractService<PdBlog> implements PdBlogService {
-    @Autowired
-    private PdBlogMapper pdBlogMapper;
+public class PdBlogServiceImpl implements PdBlogService {
 
+    @Override
+    public void save(PdBlog pdBlog) {
+
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+
+    }
+
+    @Override
+    public void update(PdBlog pdBlog) {
+
+    }
+
+    @Override
+    public PdBlog findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<PdBlog> findAll() {
+        return null;
+    }
 }

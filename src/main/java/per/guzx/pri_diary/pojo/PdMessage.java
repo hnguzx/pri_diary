@@ -2,33 +2,68 @@ package per.guzx.pri_diary.pojo;
 
 import org.apache.ibatis.type.Alias;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 @Alias("message")
+@Table(name = "pd_blog")
 public class PdMessage {
+    /**
+     * 消息主键
+     */
+    @Id
+    @Column(name = "msg_id")
+    private Integer msgId;
+
     /**
      * 发送用户
      */
+    @Column(name = "msg_send_user")
     private Integer msgSendUser;
 
     /**
      * 接收用户
      */
+    @Column(name = "msg_receive")
     private Integer msgReceive;
 
     /**
      * 发送时间
      */
+    @Column(name = "msg_create_time")
     private String msgCreateTime;
 
     /**
      * 接收者是否查看
      */
+    @Column(name = "msg_is_readed")
     private String msgIsReaded;
 
     /**
      * 消息内容（图片，音频，文件2.0处理）
      */
+    @Column(name = "msg_content")
     private String msgContent;
+
+    /**
+     * 获取消息主键
+     *
+     * @return msg_id - 消息主键
+     */
+    public Integer getMsgId() {
+        return msgId;
+    }
+
+    /**
+     * 设置消息主键
+     *
+     * @param msgId 消息主键
+     */
+    public void setMsgId(Integer msgId) {
+        this.msgId = msgId;
+    }
 
     /**
      * 获取发送用户

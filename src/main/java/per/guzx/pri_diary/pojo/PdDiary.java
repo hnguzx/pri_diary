@@ -5,188 +5,358 @@ import per.guzx.pri_diary.enumeration.EventEnum;
 import per.guzx.pri_diary.enumeration.MoodEnum;
 import per.guzx.pri_diary.enumeration.WeathEnum;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
 @Alias("diary")
+@Table(name = "pd_blog")
 public class PdDiary implements Serializable, Cloneable {
+
     /**
-     * 用户ID
+     * 日记唯一标识
      */
-    private Integer userId;
-    /**
-     * 日记唯一性标识
-     */
+    @Id
+    @Column(name = "diary_id")
     private Integer diaryId;
+
+    /**
+     * 日记所属用户id
+     */
+    @NotNull(message = "用户ID不能为空！")
+    @Column(name = "user_id")
+    private Integer userId;
+
+    /**
+     * 日记封面
+     */
+    @Column(name = "diary_photo")
+    private String diaryPhoto;
+
     /**
      * 日记标题
      */
     @NotNull(message = "日记标题不能为空！")
     @Size(min = 1, max = 100, message = "标题长度不能大于100")
+    @Column(name = "diary_title")
     private String diaryTitle;
+
     /**
      * 当天天气
      */
-    @NotNull
-    @Size(min = 1)
+    @NotNull(message = "天气不能为空！")
+    @Column(name = "diary_weather")
     private WeathEnum diaryWeather;
+
     /**
      * 当天心情
      */
-    @NotNull
-    @Size(min = 1)
+    @NotNull(message = "心情不能为空！")
+    @Column(name = "diary_mood")
     private MoodEnum diaryMood;
+
     /**
      * 当天主要事件
      */
-    @NotNull
-    @Size(min = 1)
+    @NotNull(message = "事件不能为空！")
+    @Column(name = "diary_event")
     private EventEnum diaryEvent;
+
+    /**
+     * 日记详情
+     */
+    @NotNull(message = "日记详情不能为空！")
+    @Column(name = "diary_content")
+    private String diaryContent;
+
     /**
      * 当天日记所在位置
      */
+    @Column(name = "diary_location")
     private String diaryLocation;
+
     /**
-     * 当天日记所在经度
+     * 日记记录经度
      */
+    @Column(name = "diary_longitude")
     private String diaryLongitude;
+
     /**
-     * 当天日记所在纬度
+     * 日记记录纬度
      */
+    @Column(name = "diary_latitude")
     private String diaryLatitude;
-    /**
-     * 日志详情
-     */
-    private String detailContent;
-    /**
-     * 日志封面
-     */
-    private String detailPhoto;
-    /**
-     * 日记创建日期
-     */
-    private String diaryCreateDay;
+
     /**
      * 日记创建时间
      */
+    @Column(name = "diary_create_time")
     private String diaryCreateTime;
+
+    /**
+     * 日记创建日期
+     */
+    @Column(name = "diary_create_day")
+    private String diaryCreateDay;
+
     /**
      * 日记最后更新时间
      */
+    @Column(name = "diary_update_time")
     private String diaryUpdateTime;
 
-    public Integer getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
+    /**
+     * 获取日记唯一标识
+     *
+     * @return diary_id - 日记唯一标识
+     */
     public Integer getDiaryId() {
-        return this.diaryId;
+        return diaryId;
     }
 
+    /**
+     * 设置日记唯一标识
+     *
+     * @param diaryId 日记唯一标识
+     */
     public void setDiaryId(Integer diaryId) {
         this.diaryId = diaryId;
     }
 
-    public String getDiaryTitle() {
-        return this.diaryTitle;
+    /**
+     * 获取日记所属用户id
+     *
+     * @return user_id - 日记所属用户id
+     */
+    public Integer getUserId() {
+        return userId;
     }
 
+    /**
+     * 设置日记所属用户id
+     *
+     * @param userId 日记所属用户id
+     */
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * 获取日记封面
+     *
+     * @return diary_photo - 日记封面
+     */
+    public String getDiaryPhoto() {
+        return diaryPhoto;
+    }
+
+    /**
+     * 设置日记封面
+     *
+     * @param diaryPhoto 日记封面
+     */
+    public void setDiaryPhoto(String diaryPhoto) {
+        this.diaryPhoto = diaryPhoto;
+    }
+
+    /**
+     * 获取日记标题
+     *
+     * @return diary_title - 日记标题
+     */
+    public String getDiaryTitle() {
+        return diaryTitle;
+    }
+
+    /**
+     * 设置日记标题
+     *
+     * @param diaryTitle 日记标题
+     */
     public void setDiaryTitle(String diaryTitle) {
         this.diaryTitle = diaryTitle;
     }
 
+    /**
+     * 获取当天天气
+     *
+     * @return diary_weather - 当天天气
+     */
     public WeathEnum getDiaryWeather() {
         return diaryWeather;
     }
 
+    /**
+     * 设置当天天气
+     *
+     * @param diaryWeather 当天天气
+     */
     public void setDiaryWeather(WeathEnum diaryWeather) {
         this.diaryWeather = diaryWeather;
     }
 
+    /**
+     * 获取当天心情
+     *
+     * @return diary_mood - 当天心情
+     */
     public MoodEnum getDiaryMood() {
         return diaryMood;
     }
 
+    /**
+     * 设置当天心情
+     *
+     * @param diaryMood 当天心情
+     */
     public void setDiaryMood(MoodEnum diaryMood) {
         this.diaryMood = diaryMood;
     }
 
+
+    /**
+     * 获取当天主要事件
+     *
+     * @return diary_event - 当天主要事件
+     */
     public EventEnum getDiaryEvent() {
         return diaryEvent;
     }
-
+    /**
+     * 设置当天主要事件
+     *
+     * @param diaryEvent 当天主要事件
+     */
     public void setDiaryEvent(EventEnum diaryEvent) {
         this.diaryEvent = diaryEvent;
     }
 
-    public String getDiaryLocation() {
-        return this.diaryLocation;
+    /**
+     * 获取日记详情
+     *
+     * @return diary_content - 日记详情
+     */
+    public String getDiaryContent() {
+        return diaryContent;
     }
 
+    /**
+     * 设置日记详情
+     *
+     * @param diaryContent 日记详情
+     */
+    public void setDiaryContent(String diaryContent) {
+        this.diaryContent = diaryContent;
+    }
+
+    /**
+     * 获取当天日记所在位置
+     *
+     * @return diary_location - 当天日记所在位置
+     */
+    public String getDiaryLocation() {
+        return diaryLocation;
+    }
+
+    /**
+     * 设置当天日记所在位置
+     *
+     * @param diaryLocation 当天日记所在位置
+     */
     public void setDiaryLocation(String diaryLocation) {
         this.diaryLocation = diaryLocation;
     }
 
-    public String getDiaryCreateTime() {
-        return diaryCreateTime;
-    }
-
-    public void setDiaryCreateTime(String diaryCreateTime) {
-        this.diaryCreateTime = diaryCreateTime;
-    }
-
-    public String getDiaryUpdateTime() {
-        return diaryUpdateTime;
-    }
-
-    public void setDiaryUpdateTime(String diaryUpdateTime) {
-        this.diaryUpdateTime = diaryUpdateTime;
-    }
-
-    public String getDetailContent() {
-        return detailContent;
-    }
-
-    public void setDetailContent(String detailContent) {
-        this.detailContent = detailContent;
-    }
-
-    public String getDetailPhoto() {
-        return detailPhoto;
-    }
-
-    public void setDetailPhoto(String detailPhoto) {
-        this.detailPhoto = detailPhoto;
-    }
-
+    /**
+     * 获取日记记录经度
+     *
+     * @return diary_longitude - 日记记录经度
+     */
     public String getDiaryLongitude() {
         return diaryLongitude;
     }
 
+    /**
+     * 设置日记记录经度
+     *
+     * @param diaryLongitude 日记记录经度
+     */
     public void setDiaryLongitude(String diaryLongitude) {
         this.diaryLongitude = diaryLongitude;
     }
 
+    /**
+     * 获取日记记录纬度
+     *
+     * @return diary_latitude - 日记记录纬度
+     */
     public String getDiaryLatitude() {
         return diaryLatitude;
     }
 
+    /**
+     * 设置日记记录纬度
+     *
+     * @param diaryLatitude 日记记录纬度
+     */
     public void setDiaryLatitude(String diaryLatitude) {
         this.diaryLatitude = diaryLatitude;
     }
 
+    /**
+     * 获取日记创建时间
+     *
+     * @return diary_create_time - 日记创建时间
+     */
+    public String getDiaryCreateTime() {
+        return diaryCreateTime;
+    }
+
+    /**
+     * 设置日记创建时间
+     *
+     * @param diaryCreateTime 日记创建时间
+     */
+    public void setDiaryCreateTime(String diaryCreateTime) {
+        this.diaryCreateTime = diaryCreateTime;
+    }
+
+    /**
+     * 获取日记创建日期
+     *
+     * @return diary_create_day - 日记创建日期
+     */
     public String getDiaryCreateDay() {
         return diaryCreateDay;
     }
 
+    /**
+     * 设置日记创建日期
+     *
+     * @param diaryCreateDay 日记创建日期
+     */
     public void setDiaryCreateDay(String diaryCreateDay) {
         this.diaryCreateDay = diaryCreateDay;
+    }
+
+    /**
+     * 获取日记最后更新时间
+     *
+     * @return diary_update_time - 日记最后更新时间
+     */
+    public String getDiaryUpdateTime() {
+        return diaryUpdateTime;
+    }
+
+    /**
+     * 设置日记最后更新时间
+     *
+     * @param diaryUpdateTime 日记最后更新时间
+     */
+    public void setDiaryUpdateTime(String diaryUpdateTime) {
+        this.diaryUpdateTime = diaryUpdateTime;
     }
 
     @Override
@@ -205,8 +375,8 @@ public class PdDiary implements Serializable, Cloneable {
                     diary.getDiaryEvent().equals(this.getDiaryEvent()) &&
                     diary.getDiaryMood().equals(this.getDiaryMood()) &&
                     diary.getDiaryWeather().equals(this.getDiaryWeather()) &&
-                    diary.getDetailContent().equals(this.getDetailContent()) &&
-                    diary.getDetailPhoto().equals(this.getDetailPhoto()) &&
+                    diary.getDiaryContent().equals(this.getDiaryContent()) &&
+                    diary.getDiaryPhoto().equals(this.getDiaryPhoto()) &&
                     diary.getDiaryLocation().equals(this.getDiaryLocation())) {
                 return true;
             } else {

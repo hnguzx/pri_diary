@@ -2,27 +2,37 @@ package per.guzx.pri_diary.pojo;
 
 import org.apache.ibatis.type.Alias;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 @Alias("praise")
+@Table(name = "pd_blog")
 public class PdPraise {
     /**
      * 点赞ID
      */
+    @Id
+    @Column(name = "praise_id")
     private Integer praiseId;
 
     /**
      * 点赞用户ID
      */
+    @Column(name = "user_id")
     private Integer userId;
 
     /**
      * 所属博客ID
      */
+    @Column(name = "blog_id")
     private Integer blogId;
 
     /**
      * 所属评论ID
      */
+    @Column(name = "comment_id")
     private Integer commentId;
 
     /**

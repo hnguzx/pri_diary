@@ -5,41 +5,74 @@ import org.apache.ibatis.type.Alias;
 import javax.persistence.*;
 
 @Alias("friend")
+@Table(name = "pd_blog")
 public class PdFriend {
+    /**
+     * 好友ID
+     */
+    @Id
+    @Column(name = "friend_id")
+    private Integer friendId;
+
     /**
      * 我的用户ID
      */
+    @Column(name = "my_user_id")
     private Integer myUserId;
 
     /**
      * 我的邮箱
      */
+    @Column(name = "my_email")
     private String myEmail;
 
     /**
      * 我的手机号码
      */
+    @Column(name = "my_phone")
     private String myPhone;
 
     /**
      * 好友的用户ID
      */
+    @Column(name = "friend_user_id")
     private Integer friendUserId;
 
     /**
      * 好友的邮箱
      */
+    @Column(name = "friend_email")
     private String friendEmail;
 
     /**
      * 好友的手机号码
      */
+    @Column(name = "friend_phone")
     private String friendPhone;
 
     /**
      * 好友的备注
      */
+    @Column(name = "friend_remark")
     private String friendRemark;
+
+    /**
+     * 获取好友ID
+     *
+     * @return friend_id - 好友ID
+     */
+    public Integer getFriendId() {
+        return friendId;
+    }
+
+    /**
+     * 设置好友ID
+     *
+     * @param friendId 好友ID
+     */
+    public void setFriendId(Integer friendId) {
+        this.friendId = friendId;
+    }
 
     /**
      * 获取我的用户ID

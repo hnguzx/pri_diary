@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.controller;
 
+import io.github.yedaxia.apidocs.ApiDoc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -49,9 +50,10 @@ public class PdUserController {
      * 用户注册
      *
      * @param user
-     * @return
+     * @return ApiResp
      */
     @PostMapping("insertUser/{verifyCode}")
+    @ApiDoc()
     public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode, Errors errors) {
         log.trace("用户注册：" + user.getUserEmail());
         if (checkVerifyCode(user, verifyCode)) {

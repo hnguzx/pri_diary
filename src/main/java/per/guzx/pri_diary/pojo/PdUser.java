@@ -4,141 +4,251 @@ import org.apache.ibatis.type.Alias;
 import per.guzx.pri_diary.enumeration.SexEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Alias("user")
+@Table(name = "pd_blog")
 public class PdUser implements Serializable, Cloneable {
     /**
-     * 用户唯一性标识
+     * 用户唯一标识
      */
+    @Id
+    @Column(name = "user_id")
     private Integer userId;
+
     /**
      * 用户昵称
      */
-    @NotNull(message = "用户名不能为空！")
-    @Size(min = 1, message = "用户名不能为空！")
+    @Column(name = "user_name")
     private String userName;
-    /**
-     * 登录密码
-     */
-    @NotNull(message = "密码不能为空！")
-    @Size(min = 6, max = 50, message = "密码长度应该在6-50位之间！")
-    private String userPassword;
 
     /**
-     * 用户生日
+     * 用户出生日期
      */
-    @NotNull(message = "用户生日不能为空！")
+    @Column(name = "user_birthday")
     private String userBirthday;
 
     /**
      * 用户性别
      */
-    @NotNull(message = "用户性别不能为空！")
+    @Column(name = "user_sex")
     private SexEnum userSex;
+
+    /**
+     * 用户登录密码
+     */
+    @Column(name = "user_password")
+    private String userPassword;
+
     /**
      * 用户状态
      */
+    @Column(name = "user_state")
     private UserStateEnum userState;
 
     /**
-     * 用户手机号码
+     * 手机号码
      */
+    @Column(name = "user_phone")
     private String userPhone;
 
     /**
-     * 用户邮箱地址
+     * 邮箱地址
      */
-    @Email(message = "邮箱格式错误！")
+    @Column(name = "user_email")
     private String userEmail;
 
     /**
-     * 用户头像图片地址
+     * 用户头像图片存储地址
      */
+    @Column(name = "user_head")
     private String userHead;
 
     /**
      * 用户创建时间
      */
+    @Column(name = "user_create_time")
     private String userCreateTime;
 
+    /**
+     * 获取用户唯一标识
+     *
+     * @return user_id - 用户唯一标识
+     */
     public Integer getUserId() {
         return userId;
     }
 
+    /**
+     * 设置用户唯一标识
+     *
+     * @param userId 用户唯一标识
+     */
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
+    /**
+     * 获取用户昵称
+     *
+     * @return user_name - 用户昵称
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * 设置用户昵称
+     *
+     * @param userName 用户昵称
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
+    /**
+     * 获取用户出生日期
+     *
+     * @return user_birthday - 用户出生日期
+     */
     public String getUserBirthday() {
         return userBirthday;
     }
 
+    /**
+     * 设置用户出生日期
+     *
+     * @param userBirthday 用户出生日期
+     */
     public void setUserBirthday(String userBirthday) {
         this.userBirthday = userBirthday;
     }
 
+    /**
+     * 获取用户性别
+     *
+     * @return user_sex - 用户性别
+     */
     public SexEnum getUserSex() {
         return userSex;
     }
-
+    /**
+     * 设置用户性别
+     *
+     * @param userSex 用户性别
+     */
     public void setUserSex(SexEnum userSex) {
         this.userSex = userSex;
     }
 
-    public UserStateEnum getUserState() {
-        return userState;
+    /**
+     * 获取用户登录密码
+     *
+     * @return user_password - 用户登录密码
+     */
+    public String getUserPassword() {
+        return userPassword;
     }
 
+    /**
+     * 设置用户登录密码
+     *
+     * @param userPassword 用户登录密码
+     */
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    /**
+     * 获取用户状态
+     *
+     * @return user_state - 用户状态
+     */
     public void setUserState(UserStateEnum userState) {
         this.userState = userState;
     }
 
+    /**
+     * 设置用户状态
+     *
+     * @param userState 用户状态
+     */
+    public UserStateEnum getUserState() {
+        return userState;
+    }
+
+    /**
+     * 获取手机号码
+     *
+     * @return user_phone - 手机号码
+     */
     public String getUserPhone() {
         return userPhone;
     }
 
+    /**
+     * 设置手机号码
+     *
+     * @param userPhone 手机号码
+     */
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
 
+    /**
+     * 获取邮箱地址
+     *
+     * @return user_email - 邮箱地址
+     */
     public String getUserEmail() {
         return userEmail;
     }
 
+    /**
+     * 设置邮箱地址
+     *
+     * @param userEmail 邮箱地址
+     */
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 
+    /**
+     * 获取用户头像图片存储地址
+     *
+     * @return user_head - 用户头像图片存储地址
+     */
     public String getUserHead() {
         return userHead;
     }
 
+    /**
+     * 设置用户头像图片存储地址
+     *
+     * @param userHead 用户头像图片存储地址
+     */
     public void setUserHead(String userHead) {
         this.userHead = userHead;
     }
 
+    /**
+     * 获取用户创建时间
+     *
+     * @return user_create_time - 用户创建时间
+     */
     public String getUserCreateTime() {
         return userCreateTime;
     }
 
+    /**
+     * 设置用户创建时间
+     *
+     * @param userCreateTime 用户创建时间
+     */
     public void setUserCreateTime(String userCreateTime) {
         this.userCreateTime = userCreateTime;
     }
