@@ -17,9 +17,13 @@ import java.util.List;
 @Transactional
 public class PdBlogServiceImpl implements PdBlogService {
 
+    @Autowired
+    private PdBlogDao pdBlogDao;
+
     @Override
     public void save(PdBlog pdBlog) {
-
+        int result = pdBlogDao.insertBlog(pdBlog);
+        System.out.println("result:" + result);
     }
 
     @Override

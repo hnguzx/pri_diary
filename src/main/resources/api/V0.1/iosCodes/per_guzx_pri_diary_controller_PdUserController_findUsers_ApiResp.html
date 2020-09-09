@@ -18,13 +18,44 @@
 //错误信息
 @property (nonatomic, assign) NSString msg;
 //响应内容，默认为null
-@property (nonatomic, strong) Object data;
+@property (nonatomic, strong) PdUser[] data;
 
 
 @end
 </xmp>
 </pre>
 
+<pre class="prettyprint">
+<xmp>
+#import <Foundation/Foundation>;
+
+@interface PdUser : NSObject
+
+//用户唯一标识
+@property (nonatomic, strong) NSInteger userId;
+//用户昵称
+@property (nonatomic, assign) NSString userName;
+//用户出生日期
+@property (nonatomic, assign) NSString userBirthday;
+//用户性别 [FEMALE,MALE]
+@property (nonatomic, strong) enum userSex;
+//用户登录密码
+@property (nonatomic, assign) NSString userPassword;
+//用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]
+@property (nonatomic, strong) enum userState;
+//手机号码
+@property (nonatomic, assign) NSString userPhone;
+//邮箱地址
+@property (nonatomic, assign) NSString userEmail;
+//用户头像图片存储地址
+@property (nonatomic, assign) NSString userHead;
+//用户创建时间
+@property (nonatomic, assign) NSString userCreateTime;
+
+
+@end
+</xmp>
+</pre>
 
 
 <script src="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.js"></script>

@@ -15,7 +15,6 @@ import per.guzx.pri_diary.tool.EmailOrMsg;
 import per.guzx.pri_diary.tool.Validator;
 import per.guzx.pri_diary.tool.VerifyCodeFactory;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -50,14 +49,15 @@ public class PdUserController {
      * 用户注册
      *
      * @param user
-     * @return ApiResp
+     * @param verifyCode
+     * @param errors
+     * @return
      */
     @PostMapping("insertUser/{verifyCode}")
     @ApiDoc()
     public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode, Errors errors) {
-        log.trace("用户注册：" + user.getUserEmail());
         if (checkVerifyCode(user, verifyCode)) {
-            Map<String, Object> validResult = Validator.validator(errors);
+            Map<String, Object> validResult = validator.validator(errors);
             if (validResult.isEmpty()) {
                 userService.insertUser(user);
                 return ApiResp.retOk(user);
@@ -77,7 +77,6 @@ public class PdUserController {
     @GetMapping("/verifyCode/{emailOrPhone}")
     public ApiResp getRegisterVerifyCode(@PathVariable("emailOrPhone") String emailOrPhone) {
         String verifyCode = verifyCodeFactory.getCode();
-        log.trace("用户获取验证码：" + emailOrPhone);
         if (emailOrMsg.isEmail(emailOrPhone)) {
             emailOrMsg.sendVerifyCodeEmail(emailOrPhone, verifyCode);
         } else {
@@ -114,12 +113,11 @@ public class PdUserController {
 
     /**
      * 根据id查找用户
-     *
      * @param id
      * @return
      */
     @GetMapping("/id/{id}")
-    public ApiResp findUserById(@PathVariable("id") int id) {
+    public ApiResp<PdUser> findUserById(@PathVariable("id") int id) {
         PdUser user = userService.findUserById(id);
         return ApiResp.retOk(user);
     }
@@ -174,7 +172,7 @@ public class PdUserController {
      * @return
      */
     @PatchMapping("/resetPassword/{verifyCode}")
-    public ApiResp forgetPassword(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
+    public ApiResp<ErrorEnum> forgetPassword(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
         int result = userService.findUserCount(user);
         if (result > 0) {
             if (checkVerifyCode(user, verifyCode)) {
@@ -211,6 +209,7 @@ public class PdUserController {
      */
     @PostMapping("/{start}/{limit}")
     public ApiResp findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
+        // 這裏可以寫一個分頁的類
         int total = userService.findUserCount(user);
         List<PdUser> users = userService.findUsers(user, start, limit);
         Map<String, Object> result = new HashMap<>();
@@ -238,7 +237,7 @@ public class PdUserController {
      * @return
      */
     @PostMapping("/login")
-    public ApiResp login(@RequestBody PdUser user) {
+    public ApiResp<PdUser> login(@RequestBody PdUser user) {
         PdUser newUser = userService.login(user);
         return ApiResp.retOk(newUser);
     }
