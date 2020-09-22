@@ -28,7 +28,7 @@ public class PdBlogController {
      * @return
      */
     @PostMapping("/add")
-    public ApiResp add(@RequestBody PdBlog pdBlog) {
+    public ApiResp<PdBlog> add(@RequestBody PdBlog pdBlog) {
         pdBlogService.save(pdBlog);
         return ApiResp.retOk();
     }
@@ -50,7 +50,7 @@ public class PdBlogController {
      * @return
      */
     @PutMapping("/update")
-    public ApiResp update(@RequestBody PdBlog pdBlog) {
+    public ApiResp<PdBlog> update(@RequestBody PdBlog pdBlog) {
         pdBlogService.update(pdBlog);
         return ApiResp.retOk();
     }
@@ -61,9 +61,9 @@ public class PdBlogController {
      * @return
      */
     @GetMapping("/{id}")
-    public ApiResp detail(@PathVariable Integer id) {
+    public ApiResp<PdBlog> detail(@PathVariable Integer id) {
         PdBlog pdBlog = pdBlogService.findById(id);
-        return ApiResp.retOk();
+        return ApiResp.retOk(pdBlog);
     }
 
     /**
