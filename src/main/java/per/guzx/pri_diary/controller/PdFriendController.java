@@ -4,11 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.guzx.pri_diary.core.ApiResp;
+import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdFriend;
 import per.guzx.pri_diary.service.PdFriendService;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,9 +26,9 @@ public class PdFriendController {
      * @return
      */
     @PostMapping("/add")
-    public ApiResp add(@RequestBody PdFriend pdFriend) {
+    public ApiResp<PdFriend> add(@RequestBody PdFriend pdFriend) {
         pdFriendService.save(pdFriend);
-        return ApiResp.retOk();
+        return ApiResp.retOk(pdFriend);
     }
 
     /**
@@ -48,10 +47,10 @@ public class PdFriendController {
      * @param pdFriend
      * @return
      */
-    @PutMapping("/update")
-    public ApiResp update(@RequestBody PdFriend pdFriend) {
+    @PatchMapping("/update")
+    public ApiResp<PdFriend> update(@RequestBody PdFriend pdFriend) {
         pdFriendService.update(pdFriend);
-        return ApiResp.retOk();
+        return ApiResp.retOk(pdFriend);
     }
 
     /**
@@ -60,7 +59,7 @@ public class PdFriendController {
      * @return
      */
     @GetMapping("/{id}")
-    public ApiResp detail(@PathVariable Integer id) {
+    public ApiResp<PdFriend> detail(@PathVariable Integer id) {
         PdFriend pdFriend = pdFriendService.findById(id);
         return ApiResp.retOk(pdFriend);
     }
@@ -72,10 +71,8 @@ public class PdFriendController {
      * @return
      */
     @GetMapping("/list")
-    public ApiResp list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<PdFriend> list = pdFriendService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ApiResp.retOk(pageInfo);
+    public ApiResp<PageInfo> list(@RequestBody PageInfo pageInfo) {
+        PageInfo friends = pdFriendService.findAll(pageInfo.getPageNum(),pageInfo.getPageSize());
+        return ApiResp.retOk(friends);
     }
 }

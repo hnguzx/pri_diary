@@ -18,13 +18,40 @@
 //错误信息
 @property (nonatomic, assign) NSString msg;
 //响应内容，默认为null
-@property (nonatomic, strong) Object data;
+@property (nonatomic, strong) PdBlog data;
 
 
 @end
 </xmp>
 </pre>
 
+<pre class="prettyprint">
+<xmp>
+#import <Foundation/Foundation>;
+
+@interface PdBlog : NSObject
+
+//博客ID
+@property (nonatomic, strong) NSInteger blogId;
+//博客所属用户ID
+@property (nonatomic, strong) NSInteger userId;
+//博客类型（一句话/小故事）
+@property (nonatomic, assign) NSString blogType;
+//博客图片
+@property (nonatomic, assign) NSString blogImage;
+//博客具体内容
+@property (nonatomic, assign) NSString blogContext;
+//博客标签
+@property (nonatomic, assign) NSString blogLabel;
+//博客创建时间
+@property (nonatomic, assign) NSString blogCreateTime;
+//博客更新时间
+@property (nonatomic, assign) NSString blogUpdateTime;
+
+
+@end
+</xmp>
+</pre>
 
 
 <script src="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.js"></script>

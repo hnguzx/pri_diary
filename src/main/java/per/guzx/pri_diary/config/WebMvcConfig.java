@@ -25,7 +25,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
-import per.guzx.pri_diary.core.ApiResp;
+import per.guzx.pri_diary.pojo.ApiResp;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdDiaryDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdDiary;
 import per.guzx.pri_diary.service.PdDiaryService;
 import per.guzx.pri_diary.tool.DateUtil;
@@ -30,6 +31,9 @@ public class PdDiaryServiceImpl implements PdDiaryService {
 
     @Autowired
     private DateUtil dateUtil;
+
+    @Autowired
+    private PageInfo pageInfo;
 
     @Override
     public int insertDiary(PdDiary diary, Part detailPhoto) {
@@ -100,10 +104,14 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     }
 
     @Override
-    public List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size) {
+    public PageInfo findDiaryByGlobal(int userId, String global, int start, int size) {
         List<PdDiary> diaries = diaryDao.findDiaryByGlobal(userId, global, start, size);
         if (diaries.size() > 0) {
-            return diaries;
+            pageInfo.setCurrentPage(start);
+            pageInfo.setPageSize(size);
+            pageInfo.setTotal(diaries.size());
+            pageInfo.setResult(diaries);
+            return pageInfo;
         }
         throw new ServiceException(ErrorEnum.DIARY_NOTFOUND);
     }

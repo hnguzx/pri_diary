@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
-import per.guzx.pri_diary.core.ApiResp;
+import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.EmailOrMsg;
@@ -16,8 +17,6 @@ import per.guzx.pri_diary.tool.Validator;
 import per.guzx.pri_diary.tool.VerifyCodeFactory;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -208,13 +207,8 @@ public class PdUserController {
      * @return
      */
     @PostMapping("/{start}/{limit}")
-    public ApiResp findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
-        // 這裏可以寫一個分頁的類
-        int total = userService.findUserCount(user);
-        List<PdUser> users = userService.findUsers(user, start, limit);
-        Map<String, Object> result = new HashMap<>();
-        result.put("users", users);
-        result.put("total", total);
+    public ApiResp<PageInfo> findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
+        PageInfo result = userService.findUsers(user, start, limit);
         return ApiResp.retOk(result);
     }
 

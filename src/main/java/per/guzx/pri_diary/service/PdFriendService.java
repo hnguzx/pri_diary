@@ -10,13 +10,41 @@ import java.util.List;
  */
 public interface PdFriendService {
 
-    void save(PdFriend pdFriend);
+    /**
+     * 新增好友
+     * @param pdFriend
+     */
+    PdFriend save(PdFriend pdFriend);
 
-    void deleteById(Integer id);
+    /**
+     * 删除好友
+     * @param id
+     */
+    int deleteById(Integer id);
 
-    void update(PdFriend pdFriend);
+    /**
+     * 更新好友信息
+     * @param pdFriend
+     */
+    PdFriend update(PdFriend pdFriend);
 
+    /**
+     * 根据id查找好友
+     * @param id
+     * @return
+     */
     PdFriend findById(Integer id);
 
+    /**
+     * 根据好友相关信息查询好友
+     * @param friend
+     * @return
+     */
+    PdFriend findByFriend(PdFriend friend);
+
+    /**
+     * 获取所有好友信息
+     * @return
+     */
     List<PdFriend> findAll();
 }

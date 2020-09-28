@@ -4,15 +4,15 @@
 <mapper namespace="per.guzx.pri_diary.dao.PdUserDao">
 
     <sql id="select_user">
-        select user_id       userId,
-               user_name     userName,
-               user_birthday userBirthday,
-               user_sex      userSex,
-               user_password userPassword,
-               user_state    userState,
-               user_phone    userPhone,
-               user_email    userEmail,
-               user_head     userHead
+        select private_diary.pd_user.user_id       userId,
+               private_diary.pd_user.user_name     userName,
+               private_diary.pd_user.user_birthday userBirthday,
+               private_diary.pd_user.user_sex      userSex,
+               private_diary.pd_user.user_password userPassword,
+               private_diary.pd_user.user_state    userState,
+               private_diary.pd_user.user_phone    userPhone,
+               private_diary.pd_user.user_email    userEmail,
+               private_diary.pd_user.user_head     userHead
     </sql>
 
     <sql id="sql_where">

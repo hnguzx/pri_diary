@@ -3,11 +3,11 @@ package per.guzx.pri_diary.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.guzx.pri_diary.core.ApiResp;
+import per.guzx.pri_diary.pojo.ApiResp;
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdDiary;
 import per.guzx.pri_diary.service.PdDiaryService;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Part;
 import java.util.List;
 import java.util.Map;
@@ -102,8 +102,8 @@ public class PdDiaryController {
      */
     @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
     public ApiResp findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
-        List<PdDiary> diaries = diaryService.findDiaryByGlobal(userId, global, start, size);
-        return ApiResp.retOk(diaries);
+        PageInfo pageInfo = diaryService.findDiaryByGlobal(userId, global, start, size);
+        return ApiResp.retOk(pageInfo);
     }
 
     /**

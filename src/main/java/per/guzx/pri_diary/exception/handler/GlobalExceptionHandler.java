@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
-import per.guzx.pri_diary.core.ApiResp;
+import per.guzx.pri_diary.pojo.ApiResp;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;

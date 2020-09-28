@@ -1,8 +1,7 @@
 package per.guzx.pri_diary.service;
 
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdUser;
-
-import java.util.List;
 
 public interface PdUserService {
     /**
@@ -61,7 +60,7 @@ public interface PdUserService {
      * @param limit
      * @return
      */
-    public List<PdUser> findUsers(PdUser user, int start, int limit);
+    public PageInfo findUsers(PdUser user, int start, int limit);
 
     /**
      * 获取符合条件的用户总数

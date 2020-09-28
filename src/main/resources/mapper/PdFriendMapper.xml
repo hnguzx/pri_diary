@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.pri_diary.dao.PdFriendDao">
-  <resultMap id="BaseResultMap" type="friend">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="my_user_id" jdbcType="INTEGER" property="myUserId" />
-    <result column="my_email" jdbcType="VARCHAR" property="myEmail" />
-    <result column="my_phone" jdbcType="VARCHAR" property="myPhone" />
-    <result column="friend_user_id" jdbcType="INTEGER" property="friendUserId" />
-    <result column="friend_email" jdbcType="VARCHAR" property="friendEmail" />
-    <result column="friend_phone" jdbcType="VARCHAR" property="friendPhone" />
-    <result column="friend_remark" jdbcType="VARCHAR" property="friendRemark" />
-  </resultMap>
+    <!--<resultMap id="BaseResultMap" type="friend">
+        &lt;!&ndash;
+          WARNING - @mbg.generated
+        &ndash;&gt;
+        <id column="my_user_id" jdbcType="INTEGER" property="myUserId"/>
+        <result column="my_email" jdbcType="VARCHAR" property="myEmail"/>
+        <result column="my_phone" jdbcType="VARCHAR" property="myPhone"/>
+        <result column="friend_user_id" jdbcType="INTEGER" property="friendUserId"/>
+        <result column="friend_email" jdbcType="VARCHAR" property="friendEmail"/>
+        <result column="friend_phone" jdbcType="VARCHAR" property="friendPhone"/>
+        <result column="friend_remark" jdbcType="VARCHAR" property="friendRemark"/>
+    </resultMap>-->
+
+    <sql id="sql_where">
+        <if test="myUserId !=null and myUserId !='' ">my_user_id = #{myUserId},</if>
+        <if test="myEmail !=null and myEmail !='' ">my_email = #{myEmail},</if>
+        <if test="myPhone !=null and myPhone !=''">my_phone = #{myPhone},</if>
+        <if test="friendUserId !=null and friendUserId !='' ">friend_user_id = #{friendUserId},</if>
+        <if test="friendEmail !=null and friendEmail !='' ">friend_email = #{friendEmail},</if>
+        <if test="friendPhone !=null and friendPhone !='' ">friend_phone = #{friendPhone},</if>
+        <if test="friendRemark !=null and friendRemark !='' ">friend_remark = #{friendRemark},</if>
+    </sql>
+
+    <sql id="select_friend">
+        select private_diary.pd_friend.friend_id     friendId,
+               private_diary.pd_friend.my_user_id     myUserId,
+               private_diary.pd_friend.my_email       myEmail,
+               private_diary.pd_friend.my_phone       myPhone,
+               private_diary.pd_friend.friend_user_id friendUserId,
+               private_diary.pd_friend.friend_email   friendEmail,
+               private_diary.pd_friend.friend_phone   friendPhone,
+               private_diary.pd_friend.friend_remark  friendRemark
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="friendId">
+        insert into private_diary.pd_friend(my_user_id, my_email, my_phone, friend_user_id, friend_email, friend_phone,
+                                            friend_remark)
+            value (#{myUserId}, #{myEmail}, #{myPhone}, #{friendUserId}, #{friendEmail}, #{friendPhone},
+                   #{friendRemark})
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        delete
+        from private_diary.pd_friend
+        where friend_user_id = #{friendUserId}
+    </delete>
+
+    <update id="update">
+        update private_diary.pd_friend
+        <set>
+            <include refid="sql_where"></include>
+        </set>
+        where friend_user_id = #{friendUserId}
+    </update>
+
+    <select id="findById" parameterType="int" resultType="friend">
+        <include refid="select_friend"></include>
+        from
+        private_diary.pd_friend
+        where
+        friend_user_id = #{friendUserId}
+    </select>
 </mapper>

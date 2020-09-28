@@ -41,7 +41,7 @@
     </sql>
     
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
-        insert into pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
+        insert into private_diary.pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
                              diary_content, diary_photo, diary_create_time, diary_update_time, diary_longitude,
                              diary_latitude, diary_create_day)
             value
@@ -51,7 +51,7 @@
     </insert>
 
     <update id="updateDiary">
-        update pd_diary
+        update private_diary.pd_diary
         <set>
             <include refid="sql_where"></include>
         </set>
@@ -61,7 +61,7 @@
 
     <delete id="deleteDiary" parameterType="int">
         delete
-        from pd_diary
+        from private_diary.pd_diary
         where user_id = #{userId}
           and diary_id = #{diaryId}
     </delete>
@@ -69,7 +69,7 @@
     <select id="findDiaryById" resultType="diary">
         <include refid="select_diary"></include>
         from
-        pd_diary
+        private_diary.pd_diary
         where
         user_id = #{userId} and diary_id = #{diaryId}
     </select>
@@ -77,7 +77,7 @@
     <select id="findDiaryOtherById" resultType="diary">
         <include refid="select_diary_main"></include>
         from
-        pd_diary
+        private_diary.pd_diary
         where
         user_id = #{userId} and diary_id = #{diaryId}
     </select>
@@ -85,14 +85,14 @@
     <select id="findDiaryAll" resultType="diary">
         <include refid="select_diary"></include>
         from
-        pd_diary
+        private_diary.pd_diary
         where user_id = #{userId}
     </select>
 
     <select id="findDiaryByGlobal" resultType="diary">
         <include refid="select_diary"></include>
         from
-        pd_diary
+        private_diary.pd_diary
         <where>
             user_id = #{userId}
             <if test="global != null">
@@ -108,7 +108,7 @@
     <select id="findDiaryByUserId" parameterType="int" resultType="diary">
         <include refid="select_diary_main"></include>
         from
-        pd_diary
+        private_diary.pd_diary
         where
         user_id = #{userId}
     </select>
@@ -119,13 +119,13 @@
                sum(CHAR_LENGTH(diary_content))      as wordsTotal,
                count(diary_photo)              as photoTotal,
                count(diary_location)            as addressTotal
-        from pd_diary
+        from private_diary.pd_diary
         where user_id = #{userId}
     </select>
 
     <select id="getWeekDiaryCount" resultType="int">
         select count(diary_id)
-        from pd_diary
+        from private_diary.pd_diary
         where diary_create_time &gt;= #{beginDate}
           and diary_create_time &lt;= #{endDate}
           and user_id = #{userId}
@@ -139,13 +139,13 @@
                diary_latitude  as latitude,
                diary_photo    as photo,
                diary_id        as diaryId
-        from pd_diary
+        from private_diary.pd_diary
         where user_id = #{userId}
     </select>
 
     <select id="getDiaryAndAddressCount" resultType="int">
         select count(diary_id)
-        from pd_diary
+        from private_diary.pd_diary
         where diary_location != ''
           and user_id = #{userId}
     </select>
@@ -154,14 +154,14 @@
         select diary_longitude as longitude,
                diary_latitude  as latitude,
                diary_id        as diaryId
-        from pd_diary
+        from private_diary.pd_diary
         where diary_location != ''
           and user_id = #{userId}
     </select>
 
     <select id="getDiaryImgInfo" resultType="java.util.Map">
         select diary_id as diaryId, diary_photo as imgUrl
-        from pd_diary
+        from private_diary.pd_diary
         where diary_photo != ''
           and user_id = #{userId}
     </select>
@@ -169,7 +169,7 @@
     <select id="getWeatherTimes" resultType="java.util.Map">
         select diary_weather as label,
                count(*)      as times
-        from pd_diary
+        from private_diary.pd_diary
         where user_id = #{userId}
         GROUP BY diary_weather
         order by times
@@ -179,7 +179,7 @@
     <select id="getMoodTimes" resultType="java.util.Map">
         select diary_mood as label,
                count(*)   as times
-        from pd_diary
+        from private_diary.pd_diary
         where user_id = #{userId}
         GROUP BY diary_mood
         order by times desc
@@ -188,7 +188,7 @@
     <select id="getEventTimes" resultType="java.util.Map">
         select diary_event as label,
                count(*)    as times
-        from pd_diary
+        from private_diary.pd_diary
         where user_id = #{userId}
         GROUP BY diary_event
         order by times desc

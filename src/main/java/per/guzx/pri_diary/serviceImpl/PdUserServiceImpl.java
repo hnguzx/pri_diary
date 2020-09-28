@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.dao.PdUserDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.SexEnum;
@@ -34,6 +35,9 @@ public class PdUserServiceImpl implements PdUserService {
 
     @Autowired
     private AddressUtil addressUtil;
+
+    @Autowired
+    private PageInfo pageInfo;
 
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
@@ -135,11 +139,15 @@ public class PdUserServiceImpl implements PdUserService {
     }
 
     @Override
-    public List<PdUser> findUsers(PdUser user, int start, int limit) {
+    public PageInfo findUsers(PdUser user, int start, int limit) {
         if (!Objects.isNull(user)) {
             List<PdUser> results = userDao.findUsers(user, start, limit);
             if (results.size() > 0) {
-                return results;
+                pageInfo.setCurrentPage(start);
+                pageInfo.setPageSize(limit);
+                pageInfo.setTotal(results.size());
+                pageInfo.setResult(results);
+                return pageInfo;
             }
         }
         throw new ServiceException(ErrorEnum.USER_NOTFOUND);

@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.service;
 
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdDiary;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +69,7 @@ public interface PdDiaryService {
      * @param size
      * @return
      */
-    public List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size);
+    public PageInfo findDiaryByGlobal(int userId, String global, int start, int size);
 
     /**
      * 获取我的日记相关统计数字

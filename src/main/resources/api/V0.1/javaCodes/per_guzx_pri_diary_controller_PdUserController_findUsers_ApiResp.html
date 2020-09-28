@@ -12,7 +12,7 @@ public class ApiResp implements Serializable{
 
     private int code; //错误码
     private String msg; //错误信息
-    private Object data; //响应内容，默认为null
+    private PageInfo data; //响应内容，默认为null
 
     public int getCode(){
         return code;
@@ -30,12 +30,65 @@ public class ApiResp implements Serializable{
         this.msg = msg;
     }
 
-    public Object getData(){
+    public PageInfo getData(){
         return data;
     }
 
-    public void setData(Object data){
+    public void setData(PageInfo data){
         this.data = data;
+    }
+
+}
+</pre>
+
+
+<pre class="prettyprint lang-java">
+public class PageInfo implements Serializable{
+
+    private int currentPage; //当前页码
+    private int pageSize; //页大小
+    private int total; //总记录数
+    private int pages; //总页数
+    private Object[] result; //结果集
+
+    public int getCurrentPage(){
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage){
+        this.currentPage = currentPage;
+    }
+
+    public int getPageSize(){
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize){
+        this.pageSize = pageSize;
+    }
+
+    public int getTotal(){
+        return total;
+    }
+
+    public void setTotal(int total){
+        this.total = total;
+    }
+
+    public int getPages(){
+        return pages;
+    }
+
+    public void setPages(int pages){
+        this.pages = pages;
+    }
+
+    public Object[] getResult(){
+        return result;
+    }
+
+    public void setResult(Object[] result){
+        this.result = result;
     }
 
 }

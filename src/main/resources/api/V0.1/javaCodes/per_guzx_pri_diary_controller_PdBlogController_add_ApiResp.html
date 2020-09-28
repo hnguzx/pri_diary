@@ -12,7 +12,7 @@ public class ApiResp implements Serializable{
 
     private int code; //错误码
     private String msg; //错误信息
-    private Object data; //响应内容，默认为null
+    private PdBlog data; //响应内容，默认为null
 
     public int getCode(){
         return code;
@@ -30,17 +30,96 @@ public class ApiResp implements Serializable{
         this.msg = msg;
     }
 
-    public Object getData(){
+    public PdBlog getData(){
         return data;
     }
 
-    public void setData(Object data){
+    public void setData(PdBlog data){
         this.data = data;
     }
 
 }
 </pre>
 
+
+<pre class="prettyprint lang-java">
+public class PdBlog implements Serializable{
+
+    private int blogId; //博客ID
+    private int userId; //博客所属用户ID
+    private String blogType; //博客类型（一句话/小故事）
+    private String blogImage; //博客图片
+    private String blogContext; //博客具体内容
+    private String blogLabel; //博客标签
+    private String blogCreateTime; //博客创建时间
+    private String blogUpdateTime; //博客更新时间
+
+    public int getBlogId(){
+        return blogId;
+    }
+
+    public void setBlogId(int blogId){
+        this.blogId = blogId;
+    }
+
+    public int getUserId(){
+        return userId;
+    }
+
+    public void setUserId(int userId){
+        this.userId = userId;
+    }
+
+    public String getBlogType(){
+        return blogType;
+    }
+
+    public void setBlogType(String blogType){
+        this.blogType = blogType;
+    }
+
+    public String getBlogImage(){
+        return blogImage;
+    }
+
+    public void setBlogImage(String blogImage){
+        this.blogImage = blogImage;
+    }
+
+    public String getBlogContext(){
+        return blogContext;
+    }
+
+    public void setBlogContext(String blogContext){
+        this.blogContext = blogContext;
+    }
+
+    public String getBlogLabel(){
+        return blogLabel;
+    }
+
+    public void setBlogLabel(String blogLabel){
+        this.blogLabel = blogLabel;
+    }
+
+    public String getBlogCreateTime(){
+        return blogCreateTime;
+    }
+
+    public void setBlogCreateTime(String blogCreateTime){
+        this.blogCreateTime = blogCreateTime;
+    }
+
+    public String getBlogUpdateTime(){
+        return blogUpdateTime;
+    }
+
+    public void setBlogUpdateTime(String blogUpdateTime){
+        this.blogUpdateTime = blogUpdateTime;
+    }
+
+}
+</pre>
 
 
 
