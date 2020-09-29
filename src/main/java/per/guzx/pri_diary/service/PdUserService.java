@@ -60,7 +60,7 @@ public interface PdUserService {
      * @param limit
      * @return
      */
-    public PageInfo findUsers(PdUser user, int start, int limit);
+    public PageInfo findUsers(PdUser user, int start, int size);
 
     /**
      * 获取符合条件的用户总数

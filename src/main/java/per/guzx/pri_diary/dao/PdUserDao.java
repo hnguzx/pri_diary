@@ -62,7 +62,7 @@ public interface PdUserDao {
      * @param limit
      * @return
      */
-    List<PdUser> findUsers(PdUser user, int start, int limit);
+    List<PdUser> findUsers(PdUser user, int start, int size);
 
     /**
      * 获取所有用户的基本信息

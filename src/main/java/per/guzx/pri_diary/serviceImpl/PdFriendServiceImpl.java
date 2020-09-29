@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdFriendDao;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdFriend;
 import per.guzx.pri_diary.service.PdFriendService;
 
@@ -21,6 +22,9 @@ public class PdFriendServiceImpl implements PdFriendService {
 
     @Autowired
     private PdFriendDao friendDao;
+
+    @Autowired
+    private PageInfo pageInfo;
 
     @Override
     public PdFriend save(PdFriend pdFriend) {
@@ -40,7 +44,7 @@ public class PdFriendServiceImpl implements PdFriendService {
     @Override
     public PdFriend update(PdFriend pdFriend) {
         int result = friendDao.update(pdFriend);
-        if (result>0){
+        if (result > 0) {
             return pdFriend;
         }
         return null;
@@ -53,12 +57,12 @@ public class PdFriendServiceImpl implements PdFriendService {
     }
 
     @Override
-    public PdFriend findByFriend(PdFriend friend) {
-        return null;
-    }
-
-    @Override
-    public List<PdFriend> findAll() {
-        return null;
+    public PageInfo findFriendByInfo(int myUserId, int start, int size, String global) {
+        List<PdFriend> friends = friendDao.findFriendByInfo(myUserId, start, size, global);
+        pageInfo.setCurrentPage(start);
+        pageInfo.setPageSize(size);
+        pageInfo.setTotal(friends.size());
+        pageInfo.setResult(friends);
+        return pageInfo;
     }
 }

@@ -139,12 +139,12 @@ public class PdUserServiceImpl implements PdUserService {
     }
 
     @Override
-    public PageInfo findUsers(PdUser user, int start, int limit) {
+    public PageInfo findUsers(PdUser user, int start, int size) {
         if (!Objects.isNull(user)) {
-            List<PdUser> results = userDao.findUsers(user, start, limit);
+            List<PdUser> results = userDao.findUsers(user, start, size);
             if (results.size() > 0) {
                 pageInfo.setCurrentPage(start);
-                pageInfo.setPageSize(limit);
+                pageInfo.setPageSize(size);
                 pageInfo.setTotal(results.size());
                 pageInfo.setResult(results);
                 return pageInfo;

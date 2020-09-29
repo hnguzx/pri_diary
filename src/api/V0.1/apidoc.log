@@ -1,0 +1,208 @@
+九月 29, 2020 3:46:59 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find java src paths:  [F:\IntelliJProjects\pri_diary\src\main\java\]
+九月 29, 2020 3:46:59 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: project type not set, try to figure out...
+九月 29, 2020 3:46:59 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start find controllers in path : F:\IntelliJProjects\pri_diary\src\main\java\
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : DemoController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdBlogController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdCommentController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdDiaryController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdFriendController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdMessageController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdPraiseController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : PdUserController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : DemoController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : DemoController.java
+九月 29, 2020 3:47:01 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdBlogController.java
+九月 29, 2020 3:47:02 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:02 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:02 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:02 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:02 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdBlogController.java
+九月 29, 2020 3:47:02 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdCommentController.java
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdCommentController.java
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdDiaryController.java
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:03 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:05 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:05 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:06 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\PageInfo.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:07 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdDiaryController.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:07 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdDiaryController.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:07 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdDiaryController.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdDiaryController.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdDiaryController.java
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdFriendController.java
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\PageInfo.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdFriendController.java
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdMessageController.java
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:08 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdMessageController.java
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdPraiseController.java
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdPraiseController.java
+九月 29, 2020 3:47:09 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : PdUserController.java
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:10 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:11 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: we think T should not be an enum type
+九月 29, 2020 3:47:11 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\ApiResp.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:11 下午 io.github.yedaxia.apidocs.LogUtils warn
+警告: warning!! Cannot find java file , in java file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\pojo\PageInfo.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
+九月 29, 2020 3:47:11 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : PdUserController.java
+九月 29, 2020 3:47:11 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate api docs start...
+九月 29, 2020 3:47:11 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\DemoController.java
+九月 29, 2020 3:47:13 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\DemoController.java
+九月 29, 2020 3:47:13 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdBlogController.java
+九月 29, 2020 3:47:13 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdBlogController.java
+九月 29, 2020 3:47:13 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdCommentController.java
+九月 29, 2020 3:47:14 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdCommentController.java
+九月 29, 2020 3:47:14 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdDiaryController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdDiaryController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdFriendController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdFriendController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdMessageController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdMessageController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdPraiseController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdPraiseController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdUserController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\IntelliJProjects\pri_diary\src\main\java\per\guzx\pri_diary\controller\PdUserController.java
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate index start !!!
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate index done !!!
+九月 29, 2020 3:47:15 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate api docs done !!!

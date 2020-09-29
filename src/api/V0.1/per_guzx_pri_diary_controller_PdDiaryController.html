@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Created by Guzx on 2020/09/07.
-好友接口</title>
+    <title>日记接口</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.css">
@@ -104,7 +103,7 @@
                  aria-expanded="true" data-target="#collapse3" aria-controls="collapse3">
                 <i class="glyphicon glyphicon-align-justify"></i> 日记接口
             </div>
-            <div id="collapse3" class="collapse " aria-labelledby="heading3">
+            <div id="collapse3" class="collapse in " aria-labelledby="heading3">
                     <a class="catalog-item" href="per_guzx_pri_diary_controller_PdDiaryController.html#uploadImg">
                         上传图片
                     </a>
@@ -146,7 +145,7 @@
                 <i class="glyphicon glyphicon-align-justify"></i> Created by Guzx on 2020/09/07.
 好友接口
             </div>
-            <div id="collapse4" class="collapse in " aria-labelledby="heading4">
+            <div id="collapse4" class="collapse " aria-labelledby="heading4">
                     <a class="catalog-item" href="per_guzx_pri_diary_controller_PdFriendController.html#add">
                         新增好友
                     </a>
@@ -264,52 +263,292 @@
                 <div class="page-inner">
                     <div class="action-list">
                         <div class="action-item">
-<h2 id="add"><a href="#">新增好友 </a></h2>
+<h2 id="uploadImg"><a href="#">上传图片 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/friend/add</code>
+    <code>/diary/uploadImg</code>
         <span class="label label-default">POST</span>
 </p>
-        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
-        <pre class="prettyprint lang-json">{
-	"friendId":"int //好友ID",
-	"myUserId":"int //我的用户ID",
-	"myEmail":"string //我的邮箱",
-	"myPhone":"string //我的手机号码",
-	"friendUserId":"int //好友的用户ID",
-	"friendEmail":"string //好友的邮箱",
-	"friendPhone":"string //好友的手机号码",
-	"friendRemark":"string //好友的备注"
-}</pre>
     <p><strong>返回结果</strong></p>
     <pre class="prettyprint lang-json">{
 	"code":"int //错误码",
 	"msg":"string //错误信息",
-	"data":{
-		"friendId":"int //好友ID",
-		"myUserId":"int //我的用户ID",
-		"myEmail":"string //我的邮箱",
-		"myPhone":"string //我的手机号码",
-		"friendUserId":"int //好友的用户ID",
-		"friendEmail":"string //好友的邮箱",
-		"friendPhone":"string //好友的手机号码",
-		"friendRemark":"string //好友的备注"
-	}
+	"data":{}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_add_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_uploadImg_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_add_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_uploadImg_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>
                         </div>
                         <hr>
                         <div class="action-item">
-<h2 id="delete"><a href="#">删除好友 </a></h2>
+<h2 id="insertDiary"><a href="#">新增日记 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/friend/{id}</code>
+    <code>/diary/insertDiary</code>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>diaryId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td>日记唯一标识</td>
+                    </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>是</td>
+                        <td>日记所属用户id</td>
+                    </tr>
+                    <tr>
+                        <td>diaryPhoto</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记封面</td>
+                    </tr>
+                    <tr>
+                        <td>diaryTitle</td>
+                        <td>string</td>
+                        <td>是</td>
+                        <td>日记标题</td>
+                    </tr>
+                    <tr>
+                        <td>diaryWeather</td>
+                        <td>enum</td>
+                        <td>是</td>
+                        <td>当天天气 [SUNNY_DAY,SUNNY_NIGHT,HAIL,HEAVY_SNOW,HEAVY_RAIN,HEAVY_RAIN_DAY,HEAVY_RAIN_NIGHT,FLOATING_DUST,THUNDER_AND_LIGHTNING,HAZE,TYPHOON,FOG,LIGHT_SNOW,LIGHT_RAIN,CLOUDY_DAY,SNOW_SHOWER_DAY,SNOW_SHOWER_NIGHT,SHOWER_DAY,SHOWER_NIGHT,RAISE_SAND]</td>
+                    </tr>
+                    <tr>
+                        <td>diaryMood</td>
+                        <td>enum</td>
+                        <td>是</td>
+                        <td>当天心情 [HAPPY,ENRICH,SURPRISED,PROUD,WARM,TOUCH,SORRY,AGITATED,LOST,LONELY,ANGRY,EMBARRASSED,INJUSTICE,SWEET,DREAM,TIRED,ESCAPE,IT_IS_A_LONG_STORY]</td>
+                    </tr>
+                    <tr>
+                        <td>diaryEvent</td>
+                        <td>enum</td>
+                        <td>是</td>
+                        <td>当天主要事件 [MOVIE,GAME,FAMILY,TOURISM,RELATIONSHIP,FOOD,MUSIC,WORK,REST,LOVE,SHOPPING,ADVENTURE,IMAGINATION,LEARNING,READING,MOVEMENT,ADJUST,FITNESS,SICK,STAR,PET,AFTER_PLAY,CARTOON,INTERNET,ONLINE_SHOPPING,EAT_THE_MELON,STAY_UP_LATE,DRAWING,COOKING,PLANT,BALANCE,BECOME_BEAUTIFUL,MILK_TEA,KEEPING_IN_GOOD_HEALTH,CLOTHES,OTHER]</td>
+                    </tr>
+                    <tr>
+                        <td>diaryContent</td>
+                        <td>string</td>
+                        <td>是</td>
+                        <td>日记详情</td>
+                    </tr>
+                    <tr>
+                        <td>diaryLocation</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>当天日记所在位置</td>
+                    </tr>
+                    <tr>
+                        <td>diaryLongitude</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记记录经度</td>
+                    </tr>
+                    <tr>
+                        <td>diaryLatitude</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记记录纬度</td>
+                    </tr>
+                    <tr>
+                        <td>diaryCreateTime</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记创建时间</td>
+                    </tr>
+                    <tr>
+                        <td>diaryCreateDay</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记创建日期</td>
+                    </tr>
+                    <tr>
+                        <td>diaryUpdateTime</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记最后更新时间</td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":{
+		"diaryId":"int //日记唯一标识",
+		"userId":"int //日记所属用户id",
+		"diaryPhoto":"string //日记封面",
+		"diaryTitle":"string //日记标题",
+		"diaryWeather":"enum //当天天气 [SUNNY_DAY,SUNNY_NIGHT,HAIL,HEAVY_SNOW,HEAVY_RAIN,HEAVY_RAIN_DAY,HEAVY_RAIN_NIGHT,FLOATING_DUST,THUNDER_AND_LIGHTNING,HAZE,TYPHOON,FOG,LIGHT_SNOW,LIGHT_RAIN,CLOUDY_DAY,SNOW_SHOWER_DAY,SNOW_SHOWER_NIGHT,SHOWER_DAY,SHOWER_NIGHT,RAISE_SAND]",
+		"diaryMood":"enum //当天心情 [HAPPY,ENRICH,SURPRISED,PROUD,WARM,TOUCH,SORRY,AGITATED,LOST,LONELY,ANGRY,EMBARRASSED,INJUSTICE,SWEET,DREAM,TIRED,ESCAPE,IT_IS_A_LONG_STORY]",
+		"diaryEvent":"enum //当天主要事件 [MOVIE,GAME,FAMILY,TOURISM,RELATIONSHIP,FOOD,MUSIC,WORK,REST,LOVE,SHOPPING,ADVENTURE,IMAGINATION,LEARNING,READING,MOVEMENT,ADJUST,FITNESS,SICK,STAR,PET,AFTER_PLAY,CARTOON,INTERNET,ONLINE_SHOPPING,EAT_THE_MELON,STAY_UP_LATE,DRAWING,COOKING,PLANT,BALANCE,BECOME_BEAUTIFUL,MILK_TEA,KEEPING_IN_GOOD_HEALTH,CLOTHES,OTHER]",
+		"diaryContent":"string //日记详情",
+		"diaryLocation":"string //当天日记所在位置",
+		"diaryLongitude":"string //日记记录经度",
+		"diaryLatitude":"string //日记记录纬度",
+		"diaryCreateTime":"string //日记创建时间",
+		"diaryCreateDay":"string //日记创建日期",
+		"diaryUpdateTime":"string //日记最后更新时间"
+	}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_insertDiary_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_insertDiary_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="updateDiary"><a href="#">更新日记 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/updateDiary</code>
+        <span class="label label-default">PATCH</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>diaryId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td>日记唯一标识</td>
+                    </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>是</td>
+                        <td>日记所属用户id</td>
+                    </tr>
+                    <tr>
+                        <td>diaryPhoto</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记封面</td>
+                    </tr>
+                    <tr>
+                        <td>diaryTitle</td>
+                        <td>string</td>
+                        <td>是</td>
+                        <td>日记标题</td>
+                    </tr>
+                    <tr>
+                        <td>diaryWeather</td>
+                        <td>enum</td>
+                        <td>是</td>
+                        <td>当天天气 [SUNNY_DAY,SUNNY_NIGHT,HAIL,HEAVY_SNOW,HEAVY_RAIN,HEAVY_RAIN_DAY,HEAVY_RAIN_NIGHT,FLOATING_DUST,THUNDER_AND_LIGHTNING,HAZE,TYPHOON,FOG,LIGHT_SNOW,LIGHT_RAIN,CLOUDY_DAY,SNOW_SHOWER_DAY,SNOW_SHOWER_NIGHT,SHOWER_DAY,SHOWER_NIGHT,RAISE_SAND]</td>
+                    </tr>
+                    <tr>
+                        <td>diaryMood</td>
+                        <td>enum</td>
+                        <td>是</td>
+                        <td>当天心情 [HAPPY,ENRICH,SURPRISED,PROUD,WARM,TOUCH,SORRY,AGITATED,LOST,LONELY,ANGRY,EMBARRASSED,INJUSTICE,SWEET,DREAM,TIRED,ESCAPE,IT_IS_A_LONG_STORY]</td>
+                    </tr>
+                    <tr>
+                        <td>diaryEvent</td>
+                        <td>enum</td>
+                        <td>是</td>
+                        <td>当天主要事件 [MOVIE,GAME,FAMILY,TOURISM,RELATIONSHIP,FOOD,MUSIC,WORK,REST,LOVE,SHOPPING,ADVENTURE,IMAGINATION,LEARNING,READING,MOVEMENT,ADJUST,FITNESS,SICK,STAR,PET,AFTER_PLAY,CARTOON,INTERNET,ONLINE_SHOPPING,EAT_THE_MELON,STAY_UP_LATE,DRAWING,COOKING,PLANT,BALANCE,BECOME_BEAUTIFUL,MILK_TEA,KEEPING_IN_GOOD_HEALTH,CLOTHES,OTHER]</td>
+                    </tr>
+                    <tr>
+                        <td>diaryContent</td>
+                        <td>string</td>
+                        <td>是</td>
+                        <td>日记详情</td>
+                    </tr>
+                    <tr>
+                        <td>diaryLocation</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>当天日记所在位置</td>
+                    </tr>
+                    <tr>
+                        <td>diaryLongitude</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记记录经度</td>
+                    </tr>
+                    <tr>
+                        <td>diaryLatitude</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记记录纬度</td>
+                    </tr>
+                    <tr>
+                        <td>diaryCreateTime</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记创建时间</td>
+                    </tr>
+                    <tr>
+                        <td>diaryCreateDay</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记创建日期</td>
+                    </tr>
+                    <tr>
+                        <td>diaryUpdateTime</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>日记最后更新时间</td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":{
+		"diaryId":"int //日记唯一标识",
+		"userId":"int //日记所属用户id",
+		"diaryPhoto":"string //日记封面",
+		"diaryTitle":"string //日记标题",
+		"diaryWeather":"enum //当天天气 [SUNNY_DAY,SUNNY_NIGHT,HAIL,HEAVY_SNOW,HEAVY_RAIN,HEAVY_RAIN_DAY,HEAVY_RAIN_NIGHT,FLOATING_DUST,THUNDER_AND_LIGHTNING,HAZE,TYPHOON,FOG,LIGHT_SNOW,LIGHT_RAIN,CLOUDY_DAY,SNOW_SHOWER_DAY,SNOW_SHOWER_NIGHT,SHOWER_DAY,SHOWER_NIGHT,RAISE_SAND]",
+		"diaryMood":"enum //当天心情 [HAPPY,ENRICH,SURPRISED,PROUD,WARM,TOUCH,SORRY,AGITATED,LOST,LONELY,ANGRY,EMBARRASSED,INJUSTICE,SWEET,DREAM,TIRED,ESCAPE,IT_IS_A_LONG_STORY]",
+		"diaryEvent":"enum //当天主要事件 [MOVIE,GAME,FAMILY,TOURISM,RELATIONSHIP,FOOD,MUSIC,WORK,REST,LOVE,SHOPPING,ADVENTURE,IMAGINATION,LEARNING,READING,MOVEMENT,ADJUST,FITNESS,SICK,STAR,PET,AFTER_PLAY,CARTOON,INTERNET,ONLINE_SHOPPING,EAT_THE_MELON,STAY_UP_LATE,DRAWING,COOKING,PLANT,BALANCE,BECOME_BEAUTIFUL,MILK_TEA,KEEPING_IN_GOOD_HEALTH,CLOTHES,OTHER]",
+		"diaryContent":"string //日记详情",
+		"diaryLocation":"string //当天日记所在位置",
+		"diaryLongitude":"string //日记记录经度",
+		"diaryLatitude":"string //日记记录纬度",
+		"diaryCreateTime":"string //日记创建时间",
+		"diaryCreateDay":"string //日记创建日期",
+		"diaryUpdateTime":"string //日记最后更新时间"
+	}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_updateDiary_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_updateDiary_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="deleteDiary"><a href="#">更新日记 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/{userId}/{diaryId}</code>
         <span class="label label-default">DELETE</span>
 </p>
         <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
@@ -321,9 +560,15 @@
                 <th>描述</th>
             </tr>
                     <tr>
-                        <td>id</td>
+                        <td>diaryId</td>
                         <td>int</td>
-                        <td>是</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
                         <td></td>
                     </tr>
         </table>
@@ -334,52 +579,19 @@
 	"data":{}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_delete_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_deleteDiary_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_delete_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_deleteDiary_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>
                         </div>
                         <hr>
                         <div class="action-item">
-<h2 id="update"><a href="#">更新好友相关信息 </a></h2>
+<h2 id="findDiaryById"><a href="#">查找日记 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/friend/update</code>
-        <span class="label label-default">PUT</span>
-</p>
-        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
-        <pre class="prettyprint lang-json">{
-	"friendId":"int //好友ID",
-	"myUserId":"int //我的用户ID",
-	"myEmail":"string //我的邮箱",
-	"myPhone":"string //我的手机号码",
-	"friendUserId":"int //好友的用户ID",
-	"friendEmail":"string //好友的邮箱",
-	"friendPhone":"string //好友的手机号码",
-	"friendRemark":"string //好友的备注"
-}</pre>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_update_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_update_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="detail"><a href="#">查看好友详情信息 </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/friend/{id}</code>
+    <code>/diary/detail/{userId}/{diaryId}</code>
         <span class="label label-default">GET</span>
 </p>
         <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
@@ -391,9 +603,15 @@
                 <th>描述</th>
             </tr>
                     <tr>
-                        <td>id</td>
+                        <td>diaryId</td>
                         <td>int</td>
-                        <td>是</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
                         <td></td>
                     </tr>
         </table>
@@ -401,22 +619,37 @@
     <pre class="prettyprint lang-json">{
 	"code":"int //错误码",
 	"msg":"string //错误信息",
-	"data":{}
+	"data":{
+		"diaryId":"int //日记唯一标识",
+		"userId":"int //日记所属用户id",
+		"diaryPhoto":"string //日记封面",
+		"diaryTitle":"string //日记标题",
+		"diaryWeather":"enum //当天天气 [SUNNY_DAY,SUNNY_NIGHT,HAIL,HEAVY_SNOW,HEAVY_RAIN,HEAVY_RAIN_DAY,HEAVY_RAIN_NIGHT,FLOATING_DUST,THUNDER_AND_LIGHTNING,HAZE,TYPHOON,FOG,LIGHT_SNOW,LIGHT_RAIN,CLOUDY_DAY,SNOW_SHOWER_DAY,SNOW_SHOWER_NIGHT,SHOWER_DAY,SHOWER_NIGHT,RAISE_SAND]",
+		"diaryMood":"enum //当天心情 [HAPPY,ENRICH,SURPRISED,PROUD,WARM,TOUCH,SORRY,AGITATED,LOST,LONELY,ANGRY,EMBARRASSED,INJUSTICE,SWEET,DREAM,TIRED,ESCAPE,IT_IS_A_LONG_STORY]",
+		"diaryEvent":"enum //当天主要事件 [MOVIE,GAME,FAMILY,TOURISM,RELATIONSHIP,FOOD,MUSIC,WORK,REST,LOVE,SHOPPING,ADVENTURE,IMAGINATION,LEARNING,READING,MOVEMENT,ADJUST,FITNESS,SICK,STAR,PET,AFTER_PLAY,CARTOON,INTERNET,ONLINE_SHOPPING,EAT_THE_MELON,STAY_UP_LATE,DRAWING,COOKING,PLANT,BALANCE,BECOME_BEAUTIFUL,MILK_TEA,KEEPING_IN_GOOD_HEALTH,CLOTHES,OTHER]",
+		"diaryContent":"string //日记详情",
+		"diaryLocation":"string //当天日记所在位置",
+		"diaryLongitude":"string //日记记录经度",
+		"diaryLatitude":"string //日记记录纬度",
+		"diaryCreateTime":"string //日记创建时间",
+		"diaryCreateDay":"string //日记创建日期",
+		"diaryUpdateTime":"string //日记最后更新时间"
+	}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_detail_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_findDiaryById_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_detail_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_findDiaryById_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>
                         </div>
                         <hr>
                         <div class="action-item">
-<h2 id="list"><a href="#">获取好友列表 </a></h2>
+<h2 id="findDiaryAll"><a href="#">查找指定用户的所有日记 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/friend/list</code>
+    <code>/diary/{userId}</code>
         <span class="label label-default">GET</span>
 </p>
         <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
@@ -428,7 +661,71 @@
                 <th>描述</th>
             </tr>
                     <tr>
-                        <td>page</td>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":[{
+		"diaryId":"int //日记唯一标识",
+		"userId":"int //日记所属用户id",
+		"diaryPhoto":"string //日记封面",
+		"diaryTitle":"string //日记标题",
+		"diaryWeather":"enum //当天天气 [SUNNY_DAY,SUNNY_NIGHT,HAIL,HEAVY_SNOW,HEAVY_RAIN,HEAVY_RAIN_DAY,HEAVY_RAIN_NIGHT,FLOATING_DUST,THUNDER_AND_LIGHTNING,HAZE,TYPHOON,FOG,LIGHT_SNOW,LIGHT_RAIN,CLOUDY_DAY,SNOW_SHOWER_DAY,SNOW_SHOWER_NIGHT,SHOWER_DAY,SHOWER_NIGHT,RAISE_SAND]",
+		"diaryMood":"enum //当天心情 [HAPPY,ENRICH,SURPRISED,PROUD,WARM,TOUCH,SORRY,AGITATED,LOST,LONELY,ANGRY,EMBARRASSED,INJUSTICE,SWEET,DREAM,TIRED,ESCAPE,IT_IS_A_LONG_STORY]",
+		"diaryEvent":"enum //当天主要事件 [MOVIE,GAME,FAMILY,TOURISM,RELATIONSHIP,FOOD,MUSIC,WORK,REST,LOVE,SHOPPING,ADVENTURE,IMAGINATION,LEARNING,READING,MOVEMENT,ADJUST,FITNESS,SICK,STAR,PET,AFTER_PLAY,CARTOON,INTERNET,ONLINE_SHOPPING,EAT_THE_MELON,STAY_UP_LATE,DRAWING,COOKING,PLANT,BALANCE,BECOME_BEAUTIFUL,MILK_TEA,KEEPING_IN_GOOD_HEALTH,CLOTHES,OTHER]",
+		"diaryContent":"string //日记详情",
+		"diaryLocation":"string //当天日记所在位置",
+		"diaryLongitude":"string //日记记录经度",
+		"diaryLatitude":"string //日记记录纬度",
+		"diaryCreateTime":"string //日记创建时间",
+		"diaryCreateDay":"string //日记创建日期",
+		"diaryUpdateTime":"string //日记最后更新时间"
+	}]
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_findDiaryAll_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_findDiaryAll_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="findDiaryByGlobal"><a href="#">根据条件模糊查找日记 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/{ /{userId}/{start}/{size}/{global}, /{userId}/{start}/{size} }</code>
+        <span class="label label-default">GET</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>global</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>start</td>
                         <td>int</td>
                         <td>否</td>
                         <td></td>
@@ -444,12 +741,166 @@
     <pre class="prettyprint lang-json">{
 	"code":"int //错误码",
 	"msg":"string //错误信息",
+	"data":{
+		"currentPage":"int //当前页码",
+		"pageSize":"int //页大小",
+		"total":"int //总记录数",
+		"pages":"int //总页数",
+		"result":[]
+	}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_findDiaryByGlobal_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_findDiaryByGlobal_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="getDiaryNumber"><a href="#">获取日记相关的数量 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/getDiaryNumber/{userId}</code>
+        <span class="label label-default">GET</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
 	"data":{}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_list_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_getDiaryNumber_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_list_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_getDiaryNumber_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="getImgInfo"><a href="#">获取日记的图片信息 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/getImgInfo/{userId}</code>
+        <span class="label label-default">GET</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":{}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_getImgInfo_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_getImgInfo_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="getAddressInfo"><a href="#">获取日记的地址信息 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/getAddressInfo/{userId}</code>
+        <span class="label label-default">GET</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":{}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_getAddressInfo_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_getAddressInfo_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="getDiaryLabelInfo"><a href="#">获取日记的标签信息 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/diary/getDiaryLabelInfo/{userId}</code>
+        <span class="label label-default">GET</span>
+</p>
+        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数名</th>
+                <th>类型</th>
+                <th>必须</th>
+                <th>描述</th>
+            </tr>
+                    <tr>
+                        <td>userId</td>
+                        <td>int</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
+        </table>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":{}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdDiaryController_getDiaryLabelInfo_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdDiaryController_getDiaryLabelInfo_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>

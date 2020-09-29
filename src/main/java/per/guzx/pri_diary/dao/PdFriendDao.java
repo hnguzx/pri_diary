@@ -31,6 +31,7 @@ public interface PdFriendDao {
 
     /**
      * 根据好友id查找好友
+     *
      * @param friendUserId
      * @return
      */
@@ -38,16 +39,12 @@ public interface PdFriendDao {
 
     /**
      * 根据好友相关信息查询好友
-     *
-     * @param friend
+     * @param myUserId
+     * @param start
+     * @param limit
+     * @param global
      * @return
      */
-    PdFriend findByFriend(PdFriend friend);
+    List<PdFriend> findFriendByInfo(int myUserId, int start, int size, String global);
 
-    /**
-     * 获取所有好友信息
-     *
-     * @return
-     */
-    List<PdFriend> findAll();
 }

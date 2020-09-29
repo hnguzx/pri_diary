@@ -171,7 +171,7 @@ public class PdUserController {
      * @return
      */
     @PatchMapping("/resetPassword/{verifyCode}")
-    public ApiResp<ErrorEnum> forgetPassword(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
+    public ApiResp forgetPassword(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
         int result = userService.findUserCount(user);
         if (result > 0) {
             if (checkVerifyCode(user, verifyCode)) {
@@ -191,7 +191,7 @@ public class PdUserController {
      * @return
      */
     @PatchMapping("/updateUser")
-    public ApiResp updateUser(@RequestBody PdUser user) {
+    public ApiResp<PdUser> updateUser(@RequestBody PdUser user) {
         userService.updateUser(user);
         PdUser newUser = userService.findUserById(user.getUserId());
         return ApiResp.retOk(newUser);
@@ -203,12 +203,12 @@ public class PdUserController {
      *
      * @param user
      * @param start
-     * @param limit
+     * @param size
      * @return
      */
-    @PostMapping("/{start}/{limit}")
-    public ApiResp<PageInfo> findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("limit") int limit) {
-        PageInfo result = userService.findUsers(user, start, limit);
+    @PostMapping("/{start}/{size}")
+    public ApiResp<PageInfo> findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("size") int size) {
+        PageInfo result = userService.findUsers(user, start, size);
         return ApiResp.retOk(result);
     }
 
@@ -219,7 +219,7 @@ public class PdUserController {
      * @return
      */
     @PatchMapping("/{userId}")
-    public ApiResp cancelUser(@PathVariable("userId") int id) {
+    public ApiResp<PdUser> cancelUser(@PathVariable("userId") int id) {
         PdUser user = userService.cancelUser(id);
         return ApiResp.retOk(user);
     }

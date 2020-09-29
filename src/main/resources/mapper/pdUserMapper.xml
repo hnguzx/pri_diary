@@ -93,7 +93,7 @@
                 concat(concat('%',#{user.userEmail}),'%')
             </if>
             <if test="user.userSex != null and user.userSex != '' ">and user_sex = #{user.userSex}</if>
-            limit #{start},#{limit}
+            limit #{start},#{size}
         </where>
     </select>
 

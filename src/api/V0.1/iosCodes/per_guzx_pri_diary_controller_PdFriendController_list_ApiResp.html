@@ -18,7 +18,29 @@
 //错误信息
 @property (nonatomic, assign) NSString msg;
 //响应内容，默认为null
-@property (nonatomic, strong) ErrorEnum data;
+@property (nonatomic, strong) PageInfo data;
+
+
+@end
+</xmp>
+</pre>
+
+<pre class="prettyprint">
+<xmp>
+#import <Foundation/Foundation>;
+
+@interface PageInfo : NSObject
+
+//当前页码
+@property (nonatomic, strong) NSInteger currentPage;
+//页大小
+@property (nonatomic, strong) NSInteger pageSize;
+//总记录数
+@property (nonatomic, strong) NSInteger total;
+//总页数
+@property (nonatomic, strong) NSInteger pages;
+//结果集
+@property (nonatomic, strong) Object[] result;
 
 
 @end

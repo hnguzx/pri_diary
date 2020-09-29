@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>用户接口</title>
+    <title>Created by Guzx on 2020/09/07.
+好友接口</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.css">
@@ -145,7 +146,7 @@
                 <i class="glyphicon glyphicon-align-justify"></i> Created by Guzx on 2020/09/07.
 好友接口
             </div>
-            <div id="collapse4" class="collapse " aria-labelledby="heading4">
+            <div id="collapse4" class="collapse in " aria-labelledby="heading4">
                     <a class="catalog-item" href="per_guzx_pri_diary_controller_PdFriendController.html#add">
                         新增好友
                     </a>
@@ -216,7 +217,7 @@
                  aria-expanded="true" data-target="#collapse7" aria-controls="collapse7">
                 <i class="glyphicon glyphicon-align-justify"></i> 用户接口
             </div>
-            <div id="collapse7" class="collapse in " aria-labelledby="heading7">
+            <div id="collapse7" class="collapse " aria-labelledby="heading7">
                     <a class="catalog-item" href="per_guzx_pri_diary_controller_PdUserController.html#insertUser">
                         用户注册
                     </a>
@@ -263,61 +264,53 @@
                 <div class="page-inner">
                     <div class="action-list">
                         <div class="action-item">
-<h2 id="insertUser"><a href="#">用户注册 </a></h2>
+<h2 id="add"><a href="#">新增好友 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/user/insertUser/{verifyCode}</code>
+    <code>/friend/add</code>
         <span class="label label-default">POST</span>
 </p>
-        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
-        <table class="table table-bordered">
-            <tr>
-                <th>参数名</th>
-                <th>类型</th>
-                <th>必须</th>
-                <th>描述</th>
-            </tr>
-                    <tr>
-                        <td>verifyCode</td>
-                        <td>string</td>
-                        <td>否</td>
-                        <td></td>
-                    </tr>
-        </table>
         <p><strong>请求体</strong> <span class="badge">application/json</span></p>
         <pre class="prettyprint lang-json">{
-	"userId":"int //用户唯一标识",
-	"userName":"string //用户昵称",
-	"userBirthday":"string //用户出生日期",
-	"userSex":"enum //用户性别 [FEMALE,MALE]",
-	"userPassword":"string //用户登录密码",
-	"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-	"userPhone":"string //手机号码",
-	"userEmail":"string //邮箱地址",
-	"userHead":"string //用户头像图片存储地址",
-	"userCreateTime":"string //用户创建时间"
+	"friendId":"int //好友ID",
+	"myUserId":"int //我的用户ID",
+	"myEmail":"string //我的邮箱",
+	"myPhone":"string //我的手机号码",
+	"friendUserId":"int //好友的用户ID",
+	"friendEmail":"string //好友的邮箱",
+	"friendPhone":"string //好友的手机号码",
+	"friendRemark":"string //好友的备注"
 }</pre>
     <p><strong>返回结果</strong></p>
     <pre class="prettyprint lang-json">{
 	"code":"int //错误码",
 	"msg":"string //错误信息",
-	"data":{}
+	"data":{
+		"friendId":"int //好友ID",
+		"myUserId":"int //我的用户ID",
+		"myEmail":"string //我的邮箱",
+		"myPhone":"string //我的手机号码",
+		"friendUserId":"int //好友的用户ID",
+		"friendEmail":"string //好友的邮箱",
+		"friendPhone":"string //好友的手机号码",
+		"friendRemark":"string //好友的备注"
+	}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_insertUser_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_add_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_insertUser_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_add_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>
                         </div>
                         <hr>
                         <div class="action-item">
-<h2 id="getRegisterVerifyCode"><a href="#">获取验证码 </a></h2>
+<h2 id="delete"><a href="#">删除好友 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/user/verifyCode/{emailOrPhone}</code>
-        <span class="label label-default">GET</span>
+    <code>/friend/{id}</code>
+        <span class="label label-default">DELETE</span>
 </p>
         <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
         <table class="table table-bordered">
@@ -328,9 +321,9 @@
                 <th>描述</th>
             </tr>
                     <tr>
-                        <td>emailOrPhone</td>
-                        <td>string</td>
-                        <td>否</td>
+                        <td>id</td>
+                        <td>int</td>
+                        <td>是</td>
                         <td></td>
                     </tr>
         </table>
@@ -341,19 +334,61 @@
 	"data":{}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_getRegisterVerifyCode_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_delete_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_getRegisterVerifyCode_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_delete_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>
                         </div>
                         <hr>
                         <div class="action-item">
-<h2 id="findUserById"><a href="#">根据id查找用户 </a></h2>
+<h2 id="update"><a href="#">更新好友相关信息 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/user/id/{id}</code>
+    <code>/friend/update</code>
+        <span class="label label-default">PATCH</span>
+</p>
+        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
+        <pre class="prettyprint lang-json">{
+	"friendId":"int //好友ID",
+	"myUserId":"int //我的用户ID",
+	"myEmail":"string //我的邮箱",
+	"myPhone":"string //我的手机号码",
+	"friendUserId":"int //好友的用户ID",
+	"friendEmail":"string //好友的邮箱",
+	"friendPhone":"string //好友的手机号码",
+	"friendRemark":"string //好友的备注"
+}</pre>
+    <p><strong>返回结果</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":"int //错误码",
+	"msg":"string //错误信息",
+	"data":{
+		"friendId":"int //好友ID",
+		"myUserId":"int //我的用户ID",
+		"myEmail":"string //我的邮箱",
+		"myPhone":"string //我的手机号码",
+		"friendUserId":"int //好友的用户ID",
+		"friendEmail":"string //好友的邮箱",
+		"friendPhone":"string //好友的手机号码",
+		"friendRemark":"string //好友的备注"
+	}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_update_ApiResp.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_update_ApiResp.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
+<h2 id="detail"><a href="#">查看好友详情信息 </a></h2>
+<p><strong>请求URL</strong></p>
+<p>
+    <code>/friend/{id}</code>
         <span class="label label-default">GET</span>
 </p>
         <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
@@ -367,7 +402,7 @@
                     <tr>
                         <td>id</td>
                         <td>int</td>
-                        <td>否</td>
+                        <td>是</td>
                         <td></td>
                     </tr>
         </table>
@@ -376,69 +411,30 @@
 	"code":"int //错误码",
 	"msg":"string //错误信息",
 	"data":{
-		"userId":"int //用户唯一标识",
-		"userName":"string //用户昵称",
-		"userBirthday":"string //用户出生日期",
-		"userSex":"enum //用户性别 [FEMALE,MALE]",
-		"userPassword":"string //用户登录密码",
-		"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-		"userPhone":"string //手机号码",
-		"userEmail":"string //邮箱地址",
-		"userHead":"string //用户头像图片存储地址",
-		"userCreateTime":"string //用户创建时间"
+		"friendId":"int //好友ID",
+		"myUserId":"int //我的用户ID",
+		"myEmail":"string //我的邮箱",
+		"myPhone":"string //我的手机号码",
+		"friendUserId":"int //好友的用户ID",
+		"friendEmail":"string //好友的邮箱",
+		"friendPhone":"string //好友的手机号码",
+		"friendRemark":"string //好友的备注"
 	}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_findUserById_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_detail_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_findUserById_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_detail_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>
                         </div>
                         <hr>
                         <div class="action-item">
-<h2 id="deleteUser"><a href="#">根据id删除用户 </a></h2>
+<h2 id="list"><a href="#">获取好友列表 </a></h2>
 <p><strong>请求URL</strong></p>
 <p>
-    <code>/user/{userId}</code>
-        <span class="label label-default">DELETE</span>
-</p>
-        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
-        <table class="table table-bordered">
-            <tr>
-                <th>参数名</th>
-                <th>类型</th>
-                <th>必须</th>
-                <th>描述</th>
-            </tr>
-                    <tr>
-                        <td>userId</td>
-                        <td>int</td>
-                        <td>否</td>
-                        <td></td>
-                    </tr>
-        </table>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_deleteUser_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_deleteUser_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="forgetPasswordGetVerifyCode"><a href="#">重置密码获取验证码 </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/user/resetPassword/verifyCode/{emailOrPhone}</code>
+    <code>/friend/{ /{myUserId}/{start}/{size}/{global}, /{myUserId}/{start}/{size} }</code>
         <span class="label label-default">GET</span>
 </p>
         <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
@@ -450,128 +446,11 @@
                 <th>描述</th>
             </tr>
                     <tr>
-                        <td>emailOrPhone</td>
-                        <td>string</td>
+                        <td>myUserId</td>
+                        <td>int</td>
                         <td>否</td>
                         <td></td>
                     </tr>
-        </table>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_forgetPasswordGetVerifyCode_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_forgetPasswordGetVerifyCode_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="forgetPassword"><a href="#">重置密码 </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/user/resetPassword/{verifyCode}</code>
-        <span class="label label-default">PATCH</span>
-</p>
-        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
-        <table class="table table-bordered">
-            <tr>
-                <th>参数名</th>
-                <th>类型</th>
-                <th>必须</th>
-                <th>描述</th>
-            </tr>
-                    <tr>
-                        <td>verifyCode</td>
-                        <td>string</td>
-                        <td>否</td>
-                        <td></td>
-                    </tr>
-        </table>
-        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
-        <pre class="prettyprint lang-json">{
-	"userId":"int //用户唯一标识",
-	"userName":"string //用户昵称",
-	"userBirthday":"string //用户出生日期",
-	"userSex":"enum //用户性别 [FEMALE,MALE]",
-	"userPassword":"string //用户登录密码",
-	"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-	"userPhone":"string //手机号码",
-	"userEmail":"string //邮箱地址",
-	"userHead":"string //用户头像图片存储地址",
-	"userCreateTime":"string //用户创建时间"
-}</pre>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_forgetPassword_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_forgetPassword_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="updateUser"><a href="#">更新用户信息 </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/user/updateUser</code>
-        <span class="label label-default">PATCH</span>
-</p>
-        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
-        <pre class="prettyprint lang-json">{
-	"userId":"int //用户唯一标识",
-	"userName":"string //用户昵称",
-	"userBirthday":"string //用户出生日期",
-	"userSex":"enum //用户性别 [FEMALE,MALE]",
-	"userPassword":"string //用户登录密码",
-	"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-	"userPhone":"string //手机号码",
-	"userEmail":"string //邮箱地址",
-	"userHead":"string //用户头像图片存储地址",
-	"userCreateTime":"string //用户创建时间"
-}</pre>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_updateUser_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_updateUser_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="findUsers"><a href="#">分页查询用户信息
-这个请求类型时特殊的！！！ </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/user/{start}/{limit}</code>
-        <span class="label label-default">POST</span>
-</p>
-        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
-        <table class="table table-bordered">
-            <tr>
-                <th>参数名</th>
-                <th>类型</th>
-                <th>必须</th>
-                <th>描述</th>
-            </tr>
                     <tr>
                         <td>start</td>
                         <td>int</td>
@@ -579,25 +458,18 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>limit</td>
+                        <td>size</td>
                         <td>int</td>
                         <td>否</td>
                         <td></td>
                     </tr>
+                    <tr>
+                        <td>global</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td></td>
+                    </tr>
         </table>
-        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
-        <pre class="prettyprint lang-json">{
-	"userId":"int //用户唯一标识",
-	"userName":"string //用户昵称",
-	"userBirthday":"string //用户出生日期",
-	"userSex":"enum //用户性别 [FEMALE,MALE]",
-	"userPassword":"string //用户登录密码",
-	"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-	"userPhone":"string //手机号码",
-	"userEmail":"string //邮箱地址",
-	"userHead":"string //用户头像图片存储地址",
-	"userCreateTime":"string //用户创建时间"
-}</pre>
     <p><strong>返回结果</strong></p>
     <pre class="prettyprint lang-json">{
 	"code":"int //错误码",
@@ -611,92 +483,9 @@
 	}
 }</pre>
         <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_findUsers_ApiResp.html"><i
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdFriendController_list_ApiResp.html"><i
                         class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_findUsers_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="cancelUser"><a href="#">用户注销 </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/user/{userId}</code>
-        <span class="label label-default">PATCH</span>
-</p>
-        <p><strong>请求参数</strong> <span class="badge">application/x-www-form-urlencoded</span></p>
-        <table class="table table-bordered">
-            <tr>
-                <th>参数名</th>
-                <th>类型</th>
-                <th>必须</th>
-                <th>描述</th>
-            </tr>
-                    <tr>
-                        <td>userId</td>
-                        <td>int</td>
-                        <td>否</td>
-                        <td></td>
-                    </tr>
-        </table>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_cancelUser_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_cancelUser_ApiResp.html"><i class="fa fa-apple"
-                                                                                                 aria-hidden="true"></i>
-                iOS Model</a>
-        </div>
-                        </div>
-                        <hr>
-                        <div class="action-item">
-<h2 id="login"><a href="#">用户登录 </a></h2>
-<p><strong>请求URL</strong></p>
-<p>
-    <code>/user/login</code>
-        <span class="label label-default">POST</span>
-</p>
-        <p><strong>请求体</strong> <span class="badge">application/json</span></p>
-        <pre class="prettyprint lang-json">{
-	"userId":"int //用户唯一标识",
-	"userName":"string //用户昵称",
-	"userBirthday":"string //用户出生日期",
-	"userSex":"enum //用户性别 [FEMALE,MALE]",
-	"userPassword":"string //用户登录密码",
-	"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-	"userPhone":"string //手机号码",
-	"userEmail":"string //邮箱地址",
-	"userHead":"string //用户头像图片存储地址",
-	"userCreateTime":"string //用户创建时间"
-}</pre>
-    <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{
-	"code":"int //错误码",
-	"msg":"string //错误信息",
-	"data":{
-		"userId":"int //用户唯一标识",
-		"userName":"string //用户昵称",
-		"userBirthday":"string //用户出生日期",
-		"userSex":"enum //用户性别 [FEMALE,MALE]",
-		"userPassword":"string //用户登录密码",
-		"userState":"enum //用户状态 [ACTIVATION,CANCELLATION,INACTIVATION]",
-		"userPhone":"string //手机号码",
-		"userEmail":"string //邮箱地址",
-		"userHead":"string //用户头像图片存储地址",
-		"userCreateTime":"string //用户创建时间"
-	}
-}</pre>
-        <div class="form-group">
-            <a type="button" class="btn btn-sm btn-default" href="javaCodes/per_guzx_pri_diary_controller_PdUserController_login_ApiResp.html"><i
-                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
-            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdUserController_login_ApiResp.html"><i class="fa fa-apple"
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/per_guzx_pri_diary_controller_PdFriendController_list_ApiResp.html"><i class="fa fa-apple"
                                                                                                  aria-hidden="true"></i>
                 iOS Model</a>
         </div>

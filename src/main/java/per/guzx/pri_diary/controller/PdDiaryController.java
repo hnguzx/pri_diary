@@ -39,7 +39,7 @@ public class PdDiaryController {
      * @return
      */
     @PostMapping("/insertDiary")
-    public ApiResp insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
         diaryService.insertDiary(diary, detailPhoto);
         return ApiResp.retOk(diary);
     }
@@ -51,7 +51,7 @@ public class PdDiaryController {
      * @return
      */
     @PatchMapping("/updateDiary")
-    public ApiResp updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+    public ApiResp<PdDiary> updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
         diaryService.updateDiary(diary, detailPhoto);
         PdDiary updateAfterDiary = diaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
         return ApiResp.retOk(updateAfterDiary);
@@ -76,7 +76,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping("/detail/{userId}/{diaryId}")
-    public ApiResp findDiaryById(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
+    public ApiResp<PdDiary> findDiaryById(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
         PdDiary diary = diaryService.findDiaryById(userId, diaryId);
         return ApiResp.retOk(diary);
     }
@@ -87,7 +87,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping("/{userId}")
-    public ApiResp findDiaryAll(@PathVariable("userId") int userId) {
+    public ApiResp<List<PdDiary>> findDiaryAll(@PathVariable("userId") int userId) {
         List<PdDiary> diaries = diaryService.findDiaryAll(userId);
         return ApiResp.retOk(diaries);
     }
@@ -101,7 +101,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
-    public ApiResp findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
+    public ApiResp<PageInfo> findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
         PageInfo pageInfo = diaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(pageInfo);
     }
@@ -112,7 +112,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping("/getDiaryNumber/{userId}")
-    public ApiResp getDiaryNumber(@PathVariable("userId") int userId) {
+    public ApiResp<Map<String,Object>> getDiaryNumber(@PathVariable("userId") int userId) {
         Map<String, Object> result = diaryService.getDiaryNumber(userId);
         return ApiResp.retOk(result);
     }
@@ -123,7 +123,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping("/getImgInfo/{userId}")
-    public ApiResp getImgInfo(@PathVariable("userId") int userId) {
+    public ApiResp<Map<String,Object>> getImgInfo(@PathVariable("userId") int userId) {
         Map<String, Object> result = diaryService.getImageInfo(userId);
         return ApiResp.retOk(result);
     }
@@ -134,7 +134,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping("/getAddressInfo/{userId}")
-    public ApiResp getAddressInfo(@PathVariable("userId") int userId) {
+    public ApiResp<Map<String,Object>> getAddressInfo(@PathVariable("userId") int userId) {
         Map<String, Object> result = diaryService.getAddressInfo(userId);
         return ApiResp.retOk(result);
     }
@@ -145,7 +145,7 @@ public class PdDiaryController {
      * @return
      */
     @GetMapping("/getDiaryLabelInfo/{userId}")
-    public ApiResp getDiaryLabelInfo(@PathVariable("userId") int userId){
+    public ApiResp<Map<String,Object>> getDiaryLabelInfo(@PathVariable("userId") int userId){
         Map<String, Object> result = diaryService.getDiaryLabelInfo(userId);
         return ApiResp.retOk(result);
     }

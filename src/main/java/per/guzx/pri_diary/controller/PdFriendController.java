@@ -1,19 +1,16 @@
 package per.guzx.pri_diary.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.pojo.ApiResp;
+import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdFriend;
 import per.guzx.pri_diary.service.PdFriendService;
 
-import java.util.List;
-
 /**
-* Created by Guzx on 2020/09/07.
+ * Created by Guzx on 2020/09/07.
  * 好友接口
-*/
+ */
 @RestController
 @RequestMapping("/friend")
 public class PdFriendController {
@@ -22,6 +19,7 @@ public class PdFriendController {
 
     /**
      * 新增好友
+     *
      * @param pdFriend
      * @return
      */
@@ -33,6 +31,7 @@ public class PdFriendController {
 
     /**
      * 删除好友
+     *
      * @param id
      * @return
      */
@@ -44,6 +43,7 @@ public class PdFriendController {
 
     /**
      * 更新好友相关信息
+     *
      * @param pdFriend
      * @return
      */
@@ -55,6 +55,7 @@ public class PdFriendController {
 
     /**
      * 查看好友详情信息
+     *
      * @param id
      * @return
      */
@@ -66,13 +67,15 @@ public class PdFriendController {
 
     /**
      * 获取好友列表
-     * @param page
+     * @param myUserId
+     * @param start
      * @param size
+     * @param global
      * @return
      */
-    @GetMapping("/list")
-    public ApiResp<PageInfo> list(@RequestBody PageInfo pageInfo) {
-        PageInfo friends = pdFriendService.findAll(pageInfo.getPageNum(),pageInfo.getPageSize());
-        return ApiResp.retOk(friends);
+    @GetMapping(value = {"/{myUserId}/{start}/{size}/{global}", "/{myUserId}/{start}/{size}"})
+    public ApiResp<PageInfo> list(@PathVariable(value = "myUserId",required = true) int myUserId, @PathVariable("start") int start, @PathVariable("size") int size, @PathVariable(value = "global", required = false) String global) {
+        PageInfo pageInfo = pdFriendService.findFriendByInfo(myUserId, start, size, global);
+        return ApiResp.retOk(pageInfo);
     }
 }
