@@ -25,31 +25,9 @@ public class PdMessageController {
      * @param pdMessage
      * @return
      */
-    @PostMapping("/add")
-    public ApiResp add(@RequestBody PdMessage pdMessage) {
-        pdMessageService.save(pdMessage);
-        return ApiResp.retOk();
-    }
-
-    /**
-     * 删除消息
-     * @param id
-     * @return
-     */
-    @DeleteMapping("/{id}")
-    public ApiResp delete(@PathVariable Integer id) {
-        pdMessageService.deleteById(id);
-        return ApiResp.retOk();
-    }
-
-    /**
-     * 更新消息
-     * @param pdMessage
-     * @return
-     */
-    @PutMapping("/update")
-    public ApiResp update(@RequestBody PdMessage pdMessage) {
-        pdMessageService.update(pdMessage);
+    @PostMapping("/sendMsg")
+    public ApiResp sendMsg(@RequestBody PdMessage pdMessage) {
+        pdMessageService.sendMsg(pdMessage);
         return ApiResp.retOk();
     }
 

@@ -20,14 +20,14 @@ public class PdMessage {
     /**
      * 发送用户
      */
-    @Column(name = "msg_send_user")
-    private Integer msgSendUser;
+    @Column(name = "msg_sender")
+    private Integer msgSender;
 
     /**
      * 接收用户
      */
-    @Column(name = "msg_receive")
-    private Integer msgReceive;
+    @Column(name = "msg_receiver")
+    private Integer msgReceiver;
 
     /**
      * 发送时间
@@ -39,7 +39,7 @@ public class PdMessage {
      * 接收者是否查看
      */
     @Column(name = "msg_is_readed")
-    private String msgIsReaded;
+    private Boolean msgIsReaded;
 
     /**
      * 消息内容（图片，音频，文件2.0处理）
@@ -68,37 +68,37 @@ public class PdMessage {
     /**
      * 获取发送用户
      *
-     * @return msg_send_user - 发送用户
+     * @return msg_sender - 发送用户
      */
-    public Integer getMsgSendUser() {
-        return msgSendUser;
+    public Integer getMsgSender() {
+        return msgSender;
     }
 
     /**
      * 设置发送用户
      *
-     * @param msgSendUser 发送用户
+     * @param msgSender 发送用户
      */
-    public void setMsgSendUser(Integer msgSendUser) {
-        this.msgSendUser = msgSendUser;
+    public void setMsgSender(Integer msgSender) {
+        this.msgSender = msgSender;
     }
 
     /**
      * 获取接收用户
      *
-     * @return msg_receive - 接收用户
+     * @return msg_receiver - 接收用户
      */
-    public Integer getMsgReceive() {
-        return msgReceive;
+    public Integer getMsgReceiver() {
+        return msgReceiver;
     }
 
     /**
      * 设置接收用户
      *
-     * @param msgReceive 接收用户
+     * @param msgReceiver 接收用户
      */
-    public void setMsgReceive(Integer msgReceive) {
-        this.msgReceive = msgReceive;
+    public void setMsgReceive(Integer msgReceiver) {
+        this.msgReceiver = msgReceiver;
     }
 
     /**
@@ -124,7 +124,7 @@ public class PdMessage {
      *
      * @return msg_is_readed - 接收者是否查看
      */
-    public String getMsgIsReaded() {
+    public Boolean getMsgIsReaded() {
         return msgIsReaded;
     }
 
@@ -133,7 +133,7 @@ public class PdMessage {
      *
      * @param msgIsReaded 接收者是否查看
      */
-    public void setMsgIsReaded(String msgIsReaded) {
+    public void setMsgIsReade(boolean msgIsReaded) {
         this.msgIsReaded = msgIsReaded;
     }
 

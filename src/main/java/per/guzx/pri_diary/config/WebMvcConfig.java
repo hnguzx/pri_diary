@@ -7,6 +7,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -23,6 +24,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.ApiResp;
@@ -41,6 +44,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 @Slf4j
+@EnableWebSocketMessageBroker
 public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfigurer {
 
     @Value("${spring.profiles.active}")
@@ -231,5 +235,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfig
         } catch (IOException ex) {
             log.error(ex.getMessage());
         }
+    }
+
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
     }
 }

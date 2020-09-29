@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.pri_diary.dao.PdMessageDao">
-  <resultMap id="BaseResultMap" type="message">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <result column="msg_send_user" jdbcType="INTEGER" property="msgSendUser" />
-    <result column="msg_receive" jdbcType="INTEGER" property="msgReceive" />
-    <result column="msg_create_time" jdbcType="VARCHAR" property="msgCreateTime" />
-    <result column="msg_is_readed" jdbcType="VARCHAR" property="msgIsReaded" />
-    <result column="msg_content" jdbcType="VARCHAR" property="msgContent" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="message">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="msg_sender" jdbcType="INTEGER" property="msgSender"/>
+        <result column="msg_receiver" jdbcType="INTEGER" property="msgReceiver"/>
+        <result column="msg_create_time" jdbcType="VARCHAR" property="msgCreateTime"/>
+        <result column="msg_is_readed" jdbcType="VARCHAR" property="msgIsReaded"/>
+        <result column="msg_content" jdbcType="VARCHAR" property="msgContent"/>
+    </resultMap>
+
+    <sql id="select_message">
+        select private_diary.pd_message.msg_sender      msgSender,
+               private_diary.pd_message.msg_receiver    msgReceiver,
+               private_diary.pd_message.msg_create_time msgCreateTime,
+               private_diary.pd_message.msg_is_readed   msgIsReaded,
+               private_diary.pd_message.msg_content     msgContent
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="msgId">
+        insert into private_diary.pd_message(msg_sender, msg_receiver, msg_create_time, msg_content, msg_is_readed)
+            value (#{msgSender}, #{msgReceiver}, #{msgCreateTime}, #{msgContent}, #{msgIsReaded})
+    </insert>
 </mapper>

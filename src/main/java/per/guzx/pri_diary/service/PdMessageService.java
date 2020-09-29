@@ -10,11 +10,7 @@ import java.util.List;
  */
 public interface PdMessageService {
 
-    void save(PdMessage pdMessage);
-
-    void deleteById(Integer id);
-
-    void update(PdMessage pdMessage);
+    boolean sendMsg(PdMessage pdMessage);
 
     List<PdMessage> findAll();
 

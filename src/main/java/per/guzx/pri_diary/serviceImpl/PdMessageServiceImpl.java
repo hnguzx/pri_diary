@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.dao.PdMessageDao;
 import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.service.PdMessageService;
+import per.guzx.pri_diary.tool.DateUtil;
 
 import java.util.List;
 
@@ -17,19 +18,18 @@ import java.util.List;
 @Transactional
 public class PdMessageServiceImpl implements PdMessageService {
 
-    @Override
-    public void save(PdMessage pdMessage) {
+    @Autowired
+    private PdMessageDao messageDao;
 
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-
-    }
+    @Autowired
+    private DateUtil dateUtil;
 
     @Override
-    public void update(PdMessage pdMessage) {
-
+    public boolean sendMsg(PdMessage pdMessage) {
+        pdMessage.setMsgCreateTime(dateUtil.getTimeStamp());
+        pdMessage.setMsgIsReade(false);
+        int result = messageDao.save(pdMessage);
+        return result > 0;
     }
 
     @Override
