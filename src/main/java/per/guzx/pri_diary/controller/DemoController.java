@@ -61,4 +61,13 @@ public class DemoController {
         log.error("错误日志");
         return "请求成功";
     }
+
+    /**
+     * webSocket
+     * @return
+     */
+    @GetMapping("/webSocket")
+    public String webSocketPage() {
+        return "webSocket/index";
+    }
 }

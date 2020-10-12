@@ -20,11 +20,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
@@ -45,7 +43,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 @Slf4j
 @EnableWebSocketMessageBroker
-public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfigurer {
+public class WebMvcConfig extends WebMvcConfigurationSupport implements AsyncConfigurer, WebSocketMessageBrokerConfigurer {
 
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
@@ -117,8 +115,21 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfig
     }
 
     //使用阿里 FastJson 作为JSON MessageConverter
-    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        FastJsonConfig config = new FastJsonConfig();
+        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue);//保留空的字段
+        //SerializerFeature.WriteNullStringAsEmpty,//String null -> ""
+        //SerializerFeature.WriteNullNumberAsZero//Number null -> 0
+        // 按需配置，更多参考FastJson文档哈
+
+        converter.setFastJsonConfig(config);
+        converter.setDefaultCharset(Charset.forName("UTF-8"));
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+        converters.add(converter);
+    }
+
+    public boolean configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
         config.setSerializerFeatures(SerializerFeature.WriteMapNullValue);//保留空的字段
