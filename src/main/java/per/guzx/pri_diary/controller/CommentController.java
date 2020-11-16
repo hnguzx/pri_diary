@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/comment")
-public class PdCommentController {
+public class CommentController {
     @Autowired
     private PdCommentService pdCommentService;
 

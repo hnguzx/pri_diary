@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/praise")
-public class PdPraiseController {
+public class PraiseController {
     @Autowired
     private PdPraiseService pdPraiseService;
 

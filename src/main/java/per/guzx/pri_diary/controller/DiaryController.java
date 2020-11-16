@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/diary")
 @Slf4j
-public class PdDiaryController {
+public class DiaryController {
     @Autowired
     private PdDiaryService diaryService;
 

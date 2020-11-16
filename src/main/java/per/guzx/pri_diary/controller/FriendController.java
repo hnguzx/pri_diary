@@ -13,7 +13,7 @@ import per.guzx.pri_diary.service.PdFriendService;
  */
 @RestController
 @RequestMapping("/friend")
-public class PdFriendController {
+public class FriendController {
     @Autowired
     private PdFriendService pdFriendService;
 

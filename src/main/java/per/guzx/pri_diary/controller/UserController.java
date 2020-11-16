@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-public class PdUserController {
+public class UserController {
 
     @Autowired
     private PdUserService userService;

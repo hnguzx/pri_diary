@@ -16,7 +16,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/message")
-public class PdMessageController {
+public class MessageController {
     @Autowired
     private PdMessageService pdMessageService;
 
