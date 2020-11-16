@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" http-equiv="Content-Type" content="text/html">
     <title>webSocket</title>
-    <script type="text/javascript" src="../jquery-easyui-1.9.7/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../js/socket.min.js"></script>
-    <script type="text/javascript" src="../../../js/stomp.js"></script>
+    <script src="/jquery-easyui-1.9.7/jquery.min.js"></script>
+    <script src="/static/js/socket.min.js"></script>
+    <script src="/static/js/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
 
@@ -31,7 +31,7 @@
          */
         function openConnect() {
             // 定义请求服务器的端点
-            var socket = new SockJS('/socket');
+            var socket = new SockJS('/ws_chat');
             stompClient = Stomp.over(socket);
 
             stompClient.connect({}, function (frame) {

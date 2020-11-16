@@ -1,6 +1,7 @@
 package per.guzx.pri_diary.dao;
 
 import org.springframework.stereotype.Repository;
+import per.guzx.pri_diary.pojo.PdRole;
 import per.guzx.pri_diary.pojo.PdUser;
 
 import java.util.List;
@@ -14,6 +15,20 @@ public interface PdUserDao {
      * @return
      */
     int insertUser(PdUser user);
+
+    /**
+     * 根据用户名查找用户
+     * @param userName
+     * @return
+     */
+    PdUser findUserByUserName(String userName);
+
+    /**
+     * 根据用户查找权限
+     * @param id
+     * @return
+     */
+    List<PdRole> findUserAuthorities(long userId);
 
     /**
      * 用户登录

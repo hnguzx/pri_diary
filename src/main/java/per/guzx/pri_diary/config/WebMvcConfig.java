@@ -20,9 +20,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.exception.ServiceException;
@@ -42,8 +44,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 @Slf4j
-@EnableWebSocketMessageBroker
-public class WebMvcConfig extends WebMvcConfigurationSupport implements AsyncConfigurer, WebSocketMessageBrokerConfigurer {
+public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfigurer {
 
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
@@ -56,7 +57,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements AsyncCon
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 和页面相关的静态文件
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         //上传的图片在D盘下的OTA目录下，访问路径如：http://localhost:8081/OTA/d3cf0281-bb7f-40e0-ab77-406db95ccf2c.jpg
         //其中OTA表示访问的前缀。"file:D:/OTA/"是文件真实的存储路径
         // 服务器路径
@@ -115,21 +116,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements AsyncCon
     }
 
     //使用阿里 FastJson 作为JSON MessageConverter
+    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        FastJsonConfig config = new FastJsonConfig();
-        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue);//保留空的字段
-        //SerializerFeature.WriteNullStringAsEmpty,//String null -> ""
-        //SerializerFeature.WriteNullNumberAsZero//Number null -> 0
-        // 按需配置，更多参考FastJson文档哈
-
-        converter.setFastJsonConfig(config);
-        converter.setDefaultCharset(Charset.forName("UTF-8"));
-        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-        converters.add(converter);
-    }
-
-    public boolean configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
         config.setSerializerFeatures(SerializerFeature.WriteMapNullValue);//保留空的字段
@@ -248,8 +236,4 @@ public class WebMvcConfig extends WebMvcConfigurationSupport implements AsyncCon
         }
     }
 
-    @Bean
-    public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter();
-    }
 }

@@ -2,6 +2,12 @@ package per.guzx.pri_diary.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.pojo.PageInfo;
@@ -10,6 +16,7 @@ import per.guzx.pri_diary.enumeration.ErrorEnum;
 import per.guzx.pri_diary.enumeration.SexEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
 import per.guzx.pri_diary.exception.ServiceException;
+import per.guzx.pri_diary.pojo.PdRole;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.AddressUtil;
@@ -22,7 +29,7 @@ import java.util.Objects;
 @Service
 @Slf4j
 @Transactional
-public class PdUserServiceImpl implements PdUserService {
+public class PdUserServiceImpl implements PdUserService, UserDetailsService {
 
     @Autowired
     private PdUserDao userDao;
@@ -65,12 +72,12 @@ public class PdUserServiceImpl implements PdUserService {
         String headImg = "";
 //        try {
 //            String address = Inet4Address.getLocalHost().getHostAddress();
-            String address = addressUtil.getV4IP();
-            if (sexEnum.getName().equals("男")) {
-                headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
-            } else {
-                headImg = address + "/File/head/girl/girl_" + mathUtil.getRangeInteger(1, 14) + ".svg";
-            }
+        String address = addressUtil.getV4IP();
+        if (sexEnum.getName().equals("男")) {
+            headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
+        } else {
+            headImg = address + "/File/head/girl/girl_" + mathUtil.getRangeInteger(1, 14) + ".svg";
+        }
 //        } catch (UnknownHostException e) {
 //            log.error("获取网络地址失败" + e);
 //            e.printStackTrace();
@@ -161,5 +168,19 @@ public class PdUserServiceImpl implements PdUserService {
     @Override
     public int updateUserByEmailOrPhone(PdUser user) {
         return userDao.updateUserByEmailOrPhone(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        PdUser user = userDao.findUserByUserName(userName);
+        if (user != null) {
+            List<PdRole> authorities = userDao.findUserAuthorities(user.getUserId());
+            user.setAuthorities(authorities);
+        }
+        return user == null ? null :
+                User.withUserDetails(user).
+                        passwordEncoder(PasswordEncoderFactories.
+                                createDelegatingPasswordEncoder()::encode).
+                        build();
     }
 }

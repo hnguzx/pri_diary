@@ -1,10 +1,12 @@
 var webSocket = null;
 // 判断游览器是否支持websocket
-// if ('WebSocket' in Window) {
-    webSocket = new WebSocket("ws://localhost/ws")
-// } else {
-//     alert("该游览器不支持！")
-// }
+if (typeof (WebSocket) != "undefined") {
+    // var userId = $("#userId").val();
+    var url = 'ws://'+window.location.host+'/ws';
+    webSocket = new WebSocket(url)
+} else {
+    alert("该游览器不支持！")
+}
 
 webSocket.onerror = function () {
     appendMessage("error")
@@ -60,10 +62,5 @@ function closeWebSocket() {
  */
 function sendMessage() {
     var message = $("#message").val();
-    // var messageTo = {
-    //     name:'guzhixiong',
-    //     message:message
-    // }
-    // messageTo = JSON.stringify(messageTo);
     webSocket.send(message);
 }

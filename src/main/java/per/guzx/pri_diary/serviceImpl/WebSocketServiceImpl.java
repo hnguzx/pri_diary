@@ -20,17 +20,19 @@ public class WebSocketServiceImpl {
     private String receiver;
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("receiver") String receiver) {
+    public void onOpen(Session session, @PathParam("userId") String userId) {
         this.session = session;
-        this.receiver = receiver;
+        this.receiver = userId;
         webSocketSet.add(this);
         addOnlineCount();
+        log.trace("用户：" + userId + "上线，当前在线人数为：" + getOnlineCount());
     }
 
     @OnClose
     public void OnClose() {
         webSocketSet.remove(this);
         subOnlineCount();
+        log.trace("有一个用户下线，当前用户数为：" + getOnlineCount());
     }
 
     @OnMessage

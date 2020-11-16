@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" http-equiv="Content-Type" content="text/html">
     <title>webSocket</title>
-    <script type="text/javascript" src="../jquery-easyui-1.9.7/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../js/socket.min.js"></script>
-    <script type="text/javascript" src="../../../js/stomp.js"></script>
+    <script type="text/javascript" src="/jquery-easyui-1.9.7/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/socket.min.js"></script>
+    <script type="text/javascript" src="/static/js/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
 
@@ -31,7 +31,7 @@
          */
         function openConnect() {
             // 定义请求服务器的端点
-            var socket = new SockJS('/wsuser');
+            var socket = new SockJS('/ws_user');
             stompClient = Stomp.over(socket);
 
             stompClient.connect({}, function (frame) {
@@ -53,6 +53,12 @@
         }
 
         function sendMsg() {
+            /*var value = $("#message").val();
+            var receiverUser = $("#user").val();
+            var sendUser = '1';
+            var text = sendUser + "," + receiverUser + "," + value;
+            stompClient.send("/request/sendUser", {}, text)*/
+
             var value = $("#message").val();
             var user = $("#user").val();
 

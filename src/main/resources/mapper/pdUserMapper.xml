@@ -127,4 +127,17 @@
         </where>
     </select>
 
+    <select id="findUserByUserName" resultType="user" parameterType="string">
+        <include refid="select_user"></include>
+        from pd_user
+        where user_name = #{userName}
+    </select>
+
+    <select id="findUserAuthorities" resultType="role" parameterType="long">
+        select role_name authority from private_diary.pd_role
+        where role_id in (
+            select role_id from private_diary.pd_user_role where user_id = #{userId}
+            )
+    </select>
+
 </mapper>

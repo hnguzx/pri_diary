@@ -1,6 +1,8 @@
 package per.guzx.pri_diary.pojo;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import per.guzx.pri_diary.enumeration.SexEnum;
 import per.guzx.pri_diary.enumeration.UserStateEnum;
 
@@ -9,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Alias("user")
 @Table(name = "pd_blog")
-public class PdUser implements Serializable, Cloneable {
+public class PdUser implements Serializable, Cloneable, UserDetails {
     /**
      * 用户唯一标识
      */
@@ -73,6 +76,8 @@ public class PdUser implements Serializable, Cloneable {
      */
     @Column(name = "user_create_time")
     private String userCreateTime;
+
+    private Collection<? extends GrantedAuthority> authorities;
 
     /**
      * 获取用户唯一标识
@@ -174,8 +179,7 @@ public class PdUser implements Serializable, Cloneable {
 
     /**
      * 设置用户状态
-     *
-     * @param userState 用户状态
+     * @return
      */
     public UserStateEnum getUserState() {
         return userState;
@@ -278,5 +282,64 @@ public class PdUser implements Serializable, Cloneable {
             }
         }
         return false;
+    }
+
+    /**
+     * 返回账号的权限合集
+     * @return
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return userPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    /**
+     * 账户是否失效，返回false账户失效，不可用
+     * @return
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * 账号是否被锁，返回false，账号被锁，不可用
+     * @return
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * 账号认证是否过期，返回false，账号过期，不可用
+     * @return
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * 账号是否可用，返回false，不可用
+     * @return
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
