@@ -1,10 +1,12 @@
 package per.guzx.pri_diary.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.stereotype.Component;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 
 import java.io.Serializable;
 
+@Component
 public class ApiResp<T> implements Serializable {
 
     /**
