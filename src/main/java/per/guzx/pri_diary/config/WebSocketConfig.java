@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import per.guzx.pri_diary.handle.MyAuthenticationSuccessHandler;
+import per.guzx.pri_diary.serviceImpl.PdUserServiceImpl;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.HandshakeResponse;
@@ -28,9 +30,10 @@ import javax.websocket.server.ServerEndpointConfig;
 @Configuration
 @Slf4j
 @EnableWebSocketMessageBroker
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSocketConfig extends WebSecurityConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
+    @Profile({"dev"})
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
@@ -57,7 +60,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     }
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private PdUserServiceImpl userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -66,19 +69,21 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
-                userDetailsService(userDetailsService).
+        http.
+                csrf().disable().
                 authorizeRequests().
                 antMatchers("/static/**","/common/**","/login/**","/").permitAll().
                 antMatchers("/admin/**").hasRole("ADMIN").
-                antMatchers("/user/**").hasRole("USER").
+                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
 //                antMatchers("/user/**").access("hasRole('USER') and hasRole('DBA')").
-//                anyRequest().authenticated().
-                and().
-                formLogin().
-                loginPage("/login").
-//                successHandler(new MyAuthenticationSuccessHandler()).
-                permitAll();
+                anyRequest().authenticated().
+                and().anonymous().
+                and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
+                and().formLogin().
+                    loginPage("").successHandler(null).defaultSuccessUrl("").
+                and().logout().
+//                    logoutUrl("").addLogoutHandler(null).logoutSuccessHandler(null).logoutSuccessUrl("").invalidateHttpSession(true).
+                and().httpBasic();
 //                and().
 //                logout().   //开启登出功能
 //                    logoutUrl("/logout").   // 登出页面的处理地址

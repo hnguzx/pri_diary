@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,9 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
         user.setUserState(UserStateEnum.getStateEnumById(3));
         user.setUserCreateTime(dateUtil.getTimeStamp());
         int count = userDao.findEmailOrPhone(user);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        passwordEncoder.encode(user.getPassword());
         if (count > 0) {
             throw new ServiceException(ErrorEnum.USER_INFO_EXIST);
         }
