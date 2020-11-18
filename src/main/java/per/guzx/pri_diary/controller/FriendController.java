@@ -1,11 +1,17 @@
 package per.guzx.pri_diary.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdFriend;
+import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.service.PdFriendService;
+import per.guzx.pri_diary.service.PdMessageService;
+
+import java.security.Principal;
 
 /**
  * Created by Guzx on 2020/09/07.
@@ -16,6 +22,12 @@ import per.guzx.pri_diary.service.PdFriendService;
 public class FriendController {
     @Autowired
     private PdFriendService pdFriendService;
+
+    @Autowired
+    private PdMessageService pdMessageService;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     /**
      * 新增好友
@@ -77,5 +89,20 @@ public class FriendController {
     public ApiResp<PageInfo> list(@PathVariable(value = "myUserId",required = true) int myUserId, @PathVariable("start") int start, @PathVariable("size") int size, @PathVariable(value = "global", required = false) String global) {
         PageInfo pageInfo = pdFriendService.findFriendByInfo(myUserId, start, size, global);
         return ApiResp.retOk(pageInfo);
+    }
+
+    /**
+     * 给好友发送消息
+     *
+     * @param principal
+     * @param body
+     */
+    @MessageMapping("/sendUser")
+    public void sendToUser(Principal principal, String body) {
+        String[] args = body.split(",");
+        String desUser = args[0];
+        String msg = args[1];
+        //  发送到用户和监听地址
+        simpMessagingTemplate.convertAndSendToUser(desUser, "/client_chat/friend", msg);
     }
 }

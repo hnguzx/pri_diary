@@ -54,9 +54,9 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // 客户端订阅路径前缀
-        registry.enableSimpleBroker("/sub","/queue");
+        registry.enableSimpleBroker("/client_chat","/client_user");
         // 服务端点请求前缀
-        registry.setApplicationDestinationPrefixes("/request");
+        registry.setApplicationDestinationPrefixes("/server_request");
     }
 
     @Autowired
@@ -76,14 +76,14 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
                 antMatchers("/admin/**").hasRole("ADMIN").
                 antMatchers("/user/**").hasAnyRole("ADMIN","USER").
 //                antMatchers("/user/**").access("hasRole('USER') and hasRole('DBA')").
-                anyRequest().authenticated().
+        anyRequest().authenticated().
                 and().anonymous().
                 and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().formLogin().
-                    loginPage("").successHandler(null).defaultSuccessUrl("").
+                loginPage("").successHandler(null).defaultSuccessUrl("").
                 and().logout().
 //                    logoutUrl("").addLogoutHandler(null).logoutSuccessHandler(null).logoutSuccessUrl("").invalidateHttpSession(true).
-                and().httpBasic();
+        and().httpBasic();
 //                and().
 //                logout().   //开启登出功能
 //                    logoutUrl("/logout").   // 登出页面的处理地址

@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @Slf4j
 @Service
-@ServerEndpoint("/ws")
+//@ServerEndpoint("/ws")
 public class WebSocketServiceImpl {
     private static int onlineCount = 0;
     // 存放每个客户端对应的webSocketImpl对象

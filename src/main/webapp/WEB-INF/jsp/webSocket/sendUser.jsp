@@ -31,7 +31,7 @@
          */
         function openConnect() {
             // 定义请求服务器的端点
-            var socket = new SockJS('/ws_user');
+            var socket = new SockJS('/ws_chat');
             stompClient = Stomp.over(socket);
 
             stompClient.connect({}, function (frame) {
@@ -53,17 +53,11 @@
         }
 
         function sendMsg() {
-            /*var value = $("#message").val();
-            var receiverUser = $("#user").val();
-            var sendUser = '1';
-            var text = sendUser + "," + receiverUser + "," + value;
-            stompClient.send("/request/sendUser", {}, text)*/
-
             var value = $("#message").val();
             var user = $("#user").val();
 
             var text = user + "," + value;
-            stompClient.send("/request/sendUser", {}, text)
+            stompClient.send("/server_request/sendUser", {}, text)
         }
 
         openConnect();
