@@ -29,19 +29,20 @@ public class PdFriendServiceImpl implements PdFriendService {
 
     @Override
     public PdFriend save(PdFriend pdFriend) {
+        pdFriend.setFriendApplyResult(1);
         int result1 = friendDao.save(pdFriend);
-        int result2 = 0;
+//        int result2 = 0;
+//        if (result1 > 0) {
+//            PdFriend friend2 = new PdFriend();
+//            friend2.setMyUserId(pdFriend.getFriendUserId());
+//            friend2.setMyEmail(pdFriend.getFriendEmail());
+//            friend2.setMyPhone(pdFriend.getFriendPhone());
+//            friend2.setFriendUserId(pdFriend.getMyUserId());
+//            friend2.setFriendEmail(pdFriend.getMyEmail());
+//            friend2.setFriendPhone(pdFriend.getMyPhone());
+//            result2 = friendDao.save(friend2);
+//        }
         if (result1 > 0) {
-            PdFriend friend2 = new PdFriend();
-            friend2.setMyUserId(pdFriend.getFriendUserId());
-            friend2.setMyEmail(pdFriend.getFriendEmail());
-            friend2.setMyPhone(pdFriend.getFriendPhone());
-            friend2.setFriendUserId(pdFriend.getMyUserId());
-            friend2.setFriendEmail(pdFriend.getMyEmail());
-            friend2.setFriendPhone(pdFriend.getMyPhone());
-            result2 = friendDao.save(friend2);
-        }
-        if (result1 > 0 && result2 > 0) {
             return pdFriend;
         } else {
             throw new ServiceException(ErrorEnum.USER_INFO_EXC);

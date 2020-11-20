@@ -35,7 +35,8 @@ public class FriendController {
      * @param pdFriend
      * @return
      */
-    @PostMapping("/add")
+//    @PostMapping("/add")
+    @MessageMapping("/sendUser")
     public ApiResp<PdFriend> add(@RequestBody PdFriend pdFriend) {
         pdFriendService.save(pdFriend);
         return ApiResp.retOk(pdFriend);
@@ -97,12 +98,12 @@ public class FriendController {
      * @param principal
      * @param body
      */
-    @MessageMapping("/sendUser")
+    /*@MessageMapping("/sendUser")
     public void sendToUser(Principal principal, String body) {
         String[] args = body.split(",");
         String desUser = args[0];
         String msg = args[1];
         //  发送到用户和监听地址
         simpMessagingTemplate.convertAndSendToUser(desUser, "/client_chat/friend", msg);
-    }
+    }*/
 }

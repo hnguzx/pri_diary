@@ -146,12 +146,12 @@ public class DemoController {
      * @param principal
      * @param body
      */
-    /*@MessageMapping("/sendUser")
+    @MessageMapping("/sendUser")
     public void sendToUser(Principal principal, String body) {
         String[] args = body.split(",");
         String desUser = args[0];
         String msg = args[1];
         //  发送到用户和监听地址
         simpMessagingTemplate.convertAndSendToUser(desUser, "/queue/customer", msg);
-    }*/
+    }
 }

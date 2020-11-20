@@ -56,6 +56,8 @@ public class PdFriend {
     @Column(name = "friend_remark")
     private String friendRemark;
 
+    private int friendApplyResult;
+
     /**
      * 获取好友ID
      *
@@ -198,5 +200,21 @@ public class PdFriend {
      */
     public void setFriendRemark(String friendRemark) {
         this.friendRemark = friendRemark;
+    }
+
+    /**
+     * 获取好友申请结果
+     * @return
+     */
+    public int getFriendApplyResult() {
+        return friendApplyResult;
+    }
+
+    /**
+     * 设置好友申请结果
+     * @param friendApplyResult
+     */
+    public void setFriendApplyResult(int friendApplyResult) {
+        this.friendApplyResult = friendApplyResult;
     }
 }

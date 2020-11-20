@@ -22,6 +22,7 @@
         <if test="friendEmail !=null and friendEmail !='' ">friend_email = #{friendEmail},</if>
         <if test="friendPhone !=null and friendPhone !='' ">friend_phone = #{friendPhone},</if>
         <if test="friendRemark !=null and friendRemark !='' ">friend_remark = #{friendRemark},</if>
+        <if test="friendApplyResult != null and friendApplyResult !=''">friend_apply_result = #{friendApplyResult}</if>
     </sql>
 
     <sql id="select_friend">
@@ -32,14 +33,15 @@
                private_diary.pd_friend.friend_user_id friendUserId,
                private_diary.pd_friend.friend_email   friendEmail,
                private_diary.pd_friend.friend_phone   friendPhone,
-               private_diary.pd_friend.friend_remark  friendRemark
+               private_diary.pd_friend.friend_remark  friendRemark,
+               private_diary.pd_friend.friend_apply_result friendApplyResult
     </sql>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="friendId">
         insert into private_diary.pd_friend(my_user_id, my_email, my_phone, friend_user_id, friend_email, friend_phone,
-                                            friend_remark)
+                                            friend_remark,friend_apply_result)
             value (#{myUserId}, #{myEmail}, #{myPhone}, #{friendUserId}, #{friendEmail}, #{friendPhone},
-                   #{friendRemark})
+                   #{friendRemark},#{friendApplyResult})
     </insert>
 
     <delete id="deleteById" parameterType="int">
