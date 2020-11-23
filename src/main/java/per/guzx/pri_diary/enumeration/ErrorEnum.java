@@ -21,7 +21,8 @@ public enum ErrorEnum {
     USER_INFO_EXIST(200003, "该邮箱或手机号已注册！"),
     EMAIL_SEND_ERROR(200003, "邮件发送错误！"),
     MSG_SEND_ERROR(200003, "邮件发送错误！"),
-    DIARY_NOTFOUND(300000, "日记信息不存在！");
+    DIARY_NOTFOUND(300000, "日记信息不存在！"),
+    FRIEND_IS_ADDED(400000, "好友已添加，请不要重复添加！");
 
     private int code;
     private String msg;

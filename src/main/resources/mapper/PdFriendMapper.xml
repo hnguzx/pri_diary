@@ -58,11 +58,13 @@
         where friend_user_id = #{friendUserId}
     </update>
 
-    <select id="findById" parameterType="int" resultType="friend">
+    <select id="findById" resultType="friend">
         <include refid="select_friend"></include>
         from
         private_diary.pd_friend
         where
+        my_user_id = #{myUserId}
+        and
         friend_user_id = #{friendUserId}
     </select>
 

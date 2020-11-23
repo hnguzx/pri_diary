@@ -1,8 +1,10 @@
 package per.guzx.pri_diary.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PageInfo;
@@ -10,6 +12,7 @@ import per.guzx.pri_diary.pojo.PdFriend;
 import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.service.PdFriendService;
 import per.guzx.pri_diary.service.PdMessageService;
+import per.guzx.pri_diary.tool.NoticeUtil;
 
 import java.security.Principal;
 
@@ -29,17 +32,25 @@ public class FriendController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+    @Autowired
+    private NoticeUtil noticeUtil;
+
     /**
      * 新增好友
      *
      * @param pdFriend
      * @return
      */
-//    @PostMapping("/add")
-    @MessageMapping("/sendUser")
+    @PostMapping("/add")
+//    @MessageMapping("/addFriend")
+//    @SubscribeMapping("/addFriend")
     public ApiResp<PdFriend> add(@RequestBody PdFriend pdFriend) {
-        pdFriendService.save(pdFriend);
-        return ApiResp.retOk(pdFriend);
+        boolean added = pdFriendService.save(pdFriend);
+        if(added){
+            return ApiResp.retOk(pdFriend);
+        }
+        noticeUtil.sendTxtToUser(pdFriend.getFriendUserId(),"/client_user/add_friend","用户"+ JSON.toJSONString(pdFriend)+"请求添加您为好友！");
+        return ApiResp.retOk();
     }
 
     /**
@@ -72,11 +83,11 @@ public class FriendController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ApiResp<PdFriend> detail(@PathVariable Integer id) {
         PdFriend pdFriend = pdFriendService.findById(id);
         return ApiResp.retOk(pdFriend);
-    }
+    }*/
 
     /**
      * 获取好友列表

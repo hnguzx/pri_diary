@@ -35,7 +35,7 @@ public interface PdFriendDao {
      * @param friendUserId
      * @return
      */
-    PdFriend findById(int friendUserId);
+    PdFriend findById(int myUserId, int friendUserId);
 
     /**
      * 根据好友相关信息查询好友

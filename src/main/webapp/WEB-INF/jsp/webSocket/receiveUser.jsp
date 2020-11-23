@@ -14,7 +14,9 @@
             stompClient.connect({}, function () {
                 console.log("notice socket connected")
                 // /user必须要有，表示指定用户
-                stompClient.subscribe('/user/client_chat/friend', function (data) {
+                // stompClient.subscribe('/user/client_chat/friend', function (data) {
+                // stompClient.subscribe('/user/client_user/add_friend', function (data) {
+                stompClient.subscribe('/user/client_chat/receive_msg', function (data) {
                     $("#receive").html(data.body);
 
                 })

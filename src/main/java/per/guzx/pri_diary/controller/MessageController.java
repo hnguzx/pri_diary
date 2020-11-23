@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.service.PdMessageService;
+import per.guzx.pri_diary.tool.NoticeUtil;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class MessageController {
     @Autowired
     private PdMessageService pdMessageService;
 
+    @Autowired
+    private NoticeUtil noticeUtil;
+
     /**
      * 新增消息
      * @param pdMessage
@@ -28,6 +32,7 @@ public class MessageController {
     @PostMapping("/sendMsg")
     public ApiResp sendMsg(@RequestBody PdMessage pdMessage) {
         pdMessageService.sendMsg(pdMessage);
+        noticeUtil.sendTxtToUser(pdMessage.getMsgReceiver(),"/client_chat/receive_msg",pdMessage.getMsgContent());
         return ApiResp.retOk();
     }
 

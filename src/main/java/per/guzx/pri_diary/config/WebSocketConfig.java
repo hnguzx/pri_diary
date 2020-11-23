@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -72,7 +71,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
         http.
                 csrf().disable().
                 authorizeRequests().
-                antMatchers("/static/**","/common/**","/login/**","/").permitAll().
+                antMatchers("/static/**","/common/**","/login/**","/friend/**","/message/**").permitAll().
                 antMatchers("/admin/**").hasRole("ADMIN").
                 antMatchers("/user/**").hasAnyRole("ADMIN","USER").
 //                antMatchers("/user/**").access("hasRole('USER') and hasRole('DBA')").
@@ -80,10 +79,10 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
                 and().anonymous().
                 and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().formLogin().
-                loginPage("").successHandler(null).defaultSuccessUrl("").
+//                loginPage("").successHandler(null).defaultSuccessUrl("").
                 and().logout().
 //                    logoutUrl("").addLogoutHandler(null).logoutSuccessHandler(null).logoutSuccessUrl("").invalidateHttpSession(true).
-        and().httpBasic();
+                and().httpBasic();
 //                and().
 //                logout().   //开启登出功能
 //                    logoutUrl("/logout").   // 登出页面的处理地址

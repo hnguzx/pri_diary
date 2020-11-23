@@ -17,7 +17,7 @@ public interface PdFriendService {
      *
      * @param pdFriend
      */
-    PdFriend save(PdFriend pdFriend);
+    boolean save(PdFriend pdFriend);
 
     /**
      * 删除好友
@@ -39,7 +39,7 @@ public interface PdFriendService {
      * @param id
      * @return
      */
-    PdFriend findById(Integer id);
+    PdFriend findById(int myUserId,int friendUserId);
 
     /**
      * 通过模糊条件
