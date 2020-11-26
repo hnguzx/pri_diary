@@ -12,7 +12,10 @@
                private_diary.pd_user.user_state    userState,
                private_diary.pd_user.user_phone    userPhone,
                private_diary.pd_user.user_email    userEmail,
-               private_diary.pd_user.user_head     userHead
+               private_diary.pd_user.user_head     userHead,
+               private_diary.pd_user.user_create_time userCreateTime,
+               private_diary.pd_user.user_update_time userUpdateTime,
+               private_diary.pd_user.user_last_login_time userLastLoginTime
     </sql>
 
     <sql id="sql_where">
@@ -24,6 +27,9 @@
         <if test="userBirthday !=null and userBirthday !='' ">user_birthday = #{userBirthday},</if>
         <if test="userSex !=null ">user_sex = #{userSex},</if>
         <if test="userHead !=null and userHead !='' ">user_head = #{userHead},</if>
+        <if test="userCreateTime !=null and userCreateTime !='' ">user_create_time = #{userCreateTime},</if>
+        <if test="userUpdateTime !=null and userUpdateTime !='' ">user_update_time = #{userUpdateTime},</if>
+        <if test="userLastLoginTime !=null and userLastLoginTime !='' ">user_last_login_time = #{userLastLoginTime},</if>
     </sql>
 
     <sql id="sql_login">
@@ -33,9 +39,9 @@
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
         insert into pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
-                            user_head, user_create_time)
+                            user_head, user_create_time,user_update_time)
             value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex}, #{userBirthday},
-                   #{userHead}, #{userCreateTime})
+                   #{userHead}, #{userCreateTime},#{userUpdateTime})
     </insert>
 
     <update id="updateUser">

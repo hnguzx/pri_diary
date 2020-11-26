@@ -6,9 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.pri_diary.pojo.PageInfo;
@@ -22,8 +20,11 @@ import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.AddressUtil;
 import per.guzx.pri_diary.tool.DateUtil;
+import per.guzx.pri_diary.tool.PasswordEncodeUtil;
 import per.guzx.pri_diary.tool.MathUtil;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,14 +48,16 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
     @Autowired
     private PageInfo pageInfo;
 
+    @Autowired
+    private PasswordEncodeUtil encodeUtil;
+
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
         user.setUserState(UserStateEnum.getStateEnumById(3));
-        user.setUserCreateTime(dateUtil.getTimeStamp());
+        user.setUserCreateTime(new Timestamp(new Date().getTime()));
+        user.setUserUpdateTime(new Timestamp(new Date().getTime()));
+        user.setUserPassword(encodeUtil.passwordEncode(user.getPassword()));
         int count = userDao.findEmailOrPhone(user);
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        passwordEncoder.encode(user.getPassword());
         if (count > 0) {
             throw new ServiceException(ErrorEnum.USER_INFO_EXIST);
         }
@@ -104,15 +107,17 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
         if (Objects.isNull(user)) {
             throw new ServiceException(ErrorEnum.USER_INFO_EXC);
         }
-        if (!user.equals(remoteUser)) {
+//        if (!user.equals(remoteUser)) {
+        user.setUserLastLoginTime(new Timestamp(new Date().getTime()));
+        user.setUserUpdateTime(new Timestamp(new Date().getTime()));
             int result = userDao.updateUser(user);
             if (result > 0) {
                 return result;
             }
             throw new ServiceException(ErrorEnum.USER_INFO_EXC);
-        } else {
-            throw new ServiceException(ErrorEnum.INFO_IS_LATEST);
-        }
+//        } else {
+//            throw new ServiceException(ErrorEnum.INFO_IS_LATEST);
+//        }
 
     }
 
@@ -175,16 +180,21 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
     }
 
     @Override
+    public PdUser selectByName(String username) {
+        return userDao.findUserByUserName(username);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         PdUser user = userDao.findUserByUserName(userName);
         if (user != null) {
             List<PdRole> authorities = userDao.findUserAuthorities(user.getUserId());
             user.setAuthorities(authorities);
         }
-        return user == null ? null :
-                User.withUserDetails(user).
-                        passwordEncoder(PasswordEncoderFactories.
-                                createDelegatingPasswordEncoder()::encode).
-                        build();
+        /*UserDetails userDetails = User.withUserDetails(user).
+                passwordEncoder(PasswordEncoderFactories.
+                        createDelegatingPasswordEncoder()::encode).
+                build();*/
+        return user;
     }
 }

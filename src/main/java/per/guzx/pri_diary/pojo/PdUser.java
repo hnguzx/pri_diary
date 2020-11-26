@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 @Alias("user")
@@ -75,7 +76,19 @@ public class PdUser implements Serializable, Cloneable, UserDetails {
      * 用户创建时间
      */
     @Column(name = "user_create_time")
-    private String userCreateTime;
+    private Timestamp userCreateTime;
+
+    /**
+     * 用户最后登录时间
+     */
+    @Column(name = "user_last_login_time")
+    private Timestamp userLastLoginTime;
+
+    /**
+     * 用户信息更新时间
+     */
+    @Column(name = "user_update_time")
+    private Timestamp userUpdateTime;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -244,7 +257,7 @@ public class PdUser implements Serializable, Cloneable, UserDetails {
      *
      * @return user_create_time - 用户创建时间
      */
-    public String getUserCreateTime() {
+    public Timestamp getUserCreateTime() {
         return userCreateTime;
     }
 
@@ -253,11 +266,47 @@ public class PdUser implements Serializable, Cloneable, UserDetails {
      *
      * @param userCreateTime 用户创建时间
      */
-    public void setUserCreateTime(String userCreateTime) {
+    public void setUserCreateTime(Timestamp userCreateTime) {
         this.userCreateTime = userCreateTime;
     }
 
-    @Override
+    /**
+     * 获取用户最后登录时间
+     *
+     * @return user_create_time - 用户创建时间
+     */
+    public Timestamp getUserLastLoginTime() {
+        return userLastLoginTime;
+    }
+
+    /**
+     * 设置用户最后登录时间
+     *
+     * @param userLastLoginTime 用户创建时间
+     */
+    public void setUserLastLoginTime(Timestamp userLastLoginTime) {
+        this.userLastLoginTime = userLastLoginTime;
+    }
+
+    /**
+     * 获取用户最后更新时间
+     *
+     * @return user_create_time - 用户创建时间
+     */
+    public Timestamp getUserUpdateTime() {
+        return userUpdateTime;
+    }
+
+    /**
+     * 设置用户最后更新时间
+     *
+     * @param userUpdateTime 用户创建时间
+     */
+    public void setUserUpdateTime(Timestamp userUpdateTime) {
+        this.userUpdateTime = userUpdateTime;
+    }
+
+    /*@Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -282,7 +331,7 @@ public class PdUser implements Serializable, Cloneable, UserDetails {
             }
         }
         return false;
-    }
+    }*/
 
     /**
      * 返回账号的权限合集

@@ -8,6 +8,7 @@ public enum ErrorEnum {
     REQUEST_FAIL(400, "请求失败"),
     NOT_FOUND(404, "接口不存在"),
     SYS_ERROR(500, "系统错误"),
+    COMMON_FAIL(999,"其它错误"),
     UPDATE_INFO_FAIL(100000, "数据更新失败！"),
     INFO_IS_LATEST(100001, "数据已是最新！"),
     DATA_EXCEPTION(100002, "数据异常！"),
@@ -19,9 +20,18 @@ public enum ErrorEnum {
     USER_INSERT_FAIL(200001, "新增用户失败！"),
     USER_INFO_EXC(200002, "用户信息异常！"),
     USER_INFO_EXIST(200003, "该邮箱或手机号已注册！"),
-    EMAIL_SEND_ERROR(200003, "邮件发送错误！"),
-    MSG_SEND_ERROR(200003, "邮件发送错误！"),
+    EMAIL_SEND_ERROR(200004, "邮件发送错误！"),
+    MSG_SEND_ERROR(200005, "邮件发送错误！"),
+    USER_NOT_LOGIN(200006,"用户未登陆"),
+    USER_ACCOUNT_EXPIRED(200007,"账号已过期"),
+    USER_CREDENTIALS_ERROR(200008,"密码错误"),
+    USER_CREDENTIALS_EXPIRED(200009,"密码已过期"),
+    USER_ACCOUNT_DISABLE(200010,"账号不可用"),
+    USER_ACCOUNT_LOCKED(200011,"账号已锁定"),
+    USER_ACCOUNT_NOT_EXIST(200012,"用户不存在"),
+//    3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
+//    4000-4999 好友相关错误
     FRIEND_IS_ADDED(400000, "好友已添加，请不要重复添加！");
 
     private int code;

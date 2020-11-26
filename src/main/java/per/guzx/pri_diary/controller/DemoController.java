@@ -27,8 +27,8 @@ import java.security.Principal;
 //@RequestMapping("/request")
 public class DemoController {
 
-//    @Value("${server.port}")
-//    private String port;
+    @Value("${server.port}")
+    private String port;
 
     @Autowired
     Environment environment;
@@ -84,19 +84,6 @@ public class DemoController {
     @RequestMapping("/admin")
     public String admin(){
         return "admin";
-    }
-
-    /*@ResponseBody
-    @RequestMapping("/logout")
-    public String logout(){
-        return "logout";
-    }*/
-
-    @ResponseBody
-    @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout,
-                        Model model){
-        return "login";
     }
 
     /**

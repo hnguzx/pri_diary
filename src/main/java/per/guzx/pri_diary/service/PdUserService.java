@@ -75,4 +75,6 @@ public interface PdUserService {
      * @return
      */
     public int updateUserByEmailOrPhone(PdUser user);
+
+    public PdUser selectByName(String username);
 }

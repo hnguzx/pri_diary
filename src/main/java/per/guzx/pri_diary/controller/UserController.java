@@ -81,7 +81,7 @@ public class UserController {
         } else {
             emailOrMsg.sendVerifyCodeMsg(emailOrPhone, verifyCode);
         }
-        redisTemplate.opsForValue().set("verifyCode::" + emailOrPhone, verifyCode, 300, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("verifyCode::" + emailOrPhone, verifyCode, 600, TimeUnit.SECONDS);
 
         return ApiResp.retOk();
     }
@@ -230,11 +230,11 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ApiResp<PdUser> login(@RequestBody PdUser user) {
         PdUser newUser = userService.login(user);
         return ApiResp.retOk(newUser);
-    }
+    }*/
 
     /**
      * 判断指定用户是否已激活

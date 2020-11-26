@@ -20,10 +20,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
@@ -44,7 +41,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 @Slf4j
-public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfigurer {
+public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
 
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
@@ -105,14 +102,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements AsyncConfig
      * @param registry
      */
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")      // 配置可以被跨域的路径，可以具体到请求路径
                 .allowedOrigins("*")        // 允许访问本网站的域名，可以多个
                 .allowCredentials(true)     // 是否可以将请求的响应暴露给页面
                 .allowedMethods("GET", "POST", "DELETE", "PATCH")       // 允许进行跨域请求方式，可以多个
                 .allowedHeaders("*")        // 允许进行跨域请求的header
-                .maxAge(60 * 60);     // 客户端缓存预检请求的响应时间？
-        super.addCorsMappings(registry);
+                .maxAge(60 * 60 * 24);     // 客户端缓存预检请求的响应时间
     }
 
     //使用阿里 FastJson 作为JSON MessageConverter
