@@ -27,9 +27,9 @@
         <if test="userBirthday !=null and userBirthday !='' ">user_birthday = #{userBirthday},</if>
         <if test="userSex !=null ">user_sex = #{userSex},</if>
         <if test="userHead !=null and userHead !='' ">user_head = #{userHead},</if>
-        <if test="userCreateTime !=null and userCreateTime !='' ">user_create_time = #{userCreateTime},</if>
-        <if test="userUpdateTime !=null and userUpdateTime !='' ">user_update_time = #{userUpdateTime},</if>
-        <if test="userLastLoginTime !=null and userLastLoginTime !='' ">user_last_login_time = #{userLastLoginTime},</if>
+        <if test="userCreateTime !=null ">user_create_time = #{userCreateTime},</if>
+        <if test="userUpdateTime !=null ">user_update_time = #{userUpdateTime},</if>
+        <if test="userLastLoginTime !=null ">user_last_login_time = #{userLastLoginTime},</if>
     </sql>
 
     <sql id="sql_login">

@@ -109,7 +109,6 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
         }
 //        if (!user.equals(remoteUser)) {
         user.setUserLastLoginTime(new Timestamp(new Date().getTime()));
-        user.setUserUpdateTime(new Timestamp(new Date().getTime()));
             int result = userDao.updateUser(user);
             if (result > 0) {
                 return result;
