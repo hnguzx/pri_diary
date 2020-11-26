@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.pri_diary.dao.PdCommentDao">
-  <resultMap id="BaseResultMap" type="comment">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
-    <result column="blog_id" jdbcType="INTEGER" property="blogId" />
-    <result column="comment_user_id" jdbcType="INTEGER" property="commentUserId" />
-    <result column="blog_owner_id" jdbcType="INTEGER" property="blogOwnerId" />
-    <result column="comment_create_time" jdbcType="VARCHAR" property="commentCreateTime" />
-    <result column="commented_user_id" jdbcType="INTEGER" property="commentedUserId" />
-    <result column="comment_context" jdbcType="VARCHAR" property="commentContext" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="comment">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="comment_id" jdbcType="INTEGER" property="commentId"/>
+        <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
+        <result column="comment_user_id" jdbcType="INTEGER" property="commentUserId"/>
+        <result column="blog_owner_id" jdbcType="INTEGER" property="blogOwnerId"/>
+        <result column="comment_create_time" jdbcType="VARCHAR" property="commentCreateTime"/>
+        <result column="commented_user_id" jdbcType="INTEGER" property="commentedUserId"/>
+        <result column="comment_context" jdbcType="VARCHAR" property="commentContext"/>
+    </resultMap>
 </mapper>

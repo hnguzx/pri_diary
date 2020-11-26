@@ -2,58 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.pri_diary.dao.PdDiaryDao">
-
     <sql id="select_diary">
-        select user_id           userId,
-               diary_id          diaryId,
-               diary_title       diaryTitle,
-               diary_weather     diaryWeather,
-               diary_mood        diaryMood,
-               diary_event       diaryEvent,
-               diary_location    diaryLocation,
-               diary_create_time diaryCreateTime,
-               diary_update_time diaryUpdateTime,
-               diary_content    diaryContent,
-               diary_photo      diaryPhoto
+        select user_id,
+               diary_id,
+               diary_title,
+               diary_weather,
+               diary_mood,
+               diary_event,
+               diary_location,
+               diary_create_time,
+               diary_update_time,
+               diary_content,
+               diary_photo
     </sql>
 
     <sql id="select_diary_main">
-        select user_id        userId,
-               diary_id       diaryId,
-               diary_title    diaryTitle,
-               diary_weather  diaryWeather,
-               diary_mood     diaryMood,
-               diary_event    diaryEvent,
-               diary_location diaryLocation,
-               diary_content diaryContent,
-               diary_photo   diaryPhoto
+        select user_id,
+               diary_id,
+               diary_title,
+               diary_weather,
+               diary_mood,
+               diary_event,
+               diary_location,
+               diary_content,
+               diary_photo
     </sql>
 
     <sql id="sql_where">
-        <if test="diaryTitle != null and diaryTitle != ''">diary_title = #{diaryTitle},</if>
-        <if test="diaryWeather != null">diary_weather = #{diaryWeather},</if>
-        <if test="diaryMood != null">diary_mood = #{diaryMood},</if>
-        <if test="diaryEvent != null">diary_event = #{diaryEvent},</if>
-        <if test="diaryPhoto != null and diaryPhoto != ''">diary_photo = #{diaryPhoto},</if>
-        <if test="diaryContent != null and diaryContent != ''">diary_content = #{diaryContent},</if>
-        <if test="diaryLocation != null and diaryLocation != ''">diary_location = #{diaryLocation},</if>
-        <if test="diaryUpdateTime != null and diaryUpdateTime != ''">diary_update_time = #{diaryUpdateTime},</if>
+        <if test="diaryTitle != null and diaryTitle != ''">
+            diary_title = #{diaryTitle},
+        </if>
+        <if test="diaryWeather != null">
+            diary_weather = #{diaryWeather},
+        </if>
+        <if test="diaryMood != null">
+            diary_mood = #{diaryMood},
+        </if>
+        <if test="diaryEvent != null">
+            diary_event = #{diaryEvent},
+        </if>
+        <if test="diaryPhoto != null and diaryPhoto != ''">
+            diary_photo = #{diaryPhoto},
+        </if>
+        <if test="diaryContent != null and diaryContent != ''">
+            diary_content = #{diaryContent},
+        </if>
+        <if test="diaryLocation != null and diaryLocation != ''">
+            diary_location = #{diaryLocation},
+        </if>
+        <if test="diaryUpdateTime != null and diaryUpdateTime != ''">
+            diary_update_time = #{diaryUpdateTime},
+        </if>
     </sql>
-    
+
     <insert id="insertDiary" useGeneratedKeys="true" keyProperty="diaryId">
         insert into private_diary.pd_diary(user_id, diary_title, diary_weather, diary_mood, diary_event, diary_location,
-                             diary_content, diary_photo, diary_create_time, diary_update_time, diary_longitude,
-                             diary_latitude, diary_create_day)
-            value
-            (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
-             #{diaryContent}, #{diaryPhoto}, #{diaryCreateTime}, #{diaryUpdateTime}, #{diaryLongitude},
-             #{diaryLatitude}, #{diaryCreateDay})
+                                           diary_content, diary_photo, diary_create_time, diary_update_time,
+                                           diary_longitude,
+                                           diary_latitude, diary_create_day)
+                value
+                (#{userId}, #{diaryTitle}, #{diaryWeather}, #{diaryMood}, #{diaryEvent}, #{diaryLocation},
+                 #{diaryContent}, #{diaryPhoto}, #{diaryCreateTime}, #{diaryUpdateTime}, #{diaryLongitude},
+                 #{diaryLatitude}, #{diaryCreateDay})
     </insert>
 
     <update id="updateDiary">
         update private_diary.pd_diary
         <set>
-            <include refid="sql_where"></include>
+            <include refid="sql_where">
+            </include>
         </set>
         where
         user_id = #{userId} and diary_id = #{diaryId}
@@ -67,7 +84,8 @@
     </delete>
 
     <select id="findDiaryById" resultType="diary">
-        <include refid="select_diary"></include>
+        <include refid="select_diary">
+        </include>
         from
         private_diary.pd_diary
         where
@@ -75,7 +93,8 @@
     </select>
 
     <select id="findDiaryOtherById" resultType="diary">
-        <include refid="select_diary_main"></include>
+        <include refid="select_diary_main">
+        </include>
         from
         private_diary.pd_diary
         where
@@ -83,14 +102,16 @@
     </select>
 
     <select id="findDiaryAll" resultType="diary">
-        <include refid="select_diary"></include>
+        <include refid="select_diary">
+        </include>
         from
         private_diary.pd_diary
         where user_id = #{userId}
     </select>
 
     <select id="findDiaryByGlobal" resultType="diary">
-        <include refid="select_diary"></include>
+        <include refid="select_diary">
+        </include>
         from
         private_diary.pd_diary
         <where>
@@ -106,7 +127,8 @@
     </select>
 
     <select id="findDiaryByUserId" parameterType="int" resultType="diary">
-        <include refid="select_diary_main"></include>
+        <include refid="select_diary_main">
+        </include>
         from
         private_diary.pd_diary
         where
@@ -116,8 +138,8 @@
     <select id="getDiaryCountAndDiaryDay" resultType="java.util.HashMap">
         select count(DISTINCT diary_create_day) as recordDays,
                count(diary_id)                  as diaryTotal,
-               sum(CHAR_LENGTH(diary_content))      as wordsTotal,
-               count(diary_photo)              as photoTotal,
+               sum(CHAR_LENGTH(diary_content))  as wordsTotal,
+               count(diary_photo)               as photoTotal,
                count(diary_location)            as addressTotal
         from private_diary.pd_diary
         where user_id = #{userId}
@@ -137,7 +159,7 @@
                diary_event     as event,
                diary_longitude as longitude,
                diary_latitude  as latitude,
-               diary_photo    as photo,
+               diary_photo     as photo,
                diary_id        as diaryId
         from private_diary.pd_diary
         where user_id = #{userId}
@@ -173,7 +195,7 @@
         where user_id = #{userId}
         GROUP BY diary_weather
         order by times
-            desc
+                desc
     </select>
 
     <select id="getMoodTimes" resultType="java.util.Map">

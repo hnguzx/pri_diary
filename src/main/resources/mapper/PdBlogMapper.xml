@@ -17,26 +17,39 @@
     </resultMap>
 
     <sql id="sql_where">
-        <if test="blogType != null">blog_type = #{blogType},</if>
-        <if test="blogImage != null and blogImage != ''">blog_image = #{blogImage},</if>
-        <if test="blogContext != null and blogContext != ''">blog_context = #{blogContext},</if>
-        <if test="blogLabel != null and blogLabel != ''">blog_label = #{blogLabel},</if>
-        <if test="blogCreateTime != null and blogCreateTime != ''">blog_create_time = #{blogCreateTime},</if>
-        <if test="blogUpdateTime != null and blogUpdateTime != ''">blog_update_time = #{blogUpdateTime},</if>
+        <if test="blogType != null">
+            blog_type = #{blogType},
+        </if>
+        <if test="blogImage != null and blogImage != ''">
+            blog_image = #{blogImage},
+        </if>
+        <if test="blogContext != null and blogContext != ''">
+            blog_context = #{blogContext},
+        </if>
+        <if test="blogLabel != null and blogLabel != ''">
+            blog_label = #{blogLabel},
+        </if>
+        <if test="blogCreateTime != null and blogCreateTime != ''">
+            blog_create_time = #{blogCreateTime},
+        </if>
+        <if test="blogUpdateTime != null and blogUpdateTime != ''">
+            blog_update_time = #{blogUpdateTime},
+        </if>
     </sql>
 
     <insert id="insertBlog" useGeneratedKeys="true" keyProperty="blog_id">
         insert into private_diary.pd_blog(blog_id, user_id, blog_type, blog_image, blog_context, blog_label,
                                           blog_create_time, blog_update_time)
-            value
-            (#{blogId}, #{userId}, #{blogType}, #{blogImage}, #{blogContext}, #{blogLabel},
-             #{blogCreateTime}, #{blogUpdateTime})
+                value
+                (#{blogId}, #{userId}, #{blogType}, #{blogImage}, #{blogContext}, #{blogLabel},
+                 #{blogCreateTime}, #{blogUpdateTime})
     </insert>
 
     <update id="updateBlog">
         update pd_diary
         <set>
-            <include refid="sql_where"></include>
+            <include refid="sql_where">
+            </include>
         </set>
         where
         private_diary.pd_blog.blog_id = #{blogId} and private_diary.pd_blog.user_id = #{userId}

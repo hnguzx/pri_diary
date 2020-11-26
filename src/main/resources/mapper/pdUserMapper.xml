@@ -2,52 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.pri_diary.dao.PdUserDao">
-
     <sql id="select_user">
-        select private_diary.pd_user.user_id       userId,
-               private_diary.pd_user.user_name     userName,
-               private_diary.pd_user.user_birthday userBirthday,
-               private_diary.pd_user.user_sex      userSex,
-               private_diary.pd_user.user_password userPassword,
-               private_diary.pd_user.user_state    userState,
-               private_diary.pd_user.user_phone    userPhone,
-               private_diary.pd_user.user_email    userEmail,
-               private_diary.pd_user.user_head     userHead,
-               private_diary.pd_user.user_create_time userCreateTime,
-               private_diary.pd_user.user_update_time userUpdateTime,
-               private_diary.pd_user.user_last_login_time userLastLoginTime
+        select private_diary.pd_user.user_id,
+               private_diary.pd_user.user_name,
+               private_diary.pd_user.user_birthday,
+               private_diary.pd_user.user_sex,
+               private_diary.pd_user.user_password,
+               private_diary.pd_user.user_state,
+               private_diary.pd_user.user_phone,
+               private_diary.pd_user.user_email,
+               private_diary.pd_user.user_head,
+               private_diary.pd_user.user_create_time,
+               private_diary.pd_user.user_update_time,
+               private_diary.pd_user.user_last_login_time
     </sql>
 
     <sql id="sql_where">
-        <if test="userName !=null and userName !='' ">user_name = #{userName},</if>
-        <if test="userPassword !=null and userPassword !='' ">user_password = #{userPassword},</if>
-        <if test="userState !=null ">user_state = #{userState},</if>
-        <if test="userPhone !=null and userPhone !='' ">user_phone = #{userPhone},</if>
-        <if test="userEmail !=null and userEmail !='' ">user_email = #{userEmail},</if>
-        <if test="userBirthday !=null and userBirthday !='' ">user_birthday = #{userBirthday},</if>
-        <if test="userSex !=null ">user_sex = #{userSex},</if>
-        <if test="userHead !=null and userHead !='' ">user_head = #{userHead},</if>
-        <if test="userCreateTime !=null ">user_create_time = #{userCreateTime},</if>
-        <if test="userUpdateTime !=null ">user_update_time = #{userUpdateTime},</if>
-        <if test="userLastLoginTime !=null ">user_last_login_time = #{userLastLoginTime},</if>
+        <if test="userName !=null and userName !='' ">
+            user_name = #{userName},
+        </if>
+        <if test="userPassword !=null and userPassword !='' ">
+            user_password = #{userPassword},
+        </if>
+        <if test="userState !=null ">
+            user_state = #{userState},
+        </if>
+        <if test="userPhone !=null and userPhone !='' ">
+            user_phone = #{userPhone},
+        </if>
+        <if test="userEmail !=null and userEmail !='' ">
+            user_email = #{userEmail},
+        </if>
+        <if test="userBirthday !=null and userBirthday !='' ">
+            user_birthday = #{userBirthday},
+        </if>
+        <if test="userSex !=null ">
+            user_sex = #{userSex},
+        </if>
+        <if test="userHead !=null and userHead !='' ">
+            user_head = #{userHead},
+        </if>
+        <if test="userCreateTime !=null ">
+            user_create_time = #{userCreateTime},
+        </if>
+        <if test="userUpdateTime !=null ">
+            user_update_time = #{userUpdateTime},
+        </if>
+        <if test="userLastLoginTime !=null ">
+            user_last_login_time = #{userLastLoginTime},
+        </if>
     </sql>
 
     <sql id="sql_login">
-        <if test="userPhone !=null and userPhone != '' ">and user_phone = #{userPhone}</if>
-        <if test="userEmail !=null and userEmail != '' ">and user_email = #{userEmail}</if>
+        <if test="userPhone !=null and userPhone != '' ">
+            and user_phone = #{userPhone}
+        </if>
+        <if test="userEmail !=null and userEmail != '' ">
+            and user_email = #{userEmail}
+        </if>
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
         insert into pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
-                            user_head, user_create_time,user_update_time)
-            value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex}, #{userBirthday},
-                   #{userHead}, #{userCreateTime},#{userUpdateTime})
+                            user_head, user_create_time, user_update_time)
+                value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex},
+                       #{userBirthday},
+                       #{userHead}, #{userCreateTime}, #{userUpdateTime})
     </insert>
 
     <update id="updateUser">
         update pd_user
         <set>
-            <include refid="sql_where"></include>
+            <include refid="sql_where">
+            </include>
         </set>
         where user_id = #{userId}
     </update>
@@ -56,12 +83,14 @@
         update pd_user
         set user_password = #{userPassword}
         <where>
-            <include refid="sql_login"></include>
+            <include refid="sql_login">
+            </include>
         </where>
     </update>
 
     <select id="findUserById" parameterType="int" resultType="user">
-        <include refid="select_user"></include>
+        <include refid="select_user">
+        </include>
         from
         pd_user
         where
@@ -69,11 +98,13 @@
     </select>
 
     <select id="findUserByPhoneOrEmail" parameterType="int" resultType="user">
-        <include refid="select_user"></include>
+        <include refid="select_user">
+        </include>
         from
         pd_user
         <where>
-            <include refid="sql_login"></include>
+            <include refid="sql_login">
+            </include>
             and user_password = #{userPassword}
         </where>
     </select>
@@ -85,20 +116,26 @@
     </delete>
 
     <select id="findUsers" resultType="user">
-        <include refid="select_user"></include>
+        <include refid="select_user">
+        </include>
         from
         pd_user
         <where>
-            <if test="user.userName != null and user.userName != '' ">and user_name like
+            <if test="user.userName != null and user.userName != '' ">
+                and user_name like
                 concat(concat('%',#{user.userName}),'%')
             </if>
-            <if test="user.userPhone != null and user.userPhone != '' ">and user_Phone like
+            <if test="user.userPhone != null and user.userPhone != '' ">
+                and user_Phone like
                 concat(concat('%',#{user.userPhone}),'%')
             </if>
-            <if test="user.userEmail != null and user.userEmail != '' ">and user_Email like
+            <if test="user.userEmail != null and user.userEmail != '' ">
+                and user_Email like
                 concat(concat('%',#{user.userEmail}),'%')
             </if>
-            <if test="user.userSex != null and user.userSex != '' ">and user_sex = #{user.userSex}</if>
+            <if test="user.userSex != null and user.userSex != '' ">
+                and user_sex = #{user.userSex}
+            </if>
             limit #{start},#{size}
         </where>
     </select>
@@ -107,43 +144,56 @@
         select count(user_name)
         from pd_user
         <where>
-            <if test="userName != null and userName != '' ">and user_name like
+            <if test="userName != null and userName != '' ">
+                and user_name like
                 concat(concat('%',#{userName}),'%')
             </if>
-            <if test="userPhone != null and userPhone != '' ">and user_Phone like
+            <if test="userPhone != null and userPhone != '' ">
+                and user_Phone like
                 concat(concat('%',#{userPhone}),'%')
             </if>
-            <if test="userEmail != null and userEmail != '' ">and user_Email like
+            <if test="userEmail != null and userEmail != '' ">
+                and user_Email like
                 concat(concat('%',#{userEmail}),'%')
             </if>
-            <if test="userSex != null and userSex != '' ">and user_sex = #{userSex}</if>
+            <if test="userSex != null and userSex != '' ">
+                and user_sex = #{userSex}
+            </if>
         </where>
     </select>
 
     <select id="getUserId" resultType="user">
-        <include refid="select_user"></include>
+        <include refid="select_user">
+        </include>
         from pd_user
     </select>
 
     <select id="findEmailOrPhone" resultType="int">
         select count(user_id) from pd_user
         <where>
-            <if test="userEmail != null and userEmail != '' ">user_Email = #{userEmail}</if>
-            <if test="userPhone != null and userPhone != '' ">user_phone = #{userPhone}</if>
+            <if test="userEmail != null and userEmail != '' ">
+                user_Email = #{userEmail}
+            </if>
+            <if test="userPhone != null and userPhone != '' ">
+                user_phone = #{userPhone}
+            </if>
         </where>
     </select>
 
     <select id="findUserByUserName" resultType="user" parameterType="string">
-        <include refid="select_user"></include>
+        <include refid="select_user">
+        </include>
         from pd_user
         where user_name = #{userName}
     </select>
 
     <select id="findUserAuthorities" resultType="role" parameterType="long">
-        select role_name authority from private_diary.pd_role
+        select role_name authority
+        from private_diary.pd_role
         where role_id in (
-            select role_id from private_diary.pd_user_role where user_id = #{userId}
-            )
+                select role_id
+                from private_diary.pd_user_role
+                where user_id = #{userId}
+                )
     </select>
-
 </mapper>

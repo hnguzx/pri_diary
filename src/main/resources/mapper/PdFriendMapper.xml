@@ -15,33 +15,49 @@
     </resultMap>-->
 
     <sql id="sql_where">
-        <if test="myUserId !=null and myUserId !='' ">my_user_id = #{myUserId},</if>
-        <if test="myEmail !=null and myEmail !='' ">my_email = #{myEmail},</if>
-        <if test="myPhone !=null and myPhone !=''">my_phone = #{myPhone},</if>
-        <if test="friendUserId !=null and friendUserId !='' ">friend_user_id = #{friendUserId},</if>
-        <if test="friendEmail !=null and friendEmail !='' ">friend_email = #{friendEmail},</if>
-        <if test="friendPhone !=null and friendPhone !='' ">friend_phone = #{friendPhone},</if>
-        <if test="friendRemark !=null and friendRemark !='' ">friend_remark = #{friendRemark},</if>
-        <if test="friendApplyResult != null and friendApplyResult !=''">friend_apply_result = #{friendApplyResult}</if>
+        <if test="myUserId !=null and myUserId !='' ">
+            my_user_id = #{myUserId},
+        </if>
+        <if test="myEmail !=null and myEmail !='' ">
+            my_email = #{myEmail},
+        </if>
+        <if test="myPhone !=null and myPhone !=''">
+            my_phone = #{myPhone},
+        </if>
+        <if test="friendUserId !=null and friendUserId !='' ">
+            friend_user_id = #{friendUserId},
+        </if>
+        <if test="friendEmail !=null and friendEmail !='' ">
+            friend_email = #{friendEmail},
+        </if>
+        <if test="friendPhone !=null and friendPhone !='' ">
+            friend_phone = #{friendPhone},
+        </if>
+        <if test="friendRemark !=null and friendRemark !='' ">
+            friend_remark = #{friendRemark},
+        </if>
+        <if test="friendApplyResult != null and friendApplyResult !=''">
+            friend_apply_result = #{friendApplyResult}
+        </if>
     </sql>
 
     <sql id="select_friend">
-        select private_diary.pd_friend.friend_id     friendId,
-               private_diary.pd_friend.my_user_id     myUserId,
-               private_diary.pd_friend.my_email       myEmail,
-               private_diary.pd_friend.my_phone       myPhone,
-               private_diary.pd_friend.friend_user_id friendUserId,
-               private_diary.pd_friend.friend_email   friendEmail,
-               private_diary.pd_friend.friend_phone   friendPhone,
-               private_diary.pd_friend.friend_remark  friendRemark,
-               private_diary.pd_friend.friend_apply_result friendApplyResult
+        select private_diary.pd_friend.friend_id,
+               private_diary.pd_friend.my_user_id,
+               private_diary.pd_friend.my_email,
+               private_diary.pd_friend.my_phone,
+               private_diary.pd_friend.friend_user_id,
+               private_diary.pd_friend.friend_email,
+               private_diary.pd_friend.friend_phone,
+               private_diary.pd_friend.friend_remark,
+               private_diary.pd_friend.friend_apply_result
     </sql>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="friendId">
         insert into private_diary.pd_friend(my_user_id, my_email, my_phone, friend_user_id, friend_email, friend_phone,
-                                            friend_remark,friend_apply_result)
-            value (#{myUserId}, #{myEmail}, #{myPhone}, #{friendUserId}, #{friendEmail}, #{friendPhone},
-                   #{friendRemark},#{friendApplyResult})
+                                            friend_remark, friend_apply_result)
+                value (#{myUserId}, #{myEmail}, #{myPhone}, #{friendUserId}, #{friendEmail}, #{friendPhone},
+                       #{friendRemark}, #{friendApplyResult})
     </insert>
 
     <delete id="deleteById" parameterType="int">
@@ -53,13 +69,15 @@
     <update id="update">
         update private_diary.pd_friend
         <set>
-            <include refid="sql_where"></include>
+            <include refid="sql_where">
+            </include>
         </set>
         where friend_user_id = #{friendUserId}
     </update>
 
     <select id="findById" resultType="friend">
-        <include refid="select_friend"></include>
+        <include refid="select_friend">
+        </include>
         from
         private_diary.pd_friend
         where
@@ -69,7 +87,8 @@
     </select>
 
     <select id="findFriendByInfo" resultType="friend">
-        <include refid="select_friend"></include>
+        <include refid="select_friend">
+        </include>
         from
         private_diary.pd_friend
         <where>

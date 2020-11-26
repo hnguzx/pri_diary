@@ -13,15 +13,15 @@
     </resultMap>
 
     <sql id="select_message">
-        select private_diary.pd_message.msg_sender      msgSender,
-               private_diary.pd_message.msg_receiver    msgReceiver,
-               private_diary.pd_message.msg_create_time msgCreateTime,
-               private_diary.pd_message.msg_is_readed   msgIsReaded,
-               private_diary.pd_message.msg_content     msgContent
+        select private_diary.pd_message.msg_sender,
+               private_diary.pd_message.msg_receiver,
+               private_diary.pd_message.msg_create_time,
+               private_diary.pd_message.msg_is_readed,
+               private_diary.pd_message.msg_content
     </sql>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="msgId">
         insert into private_diary.pd_message(msg_sender, msg_receiver, msg_create_time, msg_content, msg_is_readed)
-            value (#{msgSender}, #{msgReceiver}, #{msgCreateTime}, #{msgContent}, #{msgIsReaded})
+                value (#{msgSender}, #{msgReceiver}, #{msgCreateTime}, #{msgContent}, #{msgIsReaded})
     </insert>
 </mapper>
