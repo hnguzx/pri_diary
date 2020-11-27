@@ -78,7 +78,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
         http.cors().and().csrf().disable();
         http.authorizeRequests().
                 antMatchers("/static/**","/common/**","/demo/**").permitAll().
-                antMatchers("/user/verifyCode/**","/user/insertUser/**").permitAll().
+                antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/login/**").permitAll().
                 antMatchers("/admin/**").hasRole("ADMIN").
                 antMatchers("/user/**").hasAnyRole("ADMIN","USER").
                 anyRequest().authenticated().

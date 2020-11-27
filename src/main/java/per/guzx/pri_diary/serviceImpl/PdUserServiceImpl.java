@@ -18,10 +18,7 @@ import per.guzx.pri_diary.exception.ServiceException;
 import per.guzx.pri_diary.pojo.PdRole;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
-import per.guzx.pri_diary.tool.AddressUtil;
-import per.guzx.pri_diary.tool.DateUtil;
-import per.guzx.pri_diary.tool.PasswordEncodeUtil;
-import per.guzx.pri_diary.tool.MathUtil;
+import per.guzx.pri_diary.tool.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -50,6 +47,9 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
 
     @Autowired
     private PasswordEncodeUtil encodeUtil;
+
+    @Autowired
+    private EmailOrMsg emailOrMsg;
 
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
@@ -185,7 +185,14 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+//        PdUser user = new PdUser();
+//        if (emailOrMsg.isEmail(userName)){
+//            user.setUserEmail(userName);
+//        }else {
+//            user.setUserPhone(userName);
+//        }
         PdUser user = userDao.findUserByUserName(userName);
+//        user = userDao.findUserByPhoneOrEmail(user);
         if (user != null) {
             List<PdRole> authorities = userDao.findUserAuthorities(user.getUserId());
             user.setAuthorities(authorities);
