@@ -48,6 +48,6 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
         //处理编码方式，防止中文乱码的情况
         response.setContentType("text/json;charset=utf-8");
         //塞到HttpServletResponse中返回给前台
-        response.getWriter().write(JSON.toJSONString(ApiResp.retOk()));
+        response.getWriter().write(JSON.toJSONString(ApiResp.retOk(user)));
     }
 }
