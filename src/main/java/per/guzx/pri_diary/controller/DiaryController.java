@@ -24,23 +24,23 @@ public class DiaryController {
 
     /**
      * 上传图片
-     * @param detailPhoto
+     * @param diaryPhoto
      * @return
      */
     @PostMapping("/uploadImg")
-    public ApiResp uploadImg(@RequestParam("detailPhoto") Part detailPhoto) {
+    public ApiResp uploadImg(@RequestParam("diaryPhoto") Part diaryPhoto) {
         return ApiResp.retOk();
     }
 
     /**
      * 新增日记
-     * @param detailPhoto
+     * @param diaryPhoto
      * @param diary
      * @return
      */
     @PostMapping("/insertDiary")
-    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
-        diaryService.insertDiary(diary, detailPhoto);
+    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+        diaryService.insertDiary(diary, diaryPhoto);
         return ApiResp.retOk(diary);
     }
 

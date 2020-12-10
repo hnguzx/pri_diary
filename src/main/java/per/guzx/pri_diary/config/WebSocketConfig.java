@@ -81,7 +81,8 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
                 antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
                 antMatchers("/admin/**").hasRole("ADMIN").
                 antMatchers("/user/**").hasAnyRole("ADMIN","USER").
-                anyRequest().authenticated().
+//                anyRequest().authenticated().
+                anyRequest().permitAll().
                 and().anonymous().
                 and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).

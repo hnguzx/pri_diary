@@ -46,6 +46,9 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
     @Value("${spring.profiles.active}")
     private String env;//当前激活的配置文件
 
+    @Value("${image.baseImagePath}")
+    private String imageBasePath;//
+
     /**
      * 文件请求相关
      *
@@ -60,7 +63,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
         // 服务器路径
 //        registry.addResourceHandler("/File/**").addResourceLocations("file:/home/files/");
         // 本地路径
-        registry.addResourceHandler("/File/**").addResourceLocations("file:F:/Files/");
+        registry.addResourceHandler("/File/**").addResourceLocations("file:"+imageBasePath);
 
     }
 

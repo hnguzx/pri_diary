@@ -13,6 +13,8 @@ spring:
       max-request-size: 30MB
       resolve-lazily: true
       file-size-threshold: 2KB
+#      location: /home/files
+      location: F:/Files
   redis:
     jedis:
       pool:
@@ -34,6 +36,8 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+image:
+  baseImagePath: F:/Files
 
 
 

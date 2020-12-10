@@ -40,18 +40,9 @@ public class FileUtil {
      * @return
      */
     public String uploadFile(Part detailPhoto, PdDiary diary) {
-        // 删除原来的图片
-//        deleteFile(diary.getDetailPhoto());
         String filename = detailPhoto.getSubmittedFileName();
         String port = environment.getProperty("local.server.port");
-        String address = "";
-//        try {
-//            address = Inet4Address.getLocalHost().getHostAddress();
-            address = addressUtil.getV4IP();
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//            log.error(ErrorEnum.FILE_UPLOAD.getMsg() + e);
-//        }
+        String address = addressUtil.getV4IP();
         String prefix = "http://" + address + ":" + port + "/File";
         String suffix = "";
         if (filename.lastIndexOf(".") != -1) {
@@ -59,7 +50,6 @@ public class FileUtil {
         }
 
         String newFileName = UUID.randomUUID().toString().substring(0, 16).replace("-", "") + "." + suffix;
-//        String newFileName = diary.getDiaryUpdateTime() + "." + suffix;
         // 文件保存路径
         String saveDest = absolt + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
         // 文件访问路径
@@ -70,6 +60,7 @@ public class FileUtil {
         }
         filename = saveDest + newFileName;
         try {
+            log.trace("保存文件到：" + saveDest);
             detailPhoto.write(filename);
         } catch (IOException e) {
             e.printStackTrace();

@@ -40,7 +40,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
         diary.setDiaryCreateTime(dateUtil.getTimeStamp());
         diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
         diary.setDiaryCreateDay(dateUtil.getDateStamp());
-        if (detailPhoto.getSubmittedFileName() != null) {
+        if (detailPhoto != null && detailPhoto.getSubmittedFileName() != null) {
             String filePath = fileUtil.uploadFile(detailPhoto, diary);
             diary.setDiaryPhoto(filePath);
         }
