@@ -1,7 +1,9 @@
 package per.guzx.pri_diary.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import per.guzx.pri_diary.pojo.PdUser;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -11,21 +13,21 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @Slf4j
 @Service
-//@ServerEndpoint("/ws")
+@ServerEndpoint("/ws")
 public class WebSocketServiceImpl {
     private static int onlineCount = 0;
     // 存放每个客户端对应的webSocketImpl对象
     private static CopyOnWriteArraySet<WebSocketServiceImpl> webSocketSet = new CopyOnWriteArraySet<>();
     private Session session;
-    private String receiver;
+    private int receiver;
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("userId") String userId) {
-        this.session = session;
-        this.receiver = userId;
+    public void onOpen() {
+        PdUser user = (PdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        this.receiver = user.getUserId();
         webSocketSet.add(this);
         addOnlineCount();
-        log.trace("用户：" + userId + "上线，当前在线人数为：" + getOnlineCount());
+        log.trace("用户：" + receiver + "上线，当前在线人数为：" + getOnlineCount());
     }
 
     @OnClose

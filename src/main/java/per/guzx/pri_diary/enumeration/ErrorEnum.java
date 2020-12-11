@@ -29,6 +29,7 @@ public enum ErrorEnum {
     USER_ACCOUNT_DISABLE(200010,"账号不可用"),
     USER_ACCOUNT_LOCKED(200011,"账号已锁定"),
     USER_ACCOUNT_NOT_EXIST(200012,"用户不存在"),
+    USER_ACCOUNT_USE_BY_OTHERS(200013,"用户账户已在别处登录"),
 //    3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
 //    4000-4999 好友相关错误

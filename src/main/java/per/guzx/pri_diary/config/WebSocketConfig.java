@@ -14,10 +14,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
-import per.guzx.pri_diary.handle.CustomizeAuthenticationEntryPoint;
-import per.guzx.pri_diary.handle.CustomizeAuthenticationFailureHandler;
-import per.guzx.pri_diary.handle.CustomizeAuthenticationSuccessHandler;
-import per.guzx.pri_diary.handle.CustomizeLogoutSuccessHandler;
+import per.guzx.pri_diary.handle.*;
 import per.guzx.pri_diary.serviceImpl.PdUserServiceImpl;
 
 @Configuration
@@ -67,6 +64,9 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     @Autowired
     private CustomizeAuthenticationFailureHandler authenticationFailureHandler;
 
+    @Autowired
+    private CustomizeSessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).
@@ -78,17 +78,18 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
         http.cors().and().csrf().disable();
         http.authorizeRequests().
                 antMatchers("/static/**","/common/**","/demo/**").permitAll().
-                antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
-                antMatchers("/admin/**").hasRole("ADMIN").
-                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
-//                anyRequest().authenticated().
-                anyRequest().permitAll().
+//                antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
+//                antMatchers("/admin/**").hasRole("ADMIN").
+//                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
+                anyRequest().authenticated().
+//                anyRequest().permitAll().
                 and().anonymous().
                 and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).
                 and().formLogin().permitAll().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).
                 and().logout().permitAll().logoutSuccessHandler(logoutSuccessHandler).deleteCookies("JSESSIONID").
-                and().httpBasic();
+                and().httpBasic().
+                and().sessionManagement().maximumSessions(1).expiredSessionStrategy(sessionInformationExpiredStrategy);
     }
 
     @Bean
