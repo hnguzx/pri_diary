@@ -23,36 +23,6 @@ import per.guzx.pri_diary.serviceImpl.PdUserServiceImpl;
 //@EnableWebSecurity
 public class WebSocketConfig extends WebSecurityConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
-    @Profile({"dev"})
-    @Bean
-    public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter();
-    }
-
-    @Autowired
-    private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
-
-    /**
-     * 注册服务器端点
-     * @param registry
-     */
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/webSocketServer").setAllowedOrigins("*").withSockJS();
-    }
-
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-        // 客户端订阅路径前缀
-        // queue点对点，topic群发
-        registry.enableSimpleBroker("/queue","/topic");
-//        registry.enableSimpleBroker("/webSocketClient");
-        // 客户端请求服务端点请求前缀
-        registry.setApplicationDestinationPrefixes("/webSocketRequest");
-        // 点对点使用的订阅前缀
-        registry.setUserDestinationPrefix("/user/");
-    }
-
     @Autowired
     private PdUserServiceImpl userDetailsService;
 
@@ -68,6 +38,35 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     @Autowired
     private CustomizeSessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
+    @Autowired
+    private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Profile({"dev"})
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
+    }
+
+    /**
+     * 注册服务器端点
+     * @param registry
+     */
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/webSocketServer").setAllowedOrigins("*").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        // 客户端订阅路径前缀
+        // queue点对点，topic群发
+        registry.enableSimpleBroker("/queue","/topic");
+        // 客户端请求服务端点请求前缀
+        registry.setApplicationDestinationPrefixes("/webSocketRequest");
+        // 点对点使用的订阅前缀
+        registry.setUserDestinationPrefix("/user/");
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).
@@ -79,11 +78,11 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
         http.cors().and().csrf().disable();
         http.authorizeRequests().
                 antMatchers("/static/**","/common/**","/demo/**").permitAll().
-//                antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
+                antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
 //                antMatchers("/admin/**").hasRole("ADMIN").
 //                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
-//                anyRequest().authenticated().
-                anyRequest().permitAll().
+                anyRequest().authenticated().
+//                anyRequest().permitAll().
                 and().anonymous().
                 and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).

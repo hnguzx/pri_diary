@@ -107,7 +107,6 @@ public class DiaryController {
      */
     @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
     public ApiResp<PageInfo> findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
-        PdUser user = (PdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PageInfo pageInfo = diaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(pageInfo);
     }

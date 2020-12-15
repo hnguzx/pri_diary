@@ -135,6 +135,7 @@ public class DemoController {
      */
     /*@MessageMapping("/sendUser")
     public void sendToUser(Principal principal, String body) {
+        PdUser user = (PdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String[] args = body.split(",");
         String desUser = args[0];
         String msg = args[1];

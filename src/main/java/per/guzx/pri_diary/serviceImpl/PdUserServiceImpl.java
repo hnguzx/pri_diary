@@ -179,7 +179,7 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
     }
 
     @Override
-    public PdUser selectByName(String username) {
+    public PdUser findByName(String username) {
         return userDao.findUserByUserName(username);
     }
 

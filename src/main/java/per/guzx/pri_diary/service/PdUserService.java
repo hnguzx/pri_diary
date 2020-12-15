@@ -76,5 +76,5 @@ public interface PdUserService {
      */
     public int updateUserByEmailOrPhone(PdUser user);
 
-    public PdUser selectByName(String username);
+    public PdUser findByName(String username);
 }

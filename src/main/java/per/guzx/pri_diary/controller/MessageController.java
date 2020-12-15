@@ -16,6 +16,7 @@ import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdMessageService;
+import per.guzx.pri_diary.service.PdUserService;
 import per.guzx.pri_diary.tool.NoticeUtil;
 
 import java.security.Principal;
@@ -38,22 +39,22 @@ public class MessageController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+    @Autowired
+    private PdUserService userService;
+
     @SubscribeMapping("/connect")
     public ApiResp connect(Principal principal) {
         log.trace("用户" + principal.getName() + "已连接聊天服务");
+        // 连接成功后应该将用户信息保存
+        PdUser user = userService.findByName(principal.getName());
         return ApiResp.retOk(ErrorEnum.USER_CONNECT_SUCCESS);
     }
 
     @SubscribeMapping({"/disConnect"})
     public ApiResp closeConnect(Principal principal) {
         log.trace("用户" + principal.getName() + "已断开聊天服务");
-        // 连接成功后应该讲用户保存起来
+        // 断开连接后应该将用户信息清除
         return ApiResp.retOk(ErrorEnum.USER_DISCONNECT_SUCCESS);
-    }
-
-    @MessageMapping("/connect")
-    public void openConnect(@RequestBody PdUser user) {
-        System.out.println(user.getUsername());
     }
 
     // 定义消息请求路径
@@ -71,14 +72,10 @@ public class MessageController {
      */
     @MessageMapping("/sendUser")
     public void sendToUser(String body) {
-//        String[] args = body.split(",");
-//        String desUser = args[0];
-//        String msg = args[1];
         // 需要添加所需参数的构造器
         PdMessage message = JSONObject.parseObject(body,PdMessage.class);
 
         //  发送到用户和监听地址
-//        simpMessagingTemplate.convertAndSendToUser(message.getMsgReceiver(), "/queue/customer", message.getMsgContent());
         noticeUtil.sendTxtToUser(message.getMsgReceiver(), "/queue/customer", message.getMsgContent());
     }
 
