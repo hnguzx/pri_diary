@@ -38,18 +38,19 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
      */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // 聊天服务端点
-        registry.addEndpoint("/ws_chat").withSockJS();
-        // 用户服务端点
-        registry.addEndpoint("/ws_user").withSockJS();
+        registry.addEndpoint("/webSocketServer").setAllowedOrigins("*").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // 客户端订阅路径前缀
-        registry.enableSimpleBroker("/client_chat","/client_user");
-        // 服务端点请求前缀
-        registry.setApplicationDestinationPrefixes("/server_request");
+        // queue点对点，topic群发
+        registry.enableSimpleBroker("/queue","/topic");
+//        registry.enableSimpleBroker("/webSocketClient");
+        // 客户端请求服务端点请求前缀
+        registry.setApplicationDestinationPrefixes("/webSocketRequest");
+        // 点对点使用的订阅前缀
+        registry.setUserDestinationPrefix("/user/");
     }
 
     @Autowired
@@ -81,8 +82,8 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
 //                antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
 //                antMatchers("/admin/**").hasRole("ADMIN").
 //                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
-                anyRequest().authenticated().
-//                anyRequest().permitAll().
+//                anyRequest().authenticated().
+                anyRequest().permitAll().
                 and().anonymous().
                 and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).

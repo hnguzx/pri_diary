@@ -120,12 +120,12 @@ public class DemoController {
     }
 
     // 定义消息请求路径
-    @MessageMapping("/send")
     // 定义结果发送到特定路径
+    /*@MessageMapping("/send")
     @SendTo("/sub/chat")
     public String sendMessage(String value) {
         return value;
-    }
+    }*/
 
     /**
      * 发送消息给特定用户
@@ -133,12 +133,12 @@ public class DemoController {
      * @param principal
      * @param body
      */
-    @MessageMapping("/sendUser")
+    /*@MessageMapping("/sendUser")
     public void sendToUser(Principal principal, String body) {
         String[] args = body.split(",");
         String desUser = args[0];
         String msg = args[1];
         //  发送到用户和监听地址
         simpMessagingTemplate.convertAndSendToUser(desUser, "/queue/customer", msg);
-    }
+    }*/
 }

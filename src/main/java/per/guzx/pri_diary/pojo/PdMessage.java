@@ -154,4 +154,13 @@ public class PdMessage {
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
     }
+
+    public PdMessage(Integer msgId, Integer msgSender, Integer msgReceiver, String msgCreateTime, Boolean msgIsReaded, String msgContent) {
+        this.msgId = msgId;
+        this.msgSender = msgSender;
+        this.msgReceiver = msgReceiver;
+        this.msgCreateTime = msgCreateTime;
+        this.msgIsReaded = msgIsReaded;
+        this.msgContent = msgContent;
+    }
 }

@@ -10,13 +10,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdDiary;
+import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdDiaryService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import javax.websocket.Session;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +107,7 @@ public class DiaryController {
      */
     @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
     public ApiResp<PageInfo> findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
+        PdUser user = (PdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PageInfo pageInfo = diaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(pageInfo);
     }

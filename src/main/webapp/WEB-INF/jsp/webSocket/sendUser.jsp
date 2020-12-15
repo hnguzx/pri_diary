@@ -51,31 +51,30 @@
             }
             setConnected(false);
             console.log("DisConnected");
-
         }
 
         function sendMsg() {
             var value = $("#message").val();
             var user = $("#user").val();
 
-            // var text = user + "," + value;
-            // stompClient.send("/server_request/sendUser", {}, text)
-            var friend = {
-                "myUserId" : "2",
-                "myEmail" : "123@qq.com",
-                "myPhone" : "13089414342",
-                "friendUserId":"1",
-                "friendPhone":"15173652791",
-                "friendEmail":"456@qq.com",
-                "friendRemark":"zz"
-            }
+            var text = user + "," + value;
+            stompClient.send("/server_request/connect", {}, text)
+            // var friend = {
+            //     "myUserId" : "2",
+            //     "myEmail" : "123@qq.com",
+            //     "myPhone" : "13089414342",
+            //     "friendUserId":"1",
+            //     "friendPhone":"15173652791",
+            //     "friendEmail":"456@qq.com",
+            //     "friendRemark":"zz"
+            // }
             // stompClient.send("/server_request/addFriend", {}, JSON.stringify(friend))
-            $.post("/friend/add",JSON.stringify(friend),function (data) {
-                alert(JSON.stringify(data))
-            });
+            // $.post("/friend/add",JSON.stringify(friend),function (data) {
+            //     alert(JSON.stringify(data))
+            // });
         }
 
-        // openConnect();
+        openConnect();
     </script>
 </head>
 <body>
