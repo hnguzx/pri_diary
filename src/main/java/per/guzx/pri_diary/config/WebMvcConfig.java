@@ -97,6 +97,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
         redisTemplate.setKeySerializer(stringSerializer);
         redisTemplate.setValueSerializer(stringSerializer);
         redisTemplate.setHashKeySerializer(stringSerializer);
+        redisTemplate.setHashValueSerializer(stringSerializer);
     }
 
     /**

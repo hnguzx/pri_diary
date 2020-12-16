@@ -49,7 +49,7 @@ public class FriendController {
         if(added){
             return ApiResp.retOk(pdFriend);
         }
-        noticeUtil.sendTxtToUser(pdFriend.getFriendUserId(),"/client_user/add_friend","用户"+ JSON.toJSONString(pdFriend)+"请求添加您为好友！");
+//        noticeUtil.sendTxtToUser(pdFriend.getFriendUserId(),"/client_user/add_friend","用户"+ JSON.toJSONString(pdFriend)+"请求添加您为好友！");
         return ApiResp.retOk();
     }
 

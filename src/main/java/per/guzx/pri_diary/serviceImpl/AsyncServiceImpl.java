@@ -16,7 +16,7 @@ import per.guzx.pri_diary.tool.FileUtil;
 
 import java.util.List;
 
-//@Service
+@Service
 public class AsyncServiceImpl implements AsyncService {
 
     @Autowired
@@ -47,7 +47,11 @@ public class AsyncServiceImpl implements AsyncService {
                 realDelete(photoWebPath);
             }
         }*/
-        System.out.println("定时异步任务！" + dateUtil.getTimeStamp());
+    }
+
+    @Override
+    public void syncChatHistory() {
+
     }
 
     public void realDelete(String fileName){

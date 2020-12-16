@@ -7,4 +7,6 @@ public interface AsyncService {
      * @return
      */
     public void deleteOverdueImg();
+
+    public void syncChatHistory();
 }

@@ -1,8 +1,10 @@
 package per.guzx.pri_diary.tool;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
+import per.guzx.pri_diary.pojo.PdMessage;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdUserService;
 
@@ -21,7 +23,7 @@ public class NoticeUtil {
      * @param destinationUrl
      * @param msg
      */
-    public void sendTxtToUser(int targetUserId,String destinationUrl,String msg){
+    public void sendTxtToUser(int targetUserId, String destinationUrl, PdMessage msg){
         simpMessagingTemplate.convertAndSendToUser(getTargetUser(targetUserId).getUsername(), destinationUrl, msg);
     }
 
