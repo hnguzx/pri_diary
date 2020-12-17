@@ -76,6 +76,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
+        http.headers().frameOptions().sameOrigin();
         http.authorizeRequests().
                 antMatchers("/static/**","/common/**","/demo/**").permitAll().
                 antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
