@@ -24,7 +24,7 @@ import java.security.Principal;
  */
 @Controller
 @Slf4j
-//@RequestMapping("/request")
+@RequestMapping("/demo")
 public class DemoController {
 
     @Value("${server.port}")

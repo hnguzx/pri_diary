@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @Slf4j
 @Service
-//@ServerEndpoint("/ws")
+@ServerEndpoint("/ws")
 public class WebSocketServiceImpl {
     private static int onlineCount = 0;
     // 存放每个客户端对应的webSocketImpl对象
@@ -22,9 +22,8 @@ public class WebSocketServiceImpl {
     private int receiver;
 
     @OnOpen
-    public void onOpen() {
-        PdUser user = (PdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        this.receiver = user.getUserId();
+    public void onOpen(Session session) {
+        this.session = session;
         webSocketSet.add(this);
         addOnlineCount();
         log.trace("用户：" + receiver + "上线，当前在线人数为：" + getOnlineCount());
