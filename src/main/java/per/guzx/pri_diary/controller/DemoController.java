@@ -96,8 +96,8 @@ public class DemoController {
         return "webSocket/index";
     }
 
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
+//    @Autowired
+//    private SimpMessagingTemplate simpMessagingTemplate;
 
     @GetMapping("/send")
     public String send() {
