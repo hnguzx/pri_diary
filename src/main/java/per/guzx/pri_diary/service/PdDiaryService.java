@@ -1,5 +1,6 @@
 package per.guzx.pri_diary.service;
 
+import org.springframework.stereotype.Service;
 import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdDiary;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.Part;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public interface PdDiaryService {
 
     /**

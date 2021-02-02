@@ -1,10 +1,12 @@
 package per.guzx.pri_diary.service;
 
+import org.springframework.stereotype.Service;
 import per.guzx.pri_diary.pojo.PdMessage;
 
 import javax.websocket.*;
 import java.io.IOException;
 
+@Service
 public interface WebSocketService {
 
     /**

@@ -18,13 +18,13 @@
     </sql>
 
     <sql id="sql_where">
-        <if test="userName !=null and userName !='' ">
+        <if test="userName !=null">
             user_name = #{userName},
         </if>
-        <if test="userPassword !=null and userPassword !='' ">
+        <if test="userPassword !=null">
             user_password = #{userPassword},
         </if>
-        <if test="userState !=null ">
+        <if test="userState !=null">
             user_state = #{userState},
         </if>
         <if test="userPhone !=null and userPhone !='' ">
@@ -53,6 +53,17 @@
         </if>
     </sql>
 
+    <sql id="sql_insert">
+        <if test="userPhone != null">
+            userPhone,
+        </if>
+<choose>
+    <when test=""></when>
+    <when test=""></when>
+    <otherwise></otherwise>
+</choose>
+    </sql>
+
     <sql id="sql_login">
         <if test="userPhone !=null and userPhone != '' ">
             and user_phone = #{userPhone}
@@ -63,6 +74,11 @@
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into private_diary.pd_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+        </trim>
+
         insert into pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
                             user_head, user_create_time, user_update_time)
                 value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex},
@@ -76,7 +92,7 @@
             <include refid="sql_where">
             </include>
         </set>
-        where user_id = #{userId}
+        where user_id = #{userId} limit 1
     </update>
 
     <update id="updateUserByEmailOrPhone">
@@ -86,6 +102,7 @@
             <include refid="sql_login">
             </include>
         </where>
+        limit 1
     </update>
 
     <select id="findUserById" parameterType="int" resultType="user">
@@ -95,6 +112,7 @@
         pd_user
         where
         user_id = #{userId}
+        limit 1
     </select>
 
     <select id="findUserByPhoneOrEmail" parameterType="int" resultType="user">

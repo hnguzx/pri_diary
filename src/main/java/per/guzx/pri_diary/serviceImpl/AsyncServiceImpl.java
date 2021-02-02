@@ -16,7 +16,6 @@ import per.guzx.pri_diary.tool.FileUtil;
 
 import java.util.List;
 
-@Service
 public class AsyncServiceImpl implements AsyncService {
 
     @Autowired

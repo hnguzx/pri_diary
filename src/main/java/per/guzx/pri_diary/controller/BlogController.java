@@ -2,12 +2,12 @@ package per.guzx.pri_diary.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdBlog;
 import per.guzx.pri_diary.service.PdBlogService;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/blog")
 public class BlogController {
-    @Autowired
+    @Resource
     private PdBlogService pdBlogService;
 
 

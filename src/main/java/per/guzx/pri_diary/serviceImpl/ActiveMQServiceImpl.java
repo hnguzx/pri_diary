@@ -6,7 +6,6 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import per.guzx.pri_diary.service.ActiveMQService;
 
-//@Service
 public class ActiveMQServiceImpl implements ActiveMQService {
 
     @Autowired

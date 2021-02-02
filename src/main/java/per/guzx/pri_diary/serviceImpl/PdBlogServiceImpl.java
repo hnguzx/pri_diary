@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * Created by Guzx on 2020/09/07.
  */
-@Service
 @Transactional
 public class PdBlogServiceImpl implements PdBlogService {
 
