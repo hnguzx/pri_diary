@@ -5,8 +5,8 @@ server:
 #    contex t-path: /person-diary
 spring:
   datasource:
-    url: jdbc:mysql://180.76.58.205:3306/private_diary
-    #    url: jdbc:mysql://localhost:3306/private_diary
+#    url: jdbc:mysql://180.76.58.205:3306/private_diary
+    url: jdbc:mysql://localhost:3306/private_diary
     username: root
     password: 970712
     tomcat:

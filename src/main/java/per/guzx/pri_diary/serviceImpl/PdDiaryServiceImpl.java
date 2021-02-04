@@ -20,6 +20,7 @@ import java.util.Map;
 
 @Slf4j
 @Transactional
+@Service
 public class PdDiaryServiceImpl implements PdDiaryService {
 
     @Autowired

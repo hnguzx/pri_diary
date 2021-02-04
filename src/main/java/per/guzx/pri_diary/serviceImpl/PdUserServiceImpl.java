@@ -27,6 +27,7 @@ import java.util.Objects;
 
 @Slf4j
 @Transactional
+@Service
 public class PdUserServiceImpl implements PdUserService, UserDetailsService {
 
     @Autowired

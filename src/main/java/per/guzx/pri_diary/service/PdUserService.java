@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import per.guzx.pri_diary.pojo.PageInfo;
 import per.guzx.pri_diary.pojo.PdUser;
 
-@Service
 public interface PdUserService {
     /**
      * 新增用户

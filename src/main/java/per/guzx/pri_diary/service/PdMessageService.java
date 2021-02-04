@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by Guzx on 2020/09/07.
  */
-@Service
 public interface PdMessageService {
 
     boolean sendMsg(PdMessage pdMessage);

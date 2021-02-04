@@ -1,12 +1,15 @@
 package per.guzx.pri_diary.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Component;
 import per.guzx.pri_diary.enumeration.ErrorEnum;
 
 import java.io.Serializable;
 
 @Component
+@ApiModel
 public class ApiResp<T> implements Serializable {
     /**
      * 正常响应码
@@ -20,16 +23,19 @@ public class ApiResp<T> implements Serializable {
     /**
      * 错误码
      */
+    @ApiModelProperty(value = "系统返回码")
     private int code = SUCCESS_CODE;
 
     /**
      * 错误信息
      */
+    @ApiModelProperty(value = "系统返回信息")
     private String msg = SUCCESS_MSG;
 
     /**
      * 响应内容，默认为null
      */
+    @ApiModelProperty(value = "系统返回数据")
     private T data = null;
 
     /**

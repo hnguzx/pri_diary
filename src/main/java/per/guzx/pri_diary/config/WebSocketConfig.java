@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -74,22 +75,37 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/swagger-resources/configuration/ui",
+                "/swagger-resources",
+                "/swagger-resources/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.headers().frameOptions().sameOrigin().disable();
         http.authorizeRequests().
+                antMatchers("/v2/api-docs",
+                        "/swagger-resources/configuration/ui",
+                        "/swagger-resources",
+                        "/swagger-resources/configuration/security",
+                        "/swagger-ui.html").permitAll().
                 antMatchers("/static/**","/common/**","/demo/**","/webSocketServer/**").permitAll().
                 antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
 //                antMatchers("/admin/**").hasRole("ADMIN").
 //                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
                 anyRequest().authenticated().
 //                anyRequest().permitAll().
-                and().anonymous().
-                and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
+//                and().anonymous().
+//                and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).
                 and().formLogin().permitAll().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).
                 and().logout().permitAll().logoutSuccessHandler(logoutSuccessHandler).deleteCookies("JSESSIONID").
-                and().httpBasic().
+//                and().httpBasic().
                 and().sessionManagement().maximumSessions(1).expiredSessionStrategy(sessionInformationExpiredStrategy);
     }
 

@@ -2,6 +2,11 @@ package per.guzx.pri_diary.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.pri_diary.pojo.ApiResp;
 import per.guzx.pri_diary.pojo.PdBlog;
@@ -16,8 +21,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog")
+@Api(tags = "博客管理相关接口")
 public class BlogController {
-    @Resource
+    @Autowired
     private PdBlogService pdBlogService;
 
 
@@ -27,6 +33,7 @@ public class BlogController {
      * @return
      */
     @PostMapping("/add")
+    @ApiOperation("添加博客")
     public ApiResp<PdBlog> add(@RequestBody PdBlog pdBlog) {
         pdBlogService.save(pdBlog);
         return ApiResp.retOk();

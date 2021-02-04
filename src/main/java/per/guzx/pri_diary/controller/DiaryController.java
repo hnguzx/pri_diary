@@ -13,6 +13,7 @@ import per.guzx.pri_diary.pojo.PdDiary;
 import per.guzx.pri_diary.pojo.PdUser;
 import per.guzx.pri_diary.service.PdDiaryService;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Part;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import java.util.Map;
 @RequestMapping("/diary")
 @Slf4j
 public class DiaryController {
-    @Autowired
-    private PdDiaryService diaryService;
+    @Resource
+    private PdDiaryService pdDiaryService;
 
     /**
      * 上传图片
@@ -45,7 +46,7 @@ public class DiaryController {
      */
     @PostMapping("/insertDiary")
     public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
-        diaryService.insertDiary(diary, diaryPhoto);
+        pdDiaryService.insertDiary(diary, diaryPhoto);
         return ApiResp.retOk(diary);
     }
 
@@ -57,8 +58,8 @@ public class DiaryController {
      */
     @PatchMapping("/updateDiary")
     public ApiResp<PdDiary> updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
-        diaryService.updateDiary(diary, detailPhoto);
-        PdDiary updateAfterDiary = diaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
+        pdDiaryService.updateDiary(diary, detailPhoto);
+        PdDiary updateAfterDiary = pdDiaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
         return ApiResp.retOk(updateAfterDiary);
     }
 
@@ -70,7 +71,7 @@ public class DiaryController {
      */
     @DeleteMapping("/{userId}/{diaryId}")
     public ApiResp deleteDiary(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
-        diaryService.deleteDiary(diaryId, userId);
+        pdDiaryService.deleteDiary(diaryId, userId);
         return ApiResp.retOk();
     }
 
@@ -82,7 +83,7 @@ public class DiaryController {
      */
     @GetMapping("/detail/{userId}/{diaryId}")
     public ApiResp<PdDiary> findDiaryById(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
-        PdDiary diary = diaryService.findDiaryById(userId, diaryId);
+        PdDiary diary = pdDiaryService.findDiaryById(userId, diaryId);
         return ApiResp.retOk(diary);
     }
 
@@ -93,7 +94,7 @@ public class DiaryController {
      */
     @GetMapping("/{userId}")
     public ApiResp<List<PdDiary>> findDiaryAll(@PathVariable("userId") int userId) {
-        List<PdDiary> diaries = diaryService.findDiaryAll(userId);
+        List<PdDiary> diaries = pdDiaryService.findDiaryAll(userId);
         return ApiResp.retOk(diaries);
     }
 
@@ -107,7 +108,7 @@ public class DiaryController {
      */
     @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
     public ApiResp<PageInfo> findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
-        PageInfo pageInfo = diaryService.findDiaryByGlobal(userId, global, start, size);
+        PageInfo pageInfo = pdDiaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(pageInfo);
     }
 
@@ -118,7 +119,7 @@ public class DiaryController {
      */
     @GetMapping("/getDiaryNumber/{userId}")
     public ApiResp<Map<String,Object>> getDiaryNumber(@PathVariable("userId") int userId) {
-        Map<String, Object> result = diaryService.getDiaryNumber(userId);
+        Map<String, Object> result = pdDiaryService.getDiaryNumber(userId);
         return ApiResp.retOk(result);
     }
 
@@ -129,7 +130,7 @@ public class DiaryController {
      */
     @GetMapping("/getImgInfo/{userId}")
     public ApiResp<Map<String,Object>> getImgInfo(@PathVariable("userId") int userId) {
-        Map<String, Object> result = diaryService.getImageInfo(userId);
+        Map<String, Object> result = pdDiaryService.getImageInfo(userId);
         return ApiResp.retOk(result);
     }
 
@@ -140,7 +141,7 @@ public class DiaryController {
      */
     @GetMapping("/getAddressInfo/{userId}")
     public ApiResp<Map<String,Object>> getAddressInfo(@PathVariable("userId") int userId) {
-        Map<String, Object> result = diaryService.getAddressInfo(userId);
+        Map<String, Object> result = pdDiaryService.getAddressInfo(userId);
         return ApiResp.retOk(result);
     }
 
@@ -151,7 +152,7 @@ public class DiaryController {
      */
     @GetMapping("/getDiaryLabelInfo/{userId}")
     public ApiResp<Map<String,Object>> getDiaryLabelInfo(@PathVariable("userId") int userId){
-        Map<String, Object> result = diaryService.getDiaryLabelInfo(userId);
+        Map<String, Object> result = pdDiaryService.getDiaryLabelInfo(userId);
         return ApiResp.retOk(result);
     }
 

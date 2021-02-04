@@ -23,6 +23,7 @@ import java.util.List;
  * Created by Guzx on 2020/09/07.
  */
 @Transactional
+@Service
 public class PdMessageServiceImpl implements PdMessageService {
 
     @Autowired

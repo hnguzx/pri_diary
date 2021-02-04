@@ -6,7 +6,6 @@ import per.guzx.pri_diary.pojo.PdMessage;
 import javax.websocket.*;
 import java.io.IOException;
 
-@Service
 public interface WebSocketService {
 
     /**
