@@ -47,7 +47,7 @@ _3.remainText=false;
 _e(_2);
 _4.onCheck.call(this,_c,_d);
 }}));
-};
+}
 function _e(_f){
 var _10=$.data(_f,"combotree");
 var _11=_10.options;
@@ -65,7 +65,7 @@ vv.push(_14.id);
 }
 vv=vv.concat(_11.unselectedValues);
 _15(_f,vv,_10.remainText);
-};
+}
 function _15(_16,_17,_18){
 var _19=$.data(_16,"combotree");
 var _1a=_19.options;
@@ -127,24 +127,24 @@ $(_16).combo("setValues",vv);
 function _25(_27,a){
 var _28=$.easyui.getArrayItem(a,"id",_27);
 return _28?_24(_28):undefined;
-};
+}
 function _24(_29){
 return _29[_1a.textField||""]||_29.text;
-};
-};
+}
+}
 function _2a(_2b,q){
 var _2c=$.data(_2b,"combotree");
 var _2d=_2c.options;
 var _2e=_2c.tree;
 _2c.remainText=true;
 _2e.tree("doFilter",_2d.multiple?q.split(_2d.separator):q);
-};
+}
 function _2f(_30){
 var _31=$.data(_30,"combotree");
 _31.remainText=false;
 $(_30).combotree("setValues",$(_30).combotree("getValues"));
 $(_30).combotree("hidePanel");
-};
+}
 $.fn.combotree=function(_32,_33){
 if(typeof _32=="string"){
 var _34=$.fn.combotree.methods[_32];

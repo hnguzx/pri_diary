@@ -51,7 +51,7 @@ _4.onClickRow.call(this,_e);
 _11(_2);
 _4.onCheckNode.call(this,_f,_10);
 }}));
-};
+}
 function _11(_12){
 var _13=$.data(_12,"combotreegrid");
 var _14=_13.options;
@@ -69,7 +69,7 @@ vv.push(row[_14.idField]);
 }
 vv=vv.concat(_14.unselectedValues);
 _16(_12,vv);
-};
+}
 function _16(_17,_18){
 var _19=$.data(_17,"combotreegrid");
 var _1a=_19.options;
@@ -141,11 +141,11 @@ $(_17).combo("setValues",vv);
 function _25(_26,a){
 var _27=$.easyui.getArrayItem(a,_1a.idField,_26);
 return _27?_24(_27):undefined;
-};
+}
 function _24(row){
 return row[_1a.textField||""]||row[_1a.treeField];
-};
-};
+}
+}
 function _28(_29,q){
 var _2a=$.data(_29,"combotreegrid");
 var _2b=_2a.options;
@@ -202,8 +202,8 @@ function _2d(vv){
 if(!_2b.reversed){
 $(_29).combotreegrid("setValues",vv);
 }
-};
-};
+}
+}
 function _2f(_30){
 var _31=$.data(_30,"combotreegrid");
 var _32=_31.options;
@@ -242,7 +242,7 @@ $(_30).combotreegrid("setValues",vv);
 if(!_32.multiple){
 $(_30).combotreegrid("hidePanel");
 }
-};
+}
 $.fn.combotreegrid=function(_34,_35){
 if(typeof _34=="string"){
 var _36=$.fn.combotreegrid.methods[_34];

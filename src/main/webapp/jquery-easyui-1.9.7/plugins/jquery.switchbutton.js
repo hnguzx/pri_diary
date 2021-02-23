@@ -25,7 +25,7 @@ _7(_3);
 return false;
 });
 return _4;
-};
+}
 function _7(_8,_9){
 var _a=$.data(_8,"switchbutton");
 var _b=_a.options;
@@ -61,7 +61,7 @@ _10(_8,_b.checked,false);
 if(!_d){
 _c.insertAfter(_8);
 }
-};
+}
 function _11(_12){
 var _13=$.data(_12,"switchbutton");
 var _14=_13.options;
@@ -106,7 +106,7 @@ _10(_12,_14.checked);
 _1a(_12,_14.readonly);
 _1b(_12,_14.disabled);
 $(_12).switchbutton("setValue",_14.value);
-};
+}
 function _10(_1c,_1d,_1e){
 var _1f=$.data(_1c,"switchbutton");
 var _20=_1f.options;
@@ -124,7 +124,7 @@ _20.checked=_1d;
 _20.onChange.call(_1c,_20.checked);
 $(_1c).closest("form").trigger("_change",[_1c]);
 }
-};
+}
 function _1b(_25,_26){
 var _27=$.data(_25,"switchbutton");
 var _28=_27.options;
@@ -141,13 +141,13 @@ $(_25).add(_2a)._propAttr("disabled",false);
 _29.removeClass("switchbutton-disabled");
 _29.attr("tabindex",$(_25).attr("tabindex")||"");
 }
-};
+}
 function _1a(_2b,_2c){
 var _2d=$.data(_2b,"switchbutton");
 var _2e=_2d.options;
 _2e.readonly=_2c==undefined?true:_2c;
 _2d.switchbutton.removeClass("switchbutton-readonly").addClass(_2e.readonly?"switchbutton-readonly":"");
-};
+}
 function _2f(_30){
 var _31=$.data(_30,"switchbutton");
 var _32=_31.options;
@@ -163,7 +163,7 @@ return false;
 }
 }
 });
-};
+}
 $.fn.switchbutton=function(_33,_34){
 if(typeof _33=="string"){
 return $.fn.switchbutton.methods[_33](this,_34);

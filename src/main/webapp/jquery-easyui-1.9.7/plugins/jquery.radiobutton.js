@@ -19,7 +19,7 @@ t.removeAttr("name").attr("radiobuttonName",_5);
 _4.find(".radiobutton-value").attr("name",_5);
 }
 return _4;
-};
+}
 function _6(_7){
 var _8=$.data(_7,"radiobutton");
 var _9=_8.options;
@@ -52,7 +52,7 @@ $(_7).radiobutton("setValue",_9.value);
 _d(_7,_9.checked);
 _e(_7,_9.readonly);
 _f(_7,_9.disabled);
-};
+}
 function _10(_11){
 var _12=$.data(_11,"radiobutton");
 var _13=_12.options;
@@ -62,7 +62,7 @@ if(!_13.disabled&&!_13.readonly){
 _d(_11,true);
 }
 });
-};
+}
 function _15(_16){
 var _17=$.data(_16,"radiobutton");
 var _18=_17.options;
@@ -76,7 +76,7 @@ _17.label._size({width:_18.labelWidth,height:_19.outerHeight()},_19);
 _17.label.css("lineHeight",_19.outerHeight()+"px");
 }
 }
-};
+}
 function _d(_1a,_1b){
 if(_1b){
 var f=$(_1a).closest("form");
@@ -108,8 +108,8 @@ _1f.checked=c;
 _1f.onChange.call($(b)[0],c);
 $(b).closest("form").trigger("_change",[$(b)[0]]);
 }
-};
-};
+}
+}
 function _f(_21,_22){
 var _23=$.data(_21,"radiobutton");
 var _24=_23.options;
@@ -125,7 +125,7 @@ $(_21).add(rv)._propAttr("disabled",false);
 _25.removeClass("radiobutton-disabled");
 $(_23.label).removeClass("textbox-label-disabled");
 }
-};
+}
 function _e(_26,_27){
 var _28=$.data(_26,"radiobutton");
 var _29=_28.options;
@@ -137,7 +137,7 @@ $(_28.label).addClass("textbox-label-readonly");
 _28.radiobutton.removeClass("radiobutton-readonly");
 $(_28.label).removeClass("textbox-label-readonly");
 }
-};
+}
 $.fn.radiobutton=function(_2a,_2b){
 if(typeof _2a=="string"){
 return $.fn.radiobutton.methods[_2a](this,_2b);

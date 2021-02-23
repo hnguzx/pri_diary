@@ -26,7 +26,7 @@ var _a=parseInt($(e.target).attr("datebox-button-index"));
 _8.buttons[_a].handler.call(e.target,_7);
 }
 });
-};
+}
 function _6(_b){
 var _c=$(_b).combo("panel");
 if(_c.children("div.datebox-button").length){
@@ -41,14 +41,14 @@ var t=$("<a class=\"datebox-button-a\" href=\"javascript:;\"></a>").html($.isFun
 t.attr("datebox-button-index",i);
 }
 tr.find("td").css("width",(100/_4.buttons.length)+"%");
-};
-};
+}
+}
 function _f(_10,_11){
 var _12=$(_10).data("timepicker").options;
 _13(_10,_11);
 _12.value=_14(_10);
 $(_10).combo("setValue",_12.value).combo("setText",_12.value);
-};
+}
 function _13(_15,_16){
 var _17=$(_15).data("timepicker").options;
 if(_16){
@@ -63,7 +63,7 @@ _17.selectingMinute=0;
 _17.selectingAmpm=_17.ampm[0];
 }
 _19(_15);
-};
+}
 function _14(_1a){
 var _1b=$(_1a).data("timepicker").options;
 var h=_1b.selectingHour;
@@ -73,7 +73,7 @@ if(!_1c){
 _1c=_1b.ampm[0];
 }
 return (h<10?"0"+h:h)+":"+(m<10?"0"+m:m)+" "+_1c;
-};
+}
 function _19(_1d){
 var _1e=$(_1d).data("timepicker").options;
 var _1f=$(_1d).combo("panel");
@@ -110,7 +110,7 @@ _1e.selectingMinute=_24;
 }
 _19(_1d);
 });
-};
+}
 function _22(_25){
 var _26=$(_25).data("timepicker").options;
 var _27=$(_25).combo("panel");
@@ -130,7 +130,7 @@ _2b.find(".title-am").addClass("title-selected");
 if(_26.selectingAmpm==_26.ampm[1]){
 _2b.find(".title-pm").addClass("title-selected");
 }
-};
+}
 function _23(_2c){
 var _2d=$(_2c).data("timepicker").options;
 var _2e=$(_2c).combo("panel");
@@ -188,8 +188,8 @@ _3e.push(i<10?"0"+i:String(i));
 _3e[0]="00";
 }
 return _3e;
-};
-};
+}
+}
 $.fn.timepicker=function(_3f,_40){
 if(typeof _3f=="string"){
 var _41=$.fn.timepicker.methods[_3f];

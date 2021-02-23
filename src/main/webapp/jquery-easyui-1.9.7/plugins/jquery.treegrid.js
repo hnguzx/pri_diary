@@ -54,7 +54,7 @@ _15(_2);
 }});
 _4.pageSize=_12.pagination("options").pageSize;
 }
-};
+}
 function _16(_17,_18){
 var _19=$.data(_17,"datagrid").options;
 var dc=$.data(_17,"datagrid").dc;
@@ -75,8 +75,8 @@ tr2.css("height","");
 var _1e=Math.max(tr1.height(),tr2.height());
 tr1.css("height",_1e);
 tr2.css("height",_1e);
-};
-};
+}
+}
 function _1f(_20){
 var dc=$.data(_20,"datagrid").dc;
 var _21=$.data(_20,"treegrid").options;
@@ -86,7 +86,7 @@ return;
 dc.body1.find("div.datagrid-cell-rownumber").each(function(i){
 $(this).html(i+1);
 });
-};
+}
 function _22(_23){
 return function(e){
 $.fn.datagrid.defaults.rowEvents[_23?"mouseover":"mouseout"](e);
@@ -96,7 +96,7 @@ if(tt.hasClass("tree-hit")){
 tt.hasClass("tree-expanded")?tt[fn]("tree-expanded-hover"):tt[fn]("tree-collapsed-hover");
 }
 };
-};
+}
 function _24(e){
 var tt=$(e.target);
 var tr=tt.closest("tr.datagrid-row");
@@ -134,10 +134,10 @@ $.fn.datagrid.defaults.rowEvents.click(e);
 }
 }
 }
-};
+}
 function _27(t){
 return $(t).closest("div.datagrid-view").children(".datagrid-f")[0];
-};
+}
 function _29(_30,_31,_32,_33){
 var _34=$.data(_30,"treegrid");
 var _35=_34.checkedRows;
@@ -189,7 +189,7 @@ _3a(_30,row,_32?"1":"0");
 if(!_33){
 _36.onCheckNode.call(_30,row,_32);
 }
-};
+}
 function _3a(_3b,row,_3c){
 var _3d=$.data(_3b,"treegrid");
 var _3e=_3d.checkedRows;
@@ -211,14 +211,14 @@ $.easyui.removeArrayItem(_3e,_3f.idField,row[_3f.idField]);
 }else{
 $.easyui.addArrayItem(_3e,_3f.idField,row);
 }
-};
+}
 function _38(_40,row,_41){
 var _42=_41?1:0;
 _3a(_40,row,_42);
 $.easyui.forEach(row.children||[],true,function(r){
 _3a(_40,r,_42);
 });
-};
+}
 function _39(_43,row){
 var _44=$.data(_43,"treegrid").options;
 var _45=_46(_43,row[_44.idField]);
@@ -226,7 +226,7 @@ if(_45){
 _3a(_43,_45,_47(_45));
 _39(_43,_45);
 }
-};
+}
 function _47(row){
 var len=0;
 var c0=0;
@@ -257,7 +257,7 @@ _48=2;
 }
 }
 return _48;
-};
+}
 function _49(_4a,_4b){
 var _4c=$.data(_4a,"treegrid").options;
 if(!_4c.checkbox){
@@ -293,7 +293,7 @@ row.checkState=undefined;
 row.checked=undefined;
 _39(_4a,row);
 }
-};
+}
 function _4e(_4f,_50){
 var _51=$.data(_4f,"treegrid").options;
 var tr1=_51.finder.getTr(_4f,_50,"body",1);
@@ -304,8 +304,8 @@ _54(tr1,_52);
 _54(tr2,_53);
 function _54(tr,_55){
 $("<tr class=\"treegrid-tr-tree\">"+"<td style=\"border:0px\" colspan=\""+_55+"\">"+"<div></div>"+"</td>"+"</tr>").insertAfter(tr);
-};
-};
+}
+}
 function _56(_57,_58,_59,_5a,_5b){
 var _5c=$.data(_57,"treegrid");
 var _5d=_5c.options;
@@ -363,7 +363,7 @@ $(_57).treegrid("autoSizeColumn");
 if(!_5b){
 _5d.onLoadSuccess.call(_57,_5e,_59);
 }
-};
+}
 function _15(_64,_65,_66,_67,_68){
 var _69=$.data(_64,"treegrid").options;
 var _6a=$(_64).datagrid("getPanel").find("div.datagrid-body");
@@ -406,14 +406,14 @@ if(_6d==false){
 _6c.removeClass("tree-loading");
 $(_64).treegrid("loaded");
 }
-};
+}
 function _6f(_70){
 var _71=_72(_70);
 return _71.length?_71[0]:null;
-};
+}
 function _72(_73){
 return $.data(_73,"treegrid").data;
-};
+}
 function _46(_74,_75){
 var row=_37(_74,_75);
 if(row._parentId){
@@ -421,7 +421,7 @@ return _37(_74,row._parentId);
 }else{
 return null;
 }
-};
+}
 function _1b(_76,_77){
 var _78=$.data(_76,"treegrid").data;
 if(_77){
@@ -433,13 +433,13 @@ $.easyui.forEach(_78,true,function(_7b){
 _7a.push(_7b);
 });
 return _7a;
-};
+}
 function _7c(_7d,_7e){
 var _7f=$.data(_7d,"treegrid").options;
 var tr=_7f.finder.getTr(_7d,_7e);
 var _80=tr.children("td[field=\""+_7f.treeField+"\"]");
 return _80.find("span.tree-indent,span.tree-hit").length;
-};
+}
 function _37(_81,_82){
 var _83=$.data(_81,"treegrid");
 var _84=_83.options;
@@ -451,7 +451,7 @@ return false;
 }
 });
 return _85;
-};
+}
 function _87(_88,_89){
 var _8a=$.data(_88,"treegrid").options;
 var row=_37(_88,_89);
@@ -483,7 +483,7 @@ $(_88).treegrid("autoSizeColumn");
 _16(_88,_89);
 _8a.onCollapse.call(_88,row);
 }
-};
+}
 function _8b(_8c,_8d){
 var _8e=$.data(_8c,"treegrid").options;
 var tr=_8e.finder.getTr(_8c,_8d);
@@ -533,8 +533,8 @@ $(_8c).treegrid("autoSizeColumn");
 _16(_8c,_8d);
 _8e.onExpand.call(_8c,row);
 }
-};
-};
+}
+}
 function _28(_92,_93){
 var _94=$.data(_92,"treegrid").options;
 var tr=_94.finder.getTr(_92,_93);
@@ -544,7 +544,7 @@ _87(_92,_93);
 }else{
 _8b(_92,_93);
 }
-};
+}
 function _95(_96,_97){
 var _98=$.data(_96,"treegrid").options;
 var _99=_1b(_96,_97);
@@ -554,7 +554,7 @@ _99.unshift(_37(_96,_97));
 for(var i=0;i<_99.length;i++){
 _87(_96,_99[i][_98.idField]);
 }
-};
+}
 function _9a(_9b,_9c){
 var _9d=$.data(_9b,"treegrid").options;
 var _9e=_1b(_9b,_9c);
@@ -564,7 +564,7 @@ _9e.unshift(_37(_9b,_9c));
 for(var i=0;i<_9e.length;i++){
 _8b(_9b,_9e[i][_9d.idField]);
 }
-};
+}
 function _9f(_a0,_a1){
 var _a2=$.data(_a0,"treegrid").options;
 var ids=[];
@@ -577,7 +577,7 @@ p=_46(_a0,id);
 for(var i=0;i<ids.length;i++){
 _8b(_a0,ids[i]);
 }
-};
+}
 function _a3(_a4,_a5){
 var _a6=$.data(_a4,"treegrid");
 var _a7=_a6.options;
@@ -597,7 +597,7 @@ hit.prev().remove();
 }
 }
 _56(_a4,_a5.parent,_a5.data,_a6.data.length>0,true);
-};
+}
 function _aa(_ab,_ac){
 var ref=_ac.before||_ac.after;
 var _ad=$.data(_ab,"treegrid").options;
@@ -629,8 +629,8 @@ var sub=_b5.next("tr.treegrid-tr-tree");
 tr.insertAfter(sub.length?sub:_b5);
 }
 _b4.remove();
-};
-};
+}
+}
 function _b6(_b7,_b8){
 var _b9=$.data(_b7,"treegrid");
 var _ba=_b9.options;
@@ -644,7 +644,7 @@ _49(_b7,_bb[_ba.idField]);
 _b9.total-=1;
 $(_b7).datagrid("getPager").pagination("refresh",{total:_b9.total});
 $(_b7).treegrid("showLines");
-};
+}
 function _bc(_bd){
 var t=$(_bd);
 var _be=t.treegrid("options");
@@ -680,7 +680,7 @@ var _c6=_c0(_c3[_c3.length-1]);
 _c6.addClass("tree-node-last");
 _c6.find(".tree-join").removeClass("tree-join").addClass("tree-joinbottom");
 }
-};
+}
 function _c2(_c7){
 $.map(_c7,function(_c8){
 if(_c8.children&&_c8.children.length){
@@ -694,13 +694,13 @@ var tr=_be.finder.getTr(_bd,_c9[_be.idField]);
 var cc=tr.next().find("tr.datagrid-row td[field=\""+_be.treeField+"\"] div.datagrid-cell");
 cc.find("span:eq("+(_ca-1)+")").addClass("tree-line");
 }
-};
+}
 function _c0(_cb){
 var tr=_be.finder.getTr(_bd,_cb[_be.idField]);
 var _cc=tr.find("td[field=\""+_be.treeField+"\"] div.datagrid-cell");
 return _cc;
-};
-};
+}
+}
 $.fn.treegrid=function(_cd,_ce){
 if(typeof _cd=="string"){
 var _cf=$.fn.treegrid.methods[_cd];
@@ -967,7 +967,7 @@ _f5.push("</div></td></tr>");
 }
 _f5.push("</tbody></table>");
 return _f5;
-};
+}
 },renderFooter:function(_f8,_f9,_fa){
 var _fb=$.data(_f8,"treegrid").options;
 var _fc=$.data(_f8,"treegrid").footer||[];
@@ -1132,7 +1132,7 @@ if(_10d!=id){
 tr.attr("id",_10c+"-"+(_10f?1:2)+"-"+_10d);
 tr.attr("node-id",_10d);
 }
-};
+}
 _10e.call(this,true);
 _10e.call(this,false);
 $(_108).treegrid("fixRowHeight",id);
@@ -1168,7 +1168,7 @@ break;
 }
 }
 return _115;
-};
+}
 },onBeforeRender:function(_116,_117,data){
 if($.isArray(_117)){
 data={total:_117.length,rows:_117};
@@ -1196,7 +1196,7 @@ if(row.children&&row.children.length){
 _119(row.children,row[opts.idField]);
 }
 }
-};
+}
 _119(data,_117);
 }
 this.sort(_116,data);
@@ -1242,7 +1242,7 @@ if(_121&&_121.length){
 _11f(_121);
 }
 }
-};
+}
 },transfer:function(_122,_123,data){
 var opts=$.data(_122,"treegrid").options;
 var rows=$.extend([],data);
@@ -1272,7 +1272,7 @@ i--;
 }
 }
 return rr;
-};
+}
 }});
 $.fn.treegrid.defaults=$.extend({},$.fn.datagrid.defaults,{treeField:null,checkbox:false,cascadeCheck:true,onlyLeafCheck:false,lines:false,animate:false,singleSelect:true,view:_e6,rowEvents:$.extend({},$.fn.datagrid.defaults.rowEvents,{mouseover:_22(true),mouseout:_22(false),click:_24}),loader:function(_128,_129,_12a){
 var opts=$(this).treegrid("options");

@@ -1,0 +1,42 @@
+package per.guzx.priDiary.serviceImpl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import per.guzx.priDiary.pojo.PdComment;
+import per.guzx.priDiary.service.PdCommentService;
+
+import java.util.List;
+
+
+/**
+ * Created by Guzx on 2020/09/07.
+ */
+@Transactional
+@Service
+public class PdCommentServiceImpl implements PdCommentService {
+
+    @Override
+    public void save(PdComment pdComment) {
+
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+
+    }
+
+    @Override
+    public void update(PdComment pdComment) {
+
+    }
+
+    @Override
+    public PdComment findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<PdComment> findAll() {
+        return null;
+    }
+}

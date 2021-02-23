@@ -46,7 +46,7 @@ _8.top--;
 if(!_d.split&&_d.border){
 _8.height++;
 }
-};
+}
 function _b(pp,_f){
 if(!pp.length||!_a(pp)){
 return;
@@ -65,8 +65,8 @@ _8.left--;
 if(!_10.split&&_10.border){
 _8.width++;
 }
-};
-};
+}
+}
 function _12(_13){
 var cc=$(_13);
 cc.addClass("layout");
@@ -75,7 +75,7 @@ var _15=$.fn.layout.parsePanelOptions(el);
 if("north,south,east,west,center".indexOf(_15.region)>=0){
 _19(_13,_15,el);
 }
-};
+}
 var _16=cc.layout("options");
 var _17=_16.onAdd;
 _16.onAdd=function(){
@@ -91,7 +91,7 @@ _2(_13);
 }
 return false;
 });
-};
+}
 function _19(_1a,_1b,el){
 _1b.region=_1b.region||"center";
 var _1c=$.data(_1a,"layout").panels;
@@ -208,8 +208,8 @@ if(_33>_31){
 _33=_31;
 }
 return _33;
-};
-};
+}
+}
 function _34(_35,_36){
 var _37=$.data(_35,"layout").panels;
 if(_37[_36].length){
@@ -222,7 +222,7 @@ _37[_38]=undefined;
 }
 $(_35).layout("options").onRemove.call(_35,_36);
 }
-};
+}
 function _39(_3a,_3b,_3c){
 if(_3c==undefined){
 _3c="normal";
@@ -309,7 +309,7 @@ $(this).addClass("layout-expand-over");
 $(this).removeClass("layout-expand-over");
 });
 return p;
-};
+}
 function _42(){
 var cc=$(_3a);
 var _4c=_3d.center.panel("options");
@@ -351,8 +351,8 @@ return {resizeC:{height:hh},expand:{top:cc.height()-_50},expandP:{top:cc.height(
 }
 }
 }
-};
-};
+}
+}
 function _51(_52,_53){
 var _54=$.data(_52,"layout").panels;
 var p=_54[_53];
@@ -390,8 +390,8 @@ return {collapse:{top:cc.height(),width:cc.width()},expand:{top:cc.height()-p.pa
 }
 }
 }
-};
-};
+}
+}
 function _a(pp){
 if(!pp){
 return false;
@@ -401,7 +401,7 @@ return pp.panel("panel").is(":visible");
 }else{
 return false;
 }
-};
+}
 function _5a(_5b){
 var _5c=$.data(_5b,"layout");
 var _5d=_5c.options;
@@ -419,8 +419,8 @@ var p=_5e[_61];
 if(p.length&&p.panel("options").collapsed){
 _39(_5b,_61,0);
 }
-};
-};
+}
+}
 function _62(_63,_64,_65){
 var p=$(_63).layout("panel",_64);
 p.panel("options").split=_65;
@@ -431,7 +431,7 @@ _66.addClass(cls);
 }
 _66.resizable({disabled:(!_65)});
 _2(_63);
-};
+}
 $.fn.layout=function(_67,_68){
 if(typeof _67=="string"){
 return $.fn.layout.methods[_67](this,_68);

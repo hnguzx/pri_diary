@@ -19,7 +19,7 @@ t.removeAttr("name").attr("checkboxName",_5);
 _4.find(".checkbox-value").attr("name",_5);
 }
 return _4;
-};
+}
 function _6(_7){
 var _8=$.data(_7,"checkbox");
 var _9=_8.options;
@@ -52,7 +52,7 @@ $(_7).checkbox("setValue",_9.value);
 _d(_7,_9.checked);
 _e(_7,_9.readonly);
 _f(_7,_9.disabled);
-};
+}
 function _10(_11){
 var _12=$.data(_11,"checkbox");
 var _13=_12.options;
@@ -62,7 +62,7 @@ if(!_13.disabled&&!_13.readonly){
 _d(_11,!_13.checked);
 }
 });
-};
+}
 function _15(_16){
 var _17=$.data(_16,"checkbox");
 var _18=_17.options;
@@ -76,7 +76,7 @@ _17.label._size({width:_18.labelWidth,height:_19.outerHeight()},_19);
 _17.label.css("lineHeight",_19.outerHeight()+"px");
 }
 }
-};
+}
 function _d(_1a,_1b){
 var _1c=$.data(_1a,"checkbox");
 var _1d=_1c.options;
@@ -95,7 +95,7 @@ _1d.checked=_1b;
 _1d.onChange.call(_1a,_1b);
 $(_1a).closest("form").trigger("_change",[_1a]);
 }
-};
+}
 function _e(_20,_21){
 var _22=$.data(_20,"checkbox");
 var _23=_22.options;
@@ -107,7 +107,7 @@ $(_22.label).addClass("textbox-label-readonly");
 _22.checkbox.removeClass("checkbox-readonly");
 $(_22.label).removeClass("textbox-label-readonly");
 }
-};
+}
 function _f(_24,_25){
 var _26=$.data(_24,"checkbox");
 var _27=_26.options;
@@ -123,7 +123,7 @@ $(_24).add(rv)._propAttr("disabled",false);
 _28.removeClass("checkbox-disabled");
 $(_26.label).removeClass("textbox-label-disabled");
 }
-};
+}
 $.fn.checkbox=function(_29,_2a){
 if(typeof _29=="string"){
 return $.fn.checkbox.methods[_29](this,_2a);
