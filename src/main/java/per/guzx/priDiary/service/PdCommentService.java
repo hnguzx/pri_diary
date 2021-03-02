@@ -1,6 +1,7 @@
 package per.guzx.priDiary.service;
 
 
+import com.github.pagehelper.PageInfo;
 import per.guzx.priDiary.pojo.PdComment;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface PdCommentService {
 
     PdComment findById(Integer id);
 
-    List<PdComment> findAll();
+    PageInfo<List<PdComment>> findAll();
 }

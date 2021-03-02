@@ -3,8 +3,9 @@ package per.guzx.priDiary.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -16,26 +17,33 @@ import per.guzx.priDiary.pojo.PdMessage;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdMessageService;
 import per.guzx.priDiary.service.PdUserService;
+import per.guzx.priDiary.tool.NoticeUtil;
 
+import javax.annotation.Resource;
 import java.security.Principal;
 import java.util.List;
 
 /**
- * Created by Guzx on 2020/09/07.
+ * @author Guzx
+ * @date 2020/09/07
  * 消息接口
  */
 @RestController
 @RequestMapping("/message")
 @Slf4j
+@Api(tags = "消息")
 public class MessageController {
-    @Autowired
+    @Resource
     private PdMessageService pdMessageService;
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
-    @Autowired
+    @Resource
     private PdUserService userService;
+
+    @Resource
+    private NoticeUtil noticeUtil;
 
     @SubscribeMapping("/connect")
     public ApiResp connect(Principal principal) {
@@ -46,7 +54,7 @@ public class MessageController {
         // 判断是否有其的未读消息，先去redis中查，再去数据库中查
         long unReadAmount = redisTemplate.opsForList().size(user.getUsername());
         for (int i = 0; i < unReadAmount; i++) {
-            PdMessage message = JSONObject.parseObject((String)redisTemplate.opsForList().leftPop(user.getUsername()), PdMessage.class);
+            PdMessage message = JSONObject.parseObject((String) redisTemplate.opsForList().leftPop(user.getUsername()), PdMessage.class);
             pdMessageService.sendMsg(message);
         }
         return ApiResp.retOk(ErrorEnum.USER_CONNECT_SUCCESS);
@@ -86,21 +94,20 @@ public class MessageController {
      * @param pdMessage
      * @return
      */
-    /*@PostMapping("/sendMsg")
+    @PostMapping("/sendMsg")
     public ApiResp sendMsg(@RequestBody PdMessage pdMessage) {
         pdMessageService.sendMsg(pdMessage);
-        noticeUtil.sendTxtToUser(pdMessage.getMsgReceiver(), "/client_chat/receive_msg", pdMessage.getMsgContent());
+        noticeUtil.sendTxtToUser(pdMessage.getMsgReceiver(), "/client_chat/receive_msg", pdMessage);
         return ApiResp.retOk();
-    }*/
+    }
 
     /**
-     * 消息详情
-     *
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    public ApiResp detail(@PathVariable Integer id) {
+    @ApiOperation("消息详情")
+    public ApiResp<PdMessage> detail(@PathVariable("id") Integer id) {
         PdMessage pdMessage = pdMessageService.findById(id);
         return ApiResp.retOk(pdMessage);
     }
@@ -113,10 +120,10 @@ public class MessageController {
      * @return
      */
     @GetMapping("/list")
-    public ApiResp list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @ApiOperation("消息列表")
+    public ApiResp<PageInfo<List<PdMessage>>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<PdMessage> list = pdMessageService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<List<PdMessage>> pageInfo = pdMessageService.findAll();
         return ApiResp.retOk(pageInfo);
     }
 }

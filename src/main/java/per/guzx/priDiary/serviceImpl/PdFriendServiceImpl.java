@@ -1,30 +1,31 @@
 package per.guzx.priDiary.serviceImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.priDiary.dao.PdFriendDao;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.exception.ServiceException;
-import per.guzx.priDiary.pojo.PageInfo;
 import per.guzx.priDiary.pojo.PdFriend;
 import per.guzx.priDiary.service.PdFriendService;
+import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  */
 @Transactional
 @Service
 public class PdFriendServiceImpl implements PdFriendService {
 
-    @Autowired
+    @Resource
     private PdFriendDao friendDao;
-
-    @Autowired
-    private PageInfo pageInfo;
 
     @Override
     public boolean save(PdFriend pdFriend) {
@@ -69,11 +70,17 @@ public class PdFriendServiceImpl implements PdFriendService {
 
     @Override
     public PageInfo findFriendByInfo(int myUserId, int start, int size, String global) {
-        List<PdFriend> friends = friendDao.findFriendByInfo(myUserId, start, size, global);
-        pageInfo.setCurrentPage(start);
-        pageInfo.setPageSize(size);
-        pageInfo.setTotal(friends.size());
-        pageInfo.setResult(friends);
+        PageHelper.startPage(start,size);
+        Example example = new Example(PdFriend.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("myUserId",myUserId);
+        criteria.andLike("friendUserId",global);
+        criteria.andLike("friendEmail",global);
+        criteria.andLike("friend_phone",global);
+        criteria.andLike("friend_remark",global);
+        criteria.andLike("",global);
+        List<PdFriend> friends = friendDao.selectByExample(example);
+        PageInfo pageInfo = new PageInfo(friends);
         return pageInfo;
     }
 }

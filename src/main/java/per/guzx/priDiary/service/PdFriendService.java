@@ -1,11 +1,15 @@
 package per.guzx.priDiary.service;
 
-import per.guzx.priDiary.pojo.PageInfo;
+import com.github.pagehelper.PageInfo;
 import per.guzx.priDiary.pojo.PdFriend;
+
+import java.util.List;
 
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  */
 public interface PdFriendService {
 
@@ -32,8 +36,8 @@ public interface PdFriendService {
 
     /**
      * 根据id查找好友
-     *
-     * @param id
+     * @param myUserId 本人id
+     * @param friendUserId 好友id
      * @return
      */
     PdFriend findById(int myUserId,int friendUserId);
@@ -42,9 +46,9 @@ public interface PdFriendService {
      * 通过模糊条件
      * @param myUserId
      * @param start
-     * @param limit
+     * @param size
      * @param global
      * @return
      */
-    PageInfo findFriendByInfo(int myUserId, int start, int size, String global);
+    PageInfo<List<PdFriend>> findFriendByInfo(int myUserId, int start, int size, String global);
 }

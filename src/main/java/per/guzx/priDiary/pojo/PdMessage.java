@@ -1,5 +1,7 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 
 import javax.persistence.Column;
@@ -7,44 +9,54 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+/**
+ * @author Administrator
+ */
 @Alias("message")
-@Table(name = "pd_blog")
+@ApiModel(description= "消息详细信息")
+@Table(name = "pd_message")
 public class PdMessage {
     /**
      * 消息主键
      */
     @Id
     @Column(name = "msg_id")
+    @ApiModelProperty(value = "消息id")
     private Integer msgId;
 
     /**
      * 发送用户
      */
     @Column(name = "msg_sender")
+    @ApiModelProperty(value = "发送用户id")
     private Integer msgSender;
 
     /**
      * 接收用户
      */
     @Column(name = "msg_receiver")
+    @ApiModelProperty(value = "接收用户id")
     private Integer msgReceiver;
 
     /**
      * 发送时间
      */
     @Column(name = "msg_create_time")
+    @ApiModelProperty(value = "发送时间")
     private String msgCreateTime;
 
     /**
      * 接收者是否查看
      */
     @Column(name = "msg_is_readed")
+    @ApiModelProperty(value = "接收者是否查看")
     private Boolean msgIsReaded;
 
     /**
      * 消息内容（图片，音频，文件2.0处理）
      */
     @Column(name = "msg_content")
+    @ApiModelProperty(value = "消息内容")
     private String msgContent;
 
     /**
@@ -153,6 +165,10 @@ public class PdMessage {
      */
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
+    }
+
+    public PdMessage(){
+
     }
 
     public PdMessage(Integer msgId, Integer msgSender, Integer msgReceiver, String msgCreateTime, Boolean msgIsReaded, String msgContent) {

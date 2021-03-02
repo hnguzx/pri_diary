@@ -1,13 +1,13 @@
 package per.guzx.priDiary.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import per.guzx.priDiary.pojo.PageInfo;
 import per.guzx.priDiary.dao.PdUserDao;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.enumeration.SexEnum;
@@ -18,8 +18,7 @@ import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdUserService;
 import per.guzx.priDiary.tool.*;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,32 +27,26 @@ import java.util.Objects;
 @Service
 public class PdUserServiceImpl implements PdUserService, UserDetailsService {
 
-    @Autowired
+    @Resource
     private PdUserDao userDao;
 
-    @Autowired
+    @Resource
     private DateUtil dateUtil;
 
-    @Autowired
+    @Resource
     private MathUtil mathUtil;
 
-    @Autowired
+    @Resource
     private AddressUtil addressUtil;
 
-    @Autowired
-    private PageInfo pageInfo;
-
-    @Autowired
+    @Resource
     private PasswordEncodeUtil encodeUtil;
-
-    @Autowired
-    private EmailOrMsg emailOrMsg;
 
     @Override
     public PdUser insertUser(PdUser user) throws ServiceException {
         user.setUserState(UserStateEnum.getStateEnumById(3));
-//        user.setUserCreateTime(new Timestamp(System.currentTimeMillis()));
-//        user.setUserUpdateTime(new Timestamp(System.currentTimeMillis()));
+        user.setUserCreateTime(dateUtil.getTimeStamp());
+        user.setUserUpdateTime(dateUtil.getTimeStamp());
         user.setUserPassword(encodeUtil.passwordEncode(user.getPassword()));
         int count = userDao.findEmailOrPhone(user);
         if (count > 0) {
@@ -75,18 +68,12 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
      */
     public String generateHeadImage(SexEnum sexEnum) {
         String headImg = "";
-//        try {
-//            String address = Inet4Address.getLocalHost().getHostAddress();
         String address = addressUtil.getV4IP();
-        if (sexEnum.getName().equals("男")) {
+        if (SexEnum.MALE.equals(sexEnum)) {
             headImg = address + "/File/head/boy/boy_" + mathUtil.getRangeInteger(1, 7) + ".svg";
         } else {
             headImg = address + "/File/head/girl/girl_" + mathUtil.getRangeInteger(1, 14) + ".svg";
         }
-//        } catch (UnknownHostException e) {
-//            log.error("获取网络地址失败" + e);
-//            e.printStackTrace();
-//        }
         return headImg;
     }
 
@@ -106,12 +93,12 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
             throw new ServiceException(ErrorEnum.USER_INFO_EXC);
         }
 //        if (!user.equals(remoteUser)) {
-        user.setUserLastLoginTime(new Timestamp(System.currentTimeMillis()));
-            int result = userDao.updateUser(user);
-            if (result > 0) {
-                return result;
-            }
-            throw new ServiceException(ErrorEnum.USER_INFO_EXC);
+        user.setUserLastLoginTime(dateUtil.getTimeStamp());
+        int result = userDao.updateUser(user);
+        if (result > 0) {
+            return result;
+        }
+        throw new ServiceException(ErrorEnum.USER_INFO_EXC);
 //        } else {
 //            throw new ServiceException(ErrorEnum.INFO_IS_LATEST);
 //        }
@@ -152,18 +139,11 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
     }
 
     @Override
-    public PageInfo findUsers(PdUser user, int start, int size) {
-        if (!Objects.isNull(user)) {
-            List<PdUser> results = userDao.findUsers(user, start, size);
-            if (results.size() > 0) {
-                pageInfo.setCurrentPage(start);
-                pageInfo.setPageSize(size);
-                pageInfo.setTotal(results.size());
-                pageInfo.setResult(results);
-                return pageInfo;
-            }
-        }
-        throw new ServiceException(ErrorEnum.USER_NOTFOUND);
+    public PageInfo<List<PdUser>> findUsers(PdUser user, int start, int size) {
+        PageHelper.startPage(start, size);
+        List<PdUser> users = userDao.select(user);
+        PageInfo<List<PdUser>> pageInfo = new PageInfo(users);
+        return pageInfo;
     }
 
     @Override

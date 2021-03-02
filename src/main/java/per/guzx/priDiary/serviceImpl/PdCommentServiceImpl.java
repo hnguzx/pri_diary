@@ -1,5 +1,6 @@
 package per.guzx.priDiary.serviceImpl;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.priDiary.pojo.PdComment;
@@ -36,7 +37,7 @@ public class PdCommentServiceImpl implements PdCommentService {
     }
 
     @Override
-    public List<PdComment> findAll() {
+    public PageInfo<List<PdComment>> findAll() {
         return null;
     }
 }

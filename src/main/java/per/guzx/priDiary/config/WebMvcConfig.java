@@ -15,6 +15,9 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,7 +35,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 
@@ -61,7 +66,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
         // 服务器路径
 //        registry.addResourceHandler("/File/**").addResourceLocations("file:/home/files/");
         // 本地路径
-        registry.addResourceHandler("/File/**").addResourceLocations("file:"+imageBasePath);
+        registry.addResourceHandler("/File/**").addResourceLocations("file:" + imageBasePath);
 
     }
 
@@ -104,7 +109,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
      * @param registry
      */
     @Override
-    public void addCorsMappings(CorsRegistry registry){
+    public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")      // 配置可以被跨域的路径，可以具体到请求路径
                 .allowedOrigins("*")        // 允许访问本网站的域名，可以多个
                 .allowCredentials(true)     // 是否可以将请求的响应暴露给页面
@@ -125,7 +130,8 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
 
         converter.setFastJsonConfig(config);
         converter.setDefaultCharset(StandardCharsets.UTF_8);
-        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+//        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON));
         converters.add(converter);
     }
 
@@ -188,6 +194,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
         exceptionResolvers.add(new HandlerExceptionResolver() {
+            @Override
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
                 ApiResp apiResp = new ApiResp();
                 if (e instanceof ServiceException) {//业务失败的异常，如“账号或密码错误”
@@ -200,6 +207,24 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
                 } else if (e instanceof ServletException) {
                     apiResp.setCode(ErrorEnum.REQUEST_FAIL.getCode());
                     apiResp.setMsg(e.getMessage());
+                } else if (e instanceof MethodArgumentNotValidException) {
+                    BindingResult bindingResult = ((MethodArgumentNotValidException) e).getBindingResult();
+                    Map<String,String> errorMap = new HashMap<>(16);
+                    bindingResult.getFieldErrors().forEach((fieldError)->
+                            errorMap.put(fieldError.getField(),fieldError.getDefaultMessage())
+                    );
+                    apiResp.setCode(ErrorEnum.DATA_VALIDATE.getCode());
+                    apiResp.setMsg("非法参数");
+                    apiResp.setData(errorMap);
+                } else if (e instanceof BindException) {
+                    BindingResult bindingResult = ((BindException) e).getBindingResult();
+                    Map<String,String> errorMap = new HashMap<>(16);
+                    bindingResult.getFieldErrors().forEach((fieldError)->
+                            errorMap.put(fieldError.getField(),fieldError.getDefaultMessage())
+                    );
+                    apiResp.setCode(ErrorEnum.DATA_VALIDATE.getCode());
+                    apiResp.setMsg("非法参数");
+                    apiResp.setData(errorMap);
                 } else {
                     apiResp.setCode(ErrorEnum.SYS_ERROR.getCode());
                     apiResp.setMsg("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");

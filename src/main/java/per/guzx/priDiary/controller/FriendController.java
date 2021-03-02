@@ -1,32 +1,38 @@
 package per.guzx.priDiary.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
-import per.guzx.priDiary.pojo.PageInfo;
 import per.guzx.priDiary.pojo.PdFriend;
 import per.guzx.priDiary.service.PdFriendService;
 import per.guzx.priDiary.service.PdMessageService;
 import per.guzx.priDiary.tool.NoticeUtil;
 
+import javax.annotation.Resource;
+
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  * 好友接口
  */
 @RestController
 @RequestMapping("/friend")
+@Api(tags = "好友")
 public class FriendController {
-    @Autowired
+    @Resource
     private PdFriendService pdFriendService;
 
-    @Autowired
+    @Resource
     private PdMessageService pdMessageService;
 
-    @Autowired
+    @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Autowired
+    @Resource
     private NoticeUtil noticeUtil;
 
     /**
@@ -38,6 +44,7 @@ public class FriendController {
     @PostMapping("/add")
 //    @MessageMapping("/addFriend")
 //    @SubscribeMapping("/addFriend")
+    @ApiOperation("新增好友")
     public ApiResp<PdFriend> add(@RequestBody PdFriend pdFriend) {
         boolean added = pdFriendService.save(pdFriend);
         if(added){
@@ -54,6 +61,7 @@ public class FriendController {
      * @return
      */
     @DeleteMapping("/{id}")
+    @ApiOperation("删除好友")
     public ApiResp delete(@PathVariable Integer id) {
         pdFriendService.deleteById(id);
         return ApiResp.retOk();
@@ -66,6 +74,7 @@ public class FriendController {
      * @return
      */
     @PatchMapping("/update")
+    @ApiOperation("更新好友相关信息")
     public ApiResp<PdFriend> update(@RequestBody PdFriend pdFriend) {
         pdFriendService.update(pdFriend);
         return ApiResp.retOk(pdFriend);
@@ -92,6 +101,7 @@ public class FriendController {
      * @return
      */
     @GetMapping(value = {"/{myUserId}/{start}/{size}/{global}", "/{myUserId}/{start}/{size}"})
+    @ApiOperation("获取好友列表")
     public ApiResp<PageInfo> list(@PathVariable(value = "myUserId",required = true) int myUserId, @PathVariable("start") int start, @PathVariable("size") int size, @PathVariable(value = "global", required = false) String global) {
         PageInfo pageInfo = pdFriendService.findFriendByInfo(myUserId, start, size, global);
         return ApiResp.retOk(pageInfo);

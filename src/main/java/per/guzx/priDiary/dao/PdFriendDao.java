@@ -2,11 +2,15 @@ package per.guzx.priDiary.dao;
 
 import org.springframework.stereotype.Repository;
 import per.guzx.priDiary.pojo.PdFriend;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Repository
-public interface PdFriendDao {
+public interface PdFriendDao extends Mapper<PdFriend> {
     /**
      * 新增好友
      *
@@ -40,7 +44,7 @@ public interface PdFriendDao {
      * 根据好友相关信息查询好友
      * @param myUserId
      * @param start
-     * @param limit
+     * @param size
      * @param global
      * @return
      */

@@ -10,20 +10,22 @@ import per.guzx.priDiary.service.AsyncService;
 import per.guzx.priDiary.tool.DateUtil;
 import per.guzx.priDiary.tool.FileUtil;
 
+import javax.annotation.Resource;
+
 @Service
 public class AsyncServiceImpl implements AsyncService {
 
-    @Autowired
+    @Resource
     private FileUtil fileUtil;
 
-    @Autowired
+    @Resource
     private PdUserDao userDao;
 
 
-    @Autowired
+    @Resource
     private PdDiaryDao diaryDao;
 
-    @Autowired
+    @Resource
     private DateUtil dateUtil;
 
     @Override

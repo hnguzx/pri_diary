@@ -1,12 +1,15 @@
 package per.guzx.priDiary.service;
 
-import per.guzx.priDiary.pojo.PageInfo;
+import com.github.pagehelper.PageInfo;
 import per.guzx.priDiary.pojo.PdDiary;
 
 import javax.servlet.http.Part;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 public interface PdDiaryService {
 
     /**
@@ -61,13 +64,13 @@ public interface PdDiaryService {
 
     /**
      * 根据关键字分页查询日记
-     * @param userIdgetDiaryOther
+     * @param userId
      * @param global
      * @param start
      * @param size
      * @return
      */
-    PageInfo findDiaryByGlobal(int userId, String global, int start, int size);
+    PageInfo<List<PdDiary>> findDiaryByGlobal(int userId, String global, int start, int size);
 
     /**
      * 获取我的日记相关统计数字

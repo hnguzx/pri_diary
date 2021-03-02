@@ -1,16 +1,17 @@
 package per.guzx.priDiary;
 
 import org.junit.runner.RunWith;
-import org.mybatis.spring.annotation.MapperScan;
+//import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.junit4.SpringRunner;
+import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@MapperScan(basePackages = "per.guzx.pri_diary.dao", annotationClass = Repository.class)
+@MapperScan(basePackages = "per.guzx.priDiary.dao", annotationClass = Repository.class)
 @EnableScheduling
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

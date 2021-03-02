@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.regex.Matcher;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class EmailOrMsg {
 
-    @Autowired
+    @Resource
     private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")

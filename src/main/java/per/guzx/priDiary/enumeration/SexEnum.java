@@ -1,5 +1,9 @@
 package per.guzx.priDiary.enumeration;
 
+/**
+ * @author Administrator
+ */
+
 public enum SexEnum {
 
     FEMALE(0, "女"),

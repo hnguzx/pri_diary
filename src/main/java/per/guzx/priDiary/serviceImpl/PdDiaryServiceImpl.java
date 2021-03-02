@@ -1,39 +1,41 @@
 package per.guzx.priDiary.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.priDiary.dao.PdDiaryDao;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.exception.ServiceException;
-import per.guzx.priDiary.pojo.PageInfo;
 import per.guzx.priDiary.pojo.PdDiary;
 import per.guzx.priDiary.service.PdDiaryService;
 import per.guzx.priDiary.tool.DateUtil;
 import per.guzx.priDiary.tool.FileUtil;
+import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Part;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class PdDiaryServiceImpl implements PdDiaryService {
 
-    @Autowired
+    @Resource
     private PdDiaryDao diaryDao;
 
-    @Autowired
+    @Resource
     private FileUtil fileUtil;
 
-    @Autowired
+    @Resource
     private DateUtil dateUtil;
-
-    @Autowired
-    private PageInfo pageInfo;
 
     @Override
     public int insertDiary(PdDiary diary, Part detailPhoto) {
@@ -105,15 +107,19 @@ public class PdDiaryServiceImpl implements PdDiaryService {
 
     @Override
     public PageInfo findDiaryByGlobal(int userId, String global, int start, int size) {
-        List<PdDiary> diaries = diaryDao.findDiaryByGlobal(userId, global, start, size);
-        if (diaries.size() > 0) {
-            pageInfo.setCurrentPage(start);
-            pageInfo.setPageSize(size);
-            pageInfo.setTotal(diaries.size());
-            pageInfo.setResult(diaries);
-            return pageInfo;
-        }
-        throw new ServiceException(ErrorEnum.DIARY_NOTFOUND);
+
+        PageHelper.startPage(start,size);
+        Example example = new Example(PdDiary.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andLike("diaryTitle",global);
+        criteria.andLike("diaryWeather",global);
+        criteria.andLike("diaryMood",global);
+        criteria.andLike("diaryEvent",global);
+        criteria.andLike("diaryLocation",global);
+        criteria.andLike("diary_content",global);
+        List<PdDiary> diaries = diaryDao.selectByExample(example);
+        PageInfo pageInfo = new PageInfo(diaries);
+        return pageInfo;
     }
 
     @Override

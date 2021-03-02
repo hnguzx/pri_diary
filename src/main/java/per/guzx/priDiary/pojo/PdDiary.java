@@ -1,17 +1,25 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 import per.guzx.priDiary.enumeration.EventEnum;
 import per.guzx.priDiary.enumeration.MoodEnum;
 import per.guzx.priDiary.enumeration.WeathEnum;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-@Alias("diary")
+/**
+ * @author Administrator
+ */
 @Table(name = "pd_blog")
+@Alias("diary")
+@ApiModel(description = "日记详情")
 public class PdDiary implements Serializable {
 
     /**
@@ -19,91 +27,105 @@ public class PdDiary implements Serializable {
      */
     @Id
     @Column(name = "diary_id")
+    @ApiModelProperty(value = "日记ID")
     private Integer diaryId;
 
     /**
      * 日记所属用户id
      */
-    @NotNull(message = "用户ID不能为空！")
     @Column(name = "user_id")
+    @NotNull(message = "用户ID不能为空！")
+    @ApiModelProperty(value = "日记所属用户id")
     private Integer userId;
 
     /**
      * 日记封面
      */
     @Column(name = "diary_photo")
+    @ApiModelProperty(value = "日记封面图片地址")
     private String diaryPhoto;
 
     /**
      * 日记标题
      */
+    @Column(name = "diary_title")
     @NotNull(message = "日记标题不能为空！")
     @Size(min = 1, max = 100, message = "标题长度不能大于100")
-    @Column(name = "diary_title")
+    @ApiModelProperty(value = "日记标题")
     private String diaryTitle;
 
     /**
      * 当天天气
      */
-    @NotNull(message = "天气不能为空！")
     @Column(name = "diary_weather")
+    @NotNull(message = "天气不能为空！")
+    @ApiModelProperty(value = "当天天气")
     private WeathEnum diaryWeather;
 
     /**
      * 当天心情
      */
-    @NotNull(message = "心情不能为空！")
     @Column(name = "diary_mood")
+    @NotNull(message = "心情不能为空！")
+    @ApiModelProperty(value = "当天心情")
     private MoodEnum diaryMood;
 
     /**
      * 当天主要事件
      */
-    @NotNull(message = "事件不能为空！")
     @Column(name = "diary_event")
+    @NotNull(message = "事件不能为空！")
+    @ApiModelProperty(value = "当天主要事件")
     private EventEnum diaryEvent;
 
     /**
      * 日记详情
      */
-    @NotNull(message = "日记详情不能为空！")
     @Column(name = "diary_content")
+    @NotNull(message = "日记详情不能为空！")
+    @ApiModelProperty(value = "日记详情")
     private String diaryContent;
 
     /**
      * 当天日记所在位置
      */
     @Column(name = "diary_location")
+    @ApiModelProperty(value = "当天日记所在位置")
     private String diaryLocation;
 
     /**
      * 日记记录经度
      */
     @Column(name = "diary_longitude")
+    @ApiModelProperty(value = "日记记录经度")
     private String diaryLongitude;
 
     /**
      * 日记记录纬度
      */
     @Column(name = "diary_latitude")
+    @ApiModelProperty(value = "日记记录纬度")
     private String diaryLatitude;
 
     /**
      * 日记创建时间
      */
     @Column(name = "diary_create_time")
+    @ApiModelProperty(value = "日记创建时间")
     private String diaryCreateTime;
 
     /**
      * 日记创建日期
      */
     @Column(name = "diary_create_day")
+    @ApiModelProperty(value = "日记创建日期")
     private String diaryCreateDay;
 
     /**
      * 日记最后更新时间
      */
     @Column(name = "diary_update_time")
+    @ApiModelProperty(value = "日记最后更新时间")
     private String diaryUpdateTime;
 
     /**
@@ -223,6 +245,7 @@ public class PdDiary implements Serializable {
     public EventEnum getDiaryEvent() {
         return diaryEvent;
     }
+
     /**
      * 设置当天主要事件
      *

@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import per.guzx.priDiary.service.ActiveMQService;
 
+import javax.annotation.Resource;
+
 public class ActiveMQServiceImpl implements ActiveMQService {
 
-    @Autowired
+//    @Resource
 //    private JmsTemplate jmsTemplate = null;
 
     @Override

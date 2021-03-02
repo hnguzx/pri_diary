@@ -1,139 +1,199 @@
 package per.guzx.priDiary.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import per.guzx.priDiary.dao.PdMessageDao;
+import per.guzx.priDiary.pojo.ApiResp;
+import per.guzx.priDiary.pojo.PdMessage;
+import per.guzx.priDiary.tool.DateUtil;
+import tk.mybatis.mapper.entity.Example;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 测试连通性接口
+ *
+ * @author Administrator
  */
-@Controller
+@RestController
 @Slf4j
 @RequestMapping("/demo")
+@Api(tags = "测试增删改查")
 public class DemoController {
 
-    @Value("${server.port}")
-    private String port;
+    @Resource
+    private PdMessageDao messageDao;
 
-    @Autowired
-    Environment environment;
-
-    /**
-     * jsp页面
-     *
-     * @return
-     */
-    @RequestMapping("/view")
-    public String filePage() {
-//        String local = environment.getProperty("local.server");
-//        String a = null;
-//        InetAddress address = null;
-//        try {
-//            address = Inet4Address.getLocalHost();
-//            a = address.getHostAddress();
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//        }
-        return "index";
-    }
+    @Resource
+    private DateUtil dateUtil;
 
     /**
      * 返回字符串
      *
      * @return
      */
-    @ResponseBody
-    @GetMapping("/index")
-    public String index() {
-        log.trace("追踪日志");
-        log.debug("调试日志");
-        log.info("重要信息");
-        log.warn("警告日志");
-        log.error("错误日志");
-        return "请求成功";
+    @PostMapping("/add/{insertMethod}")
+    public ApiResp add(@PathVariable("insertMethod") Integer insertMethod) {
+        int result;
+        PdMessage message = new PdMessage();
+        message.setMsgSender(1);
+        message.setMsgReceive(2);
+        message.setMsgIsReade(false);
+        message.setMsgContent("测试热部署");
+        message.setMsgCreateTime(dateUtil.getTimeStamp());
+        switch (insertMethod) {
+            case 1:
+                result = messageDao.insert(message);
+                break;
+            case 2:
+                result = messageDao.insertSelective(message);
+                break;
+            default:
+                result = 0;
+                break;
+        }
+        return ApiResp.retOk(result);
     }
 
-    @ResponseBody
-    @RequestMapping("/common/hello")
-    public String common(){
+    @DeleteMapping("/delete/{deleteMethod}")
+    public ApiResp delete(@PathVariable("deleteMethod") int deleteMethod) {
+        int result;
+        Example example = new Example(PdMessage.class);
+        PdMessage message = new PdMessage();
+        message.setMsgId(5);
+        switch (deleteMethod) {
+            case 1:
+                result = messageDao.delete(message);
+                break;
+            case 2:
+                result = messageDao.deleteByPrimaryKey(6);
+                break;
+            case 3:
+                Example.Criteria criteria = example.createCriteria();
+                criteria.orLike("msgContent", "%消%");
+                result = messageDao.deleteByExample(example);
+                break;
+            default:
+                result = 0;
+                break;
+        }
+        return ApiResp.retOk(result);
+    }
+
+    @PostMapping("/update/{updateMethod}")
+    public ApiResp update(@PathVariable("updateMethod") int updateMethod) {
+        int result;
+        Example example = new Example(PdMessage.class);
+        PdMessage message = new PdMessage();
+        message.setMsgId(10);
+        message.setMsgIsReade(true);
+        message.setMsgSender(111);
+        message.setMsgContent("你好啊");
+        switch (updateMethod) {
+            case 1:
+                result = messageDao.updateByPrimaryKeySelective(message);
+                break;
+            case 2:
+                result = messageDao.updateByPrimaryKey(message);
+                break;
+            case 3:
+                Example.Criteria criteria = example.createCriteria();
+                criteria.andEqualTo("msgId", "10");
+                criteria.andLike("msgContent", "%nihao%");
+                result = messageDao.updateByExample(message, example);
+                break;
+            case 4:
+                Example.Criteria criteria2 = example.createCriteria();
+                criteria2.andEqualTo("msgId", "10");
+                criteria2.andLike("msgContent", "%nihao%");
+                result = messageDao.updateByExampleSelective(message, example);
+                break;
+            default:
+                result = 0;
+                break;
+        }
+        return ApiResp.retOk(result);
+    }
+
+    @GetMapping("/query/{queryMethod}")
+    public ApiResp query(@PathVariable("queryMethod") int queryMethod) {
+        List results = new ArrayList<PdMessage>();
+        PdMessage result = new PdMessage();
+        PageInfo pageInfo = null;
+
+        PdMessage message = new PdMessage();
+//        message.setMsgSender(1);
+        message.setMsgReceive(2);
+        Example example = new Example(PdMessage.class);
+
+        switch (queryMethod) {
+            case 1:
+                result = messageDao.selectOne(message);
+                break;
+            case 2:
+                result = messageDao.selectByPrimaryKey(10);
+                break;
+            case 3:
+                Example.Criteria criteria = example.createCriteria();
+                criteria.orLike("msgContent", "%好%");
+                result = messageDao.selectOneByExample(example);
+                break;
+            case 4:
+                results = messageDao.select(message);
+                break;
+            case 5:
+                PageHelper.startPage(1,1);
+                results = messageDao.selectAll();
+                pageInfo = new PageInfo(results);
+                break;
+            case 6:
+                PageHelper.startPage(1,1);
+                example = new Example(PdMessage.class);
+                Example.Criteria criteria2 = example.createCriteria();
+                criteria2.orLike("msgContent", "%好%");
+                results = messageDao.selectByExample(example);
+                pageInfo = new PageInfo(results);
+                break;
+            case 7:
+                example = new Example(PdMessage.class);
+                Example.Criteria criteria3 = example.createCriteria();
+                criteria3.orLike("msgContent", "%好%");
+                // offset从0开始
+                RowBounds rowBounds = new RowBounds(1, 1);
+                results = messageDao.selectByExampleAndRowBounds(example, rowBounds);
+                break;
+            case 8:
+                RowBounds rowBounds2 = new RowBounds(0, 2);
+                results = messageDao.selectByRowBounds(message, rowBounds2);
+                break;
+            default:
+                break;
+        }
+//        return ApiResp.retOk(result);
+//        return ApiResp.retOk(results);
+        return ApiResp.retOk(pageInfo);
+    }
+
+
+    @GetMapping("/common")
+    public String common() {
         return "common";
     }
 
-    @ResponseBody
-    @RequestMapping("/user")
-    public String user(){
+    @GetMapping("/user")
+    public String user() {
         return "user";
     }
 
-    @ResponseBody
-    @RequestMapping("/admin")
-    public String admin(){
+    @GetMapping("/admin")
+    public String admin() {
         return "admin";
     }
-
-    /**
-     * webSocket
-     *
-     * @return
-     */
-    @GetMapping("/webSocket")
-    public String webSocketPage() {
-        return "webSocket/index";
-    }
-
-//    @Autowired
-//    private SimpMessagingTemplate simpMessagingTemplate;
-
-    @GetMapping("/send")
-    public String send() {
-        return "webSocket/send";
-    }
-
-    @GetMapping("/receive")
-    public String receive() {
-        return "webSocket/receive";
-    }
-
-    @GetMapping("/sendUser")
-    public String sendUser() {
-        return "webSocket/sendUser";
-    }
-
-    @GetMapping("/receiveUser")
-    public String receiveUser() {
-        return "webSocket/receiveUser";
-    }
-
-    // 定义消息请求路径
-    // 定义结果发送到特定路径
-    /*@MessageMapping("/send")
-    @SendTo("/sub/chat")
-    public String sendMessage(String value) {
-        return value;
-    }*/
-
-    /**
-     * 发送消息给特定用户
-     *
-     * @param principal
-     * @param body
-     */
-    /*@MessageMapping("/sendUser")
-    public void sendToUser(Principal principal, String body) {
-        PdUser user = (PdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String[] args = body.split(",");
-        String desUser = args[0];
-        String msg = args[1];
-        //  发送到用户和监听地址
-        simpMessagingTemplate.convertAndSendToUser(desUser, "/queue/customer", msg);
-    }*/
 }

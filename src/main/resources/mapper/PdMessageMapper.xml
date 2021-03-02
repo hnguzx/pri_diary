@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdMessageDao">
-    <resultMap id="BaseResultMap" type="message">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <result column="msg_sender" jdbcType="INTEGER" property="msgSender"/>
-        <result column="msg_receiver" jdbcType="INTEGER" property="msgReceiver"/>
-        <result column="msg_create_time" jdbcType="VARCHAR" property="msgCreateTime"/>
-        <result column="msg_is_readed" jdbcType="VARCHAR" property="msgIsReaded"/>
-        <result column="msg_content" jdbcType="VARCHAR" property="msgContent"/>
+    <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdMessage">
+        <id column="msg_id" javaType="int" jdbcType="INTEGER" property="msgId"/>
+        <result column="msg_sender" javaType="int" jdbcType="INTEGER" property="msgSender"/>
+        <result column="msg_receiver" javaType="int" jdbcType="INTEGER" property="msgReceiver"/>
+        <result column="msg_create_time" javaType="string" jdbcType="VARCHAR" property="msgCreateTime"/>
+        <result column="msg_is_readed" javaType="boolean" jdbcType="VARCHAR" property="msgIsReaded"/>
+        <result column="msg_content" javaType="string" jdbcType="VARCHAR" property="msgContent"/>
     </resultMap>
 
     <sql id="select_message">

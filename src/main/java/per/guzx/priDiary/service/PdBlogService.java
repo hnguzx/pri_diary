@@ -1,12 +1,15 @@
 package per.guzx.priDiary.service;
 
 
+import com.github.pagehelper.PageInfo;
 import per.guzx.priDiary.pojo.PdBlog;
 
 import java.util.List;
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  */
 public interface PdBlogService {
 
@@ -18,5 +21,5 @@ public interface PdBlogService {
 
     PdBlog findById(Integer id);
 
-    List<PdBlog> findAll();
+    PageInfo<List<PdBlog>> findAll();
 }

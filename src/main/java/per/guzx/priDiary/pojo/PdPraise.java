@@ -1,5 +1,7 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 
 import javax.persistence.Column;
@@ -7,32 +9,40 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+/**
+ * @author Administrator
+ */
+@Table(name = "pd_praise")
 @Alias("praise")
-@Table(name = "pd_blog")
+@ApiModel(description = "评论详细信息")
 public class PdPraise {
     /**
      * 点赞ID
      */
     @Id
     @Column(name = "praise_id")
+    @ApiModelProperty(value = "点赞ID")
     private Integer praiseId;
 
     /**
      * 点赞用户ID
      */
     @Column(name = "user_id")
+    @ApiModelProperty(value = "点赞用户ID")
     private Integer userId;
 
     /**
      * 所属博客ID
      */
     @Column(name = "blog_id")
+    @ApiModelProperty(value = "所属博客ID")
     private Integer blogId;
 
     /**
      * 所属评论ID
      */
     @Column(name = "comment_id")
+    @ApiModelProperty(value = "所属评论ID")
     private Integer commentId;
 
     /**

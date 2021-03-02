@@ -1,8 +1,13 @@
 package per.guzx.priDiary.service;
 
-import per.guzx.priDiary.pojo.PageInfo;
+import com.github.pagehelper.PageInfo;
 import per.guzx.priDiary.pojo.PdUser;
 
+import java.util.List;
+
+/**
+ * @author Administrator
+ */
 public interface PdUserService {
     /**
      * 新增用户
@@ -57,10 +62,10 @@ public interface PdUserService {
      *
      * @param user
      * @param start
-     * @param limit
+     * @param size
      * @return
      */
-    PageInfo findUsers(PdUser user, int start, int size);
+    PageInfo<List<PdUser>> findUsers(PdUser user, int start, int size);
 
     /**
      * 获取符合条件的用户总数

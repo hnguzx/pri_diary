@@ -1,9 +1,11 @@
 package per.guzx.priDiary.controller;
 
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
-import per.guzx.priDiary.pojo.PageInfo;
 import per.guzx.priDiary.pojo.PdDiary;
 import per.guzx.priDiary.service.PdDiaryService;
 
@@ -14,10 +16,12 @@ import java.util.Map;
 
 /**
  * 日记接口
+ * @author Administrator
  */
 @RestController
 @RequestMapping("/diary")
 @Slf4j
+@Api(tags = "日记")
 public class DiaryController {
     @Resource
     private PdDiaryService pdDiaryService;
@@ -28,6 +32,7 @@ public class DiaryController {
      * @return
      */
     @PostMapping("/uploadImg")
+    @ApiOperation("上传图片")
     public ApiResp uploadImg(@RequestParam("diaryPhoto") Part diaryPhoto) {
         return ApiResp.retOk();
     }
@@ -39,6 +44,7 @@ public class DiaryController {
      * @return
      */
     @PostMapping("/insertDiary")
+    @ApiOperation("新增日记")
     public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
         pdDiaryService.insertDiary(diary, diaryPhoto);
         return ApiResp.retOk(diary);
@@ -51,6 +57,7 @@ public class DiaryController {
      * @return
      */
     @PatchMapping("/updateDiary")
+    @ApiOperation("更新日记")
     public ApiResp<PdDiary> updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
         pdDiaryService.updateDiary(diary, detailPhoto);
         PdDiary updateAfterDiary = pdDiaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
@@ -58,12 +65,13 @@ public class DiaryController {
     }
 
     /**
-     * 更新日记
+     * 删除日记
      * @param diaryId
      * @param userId
      * @return
      */
     @DeleteMapping("/{userId}/{diaryId}")
+    @ApiOperation("删除日记")
     public ApiResp deleteDiary(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
         pdDiaryService.deleteDiary(diaryId, userId);
         return ApiResp.retOk();
@@ -76,6 +84,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping("/detail/{userId}/{diaryId}")
+    @ApiOperation("查询评论")
     public ApiResp<PdDiary> findDiaryById(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
         PdDiary diary = pdDiaryService.findDiaryById(userId, diaryId);
         return ApiResp.retOk(diary);
@@ -87,6 +96,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping("/{userId}")
+    @ApiOperation("查询指定用户的日记列表")
     public ApiResp<List<PdDiary>> findDiaryAll(@PathVariable("userId") int userId) {
         List<PdDiary> diaries = pdDiaryService.findDiaryAll(userId);
         return ApiResp.retOk(diaries);
@@ -101,6 +111,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping(value = {"/{userId}/{start}/{size}/{global}", "/{userId}/{start}/{size}"})
+    @ApiOperation("查询指定用户的日记列表（模糊查询）")
     public ApiResp<PageInfo> findDiaryByGlobal(@PathVariable("userId") int userId, @PathVariable(value = "global", required = false) String global, @PathVariable("start") int start, @PathVariable("size") int size) {
         PageInfo pageInfo = pdDiaryService.findDiaryByGlobal(userId, global, start, size);
         return ApiResp.retOk(pageInfo);
@@ -112,6 +123,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping("/getDiaryNumber/{userId}")
+    @ApiOperation("获取日记相关的数量")
     public ApiResp<Map<String,Object>> getDiaryNumber(@PathVariable("userId") int userId) {
         Map<String, Object> result = pdDiaryService.getDiaryNumber(userId);
         return ApiResp.retOk(result);
@@ -123,6 +135,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping("/getImgInfo/{userId}")
+    @ApiOperation("获取日记的图片信息")
     public ApiResp<Map<String,Object>> getImgInfo(@PathVariable("userId") int userId) {
         Map<String, Object> result = pdDiaryService.getImageInfo(userId);
         return ApiResp.retOk(result);
@@ -134,6 +147,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping("/getAddressInfo/{userId}")
+    @ApiOperation("获取日记的地址信息")
     public ApiResp<Map<String,Object>> getAddressInfo(@PathVariable("userId") int userId) {
         Map<String, Object> result = pdDiaryService.getAddressInfo(userId);
         return ApiResp.retOk(result);
@@ -145,6 +159,7 @@ public class DiaryController {
      * @return
      */
     @GetMapping("/getDiaryLabelInfo/{userId}")
+    @ApiOperation("获取日记的标签信息")
     public ApiResp<Map<String,Object>> getDiaryLabelInfo(@PathVariable("userId") int userId){
         Map<String, Object> result = pdDiaryService.getDiaryLabelInfo(userId);
         return ApiResp.retOk(result);

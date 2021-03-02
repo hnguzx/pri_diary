@@ -3,11 +3,15 @@ package per.guzx.priDiary.dao;
 import org.springframework.stereotype.Repository;
 import per.guzx.priDiary.pojo.PdRole;
 import per.guzx.priDiary.pojo.PdUser;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Repository
-public interface PdUserDao {
+public interface PdUserDao extends Mapper<PdUser> {
     /**
      * 新增用户
      *
@@ -25,7 +29,7 @@ public interface PdUserDao {
 
     /**
      * 根据用户查找权限
-     * @param id
+     * @param userId
      * @return
      */
     List<PdRole> findUserAuthorities(long userId);
@@ -52,7 +56,7 @@ public interface PdUserDao {
      * @param id
      * @return
      */
-    PdUser findUserById(int id);
+    PdUser findUserById(Integer id);
 
     /**
      * 删除用户信息
@@ -74,7 +78,7 @@ public interface PdUserDao {
      *
      * @param user
      * @param start
-     * @param limit
+     * @param size
      * @return
      */
     List<PdUser> findUsers(PdUser user, int start, int size);

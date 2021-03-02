@@ -1,53 +1,69 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Alias("comment")
+
+/**
+ * @author Administrator
+ */
 @Table(name = "pd_blog")
+@Alias("comment")
+@ApiModel(description = "评论详细信息")
 public class PdComment {
     /**
      * 评论ID
      */
     @Id
     @Column(name = "comment_id")
+    @ApiModelProperty(value = "评论ID")
     private Integer commentId;
 
     /**
      * 评论所属博客ID
      */
     @Column(name = "blog_id")
+    @ApiModelProperty(value = "评论所属博客ID")
     private Integer blogId;
 
     /**
      * 评论人ID
      */
     @Column(name = "comment_user_id")
+    @ApiModelProperty(value = "评论人ID")
     private Integer commentUserId;
 
     /**
      * 博客所属人ID
      */
     @Column(name = "blog_owner_id")
+    @ApiModelProperty(value = "博客所属人ID")
     private Integer blogOwnerId;
 
     /**
      * 评论时间
      */
     @Column(name = "comment_create_time")
+    @ApiModelProperty(value = "评论时间")
     private String commentCreateTime;
 
     /**
      * 被评论者ID
      */
     @Column(name = "commented_user_id")
+    @ApiModelProperty(value = "被评论者ID")
     private Integer commentedUserId;
 
     /**
      * 评论内容
      */
     @Column(name = "comment_context")
+    @ApiModelProperty(value = "评论内容")
     private String commentContext;
 
     /**

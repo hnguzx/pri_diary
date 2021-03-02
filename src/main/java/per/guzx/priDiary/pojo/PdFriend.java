@@ -1,59 +1,76 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Alias("friend")
+
+/**
+ * @author Administrator
+ */
 @Table(name = "pd_blog")
+@Alias("friend")
+@ApiModel(description = "好友详细信息")
 public class PdFriend {
     /**
      * 好友ID
      */
     @Id
     @Column(name = "friend_id")
+    @ApiModelProperty(value = "好友ID")
     private Integer friendId;
 
     /**
      * 我的用户ID
      */
     @Column(name = "my_user_id")
+    @ApiModelProperty(value = "我的用户ID")
     private Integer myUserId;
 
     /**
      * 我的邮箱
      */
     @Column(name = "my_email")
+    @ApiModelProperty(value = "我的邮箱")
     private String myEmail;
 
     /**
      * 我的手机号码
      */
     @Column(name = "my_phone")
+    @ApiModelProperty(value = "我的手机号码")
     private String myPhone;
 
     /**
      * 好友的用户ID
      */
     @Column(name = "friend_user_id")
+    @ApiModelProperty(value = "好友的用户ID")
     private Integer friendUserId;
 
     /**
      * 好友的邮箱
      */
     @Column(name = "friend_email")
+    @ApiModelProperty(value = "好友的邮箱")
     private String friendEmail;
 
     /**
      * 好友的手机号码
      */
     @Column(name = "friend_phone")
+    @ApiModelProperty(value = "好友的手机号码")
     private String friendPhone;
 
     /**
      * 好友的备注
      */
     @Column(name = "friend_remark")
+    @ApiModelProperty(value = "好友的备注")
     private String friendRemark;
 
     private int friendApplyResult;
@@ -204,6 +221,7 @@ public class PdFriend {
 
     /**
      * 获取好友申请结果
+     *
      * @return
      */
     public int getFriendApplyResult() {
@@ -212,6 +230,7 @@ public class PdFriend {
 
     /**
      * 设置好友申请结果
+     *
      * @param friendApplyResult
      */
     public void setFriendApplyResult(int friendApplyResult) {

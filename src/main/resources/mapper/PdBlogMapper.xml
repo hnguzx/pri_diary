@@ -2,18 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdBlogDao">
-    <resultMap id="BaseResultMap" type="blog">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="blog_id" javaType="int" property="blogId"/>
-        <result column="user_id" javaType="int" property="userId"/>
-        <result column="blog_type" javaType="String" property="blogType"/>
-        <result column="blog_image" javaType="String" property="blogImage"/>
-        <result column="blog_context" javaType="String" property="blogContext"/>
-        <result column="blog_label" javaType="String" property="blogLabel"/>
-        <result column="blog_create_time" javaType="String" property="blogCreateTime"/>
-        <result column="blog_update_time" javaType="String" property="blogUpdateTime"/>
+    <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdBlog">
+        <id column="blog_id" javaType="int" jdbcType="INTEGER" property="blogId"/>
+        <result column="user_id" javaType="int" jdbcType="INTEGER" property="userId"/>
+        <result column="blog_type" javaType="String" jdbcType="VARCHAR" property="blogType"/>
+        <result column="blog_image" javaType="String" jdbcType="VARCHAR" property="blogImage"/>
+        <result column="blog_context" javaType="String" jdbcType="VARCHAR" property="blogContext"/>
+        <result column="blog_label" javaType="String" jdbcType="VARCHAR" property="blogLabel"/>
+        <result column="blog_create_time" javaType="String" jdbcType="TIMESTAMP" property="blogCreateTime"/>
+        <result column="blog_update_time" javaType="String" jdbcType="TIMESTAMP" property="blogUpdateTime"/>
     </resultMap>
 
     <sql id="sql_where">
@@ -40,9 +37,9 @@
     <insert id="insertBlog" useGeneratedKeys="true" keyProperty="blog_id">
         insert into private_diary.pd_blog(blog_id, user_id, blog_type, blog_image, blog_context, blog_label,
                                           blog_create_time, blog_update_time)
-                value
-                (#{blogId}, #{userId}, #{blogType}, #{blogImage}, #{blogContext}, #{blogLabel},
-                 #{blogCreateTime}, #{blogUpdateTime})
+            value
+            (#{blogId}, #{userId}, #{blogType}, #{blogImage}, #{blogContext}, #{blogLabel},
+             #{blogCreateTime}, #{blogUpdateTime})
     </insert>
 
     <update id="updateBlog">

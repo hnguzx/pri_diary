@@ -7,13 +7,18 @@ import per.guzx.priDiary.pojo.PdMessage;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdUserService;
 
+import javax.annotation.Resource;
+
+/**
+ * @author Administrator
+ */
 @Component
 public class NoticeUtil {
 
-    @Autowired
+    @Resource
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Autowired
+    @Resource
     private PdUserService userService;
 
     /**

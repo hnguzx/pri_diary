@@ -2,6 +2,7 @@ package per.guzx.priDiary.enumeration;
 
 /**
  * 可以都保存到redis中
+ * @author Administrator
  */
 public enum ErrorEnum {
 

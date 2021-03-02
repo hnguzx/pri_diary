@@ -1,12 +1,11 @@
 package per.guzx.priDiary.controller;
 
-import io.github.yedaxia.apidocs.ApiDoc;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import per.guzx.priDiary.pojo.PageInfo;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.enumeration.UserStateEnum;
 import per.guzx.priDiary.pojo.ApiResp;
@@ -16,31 +15,33 @@ import per.guzx.priDiary.tool.EmailOrMsg;
 import per.guzx.priDiary.tool.Validator;
 import per.guzx.priDiary.tool.VerifyCodeFactory;
 
-import javax.validation.Valid;
-import java.util.Map;
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
  * 用户接口
+ *
+ * @author Administrator
  */
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@Api(tags = "用户")
 public class UserController {
 
-    @Autowired
+    @Resource
     private PdUserService userService;
 
-    @Autowired
+    @Resource
     private EmailOrMsg emailOrMsg;
 
-    @Autowired
+    @Resource
     private VerifyCodeFactory verifyCodeFactory;
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
-    @Autowired
+    @Resource
     private Validator validator;
 
 
@@ -49,19 +50,14 @@ public class UserController {
      *
      * @param user
      * @param verifyCode
-     * @param errors
      * @return
      */
     @PostMapping("insertUser/{verifyCode}")
-    @ApiDoc()
-    public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode, Errors errors) {
+    @ApiOperation("用户注册")
+    public ApiResp insertUser(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
         if (checkVerifyCode(user, verifyCode)) {
-            Map<String, Object> validResult = Validator.validator(errors);
-            if (validResult.isEmpty()) {
-                userService.insertUser(user);
-                return ApiResp.retOk(user);
-            }
-            return ApiResp.retFail(ErrorEnum.DATA_VALIDATE, validResult);
+            userService.insertUser(user);
+            return ApiResp.retOk(user);
         }
         return ApiResp.retFail(ErrorEnum.VERIFY_ERROR);
 
@@ -74,6 +70,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/verifyCode/{emailOrPhone}")
+    @ApiOperation("获取验证码")
     public ApiResp getRegisterVerifyCode(@PathVariable("emailOrPhone") String emailOrPhone) {
         String verifyCode = verifyCodeFactory.getCode();
         if (emailOrMsg.isEmail(emailOrPhone)) {
@@ -102,7 +99,7 @@ public class UserController {
             receiverPath = receiverUser.getUserEmail();
         }
         String serverCode = (String) redisTemplate.opsForValue().get("verifyCode::" + receiverPath);
-        if (!serverCode.equals(verifyCode)) {
+        if (!verifyCode.equals(serverCode)) {
             return false;
         }
         redisTemplate.opsForValue().set("verifyCode::" + receiverPath, verifyCode, 1, TimeUnit.SECONDS);
@@ -112,10 +109,12 @@ public class UserController {
 
     /**
      * 根据id查找用户
+     *
      * @param id
      * @return
      */
     @GetMapping("/id/{id}")
+    @ApiOperation("查找用户")
     public ApiResp<PdUser> findUserById(@PathVariable("id") int id) {
         PdUser user = userService.findUserById(id);
         return ApiResp.retOk(user);
@@ -128,6 +127,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/{userId}")
+    @ApiOperation("删除用户")
     public ApiResp deleteUser(@PathVariable("userId") int id) {
         userService.deleteUser(id);
         return ApiResp.retOk();
@@ -140,6 +140,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/resetPassword/verifyCode/{emailOrPhone}")
+    @ApiOperation("重置密码获取验证码")
     public ApiResp forgetPasswordGetVerifyCode(@PathVariable("emailOrPhone") String emailOrPhone) {
         PdUser user = new PdUser();
         String verifyCode = verifyCodeFactory.getCode();
@@ -171,6 +172,7 @@ public class UserController {
      * @return
      */
     @PatchMapping("/resetPassword/{verifyCode}")
+    @ApiOperation("重置密码")
     public ApiResp forgetPassword(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
         int result = userService.findUserCount(user);
         if (result > 0) {
@@ -191,6 +193,7 @@ public class UserController {
      * @return
      */
     @PatchMapping("/updateUser")
+    @ApiOperation("更新用户信息")
     public ApiResp<PdUser> updateUser(@RequestBody PdUser user) {
         userService.updateUser(user);
         PdUser newUser = userService.findUserById(user.getUserId());
@@ -207,6 +210,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/{start}/{size}")
+    @ApiOperation("查询用户列表")
     public ApiResp<PageInfo> findUsers(@RequestBody PdUser user, @PathVariable("start") int start, @PathVariable("size") int size) {
         PageInfo result = userService.findUsers(user, start, size);
         return ApiResp.retOk(result);
@@ -219,6 +223,7 @@ public class UserController {
      * @return
      */
     @PatchMapping("/{userId}")
+    @ApiOperation("用户注销")
     public ApiResp<PdUser> cancelUser(@PathVariable("userId") int id) {
         PdUser user = userService.cancelUser(id);
         return ApiResp.retOk(user);

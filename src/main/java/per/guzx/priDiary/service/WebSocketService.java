@@ -33,6 +33,7 @@ public interface WebSocketService {
     /**
      * 发送消息
      * @param message
+     * @throws IOException
      */
     void sendMessage(String message) throws IOException;
 }

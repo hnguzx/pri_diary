@@ -1,6 +1,9 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import per.guzx.priDiary.enumeration.SexEnum;
@@ -9,85 +12,110 @@ import per.guzx.priDiary.enumeration.UserStateEnum;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Collection;
 
+/**
+ * @author Administrator
+ */
+@Table(name = "pd_user")
 @Alias("user")
-@Table(name = "pd_blog")
+@ApiModel(description = "评论详细信息")
 public class PdUser implements Serializable, UserDetails {
     /**
      * 用户唯一标识
      */
     @Id
     @Column(name = "user_id")
+    @ApiModelProperty(value = "用户id")
     private Integer userId;
 
     /**
      * 用户昵称
      */
+    @NotBlank(message = "用户昵称不能为空")
+    @Length(max = 30,message = "用户昵称长度不能超过30个字符")
     @Column(name = "user_name")
+    @ApiModelProperty(value = "用户昵称")
     private String userName;
 
     /**
      * 用户出生日期
      */
+    @NotBlank(message = "用户出生日期不能为空")
+    @Length(min = 10,max = 10,message = "日期格式不正确")
     @Column(name = "user_birthday")
+    @ApiModelProperty(value = "用户出生日期")
     private String userBirthday;
 
     /**
      * 用户性别
      */
+    @NotNull(message = "用户性别不能为空")
     @Column(name = "user_sex")
+    @ApiModelProperty(value = "用户性别")
     private SexEnum userSex;
 
     /**
      * 用户登录密码
      */
+    @NotBlank(message = "登录密码不能为空")
+    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", message = "密码必须为8~16个字母和数字组合")
     @Column(name = "user_password")
+    @ApiModelProperty(value = "日记所属用户id")
     private String userPassword;
 
     /**
      * 用户状态
      */
     @Column(name = "user_state")
+    @ApiModelProperty(value = "用户状态")
     private UserStateEnum userState;
 
     /**
      * 手机号码
      */
+    @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$", message = "手机号码格式不正确")
     @Column(name = "user_phone")
+    @ApiModelProperty(value = "手机号码")
     private String userPhone;
 
     /**
      * 邮箱地址
      */
+    @Email
     @Column(name = "user_email")
+    @ApiModelProperty(value = "邮箱地址")
     private String userEmail;
 
     /**
      * 用户头像图片存储地址
      */
     @Column(name = "user_head")
+    @ApiModelProperty(value = "用户头像图片存储地址")
     private String userHead;
 
     /**
      * 用户创建时间
      */
     @Column(name = "user_create_time")
-    private Timestamp userCreateTime;
+    @ApiModelProperty(value = "用户创建时间")
+    private String userCreateTime;
 
     /**
      * 用户最后登录时间
      */
     @Column(name = "user_last_login_time")
-    private Timestamp userLastLoginTime;
+    @ApiModelProperty(value = "用户最后登录时间")
+    private String userLastLoginTime;
 
     /**
      * 用户信息更新时间
      */
     @Column(name = "user_update_time")
-    private Timestamp userUpdateTime;
+    @ApiModelProperty(value = "用户信息更新时间")
+    private String userUpdateTime;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -258,8 +286,8 @@ public class PdUser implements Serializable, UserDetails {
      *
      * @return user_create_time - 用户创建时间
      */
-    public Timestamp getUserCreateTime() {
-        return (Timestamp) this.userCreateTime.clone();
+    public String getUserCreateTime() {
+        return this.userCreateTime;
     }
 
     /**
@@ -267,8 +295,8 @@ public class PdUser implements Serializable, UserDetails {
      *
      * @param userCreateTime 用户创建时间
      */
-    public void setUserCreateTime(Timestamp userCreateTime) {
-        this.userCreateTime = (Timestamp) userCreateTime.clone();
+    public void setUserCreateTime(String userCreateTime) {
+        this.userCreateTime = userCreateTime;
     }
 
     /**
@@ -276,8 +304,8 @@ public class PdUser implements Serializable, UserDetails {
      *
      * @return user_create_time - 用户创建时间
      */
-    public Timestamp getUserLastLoginTime() {
-        return (Timestamp) this.userLastLoginTime.clone();
+    public String getUserLastLoginTime() {
+        return this.userLastLoginTime;
     }
 
     /**
@@ -285,8 +313,8 @@ public class PdUser implements Serializable, UserDetails {
      *
      * @param userLastLoginTime 用户创建时间
      */
-    public void setUserLastLoginTime(Timestamp userLastLoginTime) {
-        this.userLastLoginTime = (Timestamp) userLastLoginTime.clone();
+    public void setUserLastLoginTime(String userLastLoginTime) {
+        this.userLastLoginTime = userLastLoginTime;
     }
 
     /**
@@ -294,8 +322,8 @@ public class PdUser implements Serializable, UserDetails {
      *
      * @return user_create_time - 用户创建时间
      */
-    public Timestamp getUserUpdateTime() {
-        return (Timestamp) this.userUpdateTime.clone();
+    public String getUserUpdateTime() {
+        return this.userUpdateTime;
     }
 
     /**
@@ -303,8 +331,8 @@ public class PdUser implements Serializable, UserDetails {
      *
      * @param userUpdateTime 用户创建时间
      */
-    public void setUserUpdateTime(Timestamp userUpdateTime) {
-        this.userUpdateTime = (Timestamp) userUpdateTime.clone();
+    public void setUserUpdateTime(String userUpdateTime) {
+        this.userUpdateTime = userUpdateTime;
     }
 
     /*@Override

@@ -2,6 +2,8 @@ package per.guzx.priDiary.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdComment;
@@ -11,11 +13,14 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  * 评论接口
  */
 @RestController
 @RequestMapping("/comment")
+@Api(tags = "评论")
 public class CommentController {
 
     @Resource
@@ -27,6 +32,7 @@ public class CommentController {
      * @return 新增结果
      */
     @PostMapping("/add")
+    @ApiOperation("新增评论")
     public ApiResp<Object> add(@RequestBody PdComment pdComment) {
         pdCommentService.save(pdComment);
         return ApiResp.retOk();
@@ -38,6 +44,7 @@ public class CommentController {
      * @return 删除结果
      */
     @DeleteMapping("/{id}")
+    @ApiOperation("删除评论")
     public ApiResp<Object> delete(@PathVariable Integer id) {
         pdCommentService.deleteById(id);
         return ApiResp.retOk();
@@ -49,6 +56,7 @@ public class CommentController {
      * @return 更新结果
      */
     @PutMapping("/update")
+    @ApiOperation("更新评论")
     public ApiResp<Object> update(@RequestBody PdComment pdComment) {
         pdCommentService.update(pdComment);
         return ApiResp.retOk();
@@ -60,6 +68,7 @@ public class CommentController {
      * @return 评论详情
      */
     @GetMapping("/{id}")
+    @ApiOperation("查看评论详情")
     public ApiResp<PdComment> detail(@PathVariable Integer id) {
         PdComment pdComment = pdCommentService.findById(id);
         return ApiResp.retOk(pdComment);
@@ -72,10 +81,10 @@ public class CommentController {
      * @return 评论列表
      */
     @GetMapping("/list")
-    public ApiResp<PageInfo<PdComment>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @ApiOperation("获取评论列表")
+    public ApiResp<PageInfo<List<PdComment>>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<PdComment> list = pdCommentService.findAll();
-        PageInfo<PdComment> pageInfo = new PageInfo<>(list);
+        PageInfo<List<PdComment>> pageInfo = pdCommentService.findAll();
         return ApiResp.retOk(pageInfo);
     }
 }

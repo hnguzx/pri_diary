@@ -2,12 +2,16 @@ package per.guzx.priDiary.dao;
 
 import org.springframework.stereotype.Repository;
 import per.guzx.priDiary.pojo.PdDiary;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 @Repository
-public interface PdDiaryDao {
+public interface PdDiaryDao extends Mapper<PdDiary> {
     /**
      * 新增日记
      *

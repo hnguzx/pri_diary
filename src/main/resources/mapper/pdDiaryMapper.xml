@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdDiaryDao">
+
+    <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdDiary">
+        <id column="diary_id" javaType="int" jdbcType="INTEGER" property="diaryId"/>
+        <result column="user_id" javaType="int" jdbcType="INTEGER" property="myUserId"/>
+        <result column="diary_photo" javaType="string" jdbcType="VARCHAR" property="myEmail"/>
+        <result column="diary_title" javaType="string" jdbcType="VARCHAR" property="myPhone"/>
+        <result column="diary_weather" javaType="per.guzx.priDiary.enumeration.WeathEnum" jdbcType="VARCHAR" property="friendUserId"/>
+        <result column="diary_mood" javaType="per.guzx.priDiary.enumeration.MoodEnum" jdbcType="VARCHAR" property="friendEmail"/>
+        <result column="diary_event" javaType="per.guzx.priDiary.enumeration.EventEnum" jdbcType="VARCHAR" property="friendPhone"/>
+        <result column="diary_content" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>
+        <result column="diary_location" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>
+        <result column="diary_longitude" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>
+        <result column="diary_latitude" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>
+        <result column="diary_create_time" javaType="string" jdbcType="TIMESTAMP" property="friendRemark"/>
+        <result column="diary_create_day" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>
+        <result column="diary_update_time" javaType="string" jdbcType="TIMESTAMP" property="friendRemark"/>
+    </resultMap>
+
     <sql id="select_diary">
         select private_diary.pd_user.user_id,
                private_diary.pd_diary.diary_id,
@@ -83,7 +101,7 @@
           and diary_id = #{diaryId}
     </delete>
 
-    <select id="findDiaryById" resultType="diary">
+    <select id="findDiaryById" resultType="per.guzx.priDiary.pojo.PdDiary">
         <include refid="select_diary">
         </include>
         from
@@ -92,7 +110,7 @@
         user_id = #{userId} and diary_id = #{diaryId}
     </select>
 
-    <select id="findDiaryOtherById" resultType="diary">
+    <select id="findDiaryOtherById" resultType="per.guzx.priDiary.pojo.PdDiary">
         <include refid="select_diary_main">
         </include>
         from
@@ -101,7 +119,7 @@
         user_id = #{userId} and diary_id = #{diaryId}
     </select>
 
-    <select id="findDiaryAll" resultType="diary">
+    <select id="findDiaryAll" resultType="per.guzx.priDiary.pojo.PdDiary">
         <include refid="select_diary">
         </include>
         from
@@ -109,7 +127,7 @@
         where user_id = #{userId}
     </select>
 
-    <select id="findDiaryByGlobal" resultType="diary">
+    <select id="findDiaryByGlobal" resultType="per.guzx.priDiary.pojo.PdDiary">
         <include refid="select_diary">
         </include>
         from
@@ -126,7 +144,7 @@
         </where>
     </select>
 
-    <select id="findDiaryByUserId" parameterType="int" resultType="diary">
+    <select id="findDiaryByUserId" parameterType="int" resultType="per.guzx.priDiary.pojo.PdDiary">
         <include refid="select_diary_main">
         </include>
         from

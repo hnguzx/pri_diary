@@ -1,4 +1,3 @@
-
 spring:
   profiles:
     active: dev
@@ -14,8 +13,15 @@ spring:
       max-request-size: 30MB
       resolve-lazily: true
       file-size-threshold: 2KB
-#      location: /home/files
-      location: F:/Files
+  datasource:
+    initialization-mode: always
+    schema: classpath:schame.sql
+    tomcat:
+      max-idle: 0
+      max-active: 50
+      max-wait: 1000
+      initial-size: 10
+      default-transaction-isolation: 2
   redis:
     jedis:
       pool:
@@ -23,9 +29,6 @@ spring:
         min-idle: 5
         max-idle: 10
         max-wait: 1000
-    host: 8.136.133.5
-    port: 6379
-    password: Guzx.@970712
     timeout: 10000
 #  activemq:
 #    broker-url: tcp://localhost:61616
@@ -40,7 +43,7 @@ spring:
 #      default-destination: activemq.default.destination
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: per.guzx.pri_diary.pojo
+  type-aliases-package: per.guzx.priDiary.pojo
   configuration:
     map-underscore-to-camel-case: true
 pagehelper:
@@ -48,8 +51,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-image:
-  baseImagePath: F:/Files
 
 
 

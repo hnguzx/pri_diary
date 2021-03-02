@@ -3,6 +3,9 @@ package per.guzx.priDiary.pojo;
 import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * @author Administrator
+ */
 @Alias("role")
 public class PdRole implements GrantedAuthority {
 

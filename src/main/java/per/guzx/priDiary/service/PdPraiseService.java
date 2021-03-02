@@ -1,12 +1,15 @@
 package per.guzx.priDiary.service;
 
+import com.github.pagehelper.PageInfo;
 import per.guzx.priDiary.pojo.PdPraise;
 
 import java.util.List;
 
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  */
 public interface PdPraiseService {
 
@@ -18,5 +21,5 @@ public interface PdPraiseService {
 
     PdPraise findById(Integer id);
 
-    List<PdPraise> findAll();
+    PageInfo<List<PdPraise>> findAll();
 }

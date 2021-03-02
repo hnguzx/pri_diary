@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdFriendDao">
-    <!--<resultMap id="BaseResultMap" type="friend">
-        &lt;!&ndash;
-          WARNING - @mbg.generated
-        &ndash;&gt;
-        <id column="my_user_id" jdbcType="INTEGER" property="myUserId"/>
-        <result column="my_email" jdbcType="VARCHAR" property="myEmail"/>
-        <result column="my_phone" jdbcType="VARCHAR" property="myPhone"/>
-        <result column="friend_user_id" jdbcType="INTEGER" property="friendUserId"/>
-        <result column="friend_email" jdbcType="VARCHAR" property="friendEmail"/>
-        <result column="friend_phone" jdbcType="VARCHAR" property="friendPhone"/>
-        <result column="friend_remark" jdbcType="VARCHAR" property="friendRemark"/>
-    </resultMap>-->
+    <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdFriend">
+        <id column="friend_id" javaType="int" jdbcType="INTEGER" property="friendId"/>
+        <result column="my_user_id" javaType="int" jdbcType="INTEGER" property="myUserId"/>
+        <result column="my_email" javaType="string" jdbcType="VARCHAR" property="myEmail"/>
+        <result column="my_phone" javaType="string" jdbcType="VARCHAR" property="myPhone"/>
+        <result column="friend_user_id" javaType="int" jdbcType="INTEGER" property="friendUserId"/>
+        <result column="friend_email" javaType="string" jdbcType="VARCHAR" property="friendEmail"/>
+        <result column="friend_phone" javaType="string" jdbcType="VARCHAR" property="friendPhone"/>
+        <result column="friend_remark" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>
+    </resultMap>
 
     <sql id="sql_where">
         <if test="myUserId !=null and myUserId !='' ">

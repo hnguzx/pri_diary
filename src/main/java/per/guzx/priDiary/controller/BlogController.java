@@ -4,23 +4,27 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdBlog;
 import per.guzx.priDiary.service.PdBlogService;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  * 博客接口
  */
 @RestController
 @RequestMapping("/blog")
-@Api(tags = "博客管理相关接口")
+@Api(tags = "博客")
 public class BlogController {
-    @Autowired
+    @Resource
     private PdBlogService pdBlogService;
 
 
@@ -30,8 +34,8 @@ public class BlogController {
      * @return
      */
     @PostMapping("/add")
-    @ApiOperation("添加博客")
-    public ApiResp<PdBlog> add(@RequestBody PdBlog pdBlog) {
+    @ApiOperation("新增博客")
+    public ApiResp<PdBlog> add(@Valid @RequestBody PdBlog pdBlog) {
         pdBlogService.save(pdBlog);
         return ApiResp.retOk();
     }
@@ -42,6 +46,7 @@ public class BlogController {
      * @return
      */
     @DeleteMapping("/{id}")
+    @ApiOperation("删除博客")
     public ApiResp delete(@PathVariable Integer id) {
         pdBlogService.deleteById(id);
         return ApiResp.retOk();
@@ -53,6 +58,7 @@ public class BlogController {
      * @return
      */
     @PutMapping("/update")
+    @ApiOperation("更新博客")
     public ApiResp<PdBlog> update(@RequestBody PdBlog pdBlog) {
         pdBlogService.update(pdBlog);
         return ApiResp.retOk();
@@ -64,22 +70,23 @@ public class BlogController {
      * @return
      */
     @GetMapping("/{id}")
+    @ApiOperation("获取博客详情")
     public ApiResp<PdBlog> detail(@PathVariable Integer id) {
         PdBlog pdBlog = pdBlogService.findById(id);
         return ApiResp.retOk(pdBlog);
     }
 
     /**
-     * 分页查询博客
+     * 查询博客列表
      * @param page
      * @param size
      * @return
      */
     @GetMapping("/list")
-    public ApiResp list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @ApiOperation("查询博客列表")
+    public ApiResp<PageInfo<List<PdBlog>>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<PdBlog> list = pdBlogService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<List<PdBlog>> pageInfo = pdBlogService.findAll();
         return ApiResp.retOk(pageInfo);
     }
 }

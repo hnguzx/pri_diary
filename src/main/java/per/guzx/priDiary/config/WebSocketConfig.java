@@ -18,28 +18,30 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import per.guzx.priDiary.handle.*;
 import per.guzx.priDiary.serviceImpl.PdUserServiceImpl;
 
+import javax.annotation.Resource;
+
 @Configuration
 @Slf4j
 @EnableWebSocketMessageBroker
 //@EnableWebSecurity
 public class WebSocketConfig extends WebSecurityConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
-    @Autowired
+    @Resource
     private PdUserServiceImpl userDetailsService;
 
-    @Autowired
+    @Resource
     private CustomizeLogoutSuccessHandler logoutSuccessHandler;
 
-    @Autowired
+    @Resource
     private CustomizeAuthenticationSuccessHandler authenticationSuccessHandler;
 
-    @Autowired
+    @Resource
     private CustomizeAuthenticationFailureHandler authenticationFailureHandler;
 
-    @Autowired
+    @Resource
     private CustomizeSessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
-    @Autowired
+    @Resource
     private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
     @Profile({"dev"})
@@ -98,8 +100,8 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
                 antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
 //                antMatchers("/admin/**").hasRole("ADMIN").
 //                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
-                anyRequest().authenticated().
-//                anyRequest().permitAll().
+//                anyRequest().authenticated().
+                anyRequest().permitAll().
 //                and().anonymous().
 //                and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).

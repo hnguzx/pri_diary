@@ -1,5 +1,6 @@
 package per.guzx.priDiary.serviceImpl;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.guzx.priDiary.dao.PdBlogDao;
@@ -42,7 +43,7 @@ public class PdBlogServiceImpl implements PdBlogService {
     }
 
     @Override
-    public List<PdBlog> findAll() {
+    public PageInfo<List<PdBlog>> findAll() {
         return null;
     }
 }

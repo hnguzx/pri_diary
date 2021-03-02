@@ -1,59 +1,81 @@
 package per.guzx.priDiary.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Alias("blog")
+
+/**
+ * @author Administrator
+ */
 @Table(name = "pd_blog")
+@Alias("blog")
+@ApiModel(description = "博客详细信息")
 public class PdBlog {
     /**
      * 博客ID
      */
     @Id
     @Column(name = "blog_id")
+    @ApiModelProperty(value = "博客id")
     private Integer blogId;
 
     /**
      * 博客所属用户ID
      */
+    @NotNull(message = "创建用户不能为空")
     @Column(name = "user_id")
+    @ApiModelProperty(value = "博客所属用户ID")
     private Integer userId;
 
     /**
      * 博客类型（一句话/小故事）
      */
+    @NotEmpty(message = "博客类型不能为空")
     @Column(name = "blog_type")
+    @ApiModelProperty(value = "博客类型（一句话/小故事）")
     private String blogType;
 
     /**
-     * 博客图片
+     * 博客图片地址
      */
     @Column(name = "blog_image")
+    @ApiModelProperty(value = "博客图片地址")
     private String blogImage;
 
     /**
      * 博客具体内容
      */
+    @NotEmpty(message = "博客内容不能为空")
     @Column(name = "blog_context")
+    @ApiModelProperty(value = "博客具体内容")
     private String blogContext;
 
     /**
      * 博客标签
      */
     @Column(name = "blog_label")
+    @ApiModelProperty(value = "博客标签")
     private String blogLabel;
 
     /**
      * 博客创建时间
      */
     @Column(name = "blog_create_time")
+    @ApiModelProperty(value = "博客创建时间")
     private String blogCreateTime;
 
     /**
      * 博客更新时间
      */
     @Column(name = "blog_update_time")
+    @ApiModelProperty(value = "博客更新时间")
     private String blogUpdateTime;
 
     /**

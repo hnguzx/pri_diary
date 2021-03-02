@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DateTest {
     public static void main(String[] args) {
-        Map<String, String> map = new HashMap();
+        HashMap map = new HashMap();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
         Calendar cal = Calendar.getInstance();

@@ -1,6 +1,7 @@
 package per.guzx.priDiary.serviceImpl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import per.guzx.priDiary.service.PdUserService;
 import per.guzx.priDiary.tool.DateUtil;
 import per.guzx.priDiary.tool.NoticeUtil;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -24,22 +26,22 @@ import java.util.List;
 @Service
 public class PdMessageServiceImpl implements PdMessageService {
 
-    @Autowired
+    @Resource
     private PdMessageDao messageDao;
 
-    @Autowired
+    @Resource
     private DateUtil dateUtil;
 
-    @Autowired
+    @Resource
     private PdUserService userService;
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
-    @Autowired
+    @Resource
     private AsyncService asyncService;
 
-    @Autowired
+    @Resource
     private NoticeUtil noticeUtil;
 
     @Override
@@ -65,7 +67,7 @@ public class PdMessageServiceImpl implements PdMessageService {
     }
 
     @Override
-    public List<PdMessage> findAll() {
+    public PageInfo<List<PdMessage>> findAll() {
         return null;
     }
 

@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdUserDao">
+    <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdUser">
+        <id column="user_id" javaType="int" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" javaType="int" jdbcType="INTEGER" property="userName"/>
+        <result column="user_birthday" javaType="String" jdbcType="VARCHAR" property="userBirthday"/>
+        <result column="user_sex" javaType="per.guzx.priDiary.enumeration.SexEnum" jdbcType="VARCHAR" property="userSex"/>
+        <result column="user_password" javaType="String" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="user_state" javaType="per.guzx.priDiary.enumeration.UserStateEnum" jdbcType="VARCHAR" property="userState"/>
+        <result column="user_phone" javaType="String" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="user_email" javaType="String" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="user_head" javaType="String" jdbcType="VARCHAR" property="userHead"/>
+        <result column="user_create_time" javaType="String" jdbcType="TIMESTAMP" property="userCreateTime"/>
+        <result column="user_last_login_time" javaType="String" jdbcType="TIMESTAMP" property="userLastLoginTime"/>
+        <result column="user_update_time" javaType="String" jdbcType="TIMESTAMP" property="userUpdateTime"/>
+    </resultMap>
+
     <sql id="select_user">
         select private_diary.pd_user.user_id,
                private_diary.pd_user.user_name,
@@ -74,12 +89,7 @@
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into private_diary.pd_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-        </trim>
-
-        insert into pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
+        insert into private_diary.pd_user(user_name, user_password, user_state, user_phone, user_email, user_sex, user_birthday,
                             user_head, user_create_time, user_update_time)
                 value (#{userName}, #{userPassword}, #{userState}, #{userPhone}, #{userEmail}, #{userSex},
                        #{userBirthday},
@@ -92,7 +102,7 @@
             <include refid="sql_where">
             </include>
         </set>
-        where user_id = #{userId} limit 1
+        where private_diary.pd_user.user_id = #{userId} limit 1
     </update>
 
     <update id="updateUserByEmailOrPhone">
@@ -105,7 +115,7 @@
         limit 1
     </update>
 
-    <select id="findUserById" parameterType="int" resultType="user">
+    <select id="findUserById" parameterType="int" resultType="per.guzx.priDiary.pojo.PdUser">
         <include refid="select_user">
         </include>
         from
@@ -115,7 +125,7 @@
         limit 1
     </select>
 
-    <select id="findUserByPhoneOrEmail" parameterType="int" resultType="user">
+    <select id="findUserByPhoneOrEmail" parameterType="int" resultType="per.guzx.priDiary.pojo.PdUser">
         <include refid="select_user">
         </include>
         from
@@ -133,7 +143,7 @@
         where user_id = #{userId}
     </delete>
 
-    <select id="findUsers" resultType="user">
+    <select id="findUsers" resultType="per.guzx.priDiary.pojo.PdUser">
         <include refid="select_user">
         </include>
         from
@@ -180,7 +190,7 @@
         </where>
     </select>
 
-    <select id="getUserId" resultType="user">
+    <select id="getUserId" resultType="per.guzx.priDiary.pojo.PdUser">
         <include refid="select_user">
         </include>
         from pd_user
@@ -198,14 +208,14 @@
         </where>
     </select>
 
-    <select id="findUserByUserName" resultType="user" parameterType="string">
+    <select id="findUserByUserName" resultType="per.guzx.priDiary.pojo.PdUser" parameterType="string">
         <include refid="select_user">
         </include>
         from pd_user
         where user_name = #{userName}
     </select>
 
-    <select id="findUserAuthorities" resultType="role" parameterType="long">
+    <select id="findUserAuthorities" resultType="per.guzx.priDiary.pojo.PdRole" parameterType="long">
         select role_name authority
         from private_diary.pd_role
         where role_id in (
