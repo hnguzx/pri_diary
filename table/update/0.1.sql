@@ -36,3 +36,17 @@ ALTER TABLE pd_friend AUTO_INCREMENT = 10000;
 ALTER TABLE pd_message AUTO_INCREMENT = 10000;
 ALTER TABLE pd_praise AUTO_INCREMENT = 10000;
 ALTER TABLE pd_user AUTO_INCREMENT = 10000;
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getSequence`(
+    businessType varchar(50)
+) RETURNS bigint(20)
+BEGIN DECLARE
+    flowNo BIGINT;
+UPDATE pub_sequence SET BST_CURVAL=LAST_INSERT_ID(BST_CURVAL+BST_INCREMENT) WHERE BST_PREFIX=businessType;
+IF row_count()=0 THEN
+    SET flowNo=0;
+ELSE
+    SET flowNo=LAST_INSERT_ID();
+END IF;
+RETURN flowNo;
+END
