@@ -12,6 +12,9 @@ import per.guzx.priDiary.tool.FileUtil;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class AsyncServiceImpl implements AsyncService {
 

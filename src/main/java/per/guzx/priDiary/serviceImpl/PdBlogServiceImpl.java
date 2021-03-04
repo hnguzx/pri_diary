@@ -12,7 +12,9 @@ import java.util.List;
 
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  */
 @Transactional
 @Service
@@ -23,7 +25,7 @@ public class PdBlogServiceImpl implements PdBlogService {
 
     @Override
     public void save(PdBlog pdBlog) {
-        int result = pdBlogDao.insertBlog(pdBlog);
+        int result = pdBlogDao.insert(pdBlog);
         System.out.println("result:" + result);
     }
 

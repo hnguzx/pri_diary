@@ -7,6 +7,7 @@ import org.apache.ibatis.type.Alias;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -37,7 +38,7 @@ public class PdBlog {
     /**
      * 博客类型（一句话/小故事）
      */
-    @NotEmpty(message = "博客类型不能为空")
+    @NotBlank(message = "博客类型不能为空")
     @Column(name = "blog_type")
     @ApiModelProperty(value = "博客类型（一句话/小故事）")
     private String blogType;
@@ -52,7 +53,7 @@ public class PdBlog {
     /**
      * 博客具体内容
      */
-    @NotEmpty(message = "博客内容不能为空")
+    @NotBlank(message = "博客内容不能为空")
     @Column(name = "blog_context")
     @ApiModelProperty(value = "博客具体内容")
     private String blogContext;
@@ -60,6 +61,7 @@ public class PdBlog {
     /**
      * 博客标签
      */
+    @NotBlank(message = "博客标签不能为空")
     @Column(name = "blog_label")
     @ApiModelProperty(value = "博客标签")
     private String blogLabel;

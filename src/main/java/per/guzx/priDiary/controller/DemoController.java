@@ -8,8 +8,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.dao.PdMessageDao;
+import per.guzx.priDiary.enumeration.BusinessTypeEnum;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdMessage;
+import per.guzx.priDiary.tool.CommonUtil;
 import per.guzx.priDiary.tool.DateUtil;
 import tk.mybatis.mapper.entity.Example;
 
@@ -34,6 +36,9 @@ public class DemoController {
     @Resource
     private DateUtil dateUtil;
 
+    @Resource
+    private CommonUtil commonUtil;
+
     /**
      * 返回字符串
      *
@@ -46,7 +51,7 @@ public class DemoController {
         message.setMsgSender(1);
         message.setMsgReceive(2);
         message.setMsgIsReade(false);
-        message.setMsgContent("测试热部署");
+        message.setMsgContent("测试自增");
         message.setMsgCreateTime(dateUtil.getTimeStamp());
         switch (insertMethod) {
             case 1:
@@ -67,7 +72,7 @@ public class DemoController {
         int result;
         Example example = new Example(PdMessage.class);
         PdMessage message = new PdMessage();
-        message.setMsgId(5);
+//        message.setMsgId(5);
         switch (deleteMethod) {
             case 1:
                 result = messageDao.delete(message);
@@ -92,7 +97,7 @@ public class DemoController {
         int result;
         Example example = new Example(PdMessage.class);
         PdMessage message = new PdMessage();
-        message.setMsgId(10);
+//        message.setMsgId(10);
         message.setMsgIsReade(true);
         message.setMsgSender(111);
         message.setMsgContent("你好啊");

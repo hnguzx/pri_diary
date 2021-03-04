@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdBlogDao">
     <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdBlog">
-        <id column="blog_id" javaType="int" jdbcType="INTEGER" property="blogId"/>
+        <id column="blog_id" javaType="int" jdbcType="VARCHAR" property="blogId"/>
         <result column="user_id" javaType="int" jdbcType="INTEGER" property="userId"/>
         <result column="blog_type" javaType="String" jdbcType="VARCHAR" property="blogType"/>
         <result column="blog_image" javaType="String" jdbcType="VARCHAR" property="blogImage"/>
@@ -12,43 +12,4 @@
         <result column="blog_create_time" javaType="String" jdbcType="TIMESTAMP" property="blogCreateTime"/>
         <result column="blog_update_time" javaType="String" jdbcType="TIMESTAMP" property="blogUpdateTime"/>
     </resultMap>
-
-    <sql id="sql_where">
-        <if test="blogType != null">
-            blog_type = #{blogType},
-        </if>
-        <if test="blogImage != null and blogImage != ''">
-            blog_image = #{blogImage},
-        </if>
-        <if test="blogContext != null and blogContext != ''">
-            blog_context = #{blogContext},
-        </if>
-        <if test="blogLabel != null and blogLabel != ''">
-            blog_label = #{blogLabel},
-        </if>
-        <if test="blogCreateTime != null and blogCreateTime != ''">
-            blog_create_time = #{blogCreateTime},
-        </if>
-        <if test="blogUpdateTime != null and blogUpdateTime != ''">
-            blog_update_time = #{blogUpdateTime},
-        </if>
-    </sql>
-
-    <insert id="insertBlog" useGeneratedKeys="true" keyProperty="blog_id">
-        insert into private_diary.pd_blog(blog_id, user_id, blog_type, blog_image, blog_context, blog_label,
-                                          blog_create_time, blog_update_time)
-            value
-            (#{blogId}, #{userId}, #{blogType}, #{blogImage}, #{blogContext}, #{blogLabel},
-             #{blogCreateTime}, #{blogUpdateTime})
-    </insert>
-
-    <update id="updateBlog">
-        update pd_diary
-        <set>
-            <include refid="sql_where">
-            </include>
-        </set>
-        where
-        private_diary.pd_blog.blog_id = #{blogId} and private_diary.pd_blog.user_id = #{userId}
-    </update>
 </mapper>

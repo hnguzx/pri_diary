@@ -9,11 +9,4 @@ import tk.mybatis.mapper.common.Mapper;
  */
 @Repository
 public interface PdBlogDao extends Mapper<PdBlog> {
-
-    /**
-     * 保存日记
-     * @param pdBlog
-     * @return
-     */
-    int insertBlog(PdBlog pdBlog);
 }

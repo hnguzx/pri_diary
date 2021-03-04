@@ -20,9 +20,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * * ip地址工具类
- * * @author ACGkaka
- * *
+ * ip地址工具类
+ * @author ACGkaka
+ *
  */
 @Component
 public class AddressUtil {

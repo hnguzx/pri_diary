@@ -8,6 +8,9 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
 @Service
 @ServerEndpoint("/ws")
