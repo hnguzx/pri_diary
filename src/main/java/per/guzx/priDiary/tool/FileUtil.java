@@ -9,9 +9,12 @@ import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.exception.ServiceException;
 import per.guzx.priDiary.pojo.PdDiary;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -21,14 +24,18 @@ public class FileUtil {
     @Value("${spring.servlet.multipart.location}")
     public String absolt;
 
-    @Autowired
+    @Resource
     Environment environment;
 
-    @Autowired
+    @Resource
     private DateUtil dateUtil;
 
-    @Autowired
+    @Resource
     private AddressUtil addressUtil;
+
+    public String uploadFile(Part detailPhoto) {
+        return this.uploadFile(detailPhoto, null);
+    }
 
     /**
      * 文件上传
@@ -41,18 +48,27 @@ public class FileUtil {
         boolean isExist = false;
         String filename = detailPhoto.getSubmittedFileName();
         String port = environment.getProperty("local.server.port");
-        String address = addressUtil.getV4IP();
+//        String address = addressUtil.getV4IP();
+        String address = addressUtil.getInnerIp();
         String prefix = "http://" + address + ":" + port + "/File";
         String suffix = "";
+        String saveDest;
+        String accessDest;
         if (filename.lastIndexOf(".") != -1) {
             suffix = filename.substring(filename.lastIndexOf(".") + 1);
         }
-
         String newFileName = UUID.randomUUID().toString().substring(0, 16).replace("-", "") + "." + suffix;
-        // 文件保存路径
-        String saveDest = absolt + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
-        // 文件访问路径
-        String accessDest = prefix + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+        if (Objects.isNull(diary)) {
+            saveDest = absolt + "/" + dateUtil.getDateStamp() + "/";
+            accessDest = prefix + "/" + dateUtil.getDateStamp() + "/";
+        } else {
+            // 文件保存路径
+            saveDest = absolt + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+            // 文件访问路径
+            accessDest = prefix + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+//            accessDest = "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+        }
+
         File dir = new File(saveDest);
         if (!dir.exists()) {
             isExist = dir.mkdirs();

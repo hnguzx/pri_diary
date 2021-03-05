@@ -65,7 +65,7 @@ public class PdUser implements Serializable, UserDetails {
      * 用户登录密码
      */
     @NotBlank(message = "登录密码不能为空", groups = {Groups.Add.class,Groups.Update.class})
-    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", message = "密码必须为8~16个字母和数字组合")
+//    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", message = "密码必须为8~16个字母和数字组合")
     @Column(name = "user_password")
     @ApiModelProperty(value = "日记所属用户id")
     private String userPassword;

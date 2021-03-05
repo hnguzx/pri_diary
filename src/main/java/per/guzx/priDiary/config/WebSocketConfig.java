@@ -45,7 +45,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
     @Profile({"dev"})
-    @Bean
+//    @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }

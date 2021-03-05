@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdDiary;
 import per.guzx.priDiary.service.PdDiaryService;
+import per.guzx.priDiary.tool.FileUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Part;
@@ -27,6 +28,9 @@ public class DiaryController {
     @Resource
     private PdDiaryService pdDiaryService;
 
+    @Resource
+    private FileUtil fileUtil;
+
     /**
      * 上传图片
      * @param diaryPhoto
@@ -35,6 +39,7 @@ public class DiaryController {
     @PostMapping("/uploadImg")
     @ApiOperation("上传图片")
     public ApiResp uploadImg(@RequestParam("diaryPhoto") Part diaryPhoto) {
+        String filePath = fileUtil.uploadFile(diaryPhoto);
         return ApiResp.retOk();
     }
 
@@ -46,7 +51,7 @@ public class DiaryController {
      */
     @PostMapping("/insertDiary")
     @ApiOperation("新增日记")
-    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto,@Valid @RequestPart(name = "diary", required = false) PdDiary diary) {
+    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto,@RequestPart(name = "diary", required = true) PdDiary diary) {
         pdDiaryService.insertDiary(diary, diaryPhoto);
         return ApiResp.retOk(diary);
     }
@@ -57,7 +62,7 @@ public class DiaryController {
      * @param diary
      * @return
      */
-    @PatchMapping("/updateDiary")
+    @PostMapping("/updateDiary")
     @ApiOperation("更新日记")
     public ApiResp<PdDiary> updateDiary(@RequestPart(name = "detailPhoto", required = false) Part detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
         pdDiaryService.updateDiary(diary, detailPhoto);

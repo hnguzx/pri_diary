@@ -47,10 +47,10 @@ import java.util.concurrent.Executor;
 public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
 
     @Value("${spring.profiles.active}")
-    private String env;//当前激活的配置文件
+    private String env;
 
     @Value("${image.baseImagePath}")
-    private String imageBasePath;//
+    private String imageBasePath;
 
     /**
      * 文件请求相关
@@ -60,12 +60,11 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 和页面相关的静态文件
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        //上传的图片在D盘下的OTA目录下，访问路径如：http://localhost:8081/OTA/d3cf0281-bb7f-40e0-ab77-406db95ccf2c.jpg
-        //其中OTA表示访问的前缀。"file:D:/OTA/"是文件真实的存储路径
-        // 服务器路径
-//        registry.addResourceHandler("/File/**").addResourceLocations("file:/home/files/");
+        // registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        // addResourceHandler是指你想在url请求的路径
+        // addResourceLocations是图片存放的真实路
         // 本地路径
+        log.debug("本地文件系统地址" + imageBasePath);
         registry.addResourceHandler("/File/**").addResourceLocations("file:" + imageBasePath);
 
     }
@@ -209,18 +208,18 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
                     apiResp.setMsg(e.getMessage());
                 } else if (e instanceof MethodArgumentNotValidException) {
                     BindingResult bindingResult = ((MethodArgumentNotValidException) e).getBindingResult();
-                    Map<String,String> errorMap = new HashMap<>(16);
-                    bindingResult.getFieldErrors().forEach((fieldError)->
-                            errorMap.put(fieldError.getField(),fieldError.getDefaultMessage())
+                    Map<String, String> errorMap = new HashMap<>(16);
+                    bindingResult.getFieldErrors().forEach((fieldError) ->
+                            errorMap.put(fieldError.getField(), fieldError.getDefaultMessage())
                     );
                     apiResp.setCode(ErrorEnum.DATA_VALIDATE.getCode());
                     apiResp.setMsg("非法参数");
                     apiResp.setData(errorMap);
                 } else if (e instanceof BindException) {
                     BindingResult bindingResult = ((BindException) e).getBindingResult();
-                    Map<String,String> errorMap = new HashMap<>(16);
-                    bindingResult.getFieldErrors().forEach((fieldError)->
-                            errorMap.put(fieldError.getField(),fieldError.getDefaultMessage())
+                    Map<String, String> errorMap = new HashMap<>(16);
+                    bindingResult.getFieldErrors().forEach((fieldError) ->
+                            errorMap.put(fieldError.getField(), fieldError.getDefaultMessage())
                     );
                     apiResp.setCode(ErrorEnum.DATA_VALIDATE.getCode());
                     apiResp.setMsg("非法参数");
