@@ -11,6 +11,7 @@ import per.guzx.priDiary.service.PdDiaryService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Part;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class DiaryController {
      */
     @PostMapping("/insertDiary")
     @ApiOperation("新增日记")
-    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) Part diaryPhoto,@Valid @RequestPart(name = "diary", required = false) PdDiary diary) {
         pdDiaryService.insertDiary(diary, diaryPhoto);
         return ApiResp.retOk(diary);
     }

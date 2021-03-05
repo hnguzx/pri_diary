@@ -16,6 +16,7 @@ import per.guzx.priDiary.tool.Validator;
 import per.guzx.priDiary.tool.VerifyCodeFactory;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,7 +55,7 @@ public class UserController {
      */
     @PostMapping("insertUser/{verifyCode}")
     @ApiOperation("用户注册")
-    public ApiResp insertUser(@RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
+    public ApiResp insertUser(@Valid @RequestBody PdUser user, @PathVariable("verifyCode") String verifyCode) {
         if (checkVerifyCode(user, verifyCode)) {
             userService.insertUser(user);
             return ApiResp.retOk(user);

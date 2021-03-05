@@ -5,10 +5,10 @@
     <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdBlog">
         <id column="blog_id" javaType="int" jdbcType="VARCHAR" property="blogId"/>
         <result column="user_id" javaType="int" jdbcType="INTEGER" property="userId"/>
-        <result column="blog_type" javaType="String" jdbcType="VARCHAR" property="blogType"/>
+        <result column="blog_type" javaType="int" jdbcType="INTEGER" property="blogType"/>
         <result column="blog_image" javaType="String" jdbcType="VARCHAR" property="blogImage"/>
         <result column="blog_context" javaType="String" jdbcType="VARCHAR" property="blogContext"/>
-        <result column="blog_label" javaType="String" jdbcType="VARCHAR" property="blogLabel"/>
+        <result column="blog_label" javaType="int" jdbcType="INTEGER" property="blogLabel"/>
         <result column="blog_create_time" javaType="String" jdbcType="TIMESTAMP" property="blogCreateTime"/>
         <result column="blog_update_time" javaType="String" jdbcType="TIMESTAMP" property="blogUpdateTime"/>
     </resultMap>

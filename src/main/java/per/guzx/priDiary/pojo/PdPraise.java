@@ -3,10 +3,13 @@ package per.guzx.priDiary.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
+import per.guzx.priDiary.tool.Groups;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 /**
@@ -19,6 +22,8 @@ public class PdPraise {
     /**
      * 点赞ID
      */
+    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
+    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
     @Id
     @Column(name = "praise_id")
     @ApiModelProperty(value = "点赞ID")
@@ -27,6 +32,7 @@ public class PdPraise {
     /**
      * 点赞用户ID
      */
+    @NotNull(message = "点赞用户id不能为空", groups = Groups.Add.class)
     @Column(name = "user_id")
     @ApiModelProperty(value = "点赞用户ID")
     private Integer userId;

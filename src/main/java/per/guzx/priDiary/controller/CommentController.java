@@ -10,6 +10,7 @@ import per.guzx.priDiary.pojo.PdComment;
 import per.guzx.priDiary.service.PdCommentService;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class CommentController {
      */
     @PostMapping("/add")
     @ApiOperation("新增评论")
-    public ApiResp<Object> add(@RequestBody PdComment pdComment) {
+    public ApiResp<Object> add(@Valid @RequestBody PdComment pdComment) {
         pdCommentService.save(pdComment);
         return ApiResp.retOk();
     }

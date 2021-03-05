@@ -4,14 +4,17 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdFriend;
 import per.guzx.priDiary.service.PdFriendService;
 import per.guzx.priDiary.service.PdMessageService;
+import per.guzx.priDiary.tool.Groups;
 import per.guzx.priDiary.tool.NoticeUtil;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  *
@@ -45,7 +48,7 @@ public class FriendController {
 //    @MessageMapping("/addFriend")
 //    @SubscribeMapping("/addFriend")
     @ApiOperation("新增好友")
-    public ApiResp<PdFriend> add(@RequestBody PdFriend pdFriend) {
+    public ApiResp<PdFriend> add(@Validated(Groups.Add.class) @RequestBody PdFriend pdFriend) {
         boolean added = pdFriendService.save(pdFriend);
         if(added){
             return ApiResp.retOk(pdFriend);
@@ -75,7 +78,7 @@ public class FriendController {
      */
     @PatchMapping("/update")
     @ApiOperation("更新好友相关信息")
-    public ApiResp<PdFriend> update(@RequestBody PdFriend pdFriend) {
+    public ApiResp<PdFriend> update(@Validated(Groups.Update.class) @RequestBody PdFriend pdFriend) {
         pdFriendService.update(pdFriend);
         return ApiResp.retOk(pdFriend);
     }

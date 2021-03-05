@@ -3,10 +3,15 @@ package per.guzx.priDiary.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
+import per.guzx.priDiary.tool.Groups;
+import per.guzx.priDiary.valid.PhoneNumber;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 /**
@@ -19,6 +24,8 @@ public class PdFriend {
     /**
      * 好友ID
      */
+    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
+    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
     @Id
     @Column(name = "friend_id")
     @ApiModelProperty(value = "好友ID")
@@ -27,6 +34,7 @@ public class PdFriend {
     /**
      * 我的用户ID
      */
+    @NotNull(message = "本人id不能为空",groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "my_user_id")
     @ApiModelProperty(value = "我的用户ID")
     private Integer myUserId;
@@ -34,6 +42,7 @@ public class PdFriend {
     /**
      * 我的邮箱
      */
+    @Email(message = "邮箱格式不正确",groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "my_email")
     @ApiModelProperty(value = "我的邮箱")
     private String myEmail;
@@ -41,6 +50,7 @@ public class PdFriend {
     /**
      * 我的手机号码
      */
+    @PhoneNumber(message = "手机号码格式不正确",groups = {Groups.Add.class})
     @Column(name = "my_phone")
     @ApiModelProperty(value = "我的手机号码")
     private String myPhone;
@@ -48,6 +58,7 @@ public class PdFriend {
     /**
      * 好友的用户ID
      */
+    @NotNull(message = "好友id不能为空",groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "friend_user_id")
     @ApiModelProperty(value = "好友的用户ID")
     private Integer friendUserId;
@@ -55,6 +66,7 @@ public class PdFriend {
     /**
      * 好友的邮箱
      */
+    @Email(message = "邮箱格式不正确",groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "friend_email")
     @ApiModelProperty(value = "好友的邮箱")
     private String friendEmail;
@@ -62,6 +74,7 @@ public class PdFriend {
     /**
      * 好友的手机号码
      */
+    @PhoneNumber(message = "手机号码格式不正确",groups = {Groups.Add.class})
     @Column(name = "friend_phone")
     @ApiModelProperty(value = "好友的手机号码")
     private String friendPhone;
@@ -73,7 +86,8 @@ public class PdFriend {
     @ApiModelProperty(value = "好友的备注")
     private String friendRemark;
 
-    private int friendApplyResult;
+
+    private Integer friendApplyResult;
 
     /**
      * 获取好友ID
@@ -224,7 +238,7 @@ public class PdFriend {
      *
      * @return
      */
-    public int getFriendApplyResult() {
+    public Integer getFriendApplyResult() {
         return friendApplyResult;
     }
 
@@ -233,7 +247,7 @@ public class PdFriend {
      *
      * @param friendApplyResult
      */
-    public void setFriendApplyResult(int friendApplyResult) {
+    public void setFriendApplyResult(Integer friendApplyResult) {
         this.friendApplyResult = friendApplyResult;
     }
 }

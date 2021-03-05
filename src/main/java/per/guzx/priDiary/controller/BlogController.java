@@ -5,10 +5,12 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdBlog;
 import per.guzx.priDiary.service.PdBlogService;
+import per.guzx.priDiary.tool.Groups;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -35,7 +37,7 @@ public class BlogController {
      */
     @PostMapping("/add")
     @ApiOperation("新增博客")
-    public ApiResp<PdBlog> add(@Valid @RequestBody PdBlog pdBlog) {
+    public ApiResp<PdBlog> add(@Validated(Groups.Add.class) @RequestBody PdBlog pdBlog) {
         pdBlogService.save(pdBlog);
         return ApiResp.retOk();
     }
@@ -59,7 +61,7 @@ public class BlogController {
      */
     @PutMapping("/update")
     @ApiOperation("更新博客")
-    public ApiResp<PdBlog> update(@RequestBody PdBlog pdBlog) {
+    public ApiResp<PdBlog> update(@Validated(Groups.Update.class) @RequestBody PdBlog pdBlog) {
         pdBlogService.update(pdBlog);
         return ApiResp.retOk();
     }

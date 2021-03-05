@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface PdBlogService {
 
-    void save(PdBlog pdBlog);
+    Integer save(PdBlog pdBlog);
 
-    void deleteById(Integer id);
+    Integer deleteById(Integer id);
 
-    void update(PdBlog pdBlog);
+    Integer update(PdBlog pdBlog);
 
     PdBlog findById(Integer id);
 

@@ -8,6 +8,9 @@ import per.guzx.priDiary.enumeration.ErrorEnum;
 
 import java.io.Serializable;
 
+/**
+ * @author Administrator
+ */
 @Component
 @ApiModel
 public class ApiResp<T> implements Serializable {

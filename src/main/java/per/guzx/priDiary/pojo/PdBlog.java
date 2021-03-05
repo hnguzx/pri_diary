@@ -3,6 +3,8 @@ package per.guzx.priDiary.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
+import per.guzx.priDiary.tool.Groups;
+import per.guzx.priDiary.valid.ListValue;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 /**
@@ -22,6 +25,8 @@ public class PdBlog {
     /**
      * 博客ID
      */
+    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
+    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
     @Id
     @Column(name = "blog_id")
     @ApiModelProperty(value = "博客id")
@@ -30,7 +35,7 @@ public class PdBlog {
     /**
      * 博客所属用户ID
      */
-    @NotNull(message = "创建用户不能为空")
+    @NotNull(message = "创建用户不能为空",groups = {Groups.Add.class})
     @Column(name = "user_id")
     @ApiModelProperty(value = "博客所属用户ID")
     private Integer userId;
@@ -39,9 +44,10 @@ public class PdBlog {
      * 博客类型（一句话/小故事）
      */
     @NotBlank(message = "博客类型不能为空")
+    @ListValue(value = {1,2},message = "天气信息不正确",groups = {Groups.Add.class})
     @Column(name = "blog_type")
     @ApiModelProperty(value = "博客类型（一句话/小故事）")
-    private String blogType;
+    private Integer blogType;
 
     /**
      * 博客图片地址
@@ -53,7 +59,7 @@ public class PdBlog {
     /**
      * 博客具体内容
      */
-    @NotBlank(message = "博客内容不能为空")
+    @NotBlank(message = "博客内容不能为空",groups = {Groups.Add.class})
     @Column(name = "blog_context")
     @ApiModelProperty(value = "博客具体内容")
     private String blogContext;
@@ -61,10 +67,10 @@ public class PdBlog {
     /**
      * 博客标签
      */
-    @NotBlank(message = "博客标签不能为空")
+    @NotBlank(message = "博客标签不能为空",groups = {Groups.Add.class})
     @Column(name = "blog_label")
     @ApiModelProperty(value = "博客标签")
-    private String blogLabel;
+    private Integer blogLabel;
 
     /**
      * 博客创建时间
@@ -121,7 +127,7 @@ public class PdBlog {
      *
      * @return blog_type - 博客类型（一句话/小故事）
      */
-    public String getBlogType() {
+    public Integer getBlogType() {
         return blogType;
     }
 
@@ -130,7 +136,7 @@ public class PdBlog {
      *
      * @param blogType 博客类型（一句话/小故事）
      */
-    public void setBlogType(String blogType) {
+    public void setBlogType(Integer blogType) {
         this.blogType = blogType;
     }
 
@@ -175,7 +181,7 @@ public class PdBlog {
      *
      * @return blog_label - 博客标签
      */
-    public String getBlogLabel() {
+    public Integer getBlogLabel() {
         return blogLabel;
     }
 
@@ -184,7 +190,7 @@ public class PdBlog {
      *
      * @param blogLabel 博客标签
      */
-    public void setBlogLabel(String blogLabel) {
+    public void setBlogLabel(Integer blogLabel) {
         this.blogLabel = blogLabel;
     }
 

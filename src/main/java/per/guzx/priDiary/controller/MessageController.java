@@ -20,6 +20,7 @@ import per.guzx.priDiary.service.PdUserService;
 import per.guzx.priDiary.tool.NoticeUtil;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -95,7 +96,7 @@ public class MessageController {
      * @return
      */
     @PostMapping("/sendMsg")
-    public ApiResp sendMsg(@RequestBody PdMessage pdMessage) {
+    public ApiResp sendMsg(@Valid @RequestBody PdMessage pdMessage) {
         pdMessageService.sendMsg(pdMessage);
         noticeUtil.sendTxtToUser(pdMessage.getMsgReceiver(), "/client_chat/receive_msg", pdMessage);
         return ApiResp.retOk();

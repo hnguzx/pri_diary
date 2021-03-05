@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import per.guzx.priDiary.enumeration.SexEnum;
 import per.guzx.priDiary.enumeration.UserStateEnum;
+import per.guzx.priDiary.tool.Groups;
+import per.guzx.priDiary.valid.PhoneNumber;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -26,6 +28,8 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户唯一标识
      */
+    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
+    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
     @Id
     @Column(name = "user_id")
     @ApiModelProperty(value = "用户id")
@@ -34,8 +38,8 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户昵称
      */
-    @NotBlank(message = "用户昵称不能为空")
-    @Length(max = 30,message = "用户昵称长度不能超过30个字符")
+    @NotBlank(message = "用户昵称不能为空", groups = Groups.Add.class)
+    @Length(max = 30,message = "用户昵称长度不能超过30个字符", groups = Groups.Add.class)
     @Column(name = "user_name")
     @ApiModelProperty(value = "用户昵称")
     private String userName;
@@ -43,8 +47,8 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户出生日期
      */
-    @NotBlank(message = "用户出生日期不能为空")
-    @Length(min = 10,max = 10,message = "日期格式不正确")
+    @NotBlank(message = "用户出生日期不能为空", groups = {Groups.Add.class,Groups.Update.class})
+    @PastOrPresent(message = "出生日期不正确", groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "user_birthday")
     @ApiModelProperty(value = "用户出生日期")
     private String userBirthday;
@@ -52,7 +56,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户性别
      */
-    @NotNull(message = "用户性别不能为空")
+    @NotNull(message = "用户性别不能为空", groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "user_sex")
     @ApiModelProperty(value = "用户性别")
     private SexEnum userSex;
@@ -60,7 +64,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户登录密码
      */
-    @NotBlank(message = "登录密码不能为空")
+    @NotBlank(message = "登录密码不能为空", groups = {Groups.Add.class,Groups.Update.class})
     @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", message = "密码必须为8~16个字母和数字组合")
     @Column(name = "user_password")
     @ApiModelProperty(value = "日记所属用户id")
@@ -76,7 +80,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 手机号码
      */
-    @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$", message = "手机号码格式不正确")
+    @PhoneNumber(message = "手机号码格式不正确",groups = {Groups.Add.class})
     @Column(name = "user_phone")
     @ApiModelProperty(value = "手机号码")
     private String userPhone;
@@ -84,7 +88,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 邮箱地址
      */
-    @Email
+    @Email(message = "邮箱格式不正确", groups = {Groups.Add.class,Groups.Update.class})
     @Column(name = "user_email")
     @ApiModelProperty(value = "邮箱地址")
     private String userEmail;

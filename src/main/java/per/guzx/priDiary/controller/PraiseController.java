@@ -9,6 +9,7 @@ import per.guzx.priDiary.pojo.PdPraise;
 import per.guzx.priDiary.service.PdPraiseService;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  *
@@ -30,7 +31,7 @@ public class PraiseController {
      */
     @PostMapping("/add")
     @ApiOperation("新增点赞")
-    public ApiResp add(@RequestBody PdPraise pdPraise) {
+    public ApiResp add(@Valid @RequestBody PdPraise pdPraise) {
         pdPraiseService.save(pdPraise);
         return ApiResp.retOk();
     }

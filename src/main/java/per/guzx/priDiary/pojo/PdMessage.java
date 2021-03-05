@@ -3,22 +3,27 @@ package per.guzx.priDiary.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
+import per.guzx.priDiary.tool.Groups;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 /**
  * @author Administrator
  */
 @Alias("message")
-@ApiModel(description= "消息详细信息")
+@ApiModel(description = "消息详细信息")
 @Table(name = "pd_message")
 public class PdMessage {
     /**
      * 消息主键
      */
+    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
+    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
     @Id
     @Column(name = "msg_id")
     @ApiModelProperty(value = "消息id")
@@ -27,6 +32,7 @@ public class PdMessage {
     /**
      * 发送用户
      */
+    @NotNull(message = "发送用户id不能为空", groups = Groups.Add.class)
     @Column(name = "msg_sender")
     @ApiModelProperty(value = "发送用户id")
     private Integer msgSender;
@@ -34,6 +40,7 @@ public class PdMessage {
     /**
      * 接收用户
      */
+    @NotNull(message = "接收用户id不能为空", groups = Groups.Add.class)
     @Column(name = "msg_receiver")
     @ApiModelProperty(value = "接收用户id")
     private Integer msgReceiver;
@@ -55,6 +62,7 @@ public class PdMessage {
     /**
      * 消息内容（图片，音频，文件2.0处理）
      */
+    @NotNull(message = "消息内容不能为空", groups = Groups.Add.class)
     @Column(name = "msg_content")
     @ApiModelProperty(value = "消息内容")
     private String msgContent;
@@ -167,7 +175,7 @@ public class PdMessage {
         this.msgContent = msgContent;
     }
 
-    public PdMessage(){
+    public PdMessage() {
 
     }
 
