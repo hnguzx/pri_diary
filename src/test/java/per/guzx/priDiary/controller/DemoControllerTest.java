@@ -55,7 +55,7 @@ public class DemoControllerTest {
                 .content(json.getBytes())
                 .session(mockHttpSession)
         ).andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("author").value("guzx"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("guzx"))
                 .andDo(MockMvcResultHandlers.print());
     }
 }

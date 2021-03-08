@@ -10,13 +10,16 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.pojo.ApiResp;
+import per.guzx.priDiary.pojo.PdBlog;
 import per.guzx.priDiary.pojo.PdMessage;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdMessageService;
 import per.guzx.priDiary.service.PdUserService;
+import per.guzx.priDiary.tool.Groups;
 import per.guzx.priDiary.tool.NoticeUtil;
 
 import javax.annotation.Resource;
@@ -55,7 +58,9 @@ public class MessageController {
         // 判断是否有其的未读消息，先去redis中查，再去数据库中查
         long unReadAmount = redisTemplate.opsForList().size(user.getUsername());
         for (int i = 0; i < unReadAmount; i++) {
-            PdMessage message = JSONObject.parseObject((String) redisTemplate.opsForList().leftPop(user.getUsername()), PdMessage.class);
+            String unReadMsg = (String) redisTemplate.opsForList().leftPop(user.getUsername());
+            JSONObject jsonObject = JSONObject.parseObject(unReadMsg);
+            PdMessage message = JSONObject.toJavaObject(jsonObject,PdMessage.class);
             pdMessageService.sendMsg(message);
         }
         return ApiResp.retOk(ErrorEnum.USER_CONNECT_SUCCESS);
@@ -80,12 +85,11 @@ public class MessageController {
     /**
      * 发送消息给特定用户
      *
-     * @param body
+     * @param message
      */
     @MessageMapping("/sendUser")
-    public void sendToUser(String body) {
+    public void sendToUser(@Validated(Groups.Add.class) @RequestBody PdMessage message) {
         // 需要添加所需参数的构造器
-        PdMessage message = JSONObject.parseObject(body, PdMessage.class);
         pdMessageService.sendMsg(message);
     }
 

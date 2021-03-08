@@ -49,13 +49,13 @@ public class PdMessageServiceImpl implements PdMessageService {
     @Override
     public boolean sendMsg(PdMessage message) {
         message.setMsgCreateTime(dateUtil.getTimeStamp());
-        message.setMsgIsReade(false);
+        message.setMsgIsReaded(false);
 
         PdUser user = userService.findUserById(message.getMsgReceiver());
         // 判断接收用户是否在线，不在线的话先缓存，然后入库
         boolean isOnLine = redisTemplate.opsForHash().get("loggedUser", user.getUsername()) != null;
         if (isOnLine) {
-            message.setMsgIsReade(true);
+            message.setMsgIsReaded(true);
             //  发送到用户和监听地址
             noticeUtil.sendTxtToUser(message.getMsgReceiver(), "/queue/customer", message);
         } else {

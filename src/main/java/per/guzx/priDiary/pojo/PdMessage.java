@@ -117,7 +117,7 @@ public class PdMessage {
      *
      * @param msgReceiver 接收用户
      */
-    public void setMsgReceive(Integer msgReceiver) {
+    public void setMsgReceiver(Integer msgReceiver) {
         this.msgReceiver = msgReceiver;
     }
 
@@ -153,7 +153,7 @@ public class PdMessage {
      *
      * @param msgIsReaded 接收者是否查看
      */
-    public void setMsgIsReade(boolean msgIsReaded) {
+    public void setMsgIsReaded(boolean msgIsReaded) {
         this.msgIsReaded = msgIsReaded;
     }
 
@@ -177,6 +177,14 @@ public class PdMessage {
 
     public PdMessage() {
 
+    }
+
+    public PdMessage(Integer msgSender, Integer msgReceiver, String msgCreateTime, Boolean msgIsReaded, String msgContent) {
+        this.msgSender = msgSender;
+        this.msgReceiver = msgReceiver;
+        this.msgCreateTime = msgCreateTime;
+        this.msgIsReaded = msgIsReaded;
+        this.msgContent = msgContent;
     }
 
     public PdMessage(Integer msgId, Integer msgSender, Integer msgReceiver, String msgCreateTime, Boolean msgIsReaded, String msgContent) {

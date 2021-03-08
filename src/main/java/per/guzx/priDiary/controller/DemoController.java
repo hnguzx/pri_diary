@@ -49,8 +49,8 @@ public class DemoController {
         int result;
         PdMessage message = new PdMessage();
         message.setMsgSender(1);
-        message.setMsgReceive(2);
-        message.setMsgIsReade(false);
+        message.setMsgReceiver(2);
+        message.setMsgIsReaded(false);
         message.setMsgContent("测试自增");
         message.setMsgCreateTime(dateUtil.getTimeStamp());
         switch (insertMethod) {
@@ -98,7 +98,7 @@ public class DemoController {
         Example example = new Example(PdMessage.class);
         PdMessage message = new PdMessage();
 //        message.setMsgId(10);
-        message.setMsgIsReade(true);
+        message.setMsgIsReaded(true);
         message.setMsgSender(111);
         message.setMsgContent("你好啊");
         switch (updateMethod) {
@@ -135,7 +135,7 @@ public class DemoController {
 
         PdMessage message = new PdMessage();
 //        message.setMsgSender(1);
-        message.setMsgReceive(2);
+        message.setMsgReceiver(2);
         Example example = new Example(PdMessage.class);
 
         switch (queryMethod) {
