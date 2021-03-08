@@ -6,10 +6,27 @@ package per.guzx.priDiary.enumeration;
  */
 public enum ErrorEnum {
 
-    REQUEST_FAIL(400, "请求失败"),
-    NOT_FOUND(404, "接口不存在"),
-    SYS_ERROR(500, "系统错误"),
-    COMMON_FAIL(999,"其它错误"),
+    /**
+     * 系统错误码
+     */
+    OK(200, "已在响应中发出"),
+    CREATED(201, "新资源被创建"),
+    ACCEPTED(202, "已接受处理请求但尚未完成（异步处理）"),
+    NULL(204, "请求失败"),
+    MOVED_PERMANENTLY(301, "资源的URI已被更新"),
+    SEE_OTHER(303, "其他（如，负载均衡）"),
+    NOT_MODIFIED(304, "资源未更改（缓存）"),
+    BAD_REQUEST(400, "坏请求（如，参数错误）"),
+    NOT_FOUND(404, "资源不存在"),
+    NOT_ACCEPTABLE(406, "服务端不支持所需表示"),
+    CONFLICT(409, "通用冲突"),
+    PRECONDITION_FAILED(412, "前置条件失败（如执行条件更新时的冲突）"),
+    UNSUPPORTED_MEDIA_TYPE(415, " 接受到的媒体类型不受支持"),
+    INTERNAL_SERVER_ERROR(500, "通用错误响应"),
+    SERVICE_UNAVAILABLE(503, "服务端当前无法处理请求"),
+    /**
+     * 业务错误码
+     */
     UPDATE_INFO_FAIL(100000, "数据更新失败！"),
     INFO_IS_LATEST(100001, "数据已是最新！"),
     DATA_EXCEPTION(100002, "数据异常！"),
@@ -36,7 +53,8 @@ public enum ErrorEnum {
 //    3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
 //    4000-4999 好友相关错误
-    FRIEND_IS_ADDED(400000, "好友已添加，请不要重复添加！");
+    FRIEND_IS_ADDED(400000, "好友已添加，请不要重复添加！"),
+    COMMON_BUSINESS_ERROR(999999, "通用业务错误");
 
     private int code;
     private String msg;

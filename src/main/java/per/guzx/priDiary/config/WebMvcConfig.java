@@ -197,14 +197,14 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
                 ApiResp apiResp = new ApiResp();
                 if (e instanceof ServiceException) {//业务失败的异常，如“账号或密码错误”
-                    apiResp.setCode(ErrorEnum.REQUEST_FAIL.getCode());
+                    apiResp.setCode(ErrorEnum.COMMON_BUSINESS_ERROR.getCode());
                     apiResp.setMsg(e.getMessage());
                     log.info(e.getMessage());
                 } else if (e instanceof NoHandlerFoundException) {
                     apiResp.setCode(ErrorEnum.NOT_FOUND.getCode());
                     apiResp.setMsg("接口 [" + request.getRequestURI() + "] 不存在");
                 } else if (e instanceof ServletException) {
-                    apiResp.setCode(ErrorEnum.REQUEST_FAIL.getCode());
+                    apiResp.setCode(ErrorEnum.SERVICE_UNAVAILABLE.getCode());
                     apiResp.setMsg(e.getMessage());
                 } else if (e instanceof MethodArgumentNotValidException) {
                     BindingResult bindingResult = ((MethodArgumentNotValidException) e).getBindingResult();
@@ -225,7 +225,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
                     apiResp.setMsg("非法参数");
                     apiResp.setData(errorMap);
                 } else {
-                    apiResp.setCode(ErrorEnum.SYS_ERROR.getCode());
+                    apiResp.setCode(ErrorEnum.INTERNAL_SERVER_ERROR.getCode());
                     apiResp.setMsg("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
                     String message;
                     if (handler instanceof HandlerMethod) {

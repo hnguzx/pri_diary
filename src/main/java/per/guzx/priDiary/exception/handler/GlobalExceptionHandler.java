@@ -45,17 +45,17 @@ public class GlobalExceptionHandler {
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
                 ApiResp result = new ApiResp();
                 if (e instanceof ServiceException) {//业务失败的异常，如“账号或密码错误”
-                    result.setCode(ErrorEnum.REQUEST_FAIL.getCode());
+                    result.setCode(ErrorEnum.COMMON_BUSINESS_ERROR.getCode());
                     result.setMsg(e.getMessage());
                     log.info(e.getMessage());
                 } else if (e instanceof NoHandlerFoundException) {
                     result.setCode(ErrorEnum.NOT_FOUND.getCode());
                     result.setMsg("接口 [" + request.getRequestURI() + "] 不存在");
                 } else if (e instanceof ServletException) {
-                    result.setCode(ErrorEnum.REQUEST_FAIL.getCode());
+                    result.setCode(ErrorEnum.SERVICE_UNAVAILABLE.getCode());
                     result.setMsg(e.getMessage());
                 } else {
-                    result.setCode(ErrorEnum.SYS_ERROR.getCode());
+                    result.setCode(ErrorEnum.INTERNAL_SERVER_ERROR.getCode());
                     result.setMsg("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
                     String message;
                     if (handler instanceof HandlerMethod) {

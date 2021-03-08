@@ -43,7 +43,7 @@ public class CustomizeAuthenticationFailureHandler implements AuthenticationFail
             result = ApiResp.retFail(ErrorEnum.USER_ACCOUNT_NOT_EXIST);
         }else{
             //其他错误
-            result = ApiResp.retFail(ErrorEnum.COMMON_FAIL);
+            result = ApiResp.retFail(ErrorEnum.INTERNAL_SERVER_ERROR);
         }
         //处理编码方式，防止中文乱码的情况
         httpServletResponse.setContentType("text/json;charset=utf-8");

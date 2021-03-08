@@ -4,6 +4,7 @@ import per.guzx.priDiary.enumeration.ErrorEnum;
 
 /**
  * 服务错误
+ * @author Administrator
  */
 public class ServiceException extends RuntimeException {
 
