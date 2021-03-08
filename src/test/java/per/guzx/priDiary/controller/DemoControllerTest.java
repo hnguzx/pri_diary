@@ -1,5 +1,8 @@
 package per.guzx.priDiary.controller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +12,8 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -46,16 +51,48 @@ public class DemoControllerTest {
 //        mockHttpSession.setAttribute("user",user);
     }
 
+    /**
+     * 测试连通性
+     * @throws Exception
+     */
     @Test
-    public void controllerTest() throws Exception {
+    public void demoControllerTest() throws Exception {
         String json = "{\"author\":\"guzx\",\"title\":\"\",\"url\":\"http://localhost/\"}";
-        mockMvc.perform(MockMvcRequestBuilders.get("/demo/common")
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/demo/common")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(json.getBytes())
                 .session(mockHttpSession)
-        ).andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("guzx"))
-                .andDo(MockMvcResultHandlers.print());
+        ).andExpect(MockMvcResultMatchers.status().isOk()) // 结果校验
+                .andDo(MockMvcResultHandlers.print()); // 结果处理器
+        System.out.println(resultActions);
+    }
+
+    @Test
+    public void addControllerTest() throws Exception{
+//        String json = "";
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/demo/query/4")
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+//                .param("url","http://localhost/")
+//        .content(json.getBytes())
+        .session(mockHttpSession))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+        .andReturn();
+
+        // 获取response数据
+        JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
+        JSONArray jsonArray = (JSONArray) jsonObject.get("data");
+
+        // 获取data数据
+        JSONObject jsonObject_data = null;
+        if (jsonArray.length()>0){
+            jsonObject_data = (JSONObject) jsonArray.get(0);
+        }
+
+        // 使用断言验证
+        Assert.assertNotNull(jsonObject_data.get("msgCreateTime"));
+
     }
 }

@@ -143,7 +143,7 @@ public class DemoController {
                 result = messageDao.selectOne(message);
                 break;
             case 2:
-                result = messageDao.selectByPrimaryKey(10);
+                result = messageDao.selectByPrimaryKey(10018);
                 break;
             case 3:
                 Example.Criteria criteria = example.createCriteria();
@@ -182,8 +182,8 @@ public class DemoController {
                 break;
         }
 //        return ApiResp.retOk(result);
-//        return ApiResp.retOk(results);
-        return ApiResp.retOk(pageInfo);
+        return ApiResp.retOk(results);
+//        return ApiResp.retOk(pageInfo);
     }
 
 
