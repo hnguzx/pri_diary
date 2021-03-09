@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import per.guzx.priDiary.dao.PdDiaryDao;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.exception.ServiceException;
@@ -38,11 +39,11 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     private DateUtil dateUtil;
 
     @Override
-    public int insertDiary(PdDiary diary, Part detailPhoto) {
+    public int insertDiary(PdDiary diary, MultipartFile detailPhoto) {
         diary.setDiaryCreateTime(dateUtil.getTimeStamp());
         diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
         diary.setDiaryCreateDay(dateUtil.getDateStamp());
-        if (detailPhoto != null && detailPhoto.getSubmittedFileName() != null) {
+        if (detailPhoto != null && detailPhoto.getOriginalFilename() != null) {
             String filePath = fileUtil.uploadFile(detailPhoto, diary);
             diary.setDiaryPhoto(filePath);
         }
@@ -54,11 +55,11 @@ public class PdDiaryServiceImpl implements PdDiaryService {
     }
 
     @Override
-    public int updateDiary(PdDiary diary, Part detailPhoto) {
+    public int updateDiary(PdDiary diary, MultipartFile detailPhoto) {
         PdDiary remoteDiary = findDiaryOtherById(diary.getUserId(), diary.getDiaryId());
         if (!remoteDiary.equals(diary)) {
             diary.setDiaryUpdateTime(dateUtil.getTimeStamp());
-            if (detailPhoto.getSubmittedFileName() != null) {
+            if (detailPhoto.getOriginalFilename() != null) {
                 String filePath = fileUtil.uploadFile(detailPhoto, diary);
                 diary.setDiaryPhoto(filePath);
             }

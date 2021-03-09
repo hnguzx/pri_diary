@@ -1,5 +1,6 @@
 package per.guzx.priDiary.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +42,10 @@ public class PdBlogServiceImpl implements PdBlogService {
     @Override
     public Integer deleteById(Integer id) {
         int result = pdBlogDao.deleteByPrimaryKey(id);
-        if (result>0){
+//        if (result>0){
             return result;
-        }
-        throw new ServiceException(ErrorEnum.UPDATE_INFO_FAIL);
+//        }
+//        throw new ServiceException(ErrorEnum.UPDATE_INFO_FAIL);
     }
 
     @Override
@@ -67,7 +68,10 @@ public class PdBlogServiceImpl implements PdBlogService {
     }
 
     @Override
-    public PageInfo<List<PdBlog>> findAll() {
-        return null;
+    public PageInfo<List<PdBlog>> findAll(int start,int size) {
+        PageHelper.startPage(start,size);
+        List<PdBlog> results = pdBlogDao.selectAll();
+        PageInfo<List<PdBlog>> pageInfo = new PageInfo(results);
+        return pageInfo;
     }
 }

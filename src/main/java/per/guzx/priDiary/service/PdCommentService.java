@@ -7,7 +7,9 @@ import per.guzx.priDiary.pojo.PdComment;
 import java.util.List;
 
 /**
- * Created by Guzx on 2020/09/07.
+ *
+ * @author Guzx
+ * @date 2020/09/07
  */
 public interface PdCommentService {
 

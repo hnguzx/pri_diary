@@ -1,6 +1,7 @@
 package per.guzx.priDiary.service;
 
 import com.github.pagehelper.PageInfo;
+import org.springframework.web.multipart.MultipartFile;
 import per.guzx.priDiary.pojo.PdDiary;
 
 import javax.servlet.http.Part;
@@ -18,7 +19,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    int insertDiary(PdDiary diary, Part detailPhoto);
+    int insertDiary(PdDiary diary, MultipartFile detailPhoto);
 
     /**
      * 更新日记
@@ -26,7 +27,7 @@ public interface PdDiaryService {
      * @param diary
      * @return
      */
-    int updateDiary(PdDiary diary, Part detailPhoto);
+    int updateDiary(PdDiary diary, MultipartFile detailPhoto);
 
     /**
      * 删除日记

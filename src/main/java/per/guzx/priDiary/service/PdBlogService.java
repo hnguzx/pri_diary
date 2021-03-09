@@ -21,5 +21,5 @@ public interface PdBlogService {
 
     PdBlog findById(Integer id);
 
-    PageInfo<List<PdBlog>> findAll();
+    PageInfo<List<PdBlog>> findAll(int page,int size);
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.exception.ServiceException;
 import per.guzx.priDiary.pojo.PdDiary;
@@ -33,7 +34,7 @@ public class FileUtil {
     @Resource
     private AddressUtil addressUtil;
 
-    public String uploadFile(Part detailPhoto) {
+    public String uploadFile(MultipartFile detailPhoto) {
         return this.uploadFile(detailPhoto, null);
     }
 
@@ -44,9 +45,9 @@ public class FileUtil {
      * @param diary
      * @return
      */
-    public String uploadFile(Part detailPhoto, PdDiary diary) {
+    public String uploadFile(MultipartFile detailPhoto, PdDiary diary) {
         boolean isExist = false;
-        String filename = detailPhoto.getSubmittedFileName();
+        String filename = detailPhoto.getOriginalFilename();
         String port = environment.getProperty("local.server.port");
 //        String address = addressUtil.getV4IP();
         String address = addressUtil.getInnerIp();
@@ -77,7 +78,8 @@ public class FileUtil {
         filename = saveDest + newFileName;
         try {
             log.trace("保存文件到：" + saveDest);
-            detailPhoto.write(filename);
+//            detailPhoto.write(filename);
+            detailPhoto.transferTo(new File(filename));
         } catch (IOException e) {
             e.printStackTrace();
             log.error("文件写入错误！");

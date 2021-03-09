@@ -3,19 +3,25 @@ package per.guzx.priDiary.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import per.guzx.priDiary.dao.PdMessageDao;
 import per.guzx.priDiary.enumeration.BusinessTypeEnum;
 import per.guzx.priDiary.pojo.ApiResp;
+import per.guzx.priDiary.pojo.PdDiary;
 import per.guzx.priDiary.pojo.PdMessage;
 import per.guzx.priDiary.tool.CommonUtil;
 import per.guzx.priDiary.tool.DateUtil;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import javax.mail.Multipart;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,12 +160,12 @@ public class DemoController {
                 results = messageDao.select(message);
                 break;
             case 5:
-                PageHelper.startPage(1,1);
+                PageHelper.startPage(1, 1);
                 results = messageDao.selectAll();
                 pageInfo = new PageInfo(results);
                 break;
             case 6:
-                PageHelper.startPage(1,1);
+                PageHelper.startPage(1, 1);
                 example = new Example(PdMessage.class);
                 Example.Criteria criteria2 = example.createCriteria();
                 criteria2.orLike("msgContent", "%好%");
@@ -184,6 +190,18 @@ public class DemoController {
 //        return ApiResp.retOk(result);
         return ApiResp.retOk(results);
 //        return ApiResp.retOk(pageInfo);
+    }
+
+    @PostMapping(value = "/upload", headers = "content-type=multipart/form-data")
+    public ApiResp uploadFileAndJson(
+            @RequestPart(value = "diary") PdDiary diary,
+            @RequestParam(value = "randomString") String randomString,
+            @RequestParam(value = "file", required = false) MultipartFile file
+    ) {
+        System.out.println(randomString);
+        System.out.println(diary.getDiaryContent());
+        System.out.println(file.getOriginalFilename());
+        return ApiResp.retOk();
     }
 
 

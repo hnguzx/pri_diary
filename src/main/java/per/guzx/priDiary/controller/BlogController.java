@@ -87,8 +87,8 @@ public class BlogController {
     @GetMapping("/list")
     @ApiOperation("查询博客列表")
     public ApiResp<PageInfo<List<PdBlog>>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        PageInfo<List<PdBlog>> pageInfo = pdBlogService.findAll();
+//        PageHelper.startPage(page, size);
+        PageInfo<List<PdBlog>> pageInfo = pdBlogService.findAll(page,size);
         return ApiResp.retOk(pageInfo);
     }
 }
