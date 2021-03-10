@@ -48,10 +48,10 @@ public enum EventEnum {
         this.name = name;
     }
 
-    public static WeathEnum getStateEnumById(int code) {
-        for (WeathEnum weathEnum : WeathEnum.values()) {
-            if (weathEnum.getCode() == code) {
-                return weathEnum;
+    public static WeatherEnum getStateEnumById(int code) {
+        for (WeatherEnum weatherEnum : WeatherEnum.values()) {
+            if (weatherEnum.getCode() == code) {
+                return weatherEnum;
             }
         }
         return null;

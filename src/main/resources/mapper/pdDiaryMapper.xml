@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="per.guzx.priDiary.dao.PdDiaryDao">
 
-    <resultMap id="BaseResultMap" type="per.guzx.priDiary.pojo.PdDiary">
+    <resultMap id="BaseResultMap" type="diary">
         <id column="diary_id" javaType="int" jdbcType="INTEGER" property="diaryId"/>
         <result column="user_id" javaType="int" jdbcType="INTEGER" property="myUserId"/>
         <result column="diary_photo" javaType="string" jdbcType="VARCHAR" property="myEmail"/>
         <result column="diary_title" javaType="string" jdbcType="VARCHAR" property="myPhone"/>
-        <result column="diary_weather" javaType="per.guzx.priDiary.enumeration.WeathEnum" jdbcType="VARCHAR" property="friendUserId"/>
+        <result column="diary_weather" javaType="per.guzx.priDiary.enumeration.WeatherEnum" jdbcType="VARCHAR" property="friendUserId"/>
         <result column="diary_mood" javaType="per.guzx.priDiary.enumeration.MoodEnum" jdbcType="VARCHAR" property="friendEmail"/>
         <result column="diary_event" javaType="per.guzx.priDiary.enumeration.EventEnum" jdbcType="VARCHAR" property="friendPhone"/>
         <result column="diary_content" javaType="string" jdbcType="VARCHAR" property="friendRemark"/>

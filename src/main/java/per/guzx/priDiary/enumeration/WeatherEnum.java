@@ -1,7 +1,10 @@
 package per.guzx.priDiary.enumeration;
 
-public enum WeathEnum {
+public enum WeatherEnum {
 
+    /**
+     * 天气枚举
+     */
     SUNNY_DAY(1, "晴-昼"),
     SUNNY_NIGHT(2, "晴-夜"),
     HAIL(3, "冰雹"),
@@ -26,15 +29,15 @@ public enum WeathEnum {
     private int code;
     private String name;
 
-    WeathEnum(int code, String name) {
+    WeatherEnum(int code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static WeathEnum getStateEnumById(int code) {
-        for (WeathEnum weathEnum : WeathEnum.values()) {
-            if (weathEnum.getCode() == code) {
-                return weathEnum;
+    public static WeatherEnum getStateEnumById(int code) {
+        for (WeatherEnum weatherEnum : WeatherEnum.values()) {
+            if (weatherEnum.getCode() == code) {
+                return weatherEnum;
             }
         }
         return null;

@@ -4,12 +4,14 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdDiary;
 import per.guzx.priDiary.service.PdDiaryService;
 import per.guzx.priDiary.tool.FileUtil;
+import per.guzx.priDiary.tool.Groups;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Part;
@@ -55,7 +57,7 @@ public class DiaryController {
      */
     @PostMapping("/insertDiary")
     @ApiOperation("新增日记")
-    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) MultipartFile diaryPhoto, @RequestPart(name = "diary", required = true) PdDiary diary) {
+    public ApiResp<PdDiary> insertDiary(@RequestPart(name = "diaryPhoto", required = false) MultipartFile diaryPhoto, @Validated(Groups.Add.class) @RequestPart(name = "diary", required = true) PdDiary diary) {
         pdDiaryService.insertDiary(diary, diaryPhoto);
         return ApiResp.retOk(diary);
     }
@@ -69,7 +71,7 @@ public class DiaryController {
      */
     @PostMapping("/updateDiary")
     @ApiOperation("更新日记")
-    public ApiResp<PdDiary> updateDiary(@RequestPart(name = "detailPhoto", required = false) MultipartFile detailPhoto, @RequestPart(name = "diary", required = false) PdDiary diary) {
+    public ApiResp<PdDiary> updateDiary(@RequestPart(name = "detailPhoto", required = false) MultipartFile detailPhoto, @Validated(Groups.Update.class) @RequestPart(name = "diary", required = false) PdDiary diary) {
         pdDiaryService.updateDiary(diary, detailPhoto);
         PdDiary updateAfterDiary = pdDiaryService.findDiaryById(diary.getUserId(), diary.getDiaryId());
         return ApiResp.retOk(updateAfterDiary);

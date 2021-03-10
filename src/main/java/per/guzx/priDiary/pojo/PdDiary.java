@@ -5,13 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
 import per.guzx.priDiary.enumeration.EventEnum;
 import per.guzx.priDiary.enumeration.MoodEnum;
-import per.guzx.priDiary.enumeration.WeathEnum;
+import per.guzx.priDiary.enumeration.WeatherEnum;
 import per.guzx.priDiary.tool.Groups;
 import per.guzx.priDiary.valid.ListValue;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
@@ -28,8 +29,8 @@ public class PdDiary implements Serializable {
     /**
      * 日记唯一标识
      */
-//    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
-//    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
+    @Null(message = "新增时不需要指定id", groups = Groups.Add.class)
+    @NotNull(message = "更新时必须指定id", groups = Groups.Update.class)
     @Id
     @Column(name = "diary_id")
     @ApiModelProperty(value = "日记ID")
@@ -39,7 +40,7 @@ public class PdDiary implements Serializable {
      * 日记所属用户id
      */
     @Column(name = "user_id")
-//    @NotNull(message = "用户ID不能为空！",groups = {Groups.Add.class,Groups.Update.class})
+    @NotNull(message = "用户ID不能为空！",groups = {Groups.Add.class,Groups.Update.class})
     @ApiModelProperty(value = "日记所属用户id")
     private Integer userId;
 
@@ -54,25 +55,24 @@ public class PdDiary implements Serializable {
      * 日记标题
      */
     @Column(name = "diary_title")
-//    @NotNull(message = "日记标题不能为空！",groups = {Groups.Add.class,Groups.Update.class})
-//    @Size(min = 1, max = 100, message = "标题长度不能大于100")
+    @NotBlank(message = "日记标题不能为空！",groups = {Groups.Add.class,Groups.Update.class})
+    @Size(min = 1, max = 100, message = "标题长度不能大于100")
     @ApiModelProperty(value = "日记标题")
     private String diaryTitle;
 
     /**
      * 当天天气
      */
-//    @ListValue(value = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20},message = "天气信息不正确")
     @Column(name = "diary_weather")
-//    @NotNull(message = "天气不能为空！",groups = {Groups.Add.class})
+    @NotNull(message = "天气不能为空！",groups = {Groups.Add.class})
     @ApiModelProperty(value = "当天天气")
-    private WeathEnum diaryWeather;
+    private WeatherEnum diaryWeather;
 
     /**
      * 当天心情
      */
     @Column(name = "diary_mood")
-//    @NotNull(message = "心情不能为空！",groups = {Groups.Add.class})
+    @NotNull(message = "心情不能为空！",groups = {Groups.Add.class})
     @ApiModelProperty(value = "当天心情")
     private MoodEnum diaryMood;
 
@@ -80,7 +80,7 @@ public class PdDiary implements Serializable {
      * 当天主要事件
      */
     @Column(name = "diary_event")
-//    @NotNull(message = "事件不能为空！",groups = {Groups.Add.class})
+    @NotNull(message = "事件不能为空！",groups = {Groups.Add.class})
     @ApiModelProperty(value = "当天主要事件")
     private EventEnum diaryEvent;
 
@@ -88,7 +88,7 @@ public class PdDiary implements Serializable {
      * 日记详情
      */
     @Column(name = "diary_content")
-//    @NotNull(message = "日记详情不能为空！",groups = {Groups.Add.class})
+    @NotBlank(message = "日记详情不能为空！",groups = {Groups.Add.class})
     @ApiModelProperty(value = "日记详情")
     private String diaryContent;
 
@@ -211,7 +211,7 @@ public class PdDiary implements Serializable {
      *
      * @return diary_weather - 当天天气
      */
-    public WeathEnum getDiaryWeather() {
+    public WeatherEnum getDiaryWeather() {
         return diaryWeather;
     }
 
@@ -220,7 +220,7 @@ public class PdDiary implements Serializable {
      *
      * @param diaryWeather 当天天气
      */
-    public void setDiaryWeather(WeathEnum diaryWeather) {
+    public void setDiaryWeather(WeatherEnum diaryWeather) {
         this.diaryWeather = diaryWeather;
     }
 

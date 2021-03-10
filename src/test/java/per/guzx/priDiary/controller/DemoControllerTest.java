@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
@@ -45,7 +46,8 @@ import java.util.Objects;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-//@Transactional
+@Transactional
+@Rollback(false)
 public class DemoControllerTest {
 
     @Resource
