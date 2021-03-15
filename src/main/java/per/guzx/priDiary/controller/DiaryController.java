@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdDiary;
+import per.guzx.priDiary.service.PdBlogService;
 import per.guzx.priDiary.service.PdDiaryService;
+import per.guzx.priDiary.serviceImpl.PdBlogServiceImpl;
 import per.guzx.priDiary.tool.FileUtil;
 import per.guzx.priDiary.tool.Groups;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Part;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +89,7 @@ public class DiaryController {
      */
     @DeleteMapping("/{userId}/{diaryId}")
     @ApiOperation("删除日记")
-    public ApiResp deleteDiary(@PathVariable("diaryId") int diaryId, @PathVariable("userId") int userId) {
+    public ApiResp deleteDiary(@NotNull @PathVariable("diaryId") int diaryId,@NotNull @PathVariable("userId") int userId) {
         pdDiaryService.deleteDiary(diaryId, userId);
         return ApiResp.retOk();
     }

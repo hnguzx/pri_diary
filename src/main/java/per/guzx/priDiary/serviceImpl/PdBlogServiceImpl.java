@@ -17,7 +17,6 @@ import java.util.Objects;
 
 
 /**
- *
  * @author Guzx
  * @date 2020/09/07
  */
@@ -42,17 +41,14 @@ public class PdBlogServiceImpl implements PdBlogService {
     @Override
     public Integer deleteById(Integer id) {
         int result = pdBlogDao.deleteByPrimaryKey(id);
-//        if (result>0){
-            return result;
-//        }
-//        throw new ServiceException(ErrorEnum.UPDATE_INFO_FAIL);
+        return result;
     }
 
     @Override
     public Integer update(PdBlog pdBlog) {
         pdBlog.setBlogUpdateTime(dateUtil.getTimeStamp());
         int result = pdBlogDao.updateByPrimaryKeySelective(pdBlog);
-        if (result>0){
+        if (result > 0) {
             return result;
         }
         throw new ServiceException(ErrorEnum.UPDATE_INFO_FAIL);
@@ -61,15 +57,15 @@ public class PdBlogServiceImpl implements PdBlogService {
     @Override
     public PdBlog findById(Integer id) {
         PdBlog blog = pdBlogDao.selectByPrimaryKey(id);
-        if (!Objects.isNull(blog)){
+        if (!Objects.isNull(blog)) {
             return blog;
         }
         return null;
     }
 
     @Override
-    public PageInfo<List<PdBlog>> findAll(int start,int size) {
-        PageHelper.startPage(start,size);
+    public PageInfo<List<PdBlog>> findAll(int start, int size) {
+        PageHelper.startPage(start, size);
         List<PdBlog> results = pdBlogDao.selectAll();
         PageInfo<List<PdBlog>> pageInfo = new PageInfo(results);
         return pageInfo;

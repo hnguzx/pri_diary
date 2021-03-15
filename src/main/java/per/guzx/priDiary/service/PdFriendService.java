@@ -13,25 +13,10 @@ import java.util.List;
  */
 public interface PdFriendService {
 
-    /**
-     * 新增好友
-     *
-     * @param pdFriend
-     */
     boolean save(PdFriend pdFriend);
 
-    /**
-     * 删除好友
-     *
-     * @param id
-     */
     int deleteById(Integer id);
 
-    /**
-     * 更新好友信息
-     *
-     * @param pdFriend
-     */
     PdFriend update(PdFriend pdFriend);
 
     /**

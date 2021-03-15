@@ -21,7 +21,7 @@
     </resultMap>
 
     <sql id="select_diary">
-        select private_diary.pd_user.user_id,
+        select private_diary.pd_diary.user_id,
                private_diary.pd_diary.diary_id,
                private_diary.pd_diary.diary_title,
                private_diary.pd_diary.diary_weather,
@@ -35,7 +35,7 @@
     </sql>
 
     <sql id="select_diary_main">
-        select private_diary.pd_user.user_id,
+        select private_diary.pd_diary.user_id,
                private_diary.pd_diary.diary_id,
                private_diary.pd_diary.diary_title,
                private_diary.pd_diary.diary_weather,

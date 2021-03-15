@@ -47,7 +47,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
             String filePath = fileUtil.uploadFile(detailPhoto, diary);
             diary.setDiaryPhoto(filePath);
         }
-        int diaryResult = diaryDao.insertDiary(diary);
+        int diaryResult = diaryDao.insertSelective(diary);
         if (diaryResult > 0) {
             return diaryResult;
         }
@@ -63,7 +63,7 @@ public class PdDiaryServiceImpl implements PdDiaryService {
                 String filePath = fileUtil.uploadFile(detailPhoto, diary);
                 diary.setDiaryPhoto(filePath);
             }
-            int result = diaryDao.updateDiary(diary);
+            int result = diaryDao.updateByPrimaryKeySelective(diary);
             return result;
         }
         throw new ServiceException(ErrorEnum.UPDATE_INFO_FAIL);
@@ -71,7 +71,11 @@ public class PdDiaryServiceImpl implements PdDiaryService {
 
     @Override
     public int deleteDiary(int diaryId, int userId) {
-        int diaryResult = diaryDao.deleteDiary(userId, diaryId);
+        Example example = new Example(PdDiary.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        criteria.andEqualTo("diaryId",diaryId);
+        int diaryResult = diaryDao.deleteByExample(example);
         if (diaryResult > 0) {
             return diaryResult;
         }
@@ -99,7 +103,10 @@ public class PdDiaryServiceImpl implements PdDiaryService {
 
     @Override
     public List<PdDiary> findDiaryAll(int userId) {
-        List<PdDiary> diaries = diaryDao.findDiaryAll(userId);
+        Example example = new Example(PdDiary.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        List<PdDiary> diaries = diaryDao.selectByExample(example);
         if (diaries.size() > 0) {
             return diaries;
         }

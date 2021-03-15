@@ -10,10 +10,5 @@ import tk.mybatis.mapper.common.Mapper;
 @Repository
 public interface PdMessageDao extends Mapper<PdMessage> {
 
-    /**
-     * 保存消息
-     * @param pdMessage
-     * @return
-     */
     int save(PdMessage pdMessage);
 }

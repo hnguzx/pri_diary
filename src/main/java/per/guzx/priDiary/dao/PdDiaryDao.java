@@ -12,38 +12,7 @@ import java.util.Map;
  */
 @Repository
 public interface PdDiaryDao extends Mapper<PdDiary> {
-    /**
-     * 新增日记
-     *
-     * @param diary
-     * @return
-     */
-    int insertDiary(PdDiary diary);
 
-    /**
-     * 更新日记
-     *
-     * @param diary
-     * @return
-     */
-    int updateDiary(PdDiary diary);
-
-    /**
-     * 删除指定用户的指定日记
-     *
-     * @param userId
-     * @param diaryId
-     * @return
-     */
-    int deleteDiary(int userId, int diaryId);
-
-    /**
-     * 获取指定用户的指定日记
-     *
-     * @param userId
-     * @param diaryId
-     * @return
-     */
     PdDiary findDiaryById(int userId, int diaryId);
 
     /**
@@ -55,29 +24,8 @@ public interface PdDiaryDao extends Mapper<PdDiary> {
      */
     PdDiary findDiaryOtherById(int userId, int diaryId);
 
-    /**
-     * 获取用户的所有日记
-     *
-     * @return
-     */
-    List<PdDiary> findDiaryAll(int userId);
-
-    /**
-     * 根据关键字分页查询日记
-     *
-     * @param userId
-     * @param global
-     * @param start
-     * @param size
-     * @return
-     */
     List<PdDiary> findDiaryByGlobal(int userId, String global, int start, int size);
 
-    /**
-     * 获取指定用户的所有日记
-     *
-     * @return
-     */
     List<PdDiary> findDiaryByUserId(int userId);
 
     /**

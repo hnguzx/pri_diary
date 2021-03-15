@@ -18,12 +18,15 @@ import java.net.SocketException;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * @author Administrator
+ */
 @Component
 @Slf4j
 public class FileUtil {
 
     @Value("${spring.servlet.multipart.location}")
-    public String absolt;
+    public String absolute;
 
     @Resource
     Environment environment;
@@ -60,11 +63,11 @@ public class FileUtil {
         }
         String newFileName = UUID.randomUUID().toString().substring(0, 16).replace("-", "") + "." + suffix;
         if (Objects.isNull(diary)) {
-            saveDest = absolt + "/" + dateUtil.getDateStamp() + "/";
+            saveDest = absolute + "/" + dateUtil.getDateStamp() + "/";
             accessDest = prefix + "/" + dateUtil.getDateStamp() + "/";
         } else {
             // 文件保存路径
-            saveDest = absolt + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
+            saveDest = absolute + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
             // 文件访问路径
             accessDest = prefix + "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
 //            accessDest = "/" + dateUtil.getDateStamp() + "/" + diary.getUserId() + "/" + diary.getDiaryWeather().getCode() + "/" + diary.getDiaryMood().getCode() + "/" + diary.getDiaryEvent().getCode() + "/";
@@ -111,7 +114,7 @@ public class FileUtil {
      * @return
      */
     public void deleteFile(String fileName) {
-        fileName = absolt + fileName.substring(fileName.indexOf("File") + 4);
+        fileName = absolute + fileName.substring(fileName.indexOf("File") + 4);
         boolean isDelete = false;
         File file = new File(fileName);
         if (file.exists()) {

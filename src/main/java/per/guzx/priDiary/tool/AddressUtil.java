@@ -27,12 +27,6 @@ import java.util.regex.Pattern;
 @Component
 public class AddressUtil {
 
-    /**
-     * 获取本机的内网ip地址
-     *
-     * @return
-     * @throws SocketException
-     */
     public String getInnerIp() {
         // 本地IP，如果没有配置外网IP则返回它
         String localip = null;
@@ -74,11 +68,6 @@ public class AddressUtil {
         }
     }
 
-    /**
-     * 获取本机的外网ip地址
-     *
-     * @return
-     */
     public String getV4IP() {
         String ip = "";
         String chinaz = "http://ip.chinaz.com";
@@ -233,52 +222,4 @@ public class AddressUtil {
         }
         return null;
     }
-
-
-    /**
-     * 测试方法
-     * 获取本机的内网ip，外网ip和指定ip的地址
-     *
-     * @param args
-     */
-    /*public static void main(String[] args) {
-        AddressUtil addressUtils = new AddressUtil();
-        //step1.获得内网ip和外网ip，并输出到控制台
-        String ip1 = "";
-        try {
-            ip1 = addressUtils.getInnetIp(); //局域网的ip地址，比如：192.168.1.101
-        } catch (SocketException e1) {
-            e1.printStackTrace();
-        }
-        System.out.println("内网ip:" + ip1);
-        String ip2 = addressUtils.getV4IP(); //用于实际判断地址的ip
-        System.out.println("外网ip:" + ip2);
-        //step2.根据外网ip地址，得到市级地理位置
-        String address = "";
-        try {
-            address = addressUtils.getAddresses("ip=" + ip2, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        // 输出地址，比如：中国，山东省，济南市，联通
-        System.out.println("您的" + address);
-        System.out.println("******************************");
-        System.out.println("请输入想要查询的ip地址(输入exit退出)：");
-        Scanner scan = new Scanner(System.in);
-        String ip = "";
-        while (!"exit".equals(ip = scan.next())) {
-            try {
-                address = addressUtils.getAddresses("ip=" + ip, "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            // 输出地址，比如：中国，山东省，济南市，联通
-            System.out.println(ip + "的" + address);
-            System.out.println("******************************");
-            System.out.println("请输入想要查询的ip地址(输入exit退出)：");
-        }
-        scan.close();
-        System.out.println("再见");
-    }*/
-
 }

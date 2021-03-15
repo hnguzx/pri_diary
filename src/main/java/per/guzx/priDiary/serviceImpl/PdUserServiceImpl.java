@@ -17,6 +17,7 @@ import per.guzx.priDiary.pojo.PdRole;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdUserService;
 import per.guzx.priDiary.tool.*;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -82,7 +83,11 @@ public class PdUserServiceImpl implements PdUserService, UserDetailsService {
 
     @Override
     public PdUser login(PdUser user) {
-        PdUser isUser = userDao.findUserByPhoneOrEmail(user);
+        Example example = new Example(PdUser.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.orEqualTo("userPhone", user.getUserPhone());
+        criteria.orEqualTo("userEmail", user.getUserEmail());
+        PdUser isUser = userDao.selectOneByExample(example);
         if (isUser != null) {
             return isUser;
         }
