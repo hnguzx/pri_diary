@@ -7,9 +7,7 @@ package per.guzx.priDiary.enumeration;
  * @describe 项目中所有的实体枚举
  */
 public enum EntityEnum {
-    /**
-     * 用户实体
-     */
+    // 用户
     USER("PDUSER","用户");
 
     EntityEnum(String entityName, String entityDesc){
@@ -24,15 +22,7 @@ public enum EntityEnum {
         return entityName;
     }
 
-    public void setEntityName(String entityName) {
-        this.entityName = entityName;
-    }
-
     public String getEntityDesc() {
         return entityDesc;
-    }
-
-    public void setEntityDesc(String entityDesc) {
-        this.entityDesc = entityDesc;
     }
 }

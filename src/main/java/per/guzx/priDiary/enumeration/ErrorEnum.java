@@ -50,9 +50,9 @@ public enum ErrorEnum {
     USER_ACCOUNT_USE_BY_OTHERS(200013,"用户账户已在别处登录"),
     USER_CONNECT_SUCCESS(200007,"连接成功"),
     USER_DISCONNECT_SUCCESS(200008,"断开连接成功"),
-//    3000-3999 通知相关错误
+    // 3000-3999 通知相关错误
     DIARY_NOTFOUND(300000, "日记信息不存在！"),
-//    4000-4999 好友相关错误
+    // 4000-4999 好友相关错误
     FRIEND_IS_ADDED(400000, "好友已添加，请不要重复添加！"),
     COMMON_BUSINESS_ERROR(999999, "通用业务错误");
 
@@ -77,15 +77,7 @@ public enum ErrorEnum {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public String getMsg() {
         return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 }

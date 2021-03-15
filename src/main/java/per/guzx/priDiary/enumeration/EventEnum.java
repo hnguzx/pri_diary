@@ -1,8 +1,12 @@
 package per.guzx.priDiary.enumeration;
 
+/**
+ * @author Administrator
+ */
+
 public enum EventEnum {
 
-
+    // 电影
     MOVIE(1, "电影"),
     GAME(2, "游戏"),
     FAMILY(3, "家庭"),
@@ -61,15 +65,7 @@ public enum EventEnum {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
