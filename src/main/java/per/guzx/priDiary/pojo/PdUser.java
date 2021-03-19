@@ -25,6 +25,9 @@ import java.util.Collection;
 @Alias("user")
 @ApiModel(description = "评论详细信息")
 public class PdUser implements Serializable, UserDetails {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 用户唯一标识
      */
@@ -39,7 +42,7 @@ public class PdUser implements Serializable, UserDetails {
      * 用户昵称
      */
     @NotBlank(message = "用户昵称不能为空", groups = Groups.Add.class)
-    @Length(max = 30,message = "用户昵称长度不能超过30个字符", groups = Groups.Add.class)
+    @Length(max = 30, message = "用户昵称长度不能超过30个字符", groups = Groups.Add.class)
     @Column(name = "user_name")
     @ApiModelProperty(value = "用户昵称")
     private String userName;
@@ -47,8 +50,8 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户出生日期
      */
-    @NotBlank(message = "用户出生日期不能为空", groups = {Groups.Add.class,Groups.Update.class})
-    @PastOrPresent(message = "出生日期不正确", groups = {Groups.Add.class,Groups.Update.class})
+    @NotBlank(message = "用户出生日期不能为空", groups = {Groups.Add.class, Groups.Update.class})
+    @PastOrPresent(message = "出生日期不正确", groups = {Groups.Add.class, Groups.Update.class})
     @Column(name = "user_birthday")
     @ApiModelProperty(value = "用户出生日期")
     private String userBirthday;
@@ -56,7 +59,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户性别
      */
-    @NotNull(message = "用户性别不能为空", groups = {Groups.Add.class,Groups.Update.class})
+    @NotNull(message = "用户性别不能为空", groups = {Groups.Add.class, Groups.Update.class})
     @Column(name = "user_sex")
     @ApiModelProperty(value = "用户性别")
     private SexEnum userSex;
@@ -64,7 +67,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 用户登录密码
      */
-    @NotBlank(message = "登录密码不能为空", groups = {Groups.Add.class,Groups.Update.class})
+    @NotBlank(message = "登录密码不能为空", groups = {Groups.Add.class, Groups.Update.class})
 //    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", message = "密码必须为8~16个字母和数字组合")
     @Column(name = "user_password")
     @ApiModelProperty(value = "日记所属用户id")
@@ -80,7 +83,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 手机号码
      */
-    @PhoneNumber(message = "手机号码格式不正确",groups = {Groups.Add.class})
+    @PhoneNumber(message = "手机号码格式不正确", groups = {Groups.Add.class})
     @Column(name = "user_phone")
     @ApiModelProperty(value = "手机号码")
     private String userPhone;
@@ -88,7 +91,7 @@ public class PdUser implements Serializable, UserDetails {
     /**
      * 邮箱地址
      */
-    @Email(message = "邮箱格式不正确", groups = {Groups.Add.class,Groups.Update.class})
+    @Email(message = "邮箱格式不正确", groups = {Groups.Add.class, Groups.Update.class})
     @Column(name = "user_email")
     @ApiModelProperty(value = "邮箱地址")
     private String userEmail;

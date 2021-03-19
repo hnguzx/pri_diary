@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 
@@ -19,7 +20,10 @@ import java.math.BigDecimal;
 @Table(name = "pd_blog")
 @Alias("comment")
 @ApiModel(description = "评论详细信息")
-public class PdComment {
+public class PdComment implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 评论ID
      */

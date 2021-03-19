@@ -14,6 +14,9 @@ import java.io.Serializable;
 @Component
 @ApiModel
 public class ApiResp<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 正常响应码
      */

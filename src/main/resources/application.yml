@@ -46,6 +46,8 @@ mybatis:
   type-aliases-package: per.guzx.priDiary.pojo
   configuration:
     map-underscore-to-camel-case: true
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false
 pagehelper:
   helperDialect: mysql
   reasonable: true

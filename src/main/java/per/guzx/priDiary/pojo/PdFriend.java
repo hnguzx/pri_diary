@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 
 
 /**
@@ -20,7 +21,10 @@ import javax.validation.constraints.Null;
 @Table(name = "pd_blog")
 @Alias("friend")
 @ApiModel(description = "好友详细信息")
-public class PdFriend {
+public class PdFriend implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 好友ID
      */

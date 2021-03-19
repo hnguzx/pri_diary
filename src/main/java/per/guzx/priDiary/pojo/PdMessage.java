@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 
 
 /**
@@ -18,7 +19,10 @@ import javax.validation.constraints.Null;
 @Alias("message")
 @ApiModel(description = "消息详细信息")
 @Table(name = "pd_message")
-public class PdMessage {
+public class PdMessage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 消息主键
      */

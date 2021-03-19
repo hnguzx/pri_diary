@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 
 
 /**
@@ -18,7 +19,10 @@ import javax.validation.constraints.Null;
 @Table(name = "pd_praise")
 @Alias("praise")
 @ApiModel(description = "评论详细信息")
-public class PdPraise {
+public class PdPraise implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 点赞ID
      */

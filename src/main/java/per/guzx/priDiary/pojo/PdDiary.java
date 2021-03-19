@@ -26,6 +26,8 @@ import java.io.Serializable;
 @ApiModel(description = "日记详情")
 public class PdDiary implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * 日记唯一标识
      */
