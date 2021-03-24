@@ -26,6 +26,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.config.annotation.*;
+import per.guzx.priDiary.components.LoginInterceptor;
+import per.guzx.priDiary.components.LogoutInterceptor;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.exception.ServiceException;
 import per.guzx.priDiary.pojo.ApiResp;
@@ -137,11 +139,18 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
         converters.add(converter);
     }
 
-    //添加拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/login");
+//        registry.addInterceptor(new LogoutInterceptor()).addPathPatterns("/logout");
+        WebMvcConfigurer.super.addInterceptors(registry);
+    }
+
+    //添加拦截器
+    /*@Override
+    public void addInterceptors(InterceptorRegistry registry) {
         //接口签名认证拦截器，该签名认证比较简单，实际项目中可以使用Json Web Token或其他更好的方式替代。
-        /*if (!"dev".equals(env)) { //开发环境忽略签名认证
+        if (!"dev".equals(env)) { //开发环境忽略签名认证
             registry.addInterceptor(new HandlerInterceptorAdapter() {
                 @Override
                 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -160,8 +169,8 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
                     }
                 }
             });
-        }*/
-    }
+        }
+    }*/
 
     /**
      * 一个简单的签名认证，规则：

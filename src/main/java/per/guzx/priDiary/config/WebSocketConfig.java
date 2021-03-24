@@ -106,7 +106,11 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
 //                and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
                 and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).
                 and().formLogin().permitAll().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).
-                and().logout().permitAll().logoutSuccessHandler(logoutSuccessHandler).deleteCookies("JSESSIONID").
+                and().
+                logout().
+                permitAll().
+                logoutSuccessHandler(logoutSuccessHandler).
+                deleteCookies("JSESSIONID").
 //                and().httpBasic().
                 and().sessionManagement().maximumSessions(1).expiredSessionStrategy(sessionInformationExpiredStrategy);
     }
