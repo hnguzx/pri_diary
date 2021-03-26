@@ -34,6 +34,7 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/demo")
 @Api(tags = "测试增删改查")
+@SuppressWarnings("unchecked")
 public class DemoController {
 
     @Resource
