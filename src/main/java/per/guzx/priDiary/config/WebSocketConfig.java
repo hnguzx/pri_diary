@@ -2,6 +2,8 @@ package per.guzx.priDiary.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.context.ShutdownEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -23,6 +25,7 @@ import javax.annotation.Resource;
 @Configuration
 @Slf4j
 @EnableWebSocketMessageBroker
+//@EnableWebSecurity
 public class WebSocketConfig extends WebSecurityConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
     @Resource
@@ -44,6 +47,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
     @Profile({"dev"})
+//    @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }
@@ -89,20 +93,24 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
         http.cors().and().csrf().disable();
         http.headers().frameOptions().sameOrigin().disable();
         http.authorizeRequests().
-                antMatchers("/v2/api-docs",
-                        "/swagger-resources/configuration/ui",
-                        "/swagger-resources",
-                        "/swagger-resources/configuration/security",
-                        "/swagger-ui.html").permitAll().
+//                requestMatchers(EndpointRequest.to(ShutdownEndpoint.class)).
+//                hasRole("ACTUATOR_ADMIN").
+//                requestMatchers(EndpointRequest.toAnyEndpoint()).
+//                permitAll().
+        antMatchers("/v2/api-docs",
+        "/swagger-resources/configuration/ui",
+        "/swagger-resources",
+        "/swagger-resources/configuration/security",
+        "/swagger-ui.html").permitAll().
                 antMatchers("/static/**","/common/**","/demo/**","/webSocketServer/**").permitAll().
                 antMatchers("/user/verifyCode/**","/user/insertUser/**","/user/resetPassword/**").permitAll().
 //                antMatchers("/admin/**").hasRole("ADMIN").
 //                antMatchers("/user/**").hasAnyRole("ADMIN","USER").
 //                anyRequest().authenticated().
-                anyRequest().permitAll().
+        anyRequest().permitAll().
 //                and().anonymous().
 //                and().rememberMe().tokenValiditySeconds(604800).key("remember-me-key").
-                and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).
+        and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).
                 and().formLogin().permitAll().successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).
                 and().
                 logout().
@@ -110,7 +118,7 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
                 logoutSuccessHandler(logoutSuccessHandler).
                 deleteCookies("JSESSIONID").
 //                and().httpBasic().
-                and().sessionManagement().maximumSessions(1).expiredSessionStrategy(sessionInformationExpiredStrategy);
+        and().sessionManagement().maximumSessions(1).expiredSessionStrategy(sessionInformationExpiredStrategy);
     }
 
     @Bean
