@@ -1,12 +1,11 @@
 spring:
   profiles:
-    active: test
+    active: dev
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   servlet:
-    load-on-startup: 1
     multipart:
       enabled: true
       max-file-size: 20MB
@@ -14,8 +13,26 @@ spring:
       resolve-lazily: true
       file-size-threshold: 2KB
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     initialization-mode: always
     schema: classpath:schame.sql
+    data: classpath:data.sql
+    continue-on-error: false
+    sql-script-encoding: utf-8
+    separator: ;
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 5000
+      time-between-eviction-runs-millis: 10000
+      min-evictable-idle-time-millis: 3000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filters: stat
     tomcat:
       max-idle: 0
       max-active: 50

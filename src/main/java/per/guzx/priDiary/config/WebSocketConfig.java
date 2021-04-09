@@ -23,7 +23,6 @@ import javax.annotation.Resource;
 @Configuration
 @Slf4j
 @EnableWebSocketMessageBroker
-//@EnableWebSecurity
 public class WebSocketConfig extends WebSecurityConfigurerAdapter implements WebSocketMessageBrokerConfigurer {
 
     @Resource
@@ -45,7 +44,6 @@ public class WebSocketConfig extends WebSecurityConfigurerAdapter implements Web
     private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
     @Profile({"dev"})
-//    @Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }

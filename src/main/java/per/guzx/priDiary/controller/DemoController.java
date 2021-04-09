@@ -46,11 +46,6 @@ public class DemoController {
     @Resource
     private CommonUtil commonUtil;
 
-    /**
-     * 返回字符串
-     *
-     * @return
-     */
     @PostMapping("/add/{insertMethod}")
     public ApiResp add(@PathVariable("insertMethod") Integer insertMethod) {
         int result;

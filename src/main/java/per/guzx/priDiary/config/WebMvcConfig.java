@@ -119,6 +119,7 @@ public class WebMvcConfig implements AsyncConfigurer, WebMvcConfigurer {
                 .allowCredentials(true)     // 是否可以将请求的响应暴露给页面
                 .allowedMethods("GET", "POST", "DELETE", "PATCH")       // 允许进行跨域请求方式，可以多个
                 .allowedHeaders("*")        // 允许进行跨域请求的header
+//                .exposedHeaders("Content-Type")     // 前端可以获得的额外响应头详细
                 .maxAge(60 * 60 * 24);     // 客户端缓存预检请求的响应时间
     }
 
