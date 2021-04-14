@@ -3,15 +3,13 @@ package per.guzx.priDiary.pojo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.type.Alias;
-import org.hibernate.validator.constraints.URL;
-import per.guzx.priDiary.tool.Groups;
+import per.guzx.priDiary.utils.Groups;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 
 /**

@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import per.guzx.priDiary.enumeration.SexEnum;
 import per.guzx.priDiary.enumeration.UserStateEnum;
-import per.guzx.priDiary.tool.Groups;
+import per.guzx.priDiary.utils.Groups;
 import per.guzx.priDiary.valid.PhoneNumber;
 
 import javax.persistence.Column;

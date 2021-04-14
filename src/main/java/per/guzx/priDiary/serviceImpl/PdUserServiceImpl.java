@@ -16,7 +16,7 @@ import per.guzx.priDiary.exception.ServiceException;
 import per.guzx.priDiary.pojo.PdRole;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdUserService;
-import per.guzx.priDiary.tool.*;
+import per.guzx.priDiary.utils.*;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;

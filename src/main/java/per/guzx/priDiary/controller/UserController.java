@@ -11,9 +11,9 @@ import per.guzx.priDiary.enumeration.UserStateEnum;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdUserService;
-import per.guzx.priDiary.tool.EmailOrMsg;
-import per.guzx.priDiary.tool.Validator;
-import per.guzx.priDiary.tool.VerifyCodeFactory;
+import per.guzx.priDiary.utils.EmailOrMsg;
+import per.guzx.priDiary.utils.Validator;
+import per.guzx.priDiary.utils.VerifyCodeFactory;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;

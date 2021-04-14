@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdUserService;
-import per.guzx.priDiary.tool.DateUtil;
+import per.guzx.priDiary.utils.DateUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;

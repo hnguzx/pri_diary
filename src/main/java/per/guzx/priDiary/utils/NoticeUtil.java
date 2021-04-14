@@ -1,6 +1,5 @@
-package per.guzx.priDiary.tool;
+package per.guzx.priDiary.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import per.guzx.priDiary.pojo.PdMessage;

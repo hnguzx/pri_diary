@@ -1,7 +1,6 @@
-package per.guzx.priDiary.tool;
+package per.guzx.priDiary.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -11,10 +10,8 @@ import per.guzx.priDiary.exception.ServiceException;
 import per.guzx.priDiary.pojo.PdDiary;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.net.SocketException;
 import java.util.Objects;
 import java.util.UUID;
 

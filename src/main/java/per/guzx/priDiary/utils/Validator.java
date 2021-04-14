@@ -1,4 +1,4 @@
-package per.guzx.priDiary.tool;
+package per.guzx.priDiary.utils;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

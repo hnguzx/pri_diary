@@ -6,8 +6,7 @@ import org.apache.ibatis.type.Alias;
 import per.guzx.priDiary.enumeration.EventEnum;
 import per.guzx.priDiary.enumeration.MoodEnum;
 import per.guzx.priDiary.enumeration.WeatherEnum;
-import per.guzx.priDiary.tool.Groups;
-import per.guzx.priDiary.valid.ListValue;
+import per.guzx.priDiary.utils.Groups;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

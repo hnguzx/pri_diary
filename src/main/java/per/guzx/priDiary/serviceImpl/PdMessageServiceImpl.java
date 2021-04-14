@@ -2,7 +2,6 @@ package per.guzx.priDiary.serviceImpl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +11,8 @@ import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.AsyncService;
 import per.guzx.priDiary.service.PdMessageService;
 import per.guzx.priDiary.service.PdUserService;
-import per.guzx.priDiary.tool.DateUtil;
-import per.guzx.priDiary.tool.NoticeUtil;
+import per.guzx.priDiary.utils.DateUtil;
+import per.guzx.priDiary.utils.NoticeUtil;
 
 import javax.annotation.Resource;
 import java.util.List;

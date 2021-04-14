@@ -1,4 +1,4 @@
-package per.guzx.priDiary.tool;
+package per.guzx.priDiary.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

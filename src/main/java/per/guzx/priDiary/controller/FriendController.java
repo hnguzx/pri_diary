@@ -10,11 +10,10 @@ import per.guzx.priDiary.pojo.ApiResp;
 import per.guzx.priDiary.pojo.PdFriend;
 import per.guzx.priDiary.service.PdFriendService;
 import per.guzx.priDiary.service.PdMessageService;
-import per.guzx.priDiary.tool.Groups;
-import per.guzx.priDiary.tool.NoticeUtil;
+import per.guzx.priDiary.utils.Groups;
+import per.guzx.priDiary.utils.NoticeUtil;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  *
