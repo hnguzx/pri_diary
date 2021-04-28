@@ -14,13 +14,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import per.guzx.priDiary.enumeration.ErrorEnum;
 import per.guzx.priDiary.pojo.ApiResp;
-import per.guzx.priDiary.pojo.PdBlog;
 import per.guzx.priDiary.pojo.PdMessage;
 import per.guzx.priDiary.pojo.PdUser;
 import per.guzx.priDiary.service.PdMessageService;
 import per.guzx.priDiary.service.PdUserService;
-import per.guzx.priDiary.tool.Groups;
-import per.guzx.priDiary.tool.NoticeUtil;
+import per.guzx.priDiary.utils.Groups;
+import per.guzx.priDiary.utils.NoticeUtil;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
